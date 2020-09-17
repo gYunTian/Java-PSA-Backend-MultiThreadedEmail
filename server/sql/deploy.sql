@@ -1,3 +1,12 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: Sep 16, 2020 at 07:02 AM
+-- Server version: 5.7.23
+-- PHP Version: 7.2.10
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -12,15 +21,13 @@ SET time_zone = "+00:00";
 --
 -- Database: `portnet`
 --
-
+Create database portnet;
+use portnet;
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `configuration`
 --
-
-create database portnet;
-use portnet;
 
 DROP TABLE IF EXISTS `configuration`;
 CREATE TABLE IF NOT EXISTS `configuration` (
@@ -57,56 +64,10 @@ CREATE TABLE IF NOT EXISTS `domain` (
 
 DROP TABLE IF EXISTS `favourites`;
 CREATE TABLE IF NOT EXISTS `favourites` (
-  `vessel_name` varchar(32) NOT NULL,
-  `voyage_number` varchar(12) NOT NULL,
   `user_id` int(11) NOT NULL,
-  PRIMARY KEY (`vessel_name`,`voyage_number`,`user_id`),
-  KEY `user_id` (`user_id`),
-  KEY `voyage_number` (`voyage_number`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `voyage_in`
---
-
-DROP TABLE IF EXISTS `voyage_in`;
-CREATE TABLE IF NOT EXISTS `voyage_in` (
-  `id` varchar(12) NOT NULL,
-  `btrDt` varchar(32) NOT NULL,
-  `firstBtrDt` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `voyage_out`
---
-
-DROP TABLE IF EXISTS `voyage_out`;
-CREATE TABLE IF NOT EXISTS `voyage_out` (
-  `id` varchar(12) NOT NULL,
-  `etdDt` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `voyage`
---
-
-DROP TABLE IF EXISTS `voyage`;
-CREATE TABLE IF NOT EXISTS `voyage` (
-  `vessel_name` varchar(32) NOT NULL,
-  `voyage_number` varchar(12) NOT NULL,
-  `berth_number` varchar(3) NOT NULL,
-  `status` varchar(9) NOT NULL,
-  `change_count` int(2) NOT NULL,
-  PRIMARY KEY (`vessel_name`,`voyage_number`),
-  KEY `voyage_number` (`voyage_number`)
+  `voyage_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`voyage_id`),
+  KEY `favourites_fk2` (`voyage_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -124,14 +85,6 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES
-(0, 'admin', 'admin@smu.edu.sg', '$2y$10$EvaPizh1Wrx9EuLef8I3UeivWWfCThV5XfE05IabwWTr2DnuWo4HW');
-
 -- --------------------------------------------------------
 
 --
@@ -144,6 +97,63 @@ CREATE TABLE IF NOT EXISTS `vessel` (
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voyage`
+--
+
+DROP TABLE IF EXISTS `voyage`;
+CREATE TABLE IF NOT EXISTS `voyage` (
+  `voyage_id` int(11) NOT NULL,
+  `berth_number` varchar(3) NOT NULL,
+  `status` varchar(9) NOT NULL,
+  `change_count` int(2) NOT NULL,
+  PRIMARY KEY (`voyage_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voyage_id`
+--
+
+DROP TABLE IF EXISTS `voyage_id`;
+CREATE TABLE IF NOT EXISTS `voyage_id` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `vessel_name` varchar(32) NOT NULL,
+  `voyage_number` varchar(12) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `voyage_id_fk1` (`vessel_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voyage_in`
+--
+
+DROP TABLE IF EXISTS `voyage_in`;
+CREATE TABLE IF NOT EXISTS `voyage_in` (
+  `id` int(11) NOT NULL,
+  `btrDt` varchar(32) NOT NULL,
+  `firstBtrDt` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voyage_out`
+--
+
+DROP TABLE IF EXISTS `voyage_out`;
+CREATE TABLE IF NOT EXISTS `voyage_out` (
+  `id` int(11) NOT NULL,
+  `etdDt` varchar(32) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 --
 -- Constraints for dumped tables
 --
@@ -152,17 +162,32 @@ CREATE TABLE IF NOT EXISTS `vessel` (
 -- Constraints for table `favourites`
 --
 ALTER TABLE `favourites`
-  ADD CONSTRAINT `favourites_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `favourites_ibfk_2` FOREIGN KEY (`vessel_name`) REFERENCES `voyage` (`vessel_name`),
-  ADD CONSTRAINT `favourites_ibfk_3` FOREIGN KEY (`voyage_number`) REFERENCES `voyage` (`voyage_number`);
+  ADD CONSTRAINT `favourites_fk1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  ADD CONSTRAINT `favourites_fk2` FOREIGN KEY (`voyage_id`) REFERENCES `voyage_id` (`id`);
 
 --
 -- Constraints for table `voyage`
 --
 ALTER TABLE `voyage`
-  ADD CONSTRAINT `voyage_ibfk_1` FOREIGN KEY (`voyage_number`) REFERENCES `voyage_in` (`id`),
-  ADD CONSTRAINT `voyage_ibfk_2` FOREIGN KEY (`voyage_number`) REFERENCES `voyage_out` (`id`),
-  ADD CONSTRAINT `voyage_ibfk_3` FOREIGN KEY (`vessel_name`) REFERENCES `vessel` (`name`);
+  ADD CONSTRAINT `voyage_fk1` FOREIGN KEY (`voyage_id`) REFERENCES `voyage_id` (`id`);
+
+--
+-- Constraints for table `voyage_id`
+--
+ALTER TABLE `voyage_id`
+  ADD CONSTRAINT `voyage_id_fk1` FOREIGN KEY (`vessel_name`) REFERENCES `vessel` (`name`);
+
+--
+-- Constraints for table `voyage_in`
+--
+ALTER TABLE `voyage_in`
+  ADD CONSTRAINT `voyage_in_fk1` FOREIGN KEY (`id`) REFERENCES `voyage` (`voyage_id`);
+
+--
+-- Constraints for table `voyage_out`
+--
+ALTER TABLE `voyage_out`
+  ADD CONSTRAINT `voyage_out_fk1` FOREIGN KEY (`id`) REFERENCES `voyage` (`voyage_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

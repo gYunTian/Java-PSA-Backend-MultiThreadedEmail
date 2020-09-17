@@ -1,7 +1,6 @@
 package com.portnet.dao.voyage;
 
-import com.portnet.entity.voyage.Voyage;
-import com.portnet.utility.VoyageId;
+import com.portnet.entity.voyage.VoyageFav;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface VoyageFavDao extends JpaRepository<Voyage, VoyageId> {
+public interface VoyageFavDao extends JpaRepository<VoyageFav, Integer> {
 }

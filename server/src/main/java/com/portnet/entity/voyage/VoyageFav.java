@@ -1,6 +1,6 @@
 package com.portnet.entity.voyage;
 
-import com.portnet.utility.VoyageId;
+import com.portnet.utility.VoyageFavId;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,6 +12,7 @@ import java.io.Serializable;
 
 @Entity @Data @Table(name="favourites")
 @NoArgsConstructor @AllArgsConstructor
+@IdClass(VoyageFavId.class)
 public class VoyageFav implements Serializable {
     /**
      * Constructs a specified VoyageFav object
@@ -22,6 +23,6 @@ public class VoyageFav implements Serializable {
     @Id @Column(name = "user_id")
     private String userId;
 
-    @EmbeddedId
-    private VoyageId voyageId;
+    @Id @Column(name = "voyage_id")
+    private int voyageId;
 }
