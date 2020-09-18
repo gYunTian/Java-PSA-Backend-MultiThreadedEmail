@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * An abstraction of a real-life PSA outgoing voyage
+ * Storage for the voyage favorited by a user
  */
 
 @Entity @Data @Table(name="favourites")
@@ -17,12 +17,8 @@ public class VoyageFav implements Serializable {
     /**
      * Constructs a specified VoyageFav object
      * @param userId the auto-generated ID of the user
-     * @param voyageId which identifies a unique voyage (vesselName and voyageNum)
+     * @param voyageId the auto-generated ID of the voyage, identified by vesselName and voyageNum
      * */
-
-    @Id @Column(name = "user_id")
-    private String userId;
-
-    @Id @Column(name = "voyage_id")
-    private int voyageId;
+    @Id private int userId;
+    @Id private int voyageId;
 }

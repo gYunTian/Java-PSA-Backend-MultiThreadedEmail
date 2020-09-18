@@ -23,11 +23,12 @@ public class VoyageService {
 
     /**
      * Add Voyages in array to database
-     * @param voyages object
+     * @param voyages array
      */
     public void saveVoyages(List<Voyage> voyages) {
         voyageDao.saveAll(voyages);
     }
+    
 
     /**
      * Get all Voyages in database
@@ -39,22 +40,21 @@ public class VoyageService {
 
     /**
      * Get Voyage with specified id in database
-     * @param voyageId the auto-generated ID of the voyage
+     * @param voyageId the auto-generated ID of the voyage, identified by vesselName and voyageNum
      * @return voyage object
      */
     public Voyage getVoyageById(int voyageId) {
         return voyageDao.findById(voyageId).orElse(null);
     }
 
+
     /**
-     * Update Voyage status/changeCount based on voyage from database
+     * Update Voyage changeCount based on voyage from database
+     * @param voyage object
      */
     public void updateVoyage(Voyage voyage) {
         Voyage existingVoyage = getVoyageById(voyage.getVoyageId());
-
-        existingVoyage.setStatus(voyage.getStatus());
         existingVoyage.setChangeCount(voyage.getChangeCount());
-
         voyageDao.save(existingVoyage);
     }
 

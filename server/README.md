@@ -18,7 +18,7 @@
 
 ### Non-voyage storage tables
 
-configuration (time_interval, access_key)
+configuration (time_interval, api_key)
 
 user (id, name, email, password) 
 
@@ -28,10 +28,12 @@ vessel (name)
 
 ### Voyage tables
 
-voyage (vessel_name, voyage_number, berth_number, status, change_count)
+voyage_id (id, vessel_name, voyage_num)
 
-voyage_in (id, btrDt, firstBtrDt)
+voyage (voyage_id, berth_num, status, change_count)
 
-voyage_out (id, etdDt)
+voyage_in (id, berth_dt, first_berth_dt)
 
-favourites (vessel_name, voyage_number, user_id)
+voyage_out (id, depart_dt)
+
+favourites (user_id, voyage_id)

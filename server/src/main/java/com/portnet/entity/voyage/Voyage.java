@@ -13,27 +13,13 @@ import javax.persistence.*;
 public class Voyage {
     /**
      * Constructs a specified Voyage object
-     * @param vesselName vessel's short name
+     * @param voyageId which identifies a unique voyage (vesselName and voyageNum)
      * @param berthNum location where voyage will be berthed
      * @param status whether the voyage has berthed or otherwise
      * @param changeCount number of times the timing changed
      * */
-
-    @Id @Column(name = "voyage_id")
-    private int voyageId;
-
-    @Column(name = "berth_number")
+    @Id private int voyageId;
     private String berthNum;
-
-    @Column(name = "status")
     private String status;
-
-    @Column(name = "change_count")
     private int changeCount;
-
-    /**
-     * Initialise VoyageIn or VoyageOut objects based on voyageNum
-     */
-
-
 }

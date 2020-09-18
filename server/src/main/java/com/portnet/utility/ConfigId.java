@@ -9,13 +9,12 @@ import java.util.Objects;
  * Primary key type for Config
  */
 
-@Data
 @NoArgsConstructor @AllArgsConstructor
 public class ConfigId implements Serializable {
     /**
      * Constructs a specified Voyage primary key
+     * @param apiKey the token for access to Pornet API
      * @param timeInterval the time interval at which web service should be called
-     * @param apiKey the token for access to external API
      */
     private double timeInterval;
     private String apiKey;
@@ -26,7 +25,7 @@ public class ConfigId implements Serializable {
      * @return true:  both objects are the same
      *                or have the same timeInterval and apiKey
      *         false: object is null or not ConfigId type
-     *                or both objects have different timeInterval and/or apiKey
+     *                or both objects have different vesselName and/or apiKey
      */
     @Override
     public boolean equals(Object object) {

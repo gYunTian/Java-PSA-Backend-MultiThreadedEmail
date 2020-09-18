@@ -13,9 +13,9 @@ public class User {
     /**
      * Constructs a specified User object
      * @param id the auto-generated ID of the user
-     * @param name the name registered by the User
-     * @param email the email registered by the User
-     * @param password the encoded password of the User
+     * @param name the name registered by the user
+     * @param email the email registered by the user
+     * @param password the encoded password of the user
      */
     @Id private int id;
     private String name;

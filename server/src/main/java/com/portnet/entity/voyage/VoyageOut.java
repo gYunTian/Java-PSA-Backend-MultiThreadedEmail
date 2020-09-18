@@ -14,12 +14,12 @@ import java.io.Serializable;
 public class VoyageOut {
     /**
      * Constructs a specified VoyageOut object
-     * @param voyageId which identifies a unique voyage (vesselName and voyageNum)
+     * @param voyageId the auto-generated ID of the voyage, identified by vesselName and voyageNum
      * @param departDt expected date & time where voyage will depart
      * */
 
     @Id private int id;
 
-    @Column(name = "etdDt")
+    //@Column(name = "etdDt")
     private String departDt;
 }

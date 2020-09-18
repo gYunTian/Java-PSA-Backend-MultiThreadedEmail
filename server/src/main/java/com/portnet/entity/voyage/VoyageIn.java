@@ -20,10 +20,6 @@ public class VoyageIn {
      * */
 
     @Id private int id;
-
-    @Column(name = "btrDt")
     private String berthDt;
-
-    @Column(name = "firstBtrDt")
     private String firstBerthDt;
 }

@@ -13,14 +13,18 @@ import java.util.Optional;
 
 @Repository
 public interface VoyageIdDao extends JpaRepository<VoyageId, Integer> {
-
     /**
-     * Returns the voyageIds whose vesselName is given
-     * as a method parameter. If no voyageIds is found, this
-     * method returns an empty list.
+     * Additional custom method to find voyages by a certain key
+     * @param vesselName vessel's short name
+     * @return voyageFavs array (empty list if no voyageFav found)
      */
     List<VoyageId> findByVesselName(String vesselName);
 
-    VoyageId findByVesselNameAndVoyageNum(String vesselName, String voyageNumber);
-
+    /**
+     * Additional custom method to find voyages by a certain key
+     * @param vesselName vessel's short name
+     * @param voyageNum incoming or outgoing voyage number
+     * @return voyageId the auto-generated ID of the voyage, identified by vesselName and voyageNum
+     */
+    VoyageId findByVesselNameAndVoyageNum(String vesselName, String voyageNum);
 }

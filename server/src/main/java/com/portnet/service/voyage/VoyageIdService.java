@@ -23,15 +23,16 @@ public class VoyageIdService {
 
     /**
      * Add VoyageIds in array to database
-     * @param voyageIds object
+     * @param voyageIds array
      */
     public void saveVoyageIds(List<VoyageId> voyageIds) {
         voyageIdDao.saveAll(voyageIds);
     }
+    
 
     /**
      * Get all VoyageIds in database
-     * @return voyageIds object
+     * @return voyageIds array
      */
     public List<VoyageId> getVoyageIds() {
         return voyageIdDao.findAll();
@@ -39,7 +40,7 @@ public class VoyageIdService {
 
     /**
      * Get VoyageId with specified id in database
-     * @param id the auto-generated ID of the voyageId
+     * @param id the auto-generated ID of the voyage, identified by vesselName and voyageNumId
      * @return voyageId object
      */
     public VoyageId getVoyageIdById(int id) {
@@ -64,7 +65,5 @@ public class VoyageIdService {
     public VoyageId getVoyageIdByVesselNameAndVoyageNum(String vesselName, String voyageNum) {
         return voyageIdDao.findByVesselNameAndVoyageNum(vesselName, voyageNum);
     }
-
-
 
 }

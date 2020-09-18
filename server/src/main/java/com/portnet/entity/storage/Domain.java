@@ -4,7 +4,7 @@ import lombok.*;
 import javax.persistence.*;
 
 /**
- * An abstraction of a real-life user of the application
+ * Storage for accepted email domains
  */
 
 @Entity @Data @Table(name="domain")

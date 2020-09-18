@@ -52,7 +52,7 @@ public class VoyageIdController {
     }
 
     @GetMapping("/voyageIdByVesselNameAndVoyageNum/{vesselName}/{voyageName}")
-    public VoyageId findVoyageIdById(@PathVariable String vesselName, @PathVariable String voyageNum) {
+    public VoyageId findVoyageIdById(@PathVariable String vesselName, String voyageNum) {
         return service.getVoyageIdByVesselNameAndVoyageNum(vesselName, voyageNum);
     }
 

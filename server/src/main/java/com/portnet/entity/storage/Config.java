@@ -14,12 +14,9 @@ import javax.persistence.*;
 public class Config {
     /**
      * Constructs a specified Config object
-     * @param timeInterval the time interval at which web service should be called
      * @param apiKey the token for access to external API
+     * @param timeInterval the time interval at which web service should be called
      */
-    @Id @Column(name = "time_interval")
-    private double timeInterval;
-
-    @Id @Column(name = "access_key")
-    private String apiKey;
+    @Id private double timeInterval;
+    @Id private String apiKey;
 }

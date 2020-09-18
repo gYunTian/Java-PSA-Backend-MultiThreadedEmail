@@ -34,7 +34,7 @@ public class ConfigService {
     }
 
     /**
-     * Remove Config from database
+     * Remove Config with specified name from database
      */
     public void deleteConfig() {
         configDao.deleteAll();

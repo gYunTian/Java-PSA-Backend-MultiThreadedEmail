@@ -32,16 +32,16 @@ use portnet;
 DROP TABLE IF EXISTS `configuration`;
 CREATE TABLE IF NOT EXISTS `configuration` (
   `time_interval` double NOT NULL,
-  `access_key` varchar(33) NOT NULL,
-  PRIMARY KEY (`time_interval`,`access_key`),
-  KEY `access_key` (`access_key`)
+  `api_key` varchar(33) NOT NULL,
+  PRIMARY KEY (`time_interval`,`api_key`),
+  KEY `api_key` (`api_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `configuration`
 --
 
-INSERT INTO `configuration` (`time_interval`, `access_key`) VALUES
+INSERT INTO `configuration` (`time_interval`, `api_key`) VALUES
 (0.5, 'd0ceb61c5edd48ce964d65bffacf3274');
 
 -- --------------------------------------------------------
@@ -122,7 +122,7 @@ DROP TABLE IF EXISTS `voyage_id`;
 CREATE TABLE IF NOT EXISTS `voyage_id` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `vessel_name` varchar(32) NOT NULL,
-  `voyage_number` varchar(12) NOT NULL,
+  `voyage_num` varchar(12) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `voyage_id_fk1` (`vessel_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -136,8 +136,8 @@ CREATE TABLE IF NOT EXISTS `voyage_id` (
 DROP TABLE IF EXISTS `voyage_in`;
 CREATE TABLE IF NOT EXISTS `voyage_in` (
   `id` int(11) NOT NULL,
-  `btrDt` varchar(32) NOT NULL,
-  `firstBtrDt` varchar(32) NOT NULL,
+  `berth_dt` varchar(32) NOT NULL,
+  `first_berth_dt` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `voyage_in` (
 DROP TABLE IF EXISTS `voyage_out`;
 CREATE TABLE IF NOT EXISTS `voyage_out` (
   `id` int(11) NOT NULL,
-  `etdDt` varchar(32) NOT NULL,
+  `depart_dt` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

@@ -16,12 +16,9 @@ public class VoyageFavId implements Serializable {
     /**
      * Constructs a specified Voyage primary key
      * @param userId the auto-generated ID of the user
-     * @param voyageNum incoming or outgoing voyage number
+     * @param voyageId the auto-generated ID of the voyage, identified by vesselName and voyageNum
      */
-    @Column(name = "user_id", nullable = false)
-    private String userId;
-
-    @Column(name = "voyage_id", nullable = false)
+    private int userId;
     private String voyageId;
 
     /**
@@ -37,8 +34,8 @@ public class VoyageFavId implements Serializable {
         if (this == object) return true;
         if (!(object instanceof VoyageFavId)) return false;
         VoyageFavId voyageFavId = (VoyageFavId) object;
-        return userId.equals(voyageFavId.userId) &&
-                voyageId.equals(voyageFavId.voyageId);
+        return userId == voyageFavId.userId &&
+                voyageId == voyageFavId.voyageId;
     }
 
     /**

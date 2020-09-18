@@ -29,7 +29,7 @@ public class UserService {
 
     /**
      * Add Users in array to database
-     * @param users array
+     * @param users object
      */
     public void saveUsers(List<User> users) {
         userDao.saveAll(users);
@@ -38,7 +38,7 @@ public class UserService {
 
     /**
      * Get all Users in database
-     * @return users array
+     * @return users object
      */
     public List<User> getUsers() {
         return userDao.findAll();

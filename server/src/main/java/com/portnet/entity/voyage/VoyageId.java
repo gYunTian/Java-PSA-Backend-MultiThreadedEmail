@@ -8,16 +8,12 @@ import javax.persistence.*;
 public class VoyageId {
     /**
      * Constructs a specified VoyageId object
-     * @param id the auto-generated ID of the Voyage
+     * @param id the auto-generated ID of the voyage, identified by vesselName and voyageNum
      * @param vesselName vessel's short name
      * @param voyageNum incoming or outgoing voyage number
      */
     @Id private int id;
-
-    @Column(name = "vessel_name")
     private String vesselName;
-
-    @Column(name = "voyage_number")
     private String voyageNum;
 
 }

@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST APIs using service methods for Voyage
+ */
+
 @Service
 public class VoyageController {
 
@@ -50,6 +54,5 @@ public class VoyageController {
     public void updateVoyage(@RequestBody Voyage voyage) {
         service.updateVoyage(voyage);
     }
-
 
 }
