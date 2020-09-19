@@ -7,7 +7,7 @@ import javax.persistence.*;
  * An abstraction of a real-life user of the application
  */
 
-@Entity @Data @Table(name="user")
+@Entity @Data @Table
 @NoArgsConstructor @AllArgsConstructor
 public class User {
     /**

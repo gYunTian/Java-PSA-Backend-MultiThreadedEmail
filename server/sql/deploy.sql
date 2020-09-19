@@ -59,11 +59,11 @@ CREATE TABLE IF NOT EXISTS `domain` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `favourites`
+-- Table structure for table `voyage_fav`
 --
 
-DROP TABLE IF EXISTS `favourites`;
-CREATE TABLE IF NOT EXISTS `favourites` (
+DROP TABLE IF EXISTS `voyage_fav`;
+CREATE TABLE IF NOT EXISTS `voyage_fav` (
   `user_id` int(11) NOT NULL,
   `voyage_id` int(11) NOT NULL,
   PRIMARY KEY (`user_id`,`voyage_id`),
@@ -159,9 +159,9 @@ CREATE TABLE IF NOT EXISTS `voyage_out` (
 --
 
 --
--- Constraints for table `favourites`
+-- Constraints for table `voyage_fav`
 --
-ALTER TABLE `favourites`
+ALTER TABLE `voyage_fav`
   ADD CONSTRAINT `favourites_fk1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
   ADD CONSTRAINT `favourites_fk2` FOREIGN KEY (`voyage_id`) REFERENCES `voyage_id` (`id`);
 

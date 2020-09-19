@@ -49,7 +49,7 @@ public class VoyageFavController {
      * Delete methods
      */
 
-    @DeleteMapping("/deleteVessel/{userId}/{voyageId}")
+    @DeleteMapping("/deleteVoyageFav/{userId}/{voyageId}")
     public void deleteVessel(@PathVariable int userId, int voyageId) {
         service.deleteVoyageFav(userId, voyageId);
     }

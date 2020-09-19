@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Storage for web service configuration
  */
 
-@Entity @Data @Table(name="configuration")
+@Entity @Data @Table
 @NoArgsConstructor @AllArgsConstructor
 @IdClass(ConfigId.class)
 public class Config {

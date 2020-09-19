@@ -3,7 +3,7 @@ package com.portnet.entity.voyage;
 import lombok.*;
 import javax.persistence.*;
 
-@Entity @Data @Table(name="voyage_id")
+@Entity @Data @Table
 @NoArgsConstructor @AllArgsConstructor
 public class VoyageId {
     /**
@@ -15,5 +15,4 @@ public class VoyageId {
     @Id private int id;
     private String vesselName;
     private String voyageNum;
-
 }

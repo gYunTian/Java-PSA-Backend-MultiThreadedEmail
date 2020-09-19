@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Data Access Objects for "configuration" table to perform various operations
+ * Data Access Objects for "config" table to perform various operations
  */
 
 @Repository

@@ -7,7 +7,7 @@ import javax.persistence.*;
  * An abstraction of a real-life PSA vessel
  */
 
-@Entity @Data @Table(name="vessel")
+@Entity @Data @Table
 @NoArgsConstructor @AllArgsConstructor
 public class Vessel {
     /**

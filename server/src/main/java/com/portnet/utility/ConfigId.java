@@ -9,6 +9,7 @@ import java.util.Objects;
  * Primary key type for Config
  */
 
+@Data
 @NoArgsConstructor @AllArgsConstructor
 public class ConfigId implements Serializable {
     /**

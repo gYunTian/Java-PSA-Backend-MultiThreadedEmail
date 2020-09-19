@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Data Access Objects for "voyageId" table to perform various operations
+ * Data Access Objects for "voyage_id" table to perform various operations
  */
 
 @Repository

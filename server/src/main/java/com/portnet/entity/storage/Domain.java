@@ -7,7 +7,7 @@ import javax.persistence.*;
  * Storage for accepted email domains
  */
 
-@Entity @Data @Table(name="domain")
+@Entity @Data @Table
 @NoArgsConstructor @AllArgsConstructor
 public class Domain {
     /**
