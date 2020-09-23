@@ -1,11 +1,20 @@
 import { elements, clearSpinner } from './views/base';
 
+import { data, processData } from './data/data';
+
+import * as navView from './views/navView';
+
 const state = {};
 console.log({ state });
 
 // *Perform tasks after page loads
 window.addEventListener('load', () => {
   controlLogin();
+  // !Data for testing
+  state.data = processData(data);
+  
+  // *Get current date into state
+  state.date = new Date();
 });
 
 // *Control login (note that state.user.id = null for sign up)
@@ -19,6 +28,8 @@ const controlLogin = () => {
     if (!state.user.name) {
       state.user.name = state.user.dataFromServer.name;
     }
+
+    navView.updateGreeting(state.user.name);
   }
 };
 

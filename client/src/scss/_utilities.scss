@@ -19,10 +19,20 @@
     }
   }
 
+  &-dark {
+    @extend %btn-shared;
+    color: white;
+    background-color: $dark-color;
+
+    &:hover {
+      background-color: $main-color;
+    }
+  }
+
   &-darkest {
     @extend %btn-shared;
     color: white;
-    background-color:$darkest-color;
+    background-color: $darkest-color;
 
     &:hover {
       background-color: $main-color;
@@ -40,6 +50,64 @@
     }
   }
 
+  &-date {
+    @extend %btn-shared;
+    color: #fff;
+    background-color: $comp-medium-color;
+    max-width: 140px;
+    text-align: center;
+    font-size: 0.9rem;
+    line-height: 1.2rem;
+    padding: 0.6rem 1.1rem;
+
+    &:hover {
+      background-color: $comp-dark-color;
+    }
+  }
+
+  &-selected {
+    color: white;
+    background-color: $comp-darkest-color;
+    &:hover {
+      background-color: $comp-darkest-color;
+    }
+  }
+
+  &-favorite {
+    @extend %btn-shared;
+    padding: 5px 10px;
+    background-color: $main-color;
+    color: #fff;
+    &:hover {
+      background-color: $dark-color;
+    }
+  }
+
+  &-subscribe {
+    @extend %btn-shared;
+    padding: 5px 10px;
+    background-color: $main-color;
+    color: #fff;
+    &:hover {
+      background-color: $dark-color;
+    }
+  }
+
+  &-disabled {
+    color: white;
+    background-color: $medium-color;
+    &:hover {
+      background-color: $medium-color;
+    }
+  }
+
+  &-med {
+    padding: 0.6rem 1.5rem;
+  }
+
+  &-mr {
+    margin-right: 8px;
+  }
 }
 
 // Mixins
@@ -99,5 +167,11 @@
     to {
       transform: rotate(360deg);
     }
+  }
+}
+
+.mx {
+  &-1 {
+    margin: 0 15px;
   }
 }

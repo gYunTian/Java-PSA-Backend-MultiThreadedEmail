@@ -10,6 +10,7 @@ export const elements = {
   signUpBtn: document.querySelector('#sign-up'),
   signOutBtn: document.querySelector('#sign-out'),
   spinner: document.querySelector('.spinner-wrapper'),
+  greeting: document.querySelector('.greeting'),
 };
 
 const ENDPOINT = 'http://localhost:8080';
@@ -18,7 +19,7 @@ const CORS = 'https://cors-anywhere.herokuapp.com';
 
 export const APIs = {
   addUser: `${ENDPOINT}/addUser`,
-  getUserByEmail: `${ENDPOINT}/user`
+  getUserByEmail: `${ENDPOINT}/user`,
 };
 
 // *Full screen spinner clear

@@ -1,12 +1,36 @@
 $website-width: 1280px;
 
-$main-color:	#c63536;
-$light-color:#f5e9e9;
+$main-color: #c63536;
+$light-color: #f5e9e9;
 $medium-color: #ce9495;
 $dark-color: #9e2a2b;
 $darkest-color: #8a2526;
 
-$comp-color: #335c67;
 $comp-light-color: #5b7c85;
+$comp-medium-color: #476c76;
+$comp-color: #335c67;
+$comp-dark-color: #284952;
+$comp-darkest-color: #1e373d;
 
 $main-bg: url(../assets/main-bg.jpeg);
+
+// *Scroll bar
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #dddddd;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #cccccc;
+}
