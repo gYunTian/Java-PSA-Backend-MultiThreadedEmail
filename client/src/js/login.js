@@ -6,6 +6,7 @@ import { elements } from './views/base';
 import User from './models/User';
 
 const state = {};
+console.log({ state });
 
 // *Perform tasks after page loads
 window.addEventListener('load', () => {
@@ -23,9 +24,21 @@ const controlLogin = async () => {
   const email = signInView.getEmail();
   const password = signInView.getPassword();
   if (signInView.formValidation({ email, password })) {
-    // ! Temporary redirect to index.html & keep session using LS
-    localStorage.setItem('logged-in', '1');
-    window.location.replace('index.html');
+    state.user = new User(null, email, password);
+    try {
+      await state.user.getUserByEmail();
+      if (state.user.password == state.user.dataFromDB.password) {
+        localStorage.setItem('user', JSON.stringify(state.user));
+        window.location.replace('index.html');
+      } else {
+        // *Wrong password
+        signInView.clearPassword();
+        elements.signInPasswordInput.focus();
+        alert('Wrong email or password! Please try again!');
+      }
+    } catch (error) {
+      console.log(`Error signing in user: ${error}`);
+    }
   }
 };
 elements.signInBtn.addEventListener('click', e => {
@@ -47,13 +60,14 @@ const controlSignUp = async () => {
       passwordCfm,
     })
   ) {
-    // // ! Temporary redirect to index.html & keep session using LS
-    // localStorage.setItem('logged-in', '1');
-    // window.location.replace('index.html');
-
     state.user = new User(displayName, email, password);
     try {
       await state.user.registerUser();
+      // *If registration is successful
+      if (state.user.registerStatus == 200) {
+        localStorage.setItem('user', JSON.stringify(state.user));
+        window.location.replace('index.html');
+      }
     } catch (error) {
       console.log(`Error registering user: ${error}`);
     }

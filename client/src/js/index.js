@@ -1,18 +1,24 @@
 import { elements, clearSpinner } from './views/base';
 
 const state = {};
+console.log({state});
 
-const loggedIn = localStorage.getItem('logged-in');
+// *Perform tasks after page loads
+window.addEventListener('load', () => {
+  controlLogin();
+});
 
-if (loggedIn == 0 || !loggedIn) {
-  console.log('redirecting...');
-  window.location.replace('login.html');
+const controlLogin = () => {
+  const user =  JSON.parse(localStorage.getItem("user"));
+  
+  console.log(user);
+  
 }
 
 // !Temporary handle sign out
 elements.signOutBtn.addEventListener('click', e => {
   e.preventDefault();
-  localStorage.setItem('logged-in', '0');
+  localStorage.setItem('user', 'null');
   window.location.replace('login.html');
 });
 
