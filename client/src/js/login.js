@@ -3,12 +3,14 @@ import * as signUpView from './views/signUpView';
 import * as signInView from './views/signInView';
 import { elements } from './views/base';
 
+import User from './models/User';
+
 const state = {};
 
 // *Perform tasks after page loads
 window.addEventListener('load', () => {
   controlForms();
-})
+});
 
 // *Control forms
 const controlForms = () => {
@@ -22,14 +24,14 @@ const controlLogin = async () => {
   const password = signInView.getPassword();
   if (signInView.formValidation({ email, password })) {
     // ! Temporary redirect to index.html & keep session using LS
-    localStorage.setItem("logged-in", "1");
+    localStorage.setItem('logged-in', '1');
     window.location.replace('index.html');
   }
-}
+};
 elements.signInBtn.addEventListener('click', e => {
   e.preventDefault();
   controlLogin();
-})
+});
 
 // *Control signup
 const controlSignUp = async () => {
@@ -45,14 +47,19 @@ const controlSignUp = async () => {
       passwordCfm,
     })
   ) {
-    // ! Temporary redirect to index.html & keep session using LS
-    localStorage.setItem("logged-in", "1");
-    window.location.replace('index.html');
+    // // ! Temporary redirect to index.html & keep session using LS
+    // localStorage.setItem('logged-in', '1');
+    // window.location.replace('index.html');
+
+    state.user = new User(displayName, email, password);
+    try {
+      await state.user.registerUser();
+    } catch (error) {
+      console.log(`Error registering user: ${error}`);
+    }
   }
-}
+};
 elements.signUpBtn.addEventListener('click', e => {
   e.preventDefault();
   controlSignUp();
 });
-
-

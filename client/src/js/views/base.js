@@ -9,7 +9,15 @@ export const elements = {
   signUpPasswordCfmInput: document.querySelector('.sign-up-password-cfm-input'),
   signUpBtn: document.querySelector('#sign-up'),
   signOutBtn: document.querySelector('#sign-out'),
-  spinner: document.querySelector('.spinner-wrapper')
+  spinner: document.querySelector('.spinner-wrapper'),
+};
+
+const ENDPOINT = 'http://localhost:8080';
+
+const CORS = 'https://cors-anywhere.herokuapp.com';
+
+export const APIs = {
+  addUser: `${ENDPOINT}/users`,
 };
 
 // *Full screen spinner clear
