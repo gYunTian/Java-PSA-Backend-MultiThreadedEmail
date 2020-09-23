@@ -11,6 +11,7 @@ import java.util.List;
  * REST APIs using service methods for Domain
  */
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class DomainController {
 

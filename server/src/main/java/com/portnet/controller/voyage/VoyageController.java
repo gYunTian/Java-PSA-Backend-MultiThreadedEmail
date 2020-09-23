@@ -12,6 +12,7 @@ import java.util.List;
  * REST APIs using service methods for Voyage
  */
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Service
 public class VoyageController {
 

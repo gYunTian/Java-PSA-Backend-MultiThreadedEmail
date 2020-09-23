@@ -6,7 +6,7 @@
 ### Prerequisites 
 1. Ensure that your local computer has the `JAVA_HOME` environment variable set to the sdk location.
 2. Turn on your WAMP server.
-3. If not done so, import the `deploy.sql` script which is located in the `sql` folder.
+3. If not done so, import the `deploy.sql` script which is located in the `sql` folder. Alternatively, let Spring Boot auto-create the tables (lose precision).
 4. Run `run.bat`. 
 
 ### Post-Deployment
@@ -17,8 +17,6 @@
 ## Database Design
 
 ### Non-voyage storage tables
-
-config (time_interval, api_key)
 
 user (id, name, email, password) 
 
@@ -37,3 +35,5 @@ voyage_in (id, berth_dt, first_berth_dt)
 voyage_out (id, depart_dt)
 
 voyage_fav (user_id, voyage_id)
+
+voyage_subs (user_id, voyage_id)
