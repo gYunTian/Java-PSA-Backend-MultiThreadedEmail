@@ -64,7 +64,16 @@ export const signUpFormValidation = signUpInputs => {
     errors += 1;
     return;
   }
-  
+
+  // Email doesn't end with @gmail.com
+  if (email.split('@')[1] != 'gmail.com') {
+    alert("Email domain is invalid.")
+    elements.signUpEmailInput.value = '';
+    elements.signUpEmailInput.focus();
+    errors += 1;
+    return;
+  }
+
   if (errors) {
     return false;
   }

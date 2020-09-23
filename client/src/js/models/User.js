@@ -16,7 +16,7 @@ export default class User {
         method: 'GET',
         url: serviceURL,
       });
-      this.dataFromDB = result.data;
+      this.dataFromServer = result.data;
     } catch (error) {
       console.log(`User.js getUserByEmail error: ${error}`);
     }

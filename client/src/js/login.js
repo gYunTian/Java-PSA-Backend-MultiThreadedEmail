@@ -27,7 +27,7 @@ const controlLogin = async () => {
     state.user = new User(null, email, password);
     try {
       await state.user.getUserByEmail();
-      if (state.user.password == state.user.dataFromDB.password) {
+      if (state.user.password == state.user.dataFromServer.password) {
         localStorage.setItem('user', JSON.stringify(state.user));
         window.location.replace('index.html');
       } else {

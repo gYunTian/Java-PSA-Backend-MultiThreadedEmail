@@ -8,17 +8,21 @@ window.addEventListener('load', () => {
   controlLogin();
 });
 
+// *Control login (note that state.user.id = null for sign up)
 const controlLogin = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   if (!user) {
     window.location.replace('login.html');
   } else {
     state.user = user;
-    console.log(state.user);
+    // *This is to handle the case of login, user's display name is in user.state.dataFromServer
+    if (!state.user.name) {
+      state.user.name = state.user.dataFromServer.name;
+    }
   }
 };
 
-// !Temporary handle sign out
+// *Event Listener for sign out button
 elements.signOutBtn.addEventListener('click', e => {
   e.preventDefault();
   localStorage.setItem('user', 'null');
