@@ -1,7 +1,7 @@
 import { elements, clearSpinner } from './views/base';
 
 const state = {};
-console.log({state});
+console.log({ state });
 
 // *Perform tasks after page loads
 window.addEventListener('load', () => {
@@ -9,11 +9,14 @@ window.addEventListener('load', () => {
 });
 
 const controlLogin = () => {
-  const user =  JSON.parse(localStorage.getItem("user"));
-  
-  console.log(user);
-  
-}
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (!user) {
+    window.location.replace('login.html');
+  } else {
+    state.user = user;
+    console.log(state.user);
+  }
+};
 
 // !Temporary handle sign out
 elements.signOutBtn.addEventListener('click', e => {
@@ -22,6 +25,4 @@ elements.signOutBtn.addEventListener('click', e => {
   window.location.replace('login.html');
 });
 
-setTimeout(clearSpinner(), 3000);
-
-
+setTimeout(clearSpinner(), 10000);

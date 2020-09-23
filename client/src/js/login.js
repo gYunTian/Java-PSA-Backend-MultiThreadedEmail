@@ -32,8 +32,8 @@ const controlLogin = async () => {
         window.location.replace('index.html');
       } else {
         // *Wrong password
-        signInView.clearPassword();
-        elements.signInPasswordInput.focus();
+        signInView.clearInputs();
+        elements.signInEmailInput.focus();
         alert('Wrong email or password! Please try again!');
       }
     } catch (error) {
