@@ -1,11 +1,23 @@
 spring:
+
   datasource:
     username: root
     password:
-    url: jdbc:mysql://localhost:3306/portnet?serverTimezone=UTC&createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/portnet?serverTimezone=GMT
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    
+  # QUARTZ JOB configuration properties
+  quartz:
+    properties:
+      interval: 0/10 * * * * ? # CRON INTERVAL
+      enabled: true # not utilized
+      apiKey: d0ceb61c5edd48ce964d65bffacf3274 
+      apiUrl: https://api.pntestbox.com/vsspp/pp/bizfn/berthingSchedule/retrieveByBerthingDate/v1.2
+      plusDays: 1 # Number of days ahead to get vessel data for, includes today i.e. 20 + 6 = 26 = 7 days

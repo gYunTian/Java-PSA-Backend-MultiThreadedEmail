@@ -7,10 +7,10 @@
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = `NO_AUTO_VALUE_ON_ZERO`;
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = `+00:00`;
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -93,8 +93,21 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 DROP TABLE IF EXISTS `vessel`;
 CREATE TABLE IF NOT EXISTS `vessel` (
-  `name` varchar(32) NOT NULL,
-  PRIMARY KEY (`name`)
+  `uniqueId` varchar(58) NOT NULL,
+  `imoN` varchar(12) NULL,
+  `fullVslM` varchar(48) NOT NULL,
+  `abbrVslM` varchar(32) NOT NULL,
+  `fullInVoyN` varchar(10) NULL,
+  `inVoyN` varchar(8) NOT NULL,
+  `fullOutVoyN` varchar(10) NULL,
+  `outVoyN` varchar(8) NOT NULL,
+  `shiftSeqN` varchar(5) NOT NULL,
+  `bthgDt` varchar(21) NOT NULL,
+  `unbthgDt` varchar(21) NOT NULL,
+  `berthN` varchar(10) NULL,
+  `status` varchar(12) NOT NULL,
+  `abbrTerminalM` varchar(8) NULL,
+  PRIMARY KEY (`uniqueId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -175,7 +188,7 @@ ALTER TABLE `voyage`
 -- Constraints for table `voyage_id`
 --
 ALTER TABLE `voyage_id`
-  ADD CONSTRAINT `voyage_id_fk1` FOREIGN KEY (`vessel_name`) REFERENCES `vessel` (`name`);
+  ADD CONSTRAINT `voyage_id_fk1` FOREIGN KEY (`vessel_name`) REFERENCES `vessel` (`uniqueId`);
 
 --
 -- Constraints for table `voyage_in`

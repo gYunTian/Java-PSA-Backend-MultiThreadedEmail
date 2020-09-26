@@ -36,4 +36,4 @@ voyage_out (id, depart_dt)
 
 voyage_fav (user_id, voyage_id)
 
-voyage_subs (user_id, voyage_id)
+voyage_sub (user_id, voyage_id)

@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@Service
+@RestController
 public class VoyageController {
 
     @Autowired
