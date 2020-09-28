@@ -1,13 +1,16 @@
 package com.portnet.quartz;
 
 import org.quartz.CronScheduleBuilder;
+import org.quartz.CronTrigger;
 import org.quartz.JobBuilder;
 import org.quartz.JobDetail;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 
 // Class definition to setup Quartz job
 // This class uses the QuartzJob and QuartzProperties class to setup the jobs
@@ -19,7 +22,6 @@ public class ConfigureQuartzJob {
     @Autowired
     private QuartzProperties prop;
 
-    // Returns a job detail object that is created from the QuartzJob class. This is then used by the jobATrigger
     @Bean
     public JobDetail jobADetails() {
         return JobBuilder.newJob(QuartzJob.class)
@@ -30,7 +32,7 @@ public class ConfigureQuartzJob {
     
     // Returns a trigger object that contains detail about the job and schedule
     @Bean
-    public Trigger jobATrigger(JobDetail jobADetail) {
+    public CronTrigger jobATrigger(JobDetail jobADetail) {
         return TriggerBuilder.newTrigger()
         .forJob(jobADetail)
         .withIdentity("Test trigger")

@@ -1,5 +1,8 @@
 package com.portnet.quartz;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,72 +46,81 @@ public class QuartzJob implements Job {
     // Main method to execute
     @Override
     public void execute(JobExecutionContext context) {
-        // objects for sending post request
-        RestTemplate restTemplate = new RestTemplate();
-        HttpHeaders headers = new HttpHeaders();
+        LocalDateTime date = LocalDateTime.now();
 
-        // set up request header
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.add("Apikey", prop.getApiKey());
-        headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+        if (prop.isEnabled()) {
+            System.out.println(date + "  - Executing Quartz job");
+            // objects for sending post request
+            RestTemplate restTemplate = new RestTemplate();
+            HttpHeaders headers = new HttpHeaders();
 
-        // create request body as json
-        String requestJson = "{\"dateFrom\":\"" + prop.getDateFrom() + "\", \"dateTo\":\"" + prop.getDateTo() + "\"}";
-        System.out.println("Sending Post request");
+            // set up request header
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.add("Apikey", prop.getApiKey());
+            headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 
-        // wrap heaader and body in HttpEntity object
-        HttpEntity<String> request = new HttpEntity<String>(requestJson, headers);
-        String res = null;
+            // create request body as json
+            String requestJson = "{\"dateFrom\":\"" + prop.getDateFrom() + "\", \"dateTo\":\"" + prop.getDateTo() + "\"}";
+            System.out.println("Sending Post request");
 
-        try {
-            res = restTemplate.postForObject(prop.getApiURL(), request, String.class);
-        }
-        catch (HttpStatusCodeException e ) {
-            // non 200 status code
-            System.out.println(e.getStatusCode().value());
-        } 
+            // wrap heaader and body in HttpEntity object
+            HttpEntity<String> request = new HttpEntity<String>(requestJson, headers);
+            String res = null;
 
-        JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
-        if (!jsonObject.get("errors").isJsonNull()) {
-            System.out.println("Error in header or request body");
-            return;
-        }
-        
-        JsonArray jsonArray = jsonObject.getAsJsonArray("results");
-        ObjectMapper mapper = new ObjectMapper();
-        ArrayList<Vessel> vessels = new ArrayList<>();
-        
-        if (jsonObject.get("errors").isJsonNull()) {
-            int length = jsonArray.size();
-            String uniqueId = null;
-            String temp = null;
+            try {
+                res = restTemplate.postForObject(prop.getApiURL(), request, String.class);
+            }
+            catch (HttpStatusCodeException e ) {
+                // non 200 status code
+                System.out.println(e.getStatusCode().value());
+            } 
 
-            for (int i = 0; i < length; i++) {
-                try {
-                    uniqueId = (jsonArray.get(i).getAsJsonObject().get("fullVslM").getAsString() + " " 
-                    + jsonArray.get(i).getAsJsonObject().get("inVoyN").getAsString());
-                    temp = jsonArray.get(i).toString();
-                    vessels.add(mapper.readValue(temp.substring(0, temp.length() - 1)+",\"uniqueId\":\""+uniqueId+"\"}", Vessel.class));
-                } 
-                catch (JsonProcessingException e) {
-                    System.out.println("JSON Processing Error");
-                    e.printStackTrace();
-                }
-                catch (NullPointerException e ) {
-                    System.out.println(i+" Null pointer Error");
-                    e.printStackTrace();
-                }
-                catch (Exception e ) {
-                    System.out.println("Exception Error");
-                    e.printStackTrace();
+            JsonObject jsonObject = new JsonParser().parse(res).getAsJsonObject();
+            if (!jsonObject.get("errors").isJsonNull()) {
+                System.out.println("Error in header or request body");
+                return;
+            }
+            
+            JsonArray jsonArray = jsonObject.getAsJsonArray("results");
+            ObjectMapper mapper = new ObjectMapper();
+            ArrayList<Vessel> vessels = new ArrayList<>();
+            
+            if (jsonObject.get("errors").isJsonNull()) {
+                int length = jsonArray.size();
+                String uniqueId = null;
+                String temp = null;
+
+                for (int i = 0; i < length; i++) {
+                    try {
+                        uniqueId = (jsonArray.get(i).getAsJsonObject().get("fullVslM").getAsString() + " " 
+                        + jsonArray.get(i).getAsJsonObject().get("inVoyN").getAsString());
+                        temp = jsonArray.get(i).toString();
+                        vessels.add(mapper.readValue(temp.substring(0, temp.length() - 1)+",\"uniqueId\":\""+uniqueId+"\"}", Vessel.class));
+                    } 
+                    catch (JsonProcessingException e) {
+                        System.out.println("JSON Processing Error");
+                        e.printStackTrace();
+                    }
+                    catch (NullPointerException e ) {
+                        System.out.println(i+" Null pointer Error");
+                        e.printStackTrace();
+                    }
+                    catch (Exception e ) {
+                        System.out.println("Exception Error");
+                        e.printStackTrace();
+                    }
                 }
             }
+            System.out.println("Post request complete");
+            
+            // add to db
+            System.out.println("Saving vessels to DB");
+            vesselService.saveVessels(vessels);
+            System.out.println("Cron complete");
         }
-        System.out.println("Post request complete");
-        
-        // add to db
-        System.out.println("Saving vessels to DB");
-        vesselService.saveVessels(vessels);
-        System.out.println("Cron complete");
+        else {
+            System.out.println(date + "  - Quartz Job disabled. If you want to run jobs, enable it in application.yml - quartz.properties.enabled");
+        }
     }   
+
 }

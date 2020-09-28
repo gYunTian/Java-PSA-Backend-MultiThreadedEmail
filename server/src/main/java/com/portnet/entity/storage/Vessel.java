@@ -56,12 +56,12 @@ public class Vessel {
     @JsonProperty("bthgDt")
     @Column(nullable = false, name = "bthgDt")
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss", timezone="GMT")
-    private Date bthgDt;
+    private String bthgDt;
 
     @JsonProperty("unbthgDt")
     @Column(nullable = false, name = "unbthgDt")
     @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss", timezone="GMT")
-    private Date unbthgDt;
+    private String unbthgDt;
 
     @JsonProperty("berthN")
     @Column(nullable = true, name = "berthN")
@@ -140,19 +140,19 @@ public class Vessel {
         this.shiftSeqN = shiftSeqN;
     }
 
-    public Date getBthgDt() {
+    public String getBthgDt() {
         return bthgDt;
     }
 
-    public void setBthgDt(Date bthgDt) {
+    public void setBthgDt(String bthgDt) {
         this.bthgDt = bthgDt;
     }
 
-    public Date getUnbthgDt() {
+    public String getUnbthgDt() {
         return unbthgDt;
     }
 
-    public void setUnbthgDt(Date unbthgDt) {
+    public void setUnbthgDt(String unbthgDt) {
         this.unbthgDt = unbthgDt;
     }
 

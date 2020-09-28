@@ -1,5 +1,4 @@
 spring:
-
   datasource:
     username: root
     password:
@@ -16,8 +15,8 @@ spring:
   # QUARTZ JOB configuration properties
   quartz:
     properties:
-      interval: 0/10 * * * * ? # CRON INTERVAL
-      enabled: true # not utilized
+      interval: 0 * * * * ? # CRON INTERVAL
+      enabled: false
       apiKey: d0ceb61c5edd48ce964d65bffacf3274 
       apiUrl: https://api.pntestbox.com/vsspp/pp/bizfn/berthingSchedule/retrieveByBerthingDate/v1.2
       plusDays: 1 # Number of days ahead to get vessel data for, includes today i.e. 20 + 6 = 26 = 7 days
