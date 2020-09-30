@@ -59,4 +59,9 @@ public class UserController {
     public void updateUser(@RequestBody User user) {
         service.updateUser(user);
     }
+
+    @PutMapping("/resetUserPassword")
+    public void resetUserPassword(@RequestBody String email) {
+
+    }
 }
