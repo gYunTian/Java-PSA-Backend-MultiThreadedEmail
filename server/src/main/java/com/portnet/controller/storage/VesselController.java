@@ -20,17 +20,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class VesselController {
+    
     @Autowired
     private VesselService vesselService;
 
     /**
      * Get methods
-     * 
      * @throws ParseException
      */
     @GetMapping(value = "/vessels", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<?> getVesselsByDate(@RequestParam(value = "startDate") String startDate,
+    public ResponseEntity<?> getVesselsByDate(
+            @RequestParam(value = "startDate") String startDate,
             @RequestParam(value = "endDate") String endDate) {
         List<Vessel> vesselList = vesselService.getVesselsByDate(startDate, endDate);
         return ResponseEntity.ok(vesselList);   

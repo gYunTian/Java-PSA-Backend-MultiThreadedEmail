@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface DomainDao extends JpaRepository<Domain,String> {
+public interface DomainDao extends JpaRepository<Domain, String> {
     /**
      * Additional custom method to delete Domain with specified name
      * @param name the accepted domain name

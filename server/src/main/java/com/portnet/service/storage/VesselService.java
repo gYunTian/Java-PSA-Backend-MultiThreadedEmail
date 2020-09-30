@@ -11,21 +11,21 @@ import org.springframework.stereotype.Service;
 /**
  * Service tasks that use DAO methods
  * - retrieve and modify database
- * - useful for REST APIs for Vessel names
+ * - useful for REST APIs for Vessel
  */
 
 @Service
 public class VesselService {
 
     @Autowired
-    private VesselDao vesselRepo;
+    private VesselDao vesselDao;
 
     /**
      * Add Vessel to database
      * @param vessel object
      */
     public void saveVessel(Vessel vessel) {
-        vesselRepo.save(vessel);
+        vesselDao.save(vessel);
     }
     
     /**
@@ -33,7 +33,7 @@ public class VesselService {
      * @param vessels array
      */
     public void saveVessels(List<Vessel> vessels) {
-        vesselRepo.saveAll(vessels);
+        vesselDao.saveAll(vessels);
     }
     
     /**
@@ -41,6 +41,6 @@ public class VesselService {
      * @return vessels array
      */
     public List<Vessel> getVesselsByDate(String startDate, String endDate) {
-        return (List<Vessel>) vesselRepo.findByDate(startDate, endDate);
+        return (List<Vessel>) vesselDao.findByDate(startDate, endDate);
     }
 }

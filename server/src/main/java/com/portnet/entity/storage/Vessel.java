@@ -17,6 +17,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name = "vessel")
 public class Vessel {
+
+    /**
+     * Constructs a specified VoyageId object
+     * @param uniqueId the auto-generated ID of the voyage, identified by vesselName and voyageNum
+     * @param {} vessel's short name
+     * @param {} incoming or outgoing voyage number
+     * ...
+     */
+
     @JsonProperty("uniqueId") @Id
     @Column(nullable = false, name = "uniqueId")
     private String uniqueId;

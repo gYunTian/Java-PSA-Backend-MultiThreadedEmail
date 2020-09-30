@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Primary key type for VoyageFav
+ * Primary key type for VoyageFav & VoyageSub
  */
 
 @Data
@@ -20,6 +20,7 @@ public class VoyagebyUserId implements Serializable {
      */
     private int userId;
     private String voyageId;
+    // todo: link to tables
 
     /**
      * Custom equals method to account all elements
