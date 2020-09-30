@@ -22,9 +22,13 @@ user (id, name, email, password)
 
 domain (name)
 
-vessel (name)
+vessel ()
 
 ### Voyage tables
+
+voyage_fav (user_id, voyage_id)
+
+voyage_sub (user_id, voyage_id)
 
 voyage_id (id, vessel_name, voyage_num)
 
@@ -33,7 +37,3 @@ voyage (voyage_id, berth_num, status, change_count)
 voyage_in (id, berth_dt, first_berth_dt)
 
 voyage_out (id, depart_dt)
-
-voyage_fav (user_id, voyage_id)
-
-voyage_sub (user_id, voyage_id)

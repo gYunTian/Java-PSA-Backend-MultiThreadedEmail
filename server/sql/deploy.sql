@@ -21,29 +21,8 @@ SET time_zone = `+00:00`;
 --
 -- Database: `portnet`
 --
-Create database portnet;
-use portnet;
--- --------------------------------------------------------
-
---
--- Table structure for table `configuration`
---
-
-DROP TABLE IF EXISTS `configuration`;
-CREATE TABLE IF NOT EXISTS `configuration` (
-  `time_interval` double NOT NULL,
-  `api_key` varchar(33) NOT NULL,
-  PRIMARY KEY (`time_interval`,`api_key`),
-  KEY `api_key` (`api_key`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `configuration`
---
-
-INSERT INTO `configuration` (`time_interval`, `api_key`) VALUES
-(0.5, 'd0ceb61c5edd48ce964d65bffacf3274');
-
+CREATE DATABASE IF NOT EXISTS `portnet`;
+USE `portnet`;
 -- --------------------------------------------------------
 
 --
@@ -56,19 +35,12 @@ CREATE TABLE IF NOT EXISTS `domain` (
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `voyage_fav`
+-- Dumping data for table `domain`
 --
 
-DROP TABLE IF EXISTS `voyage_fav`;
-CREATE TABLE IF NOT EXISTS `voyage_fav` (
-  `user_id` int(11) NOT NULL,
-  `voyage_id` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`,`voyage_id`),
-  KEY `favourites_fk2` (`voyage_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `domain` (`name`) VALUES
+('smu.edu.sg');
 
 -- --------------------------------------------------------
 
@@ -84,6 +56,13 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password` varchar(64) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES
+(0, 'name', 'name@smu.edu.sg', 'password');
 
 -- --------------------------------------------------------
 
@@ -113,6 +92,34 @@ CREATE TABLE IF NOT EXISTS `vessel` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `voyage_fav`
+--
+
+DROP TABLE IF EXISTS `voyage_fav`;
+CREATE TABLE IF NOT EXISTS `voyage_fav` (
+  `user_id` int(11) NOT NULL,
+  `voyage_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`voyage_id`)
+--   KEY `voyage_fav_fk2` (`voyage_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voyage_sub`
+--
+
+DROP TABLE IF EXISTS `voyage_sub`;
+CREATE TABLE IF NOT EXISTS `voyage_sub` (
+  `user_id` int(11) NOT NULL,
+  `voyage_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`voyage_id`)
+--   KEY `voyage_sub_fk2` (`voyage_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `voyage`
 --
 
@@ -136,8 +143,8 @@ CREATE TABLE IF NOT EXISTS `voyage_id` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `vessel_name` varchar(32) NOT NULL,
   `voyage_num` varchar(12) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `voyage_id_fk1` (`vessel_name`)
+  PRIMARY KEY (`id`)
+--   KEY `voyage_id_fk1` (`vessel_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -167,41 +174,48 @@ CREATE TABLE IF NOT EXISTS `voyage_out` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --
+-- -- Constraints for dumped tables
+-- --
+-- --
+-- --
+-- -- Constraints for table `voyage_fav`
+-- --
+-- ALTER TABLE `voyage_fav`
+--   ADD CONSTRAINT `voyage_fav_fk1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+--   ADD CONSTRAINT `voyage_fav_fk2` FOREIGN KEY (`voyage_id`) REFERENCES `voyage_id` (`id`);
 --
--- Constraints for dumped tables
---
+-- --
+-- -- Constraints for table `voyage_sub`
+-- --
+-- ALTER TABLE `voyage_sub`
+--   ADD CONSTRAINT `voyage_sub_fk1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+--   ADD CONSTRAINT `voyage_sub_fk2` FOREIGN KEY (`voyage_id`) REFERENCES `voyage_id` (`id`);
 
+-- --
+-- -- Constraints for table `voyage`
+-- --
+-- ALTER TABLE `voyage`
+--   ADD CONSTRAINT `voyage_fk1` FOREIGN KEY (`voyage_id`) REFERENCES `voyage_id` (`id`);
 --
--- Constraints for table `voyage_fav`
+-- --
+-- -- Constraints for table `voyage_id`
+-- --
+-- ALTER TABLE `voyage_id`
+--   ADD CONSTRAINT `voyage_id_fk1` FOREIGN KEY (`vessel_name`) REFERENCES `vessel` (`uniqueId`);
 --
-ALTER TABLE `voyage_fav`
-  ADD CONSTRAINT `favourites_fk1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  ADD CONSTRAINT `favourites_fk2` FOREIGN KEY (`voyage_id`) REFERENCES `voyage_id` (`id`);
-
+-- --
+-- -- Constraints for table `voyage_in`
+-- --
+-- ALTER TABLE `voyage_in`
+--   ADD CONSTRAINT `voyage_in_fk1` FOREIGN KEY (`id`) REFERENCES `voyage` (`voyage_id`);
 --
--- Constraints for table `voyage`
---
-ALTER TABLE `voyage`
-  ADD CONSTRAINT `voyage_fk1` FOREIGN KEY (`voyage_id`) REFERENCES `voyage_id` (`id`);
-
---
--- Constraints for table `voyage_id`
---
-ALTER TABLE `voyage_id`
-  ADD CONSTRAINT `voyage_id_fk1` FOREIGN KEY (`vessel_name`) REFERENCES `vessel` (`uniqueId`);
-
---
--- Constraints for table `voyage_in`
---
-ALTER TABLE `voyage_in`
-  ADD CONSTRAINT `voyage_in_fk1` FOREIGN KEY (`id`) REFERENCES `voyage` (`voyage_id`);
-
---
--- Constraints for table `voyage_out`
---
-ALTER TABLE `voyage_out`
-  ADD CONSTRAINT `voyage_out_fk1` FOREIGN KEY (`id`) REFERENCES `voyage` (`voyage_id`);
-COMMIT;
+-- --
+-- -- Constraints for table `voyage_out`
+-- --
+-- ALTER TABLE `voyage_out`
+--   ADD CONSTRAINT `voyage_out_fk1` FOREIGN KEY (`id`) REFERENCES `voyage` (`voyage_id`);
+-- COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

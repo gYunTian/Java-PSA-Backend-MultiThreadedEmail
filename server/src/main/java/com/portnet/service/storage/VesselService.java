@@ -3,7 +3,7 @@ package com.portnet.service.storage;
 import java.util.List;
 
 import com.portnet.entity.storage.Vessel;
-import com.portnet.repository.VesselRepository;
+import com.portnet.dao.storage.VesselDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 public class VesselService {
 
     @Autowired
-    private VesselRepository vesselRepo;
+    private VesselDao vesselRepo;
 
     /**
      * Add Vessel to database
