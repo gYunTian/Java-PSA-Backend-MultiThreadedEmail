@@ -1,10 +1,18 @@
 package com.portnet.controller.storage;
 
 import com.portnet.entity.storage.User;
+import com.portnet.service.storage.MailService;
 import com.portnet.service.storage.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
+import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -17,6 +25,9 @@ public class UserController {
 
     @Autowired
     private UserService service;
+
+    @Autowired
+    private MailService serviceMail;
 
     /**
      * Add methods
@@ -60,8 +71,18 @@ public class UserController {
         service.updateUser(user);
     }
 
-    @PutMapping("/resetUserPassword")
-    public void resetUserPassword(@RequestBody String email) {
-
+    /**
+     * @param user user details will be passed in
+     * @param attributes for redirection to auto email user
+     * @return redirectview to another link
+     * @throws IOException
+     * @throws MessagingException
+     */
+    @RequestMapping(value = "/resetUserPassword")
+    public RedirectView sendEmail(@RequestBody User user, RedirectAttributes attributes) throws IOException, MessagingException {
+        String recipent = user.getEmail();
+        attributes.addAttribute("recipent", recipent);
+        return new RedirectView("sendemail/{recipent}");
     }
+
 }

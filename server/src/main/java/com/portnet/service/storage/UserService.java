@@ -62,7 +62,6 @@ public class UserService {
         return userDao.findByEmail(email);
     }
 
-
     /**
      * Update User with same id from database
      */
