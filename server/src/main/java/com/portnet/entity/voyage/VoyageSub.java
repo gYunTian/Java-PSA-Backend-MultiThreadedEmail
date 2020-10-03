@@ -1,6 +1,6 @@
 package com.portnet.entity.voyage;
 
-import com.portnet.utility.VoyagebyUserId;
+import com.portnet.utility.VoyageByUserId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,7 @@ import java.io.Serializable;
 
 @Entity @Data @Table
 @NoArgsConstructor @AllArgsConstructor
-@IdClass(VoyagebyUserId.class)
+@IdClass(VoyageByUserId.class)
 public class VoyageSub implements Serializable {
     /**
      * Constructs a specified VoyageSub object

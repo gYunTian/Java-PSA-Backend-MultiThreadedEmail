@@ -1,18 +1,17 @@
 package com.portnet.entity.storage;
 
 import lombok.*;
-import javax.persistence.*;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
 
 /**
- * Storage for accepted email domains
+ * Class to represent the externally configured accepted email domain names
+ * Inputs comes from application.yml in the following prefix: spring.domain
  */
 
-@Entity @Data @Table
-@NoArgsConstructor @AllArgsConstructor
+@Component  @Data
+@ConfigurationProperties(prefix = "spring.domain")
 public class Domain {
-    /**
-     * Constructs a specified User object
-     * @param name the accepted domain name
-     */
-    @Id private String name;
+    private String[] acceptedDomains;
 }

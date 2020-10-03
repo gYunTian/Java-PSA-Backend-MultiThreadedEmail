@@ -1,6 +1,6 @@
 package com.portnet.entity.voyage;
 
-import com.portnet.utility.VoyagebyUserId;
+import com.portnet.utility.VoyageByUserId;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,7 +12,7 @@ import java.io.Serializable;
 
 @Entity @Data @Table
 @NoArgsConstructor @AllArgsConstructor
-@IdClass(VoyagebyUserId.class)
+@IdClass(VoyageByUserId.class)
 public class VoyageFav implements Serializable {
     /**
      * Constructs a specified VoyageFav object

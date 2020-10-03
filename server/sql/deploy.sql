@@ -23,24 +23,6 @@ SET time_zone = `+00:00`;
 --
 CREATE DATABASE IF NOT EXISTS `portnet`;
 USE `portnet`;
--- --------------------------------------------------------
-
---
--- Table structure for table `domain`
---
-
-DROP TABLE IF EXISTS `domain`;
-CREATE TABLE IF NOT EXISTS `domain` (
-  `name` varchar(40) NOT NULL,
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `domain`
---
-
-INSERT INTO `domain` (`name`) VALUES
-('smu.edu.sg');
 
 -- --------------------------------------------------------
 
@@ -51,9 +33,9 @@ INSERT INTO `domain` (`name`) VALUES
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(40) NOT NULL,
-  `email` varchar(64) NOT NULL,
-  `password` varchar(64) NOT NULL,
+  `name` varchar(32) NOT NULL,
+  `email` varchar(32) NOT NULL,
+  `password` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

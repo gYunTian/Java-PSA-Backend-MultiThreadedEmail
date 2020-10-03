@@ -1,55 +1,37 @@
 package com.portnet.service.storage;
 
-import com.portnet.dao.storage.DomainDao;
 import com.portnet.entity.storage.Domain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Arrays;
+
 
 /**
- * Service tasks that use DAO methods
- * - retrieve and modify database
- * - useful for REST APIs for Domain names
+ * Helper service tasks
+ * - validation for UserService
  */
 
 @Service
 public class DomainService {
 
     @Autowired
-    private DomainDao domainDao;
+    private Domain domain;
 
     /**
-     * Add Domain to database
-     * @param domain object
+     * Helper method to check if email is of accepted domain name
+     * @param userEmail the email provided by the user at registration
+     * @return boolean with 1 indicating email exists
      */
-    public void saveDomain(Domain domain) {
-        domainDao.save(domain);
-    }
+    public boolean domainAccepted(String userEmail) {
+        // get accepted domains
+        String[] acceptedDomains = domain.getAcceptedDomains();
+        // if none accepted, no point in further checks
+        if (acceptedDomains == null) return false;
 
-    /**
-     * Add Domains in array to database
-     * @param domains array
-     */
-    public void saveDomains(List<Domain> domains) {
-        domainDao.saveAll(domains);
-    }
-
-
-    /**
-     * Get all Domains in database
-     * @return domains array
-     */
-    public List<Domain> getDomains() {
-        return domainDao.findAll();
-    }
-
-    /**
-     * Remove Domain with specified name from database
-     * @param name the accepted domain name
-     */
-    public void deleteDomain(String name) {
-        domainDao.deleteByName(name);
+        // there are accepted domains, check if user's domain is 1 of them
+        String userDomain = userEmail.split("@")[1];
+        return Arrays.asList(acceptedDomains).contains(userDomain);
     }
 
 }

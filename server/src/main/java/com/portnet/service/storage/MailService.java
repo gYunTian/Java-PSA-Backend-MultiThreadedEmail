@@ -6,7 +6,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 /**
- * Service that send email to recipent
+ * Service that send email to recipient
  */
 
 @Service
@@ -15,16 +15,22 @@ public class MailService {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public void sendEmail(String recipient) {
-
+    public String sendEmail(String recipient, String name, String type) {
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(recipient);
 
-        msg.setSubject("Testing from Spring Boot");
-        msg.setText("Hello World \n Spring Boot Email");
+        if (type.equals("resetPassword")) {
+            msg.setSubject("xxxxxx is your Portnet account recovery code");
+            msg.setText("Hi "+name+",\n" +
+                    "We received a request to reset your Portnet password.\n" +
+                    "Click here to change your password.\n" +
+                    "Alternatively, you can enter the following password reset code:\n" +
+                    ""
+            );
+        }
 
         javaMailSender.send(msg);
-
+        return "Email sent successfully";
     }
 
 

@@ -1,11 +1,13 @@
 package com.portnet.service.storage;
 
 import com.portnet.dao.storage.UserDao;
+import com.portnet.entity.storage.Domain;
 import com.portnet.entity.storage.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 
 /**
  * Service tasks that use DAO methods
@@ -19,22 +21,37 @@ public class UserService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private DomainService domainService;
+
+
     /**
-     * Add User to database
+     * Add User to database if data passes validity checks
      * @param user object
+     * @return message indicating if user registration successful
      */
-    public void saveUser(User user) {
+    public String saveUser(User user) {
+        // retrieve input values
+        String name = user.getName();
+        String email = user.getEmail();
+        String pwd = user.getPassword();
+
+        // input length validity (avoid error when exceed minimum set in database)
+        if (name.length()>32 || email.length()>32 || pwd.length()>32) {
+            return "Registration unsuccessful - inputs too long, keep within 32 characters";
+        }
+
+        // email validity
+        if (getUserByEmail(email) != null) {
+            return "Registration unsuccessful - email already exists";
+        } else if (!domainService.domainAccepted(email)) {
+            return "Registration unsuccessful - email domain not accepted";
+        }
+
+        // passed checks
         userDao.save(user);
+        return "Registration successful";
     }
-
-    /**
-     * Add Users in array to database
-     * @param users object
-     */
-    public void saveUsers(List<User> users) {
-        userDao.saveAll(users);
-    }
-
 
     /**
      * Get all Users in database
@@ -49,7 +66,7 @@ public class UserService {
      * @param id the auto-generated ID of the user
      * @return user object
      */
-    public User getUser(int id) {
+    public User getUserById(int id) {
         return userDao.findById(id).orElse(null);
     }
 
@@ -58,7 +75,7 @@ public class UserService {
      * @param email the email registered by the User
      * @return user object
      */
-    public User getUser(String email) {
+    public User getUserByEmail(String email) {
         return userDao.findByEmail(email);
     }
 
@@ -66,7 +83,7 @@ public class UserService {
      * Update User with same id from database
      */
     public void updateUser(User user) {
-        User existingUser = getUser(user.getId());
+        User existingUser = getUserById(user.getId());
 
         existingUser.setName(user.getName());
         existingUser.setEmail(user.getEmail());

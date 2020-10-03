@@ -2,7 +2,6 @@ package com.portnet.utility;
 
 import lombok.*;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -12,7 +11,7 @@ import java.util.Objects;
 
 @Data
 @NoArgsConstructor @AllArgsConstructor
-public class VoyagebyUserId implements Serializable {
+public class VoyageByUserId implements Serializable {
     /**
      * Constructs a specified Voyage primary key
      * @param userId the auto-generated ID of the user
@@ -33,8 +32,8 @@ public class VoyagebyUserId implements Serializable {
     @Override
     public boolean equals(Object object) {
         if (this == object) return true;
-        if (!(object instanceof VoyagebyUserId)) return false;
-        VoyagebyUserId voyagebyUserId = (VoyagebyUserId) object;
+        if (!(object instanceof VoyageByUserId)) return false;
+        VoyageByUserId voyagebyUserId = (VoyageByUserId) object;
         return userId == voyagebyUserId.userId &&
                 voyageId == voyagebyUserId.voyageId;
     }
