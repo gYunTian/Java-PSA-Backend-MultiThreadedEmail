@@ -1,7 +1,5 @@
 package com.portnet.entity.storage;
 
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -25,7 +23,7 @@ public class Vessel {
      * @param {} incoming or outgoing voyage number
      * ...
      */
-
+    
     @JsonProperty("uniqueId") @Id
     @Column(nullable = false, name = "uniqueId")
     private String uniqueId;

@@ -4,89 +4,57 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.StandardEnvironment;
 import org.springframework.stereotype.Component;
 
 /** 
  * Class to represent the external configuration properties for scheduling jobs
- * Input comes from application.yml in the following prefix: spring.quartz.properties
+ * Input comes from application.yml in the following PREFIX: spring.quartz.properties
  */
 
 @Component
-@ConfigurationProperties(prefix = "spring.quartz.properties")
+//@ConfigurationProperties(prefix = "spring.quartz.properties")
 public class QuartzProperties {
-    private String interval;
-    private boolean enabled;
-    private String apiKey;
-    private String apiURL;
     
-    // externalized plusdays
-    private int plusDays;
-
-    // Json date format not externalized as API implementation is expected to not change
-    // dateFrom is always set to today 
+    @Autowired
+    private StandardEnvironment environment;
+    
+    private static final String PREFIX = "quartz.properties.";
+    
     @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT")
     private LocalDate dateFrom = LocalDate.now();
     
     @JsonFormat(pattern="yyyy-MM-dd", timezone="GMT")
     private LocalDate dateTo;
-    
-        
-    // Getter & Setter functions
+
+    // Getter functions
     public String getInterval() {
-        return interval;
+        return environment.getProperty(PREFIX+"interval");
     }
-    
-    public boolean isEnabled() {
-        return enabled;
+
+    public Boolean isEnabled() {
+        return Boolean.parseBoolean(environment.getProperty(PREFIX+"enabled"));
     }
 
     public String getApiKey() {
-        return apiKey;
+        return environment.getProperty(PREFIX+"apiKey");
     }
     
     public String getApiURL() {
-        return apiURL;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public void setInterval(String interval) {
-        this.interval = interval;
-    }
-
-    public void setApiKey(String apiKey) {
-        this.apiKey = apiKey;
-    }
-
-    public void setApiURL(String apiURL) {
-        this.apiURL = apiURL;
-    }
-
-    public void setDateFrom(LocalDate dateFrom) {
-        this.dateFrom = dateFrom;
+        return environment.getProperty(PREFIX+"apiUrl");
     }
 
     public int getPlusDays() {
-        return plusDays;
-    }
-
-    public void setPlusDays(int plusDays) {
-        this.plusDays = plusDays;
-    }
-
-    public void setDateTo(LocalDate dateTo) {
-        this.dateTo = dateTo;
+        return Integer.parseInt(environment.getProperty(PREFIX+"plusDays"));
     }
 
     public LocalDate getDateFrom() {
         return dateFrom;
     }
-
+    
     public LocalDate getDateTo() {
-        return dateTo = dateFrom.plusDays(plusDays);
+        return dateTo = dateFrom.plusDays(this.getPlusDays());
     }
 
 }

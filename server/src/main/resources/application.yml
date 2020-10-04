@@ -11,20 +11,9 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-    
-  # QUARTZ JOB configuration properties
-  quartz:
-    properties:
-      interval: 0 * * * * ? # CRON INTERVAL
-      enabled: false
-      apiKey: d0ceb61c5edd48ce964d65bffacf3274 
-      apiUrl: https://api.pntestbox.com/vsspp/pp/bizfn/berthingSchedule/retrieveByBerthingDate/v1.2
-      plusDays: 1 # Number of days ahead to get vessel data for, includes today i.e. 20 + 6 = 26 = 7 days
-
   domain:
     acceptedDomains:
       - smu.edu.sg
-
   mail:
     host: smtp.gmail.com
     port: 587
