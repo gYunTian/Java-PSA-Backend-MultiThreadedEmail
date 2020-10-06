@@ -62,12 +62,12 @@ public class Vessel {
 
     @JsonProperty("bthgDt")
     @Column(nullable = false, name = "bthgDt")
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss", timezone="GMT")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private String bthgDt;
-
+    
     @JsonProperty("unbthgDt")
     @Column(nullable = false, name = "unbthgDt")
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss", timezone="GMT")
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private String unbthgDt;
 
     @JsonProperty("berthN")

@@ -81,8 +81,9 @@ public class QuartzJob implements Job {
 
             // create request body as json
             String requestJson = "{\"dateFrom\":\"" + prop.getDateFrom() + "\", \"dateTo\":\"" + prop.getDateTo() + "\"}";
+            //String requestJson = "{\"dateFrom\":\"" + "2020-09-08" + "\", \"dateTo\":\"" + "2020-09-14" + "\"}";
             System.out.println(date +  "  - Quartz job: Sending Post request");
-
+            
             // parse json array
             JsonArray jsonArray = PostAndParse(requestJson, headers);
             if (jsonArray == null) {
@@ -98,6 +99,9 @@ public class QuartzJob implements Job {
 
             for (int i = 0; i < length; i++) {
                 try {
+                    if (jsonArray.get(i).getAsJsonObject().get("fullVslM").getAsString() == "AEGEAN EXPRESS") {
+                        System.out.println(jsonArray.get(i).getAsJsonObject().get("bthgDt").getAsString());
+                    }
                     uniqueId = (jsonArray.get(i).getAsJsonObject().get("fullVslM").getAsString() + " " 
                     + jsonArray.get(i).getAsJsonObject().get("inVoyN").getAsString());
                     temp = jsonArray.get(i).toString();

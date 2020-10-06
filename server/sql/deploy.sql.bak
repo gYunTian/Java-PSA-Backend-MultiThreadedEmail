@@ -1,16 +1,16 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Oct 06, 2020 at 02:37 PM
--- Server version: 5.7.26
--- PHP Version: 7.2.18
+-- Generation Time: Sep 16, 2020 at 07:02 AM
+-- Server version: 5.7.23
+-- PHP Version: 7.2.10
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = `NO_AUTO_VALUE_ON_ZERO`;
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET time_zone = `+00:00`;
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -55,62 +55,62 @@ INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES
 DROP TABLE IF EXISTS `vessel`;
 CREATE TABLE IF NOT EXISTS `vessel` (
   `uniqueId` varchar(58) NOT NULL,
-  `imoN` varchar(12) DEFAULT NULL,
+  `imoN` varchar(12) NULL,
   `fullVslM` varchar(48) NOT NULL,
   `abbrVslM` varchar(32) NOT NULL,
-  `fullInVoyN` varchar(10) DEFAULT NULL,
+  `fullInVoyN` varchar(10) NULL,
   `inVoyN` varchar(8) NOT NULL,
-  `fullOutVoyN` varchar(10) DEFAULT NULL,
+  `fullOutVoyN` varchar(10) NULL,
   `outVoyN` varchar(8) NOT NULL,
   `shiftSeqN` varchar(5) NOT NULL,
   `bthgDt` varchar(21) NOT NULL,
   `unbthgDt` varchar(21) NOT NULL,
-  `berthN` varchar(10) DEFAULT NULL,
+  `berthN` varchar(10) NULL,
   `status` varchar(12) NOT NULL,
-  `abbrTerminalM` varchar(8) DEFAULT NULL,
+  `abbrTerminalM` varchar(8) NULL,
   PRIMARY KEY (`uniqueId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `vessel`
---
-
 --
 -- Triggers `vessel`
 --
 DROP TRIGGER IF EXISTS `before_insert_set_history`;
 DELIMITER $$
 CREATE TRIGGER `before_insert_set_history` BEFORE INSERT ON `vessel` FOR EACH ROW BEGIN
+    /* */
     SET FOREIGN_KEY_CHECKS=0;
+    # if id already exist in vessel_history
+    IF NOT EXISTS (select NULL from vessel_history where `uniqueId` = NEW.`uniqueId`) THEN
     	INSERT INTO vessel_history(uniqueId, last_bthgDt, last_unbthgDt, bthgDt_change_count, unbthgDt_change_count)
         VALUES(new.uniqueId, new.`bthgDt`, new.`unbthgDt`, 0, 0);
-END
+	END IF;
+  END
 $$
 DELIMITER ;
 DROP TRIGGER IF EXISTS `if_berth_changed_update_history`;
 DELIMITER $$
 CREATE TRIGGER `if_berth_changed_update_history` BEFORE UPDATE ON `vessel` FOR EACH ROW BEGIN
-	IF (NEW.unbthgDt <> OLD.unbthgDt AND NEW.bthgDt <> OLD.bthgDt) THEN
+    /* */
+    IF EXISTS (select NULL from vessel_history where `uniqueId` = NEW.`uniqueId`) THEN
+    	IF (NEW.`unbthgDt` <> OLD.`unbthgDt` AND NEW.`bthgDt` <> OLD.`bthgDt`) THEN
             UPDATE vessel_history SET 
             last_bthgDt = OLD.`bthgDt`,
             bthgDt_change_count = 	bthgDt_change_count + 1,
             last_unbthgDt = OLD.`unbthgDt`,
-            unbthgDt_change_count = 		unbthgDt_change_count + 1
-            where `uniqueId` = NEW.`uniqueId`;
-            
-     ELSEIF (NEW.`bthgDt` <> OLD.`bthgDt`) THEN
-            UPDATE vessel SET 
+            unbthgDt_change_count = 		unbthgDt_change_count + 1;
+        ELSEIF (NEW.`bthgDt` <> OLD.`bthgDt`) THEN
+            UPDATE vessel_history SET 
             last_bthgDt = OLD.`bthgDt`,
-            bthgDt_change_count = 	bthgDt_change_count + 1
-            where `uniqueId` = NEW.`uniqueId`;     
-            
+            bthgDt_change_count = 	bthgDt_change_count + 1;
         ELSEIF (NEW.`unbthgDt` <> OLD.`unbthgDt`) THEN
-            UPDATE vessel SET 
+            UPDATE vessel_history SET 
             last_unbthgDt = OLD.`unbthgDt`,
-            unbthgDt_change_count = 		unbthgDt_change_count + 1
-            where `uniqueId` = NEW.`uniqueId`;
+            unbthgDt_change_count = 		unbthgDt_change_count + 1;
         END IF;
-END
+    ELSE 
+    	INSERT INTO vessel_history(uniqueId, last_bthgDt, last_unbthgDt, bthgDt_change_count, unbthgDt_change_count)
+        VALUES(new.uniqueId, new.`bthgDt`, new.`unbthgDt`, 0, 0);
+	END IF;
+  END
 $$
 DELIMITER ;
 
@@ -127,12 +127,38 @@ CREATE TABLE IF NOT EXISTS `vessel_history` (
   `last_unbthgDt` varchar(21) NOT NULL,
   `bthgDt_change_count` int(2) NOT NULL DEFAULT '0',
   `unbthgDt_change_count` int(2) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`uniqueId`)
+  PRIMARY KEY (`uniqueId`)  ,
+  FOREIGN KEY (`uniqueId`) REFERENCES vessel(`uniqueId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
+-- --------------------------------------------------------
 --
--- Dumping data for table `vessel_history`
+-- Table structure for table `voyage_fav`
 --
+
+DROP TABLE IF EXISTS `voyage_fav`;
+CREATE TABLE IF NOT EXISTS `voyage_fav` (
+  `user_id` int(11) NOT NULL,
+  `voyage_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`voyage_id`)
+--   KEY `voyage_fav_fk2` (`voyage_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voyage_sub`
+--
+
+DROP TABLE IF EXISTS `voyage_sub`;
+CREATE TABLE IF NOT EXISTS `voyage_sub` (
+  `user_id` int(11) NOT NULL,
+  `voyage_id` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`,`voyage_id`)
+--   KEY `voyage_sub_fk2` (`voyage_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- --------------------------------------------------------
 
 --
@@ -151,19 +177,6 @@ CREATE TABLE IF NOT EXISTS `voyage` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `voyage_fav`
---
-
-DROP TABLE IF EXISTS `voyage_fav`;
-CREATE TABLE IF NOT EXISTS `voyage_fav` (
-  `user_id` int(11) NOT NULL,
-  `voyage_id` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`,`voyage_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `voyage_id`
 --
 
@@ -173,6 +186,7 @@ CREATE TABLE IF NOT EXISTS `voyage_id` (
   `vessel_name` varchar(32) NOT NULL,
   `voyage_num` varchar(12) NOT NULL,
   PRIMARY KEY (`id`)
+--   KEY `voyage_id_fk1` (`vessel_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -202,29 +216,49 @@ CREATE TABLE IF NOT EXISTS `voyage_out` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
+-- --
+-- -- Constraints for dumped tables
+-- --
+-- --
+-- --
+-- -- Constraints for table `voyage_fav`
+-- --
+-- ALTER TABLE `voyage_fav`
+--   ADD CONSTRAINT `voyage_fav_fk1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+--   ADD CONSTRAINT `voyage_fav_fk2` FOREIGN KEY (`voyage_id`) REFERENCES `voyage_id` (`id`);
 --
--- Table structure for table `voyage_sub`
---
+-- --
+-- -- Constraints for table `voyage_sub`
+-- --
+-- ALTER TABLE `voyage_sub`
+--   ADD CONSTRAINT `voyage_sub_fk1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+--   ADD CONSTRAINT `voyage_sub_fk2` FOREIGN KEY (`voyage_id`) REFERENCES `voyage_id` (`id`);
 
-DROP TABLE IF EXISTS `voyage_sub`;
-CREATE TABLE IF NOT EXISTS `voyage_sub` (
-  `user_id` int(11) NOT NULL,
-  `voyage_id` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`,`voyage_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
+-- --
+-- -- Constraints for table `voyage`
+-- --
+-- ALTER TABLE `voyage`
+--   ADD CONSTRAINT `voyage_fk1` FOREIGN KEY (`voyage_id`) REFERENCES `voyage_id` (`id`);
 --
--- Constraints for dumped tables
+-- --
+-- -- Constraints for table `voyage_id`
+-- --
+-- ALTER TABLE `voyage_id`
+--   ADD CONSTRAINT `voyage_id_fk1` FOREIGN KEY (`vessel_name`) REFERENCES `vessel` (`uniqueId`);
 --
-
+-- --
+-- -- Constraints for table `voyage_in`
+-- --
+-- ALTER TABLE `voyage_in`
+--   ADD CONSTRAINT `voyage_in_fk1` FOREIGN KEY (`id`) REFERENCES `voyage` (`voyage_id`);
 --
--- Constraints for table `vessel_history`
---
-ALTER TABLE `vessel_history`
-  ADD CONSTRAINT `vessel_history_ibfk_1` FOREIGN KEY (`uniqueId`) REFERENCES `vessel` (`uniqueId`);
-COMMIT;
+-- --
+-- -- Constraints for table `voyage_out`
+-- --
+-- ALTER TABLE `voyage_out`
+--   ADD CONSTRAINT `voyage_out_fk1` FOREIGN KEY (`id`) REFERENCES `voyage` (`voyage_id`);
+-- COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
