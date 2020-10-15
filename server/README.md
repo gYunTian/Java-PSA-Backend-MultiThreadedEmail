@@ -20,8 +20,6 @@
 
 user (id, name, email, password) 
 
-domain (name)
-
 vessel ()
 
 ### Voyage tables
@@ -30,7 +28,6 @@ voyage_fav (user_id, voyage_id)
 
 voyage_sub (user_id, voyage_id)
 
-voyage_id (id, vessel_name, voyage_num)
 
 voyage (voyage_id, berth_num, status, change_count)
 

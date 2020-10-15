@@ -21,6 +21,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `portnet`
 --
+DROP DATABASE IF EXISTS `portnet`;
 CREATE DATABASE IF NOT EXISTS `portnet`;
 USE `portnet`;
 
@@ -32,7 +33,7 @@ USE `portnet`;
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(58) PRIMARY KEY AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `email` varchar(32) NOT NULL,
   `password` varchar(32) NOT NULL,
@@ -136,17 +137,16 @@ CREATE TABLE IF NOT EXISTS `vessel_history` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `voyage`
+-- Table structure for table `voyage_sub`
 --
 
-DROP TABLE IF EXISTS `voyage`;
-CREATE TABLE IF NOT EXISTS `voyage` (
+DROP TABLE IF EXISTS `voyage_sub`;
+CREATE TABLE IF NOT EXISTS `voyage_sub` (
+  `id` int(58) PRIMARY KEY AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
   `voyage_id` int(11) NOT NULL,
-  `berth_number` varchar(3) NOT NULL,
-  `status` varchar(9) NOT NULL,
-  `change_count` int(2) NOT NULL,
-  PRIMARY KEY (`voyage_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`user_id`,`voyage_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -156,64 +156,57 @@ CREATE TABLE IF NOT EXISTS `voyage` (
 
 DROP TABLE IF EXISTS `voyage_fav`;
 CREATE TABLE IF NOT EXISTS `voyage_fav` (
+  `id` int(58) PRIMARY KEY AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `voyage_id` int(11) NOT NULL,
   PRIMARY KEY (`user_id`,`voyage_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--------------------------------------------------------
+
+--
+-- --
+-- -- Table structure for table `voyage`
+-- --
+--
+-- DROP TABLE IF EXISTS `voyage`;
+-- CREATE TABLE IF NOT EXISTS `voyage` (
+--   `voyage_id` int(11) NOT NULL,
+--   `berth_number` varchar(3) NOT NULL,
+--   `status` varchar(9) NOT NULL,
+--   `change_count` int(2) NOT NULL,
+--   PRIMARY KEY (`voyage_id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--
+
+-- -- --------------------------------------------------------
+--
+-- --
+-- -- Table structure for table `voyage_in`
+-- --
+--
+-- DROP TABLE IF EXISTS `voyage_in`;
+-- CREATE TABLE IF NOT EXISTS `voyage_in` (
+--   `id` int(11) NOT NULL,
+--   `berth_dt` varchar(32) NOT NULL,
+--   `first_berth_dt` varchar(32) NOT NULL,
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--
+-- -- --------------------------------------------------------
+--
+-- --
+-- -- Table structure for table `voyage_out`
+-- --
+--
+-- DROP TABLE IF EXISTS `voyage_out`;
+-- CREATE TABLE IF NOT EXISTS `voyage_out` (
+--   `id` int(11) NOT NULL,
+--   `depart_dt` varchar(32) NOT NULL,
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+--
 -- --------------------------------------------------------
-
---
--- Table structure for table `voyage_id`
---
-
-DROP TABLE IF EXISTS `voyage_id`;
-CREATE TABLE IF NOT EXISTS `voyage_id` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `vessel_name` varchar(32) NOT NULL,
-  `voyage_num` varchar(12) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `voyage_in`
---
-
-DROP TABLE IF EXISTS `voyage_in`;
-CREATE TABLE IF NOT EXISTS `voyage_in` (
-  `id` int(11) NOT NULL,
-  `berth_dt` varchar(32) NOT NULL,
-  `first_berth_dt` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `voyage_out`
---
-
-DROP TABLE IF EXISTS `voyage_out`;
-CREATE TABLE IF NOT EXISTS `voyage_out` (
-  `id` int(11) NOT NULL,
-  `depart_dt` varchar(32) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `voyage_sub`
---
-
-DROP TABLE IF EXISTS `voyage_sub`;
-CREATE TABLE IF NOT EXISTS `voyage_sub` (
-  `user_id` int(11) NOT NULL,
-  `voyage_id` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`,`voyage_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Constraints for dumped tables
