@@ -26,7 +26,8 @@ public class VesselController {
 
     /**
      * Get methods
-     * @throws ParseException
+     * @param startDate
+     * @param endDate
      */
     @GetMapping(value = "/vessels", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -36,4 +37,5 @@ public class VesselController {
         List<Vessel> vesselList = vesselService.getVesselsByDate(startDate, endDate);
         return ResponseEntity.ok(vesselList);   
     }
+    
 }

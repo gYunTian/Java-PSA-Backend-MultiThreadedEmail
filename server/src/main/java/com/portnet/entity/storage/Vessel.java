@@ -3,6 +3,8 @@ package com.portnet.entity.storage;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -14,13 +16,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "vessel")
+@SecondaryTable(name = "vessel_history", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uniqueId", referencedColumnName = "uniqueId"))
 public class Vessel {
 
     /**
      * Constructs a specified VoyageId object
      * @param uniqueId the auto-generated ID of the voyage, identified by vesselName and voyageNum
-     * @param {} vessel's short name
-     * @param {} incoming or outgoing voyage number
      * ...
      */
     
@@ -81,6 +82,31 @@ public class Vessel {
     @JsonProperty("abbrTerminalM")
     @Column(nullable = true, name = "abbrTerminalM")
     private String abbrTerminalM;
+    
+    @JsonProperty("last_bthgDt")
+    @Column(nullable = false, name = "last_bthgDt", table = "vessel_history")
+    private String last_bthgDt;
+    
+    @JsonProperty("last_unbthgDt")
+    @Column(nullable = false, name = "last_unbthgDt", table = "vessel_history")
+    private String last_unbthgDt;
+
+    @JsonProperty("bthgDt_change_count")
+    @Column(nullable = false, name = "bthgDt_change_count", table = "vessel_history")
+    private int bthgDt_change_count;
+    
+    @JsonProperty("unbthgDt_change_count")
+    @Column(nullable = false, name = "unbthgDt_change_count", table = "vessel_history")
+    private int unbthgDt_change_count;
+
+    @JsonProperty("first_arrival")
+    @Column(nullable = false, name = "first_arrival", table = "vessel_history")
+    private String first_arrival;
+
+    // @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    // @MapsId
+    // @JoinColumn(name = "uniqueId")
+    // private VesselHistory vesselHistory;
     
     // Getter & setters
     public String getImoN() {
@@ -194,6 +220,10 @@ public class Vessel {
     public void setUniqueId(String uniqueId) {
         this.uniqueId = uniqueId;
     }
+    
+    public void setFullVslM(String fullVslM) {
+        this.fullVslM = fullVslM;
+    }
 
     @Override
     public String toString() {
@@ -202,4 +232,5 @@ public class Vessel {
                 + ", imoN=" + imoN + ", inVoyN=" + inVoyN + ", outVoyN=" + outVoyN + ", shiftSeqN=" + shiftSeqN
                 + ", status=" + status + ", unbthgDt=" + unbthgDt + ", uniqueId=" + uniqueId + "]";
     }
+
 }

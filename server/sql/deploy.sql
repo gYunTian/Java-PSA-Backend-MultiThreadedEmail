@@ -83,8 +83,8 @@ DROP TRIGGER IF EXISTS `before_insert_set_history`;
 DELIMITER $$
 CREATE TRIGGER `before_insert_set_history` BEFORE INSERT ON `vessel` FOR EACH ROW BEGIN
     SET FOREIGN_KEY_CHECKS=0;
-    	INSERT INTO vessel_history(uniqueId, last_bthgDt, last_unbthgDt, bthgDt_change_count, unbthgDt_change_count)
-        VALUES(new.uniqueId, new.`bthgDt`, new.`unbthgDt`, 0, 0);
+    	INSERT INTO vessel_history(uniqueId, last_bthgDt, last_unbthgDt, bthgDt_change_count, unbthgDt_change_count, first_arrival)
+        VALUES(new.uniqueId, new.`bthgDt`, new.`unbthgDt`, 0, 0, new.`bthgDt`);
 END
 $$
 DELIMITER ;
@@ -100,13 +100,13 @@ CREATE TRIGGER `if_berth_changed_update_history` BEFORE UPDATE ON `vessel` FOR E
             where `uniqueId` = NEW.`uniqueId`;
             
      ELSEIF (NEW.`bthgDt` <> OLD.`bthgDt`) THEN
-            UPDATE vessel SET 
+            UPDATE vessel_history SET 
             last_bthgDt = OLD.`bthgDt`,
             bthgDt_change_count = 	bthgDt_change_count + 1
             where `uniqueId` = NEW.`uniqueId`;     
             
         ELSEIF (NEW.`unbthgDt` <> OLD.`unbthgDt`) THEN
-            UPDATE vessel SET 
+            UPDATE vessel_history SET 
             last_unbthgDt = OLD.`unbthgDt`,
             unbthgDt_change_count = 		unbthgDt_change_count + 1
             where `uniqueId` = NEW.`uniqueId`;
