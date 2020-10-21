@@ -32,7 +32,7 @@ public class ConfigureQuartzJob {
     public CronTrigger jobATrigger(JobDetail jobADetail) {
         return TriggerBuilder.newTrigger()
         .forJob(jobADetail)
-        .withIdentity("Test trigger")
+        .withIdentity("Test trigger")   
         .withSchedule(CronScheduleBuilder.cronSchedule(prop.getInterval()))
         .build();
     }

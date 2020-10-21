@@ -3,22 +3,19 @@ package com.portnet.entity.storage;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.SecondaryTable;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * An abstraction of a Vessel
+ * An abstraction of a VesselDTO
  */
 
 @Entity
 @Table(name = "vessel")
-@SecondaryTable(name = "vessel_history", pkJoinColumns = @PrimaryKeyJoinColumn(name = "uniqueId", referencedColumnName = "uniqueId"))
-public class Vessel {
-    
+public class VesselDTO {
+
     /**
      * Constructs a specified VoyageId object
      * @param uniqueId the auto-generated ID of the voyage, identified by vesselName and voyageNum
@@ -82,27 +79,7 @@ public class Vessel {
     @JsonProperty("abbrTerminalM")
     @Column(nullable = true, name = "abbrTerminalM")
     private String abbrTerminalM;
-    
-    @JsonProperty("last_bthgDt")
-    @Column(nullable = false, name = "last_bthgDt", table = "vessel_history")
-    private String last_bthgDt;
-    
-    @JsonProperty("last_unbthgDt")
-    @Column(nullable = false, name = "last_unbthgDt", table = "vessel_history")
-    private String last_unbthgDt;
-
-    @JsonProperty("bthgDt_change_count")
-    @Column(nullable = false, name = "bthgDt_change_count", table = "vessel_history")
-    private int bthgDt_change_count;
-    
-    @JsonProperty("unbthgDt_change_count")
-    @Column(nullable = false, name = "unbthgDt_change_count", table = "vessel_history")
-    private int unbthgDt_change_count;
-
-    @JsonProperty("first_arrival")
-    @Column(nullable = false, name = "first_arrival", table = "vessel_history")
-    private String first_arrival;
-        
+           
     // Getter & setters
     public String getImoN() {
         return imoN;

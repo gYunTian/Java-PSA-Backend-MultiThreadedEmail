@@ -1,6 +1,5 @@
 package com.portnet.quartz;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.portnet.config.PropertiesReloader;
 import com.portnet.entity.storage.Vessel;
+import com.portnet.entity.storage.VesselDTO;
 import com.portnet.service.storage.VesselService;
 
 import org.quartz.Job;
@@ -51,24 +51,7 @@ public class QuartzJob implements Job {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String date = now.format(formatter);
         
-        // reload properties file before executing job
-        try {
-            System.out.println(date +  "  - Quartz job: Reloading properties");
-            propLoader.reload();  
-            System.out.println(date +  "  - Quartz job: Reloaded properties");
-
-        } 
-        catch (IOException e) {
-            System.out.println(date +  "  - Quartz job: Your reload.properties file cannot be located - "+e);
-            System.out.println(date +  "  - Quartz job: Make sure it is in resources folder");
-            System.out.println(date +  "  - Quartz job: Quartz job will be stopped");
-            return;
-        }   
-        catch (Exception e) {
-            System.out.println(date +  "  - Quartz job: Error reloading reload.properties file - "+e);
-            return;
-        }
-        
+        // reload properties file before executing job        
         if (prop.isEnabled()) {
             System.out.println(date +  "  - Quartz job: Executing job");
             // objects for sending post request
@@ -92,20 +75,19 @@ public class QuartzJob implements Job {
 
             //extract values from json
             ObjectMapper mapper = new ObjectMapper();
-            ArrayList<Vessel> vessels = new ArrayList<>();
+            ArrayList<VesselDTO> vessels = new ArrayList<>();
             int length = jsonArray.size();
             String uniqueId = null;
             String temp = null;
-
+            
             for (int i = 0; i < length; i++) {
                 try {
-                    if (jsonArray.get(i).getAsJsonObject().get("fullVslM").getAsString() == "AEGEAN EXPRESS") {
-                        System.out.println(jsonArray.get(i).getAsJsonObject().get("bthgDt").getAsString());
-                    }
+
                     uniqueId = (jsonArray.get(i).getAsJsonObject().get("fullVslM").getAsString() + " " 
                     + jsonArray.get(i).getAsJsonObject().get("inVoyN").getAsString());
                     temp = jsonArray.get(i).toString();
-                    vessels.add(mapper.readValue(temp.substring(0, temp.length() - 1)+",\"uniqueId\":\""+uniqueId+"\"}", Vessel.class));
+                    vessels.add(mapper.readValue(temp.substring(0, temp.length() - 1)+",\"uniqueId\":\""+uniqueId+"\"}", VesselDTO.class));
+                    
                 } 
                 catch (JsonProcessingException e) {
                     System.out.println(date +  "  - Quartz job: JSON Processing Error");
@@ -139,7 +121,7 @@ public class QuartzJob implements Job {
         JsonObject jsonObject = null;
         String res = null;
         JsonArray jsonArray = null;
-
+        
         try {
             res = restTemplate.postForObject(prop.getApiURL(), request, String.class);
             jsonObject = new JsonParser().parse(res).getAsJsonObject();

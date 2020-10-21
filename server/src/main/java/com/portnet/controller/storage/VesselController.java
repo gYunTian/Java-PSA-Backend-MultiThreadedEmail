@@ -1,6 +1,5 @@
 package com.portnet.controller.storage;
 
-import java.text.ParseException;
 import java.util.List;
 
 import com.portnet.entity.storage.Vessel;
@@ -31,9 +30,9 @@ public class VesselController {
      */
     @GetMapping(value = "/vessels", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<?> getVesselsByDate(
-            @RequestParam(value = "startDate") String startDate,
+    public ResponseEntity<List<Vessel>> getVesselsByDate(@RequestParam(value = "startDate") String startDate,
             @RequestParam(value = "endDate") String endDate) {
+        
         List<Vessel> vesselList = vesselService.getVesselsByDate(startDate, endDate);
         return ResponseEntity.ok(vesselList);   
     }
