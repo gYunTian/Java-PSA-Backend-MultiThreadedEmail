@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * An abstraction of a Vessel
+ * An domain model of a Vessel that represents the joined database table
  */
 
 @Entity

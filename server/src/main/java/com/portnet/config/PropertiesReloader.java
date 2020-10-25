@@ -26,6 +26,8 @@ import lombok.Cleanup;
 
 // to-do
 // on reload, intercept quartz schedule and create new trigger
+// on cron trigger, run properties reloader as well
+// check file modified before reading else same
 
 @Component
 public class PropertiesReloader {
@@ -35,8 +37,9 @@ public class PropertiesReloader {
     
     private static final String FILE_NAME = "reload.properties";
     private Path configPath;
-    
-    @Scheduled(fixedRate=10000)
+    // private Properties old;
+
+    @Scheduled(fixedRate=8000)
     public void reload() throws IOException {
 
         LocalDateTime now = LocalDateTime.now();
@@ -45,16 +48,25 @@ public class PropertiesReloader {
         System.out.println(date +  "  - Reloading properties");
 
         try {
+
             MutablePropertySources propertySources = environment.getPropertySources();
             PropertySource<?> resourcePropertySource = propertySources.get("class path resource [reload.properties]");
             Properties properties = new Properties();
-    
+            
             configPath = Paths.get("src/main/resources/" + FILE_NAME).toAbsolutePath();
             @Cleanup InputStream inputStream = Files.newInputStream(configPath);
             properties.load(inputStream);
-    
+            // System.out.println(properties);
+            
+            // if (old != null) {
+            //     System.out.println("Old: "+old);
+            //     System.out.println("New: "+properties);
+            //     System.out.println(properties.getClass());
+            // }
+
             propertySources.replace("class path resource [reload.properties]", 
             new PropertiesPropertySource("class path resource [reload.properties]", properties));
+            // old = properties;
 
         } catch (IOException e) {
             System.out.println(date +  "  - Your reload.properties file cannot be located - "+e);

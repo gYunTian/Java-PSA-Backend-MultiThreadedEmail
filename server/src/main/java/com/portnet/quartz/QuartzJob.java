@@ -3,6 +3,7 @@ package com.portnet.quartz;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -12,7 +13,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.portnet.config.PropertiesReloader;
-import com.portnet.entity.storage.Vessel;
 import com.portnet.entity.storage.VesselDTO;
 import com.portnet.service.storage.VesselService;
 
@@ -56,15 +56,15 @@ public class QuartzJob implements Job {
             System.out.println(date +  "  - Quartz job: Executing job");
             // objects for sending post request
             HttpHeaders headers = new HttpHeaders();
-
+            
             // set up request header
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.add("Apikey", prop.getApiKey());
             headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 
             // create request body as json
-            String requestJson = "{\"dateFrom\":\"" + prop.getDateFrom() + "\", \"dateTo\":\"" + prop.getDateTo() + "\"}";
-            //String requestJson = "{\"dateFrom\":\"" + "2020-09-08" + "\", \"dateTo\":\"" + "2020-09-14" + "\"}";
+            //String requestJson = "{\"dateFrom\":\"" + prop.getDateFrom() + "\", \"dateTo\":\"" + prop.getDateTo() + "\"}";
+            String requestJson = "{\"dateFrom\":\"" + "2020-09-08" + "\", \"dateTo\":\"" + "2020-09-08" + "\"}";
             System.out.println(date +  "  - Quartz job: Sending Post request");
             
             // parse json array
@@ -75,7 +75,7 @@ public class QuartzJob implements Job {
 
             //extract values from json
             ObjectMapper mapper = new ObjectMapper();
-            ArrayList<VesselDTO> vessels = new ArrayList<>();
+            List<VesselDTO> vessels = new ArrayList<>();
             int length = jsonArray.size();
             String uniqueId = null;
             String temp = null;
@@ -107,6 +107,9 @@ public class QuartzJob implements Job {
             // add to db
             System.out.println(date +  "  - Quartz job: Saving vessels to DB");
             vesselService.saveVessels(vessels);
+
+            
+
             System.out.println(date +  "  - Quartz job: Cron complete");
         }
         else {
