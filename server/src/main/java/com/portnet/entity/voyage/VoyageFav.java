@@ -9,16 +9,20 @@ import java.io.Serializable;
 /**
  * Storage for the voyage favorited by a user
  */
-
-@Entity @Data @Table
+//@IdClass(VoyageByUserId.class)
+@Entity @Data @Table(name = "voyage_fav")
 @NoArgsConstructor @AllArgsConstructor
-@IdClass(VoyageByUserId.class)
-public class VoyageFav implements Serializable {
+public class VoyageFav {
     /**
      * Constructs a specified VoyageFav object
      * @param userId the auto-generated ID of the user
-     * @param voyageId the auto-generated ID of the voyage, identified by vesselName and voyageNum
+     * @param voyageId the unique ID of the voyage
      */
-    @Id private int userId;
-    @Id private int voyageId;
+    @Id private int id;
+
+    @Column(name = "user_id", nullable = false)
+    private int userId;
+
+    @Column(name = "voyage_id", nullable = false)
+    private String voyageId;
 }

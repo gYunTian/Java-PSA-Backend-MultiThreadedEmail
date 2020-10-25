@@ -28,22 +28,24 @@ USE `portnet`;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Table structfvure for table `user`
 --
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL,
-  `name` varchar(58) NOT NULL,
-  `email` varchar(58) NOT NULL,
-  `password` varchar(58) NOT NULL,
-  `token` varchar(58),
+  `id` int(58) AUTO_INCREMENT,
+  `name` varchar(32) NOT NULL,
+  `email` varchar(32) NOT NULL,
+  `password` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
 --
+
+INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES
+(0, 'name', 'name@smu.edu.sg', 'password');
 
 -- --------------------------------------------------------
 
@@ -90,21 +92,21 @@ DROP TRIGGER IF EXISTS `if_berth_changed_update_history`;
 DELIMITER $$
 CREATE TRIGGER `if_berth_changed_update_history` BEFORE UPDATE ON `vessel` FOR EACH ROW BEGIN
 	IF (NEW.unbthgDt <> OLD.unbthgDt AND NEW.bthgDt <> OLD.bthgDt) THEN
-            UPDATE vessel_history SET 
+            UPDATE vessel_history SET
             last_bthgDt = OLD.`bthgDt`,
             bthgDt_change_count = 	bthgDt_change_count + 1,
             last_unbthgDt = OLD.`unbthgDt`,
             unbthgDt_change_count = 		unbthgDt_change_count + 1
             where `uniqueId` = NEW.`uniqueId`;
-            
+
      ELSEIF (NEW.`bthgDt` <> OLD.`bthgDt`) THEN
-            UPDATE vessel_history SET 
+            UPDATE vessel_history SET
             last_bthgDt = OLD.`bthgDt`,
             bthgDt_change_count = 	bthgDt_change_count + 1
-            where `uniqueId` = NEW.`uniqueId`;     
-            
+            where `uniqueId` = NEW.`uniqueId`;
+
         ELSEIF (NEW.`unbthgDt` <> OLD.`unbthgDt`) THEN
-            UPDATE vessel_history SET 
+            UPDATE vessel_history SET
             last_unbthgDt = OLD.`unbthgDt`,
             unbthgDt_change_count = 		unbthgDt_change_count + 1
             where `uniqueId` = NEW.`uniqueId`;
@@ -141,11 +143,9 @@ CREATE TABLE IF NOT EXISTS `vessel_history` (
 
 DROP TABLE IF EXISTS `voyage_sub`;
 CREATE TABLE IF NOT EXISTS `voyage_sub` (
-  `id` int(11) AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `voyage_id` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`,`voyage_id`),
-  KEY `id` (`id`)
+  `id` int(58) PRIMARY KEY AUTO_INCREMENT,
+  `user_id` int(58) NOT NULL,
+  `voyage_id` varchar(58) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -156,11 +156,9 @@ CREATE TABLE IF NOT EXISTS `voyage_sub` (
 
 DROP TABLE IF EXISTS `voyage_fav`;
 CREATE TABLE IF NOT EXISTS `voyage_fav` (
-  `id` int(11) AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `voyage_id` int(11) NOT NULL,
-  PRIMARY KEY (`user_id`,`voyage_id`),
-  KEY `id` (`id`)
+  `id` int(58) PRIMARY KEY AUTO_INCREMENT,
+  `user_id` int(58) NOT NULL,
+  `voyage_id` varchar(58) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
