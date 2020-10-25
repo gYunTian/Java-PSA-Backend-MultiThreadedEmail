@@ -2,6 +2,7 @@ package com.portnet.entity.storage;
 
 import lombok.*;
 import javax.persistence.*;
+import java.util.UUID;
 
 /**
  * An abstraction of a real-life user of the application
@@ -21,5 +22,14 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private String token;
 
+    public void setPassword(String password) {
+        this.password = password;
+        // passwordEncoder.encode(password));
+    }
+
+    public void setToken() {
+        this.token = UUID.randomUUID().toString();
+    }
 }

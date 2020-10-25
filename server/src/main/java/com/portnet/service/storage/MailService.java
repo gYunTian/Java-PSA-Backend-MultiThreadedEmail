@@ -13,26 +13,17 @@ import org.springframework.stereotype.Service;
 public class MailService {
 
     @Autowired
-    private JavaMailSender javaMailSender;
+    private JavaMailSender mailSender;
 
-    public String sendEmail(String recipient, String name, String type) {
-        SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setTo(recipient);
+    public String sendEmail(String subject, String body, String recipient) {
+        SimpleMailMessage email = new SimpleMailMessage();
 
-        if (type.equals("resetPassword")) {
-            msg.setSubject("xxxxxx is your Portnet account recovery code");
-            msg.setText("Hi "+name+",\n" +
-                    "We received a request to reset your Portnet password.\n" +
-                    "Click here to change your password.\n" +
-                    "Alternatively, you can enter the following password reset code:\n" +
-                    ""
-            );
-        }
+        email.setSubject(subject);
+        email.setText(body);
+        email.setTo(recipient);
 
-        javaMailSender.send(msg);
-        return "Email sent successfully";
+        mailSender.send(email);
+        return "Email successfully sent";
     }
-
-
 
 }

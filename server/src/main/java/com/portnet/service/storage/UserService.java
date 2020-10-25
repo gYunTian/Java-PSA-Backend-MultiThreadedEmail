@@ -1,7 +1,6 @@
 package com.portnet.service.storage;
 
 import com.portnet.dao.storage.UserDao;
-import com.portnet.entity.storage.Domain;
 import com.portnet.entity.storage.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +22,6 @@ public class UserService {
 
     @Autowired
     private DomainService domainService;
-
 
     /**
      * Add User to database if data passes validity checks
@@ -53,6 +51,7 @@ public class UserService {
         return "Registration successful";
     }
 
+
     /**
      * Get all Users in database
      * @return users object
@@ -80,16 +79,23 @@ public class UserService {
     }
 
     /**
-     * Update User with same id from database
+     * Get User with specified email in database
+     * @param token the verification code generated for the user to reset password
+     * @return user object
      */
-    public void updateUser(User user) {
-        User existingUser = getUserById(user.getId());
+    public User getUserByToken(String token) {
+        return userDao.findByToken(token);
+    }
 
-        existingUser.setName(user.getName());
-        existingUser.setEmail(user.getEmail());
-        existingUser.setPassword(user.getPassword());
 
-        userDao.save(existingUser);
+    /**
+     * Update password of User with same id from database
+     * @param user object
+     * @param password the new verified password chosen by the user
+     */
+    public void changeUserPassword(User user, String password) {
+        user.setPassword(password);
+        userDao.save(user);
     }
 
 }
