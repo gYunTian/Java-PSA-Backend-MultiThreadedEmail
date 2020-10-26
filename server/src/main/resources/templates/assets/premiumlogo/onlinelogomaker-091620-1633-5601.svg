@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="142.96" height="273.882" xml:space="preserve">
+<desc>Created with Fabric.js 1.6.0-rc.1</desc>
+<defs></defs>
+<g style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(10 10) scale(2.12 2.07)" >
+  <path d="M 29 25.882 l 26.482 -13.241 L 29.434 0.099 c -0.284 -0.137 -0.615 -0.132 -0.895 0.014 l -25 13 c -0.011 0.006 -0.018 0.015 -0.029 0.021 c -0.001 0.001 -0.002 0.001 -0.003 0.002 L 29 25.882 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #c63533; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+  <path d="M 30 27.618 V 60 c 0.138 0 0.272 -0.038 0.401 -0.094 c 0.015 -0.007 0.032 -0.004 0.046 -0.011 l 26 -13 C 56.786 46.725 57 46.379 57 46 V 14.119 L 30 27.618 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #c63533; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+  <path d="M 28 27.618 l -25 -12.5 V 46 c 0 0.379 0.214 0.725 0.553 0.895 L 28 59.119 V 27.618 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #c63533; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+</g>
+  <g transform="translate(72.47 45.18) scale(0.92 0.92)">
+   <text font-family="ADAMCG PRO" font-size="40" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #ffffff; fill-rule: nonzero; opacity: 1;" ><tspan x="-14.15" y="8.98" style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #ffffff; fill-rule: ; opacity: 1;">V</tspan></text>
+ </g>
+  <g transform="translate(63.61 238.17)">
+   <text font-family="ADAMCG PRO" font-size="40" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #000000; fill-rule: nonzero; opacity: 1;" ><tspan x="0" y="8.98" fill="#000000"></tspan></text>
+ </g>
+  <g transform="translate(41.54 95.44) rotate(7.95) scale(1.09 1.09)">
+   <text font-family="ADAMCG PRO" font-size="40" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #ffffff; fill-rule: nonzero; opacity: 1;" ><tspan x="-10.56" y="8.98" style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #ffffff; fill-rule: ; opacity: 1;">S</tspan></text>
+ </g>
+  <g transform="translate(103.82 94.61) rotate(350.38) scale(1.09 1.09)">
+   <text font-family="ADAMCG PRO" font-size="40" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #ffffff; fill-rule: nonzero; opacity: 1;" ><tspan x="-13.9" y="8.98" style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #ffffff; fill-rule: ; opacity: 1;">A</tspan></text>
+ </g>
+  <g transform="translate(72.5 84.24)">
+   <text font-family="ADAMCG PRO" font-size="40" font-weight="normal" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: #8a2526; fill-rule: nonzero; opacity: 1;" ><tspan x="-11.68" y="8.98" style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 4; fill: #8a2526; fill-rule: ; opacity: 1;">T</tspan></text>
+ </g>
+</svg>
