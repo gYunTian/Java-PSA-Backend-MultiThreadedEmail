@@ -16,6 +16,13 @@ public class MailService {
     @Autowired
     private JavaMailSender mailSender;
 
+    /**
+     * Generic method to send mail to user
+     * @param subject email header
+     * @param body email content
+     * @param recipient registered email of the requester
+     * @return status message indicating that mail was successful
+     */
     public ResponseEntity<String> sendEmail(String subject, String body, String recipient) {
         SimpleMailMessage email = new SimpleMailMessage();
 

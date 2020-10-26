@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  * REST APIs using service methods for User
@@ -56,14 +58,17 @@ public class UserController {
     /**
      * Specific method to send mail to user for respective purposes
      * @param email the email registered by the User
-     * @param attrs to store & bring user object to next view
-     * @return RedirectView to another link
+     * @param attrs to store & bring email content to the next view
+     * @return RedirectView object to the mail view
      */
-
     @RequestMapping(value = "/changePasswordRequest")
     public RedirectView changePasswordRequest(@RequestParam String email, RedirectAttributes attrs) {
-        User user = userService.getUserByEmail(email);  // could be null, handled in next view
-        attrs.addFlashAttribute("user", user);
+        HashMap<String,String> emailContent = userService.changeUserPasswordRequest(email);
+
+        Set<String> keys = emailContent.keySet();
+        for (String key : keys) {
+            attrs.addFlashAttribute(key, emailContent.get(key));
+        }
         return new RedirectView("sendEmail");
     }
 

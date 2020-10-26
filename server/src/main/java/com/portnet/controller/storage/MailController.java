@@ -18,25 +18,12 @@ public class MailController {
 
     /**
      * Generic method to send mail to user
-     * @param user object (null if not found)
-     * @return status message indicating that mail was successful
      */
     @RequestMapping(value = "/sendEmail")
-    public ResponseEntity<String> sendEmail(@ModelAttribute("user") User user) {
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
-        System.out.println("Request accepted");
-
-        user.setToken();
-        String body = "Hi " + user.getName() +",\n\n" +
-                "We received a request to reset the password of your Portnet account.\n\n" +
-                "You may use the following token to change your password:\n" +
-                "" + user.getToken() + "\n\n" +
-                "If you did not make such a request, kindly ignore this email.\n\n\n" +
-                "Thank you!\n" +
-                "G1T9";
-        return mailService.sendEmail("Portnet Account Password Reset", body, user.getEmail());
+    public ResponseEntity<String> sendEmail(@ModelAttribute("subject") String subject,
+                                            @ModelAttribute("body") String body,
+                                            @ModelAttribute("recipient") String recipient) {
+        return mailService.sendEmail(subject, body, recipient);
     }
 
 }
