@@ -51,7 +51,7 @@ public class VoyageSubController {
      */
 
     @DeleteMapping("/deleteVoyageSubs/{userId}/{voyageId}")
-    public void deleteVessel(@PathVariable int userId, int voyageId) {
+    public void deleteVoyageSub(@PathVariable int userId,@PathVariable String voyageId) {
         service.deleteVoyageSub(userId, voyageId);
     }
 

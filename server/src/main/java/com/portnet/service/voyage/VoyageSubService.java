@@ -51,9 +51,9 @@ public class VoyageSubService {
     /**
      * Remove VoyageSub with specified userId and voyageId from database
      * @param userId the auto-generated ID of the user
-     * @param voyageId the auto-generated ID of the voyage, identified by vesselName and voyageNum
+     * @param voyageId the unique ID of the voyage
      */
-    public void deleteVoyageSub(int userId, int voyageId) {
+    public void deleteVoyageSub(int userId, String voyageId) {
         voyageSubDao.deleteByUserIdAndVoyageId(userId, voyageId);
     }
 

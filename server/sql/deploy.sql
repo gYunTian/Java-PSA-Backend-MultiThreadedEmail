@@ -146,7 +146,7 @@ DROP TABLE IF EXISTS `voyage_sub`;
 CREATE TABLE IF NOT EXISTS `voyage_sub` (
   `id` int(11) AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `voyage_id` int(11) NOT NULL,
+  `voyage_id` varchar(58) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -160,7 +160,7 @@ DROP TABLE IF EXISTS `voyage_fav`;
 CREATE TABLE IF NOT EXISTS `voyage_fav` (
   `id` int(11) AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `voyage_id` int(11) NOT NULL,
+   `voyage_id` varchar(58) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
