@@ -59,7 +59,7 @@ public class UserController {
      * Specific method to send mail to user for respective purposes
      * @param email the email registered by the User
      * @param attrs to store & bring email content to the next view
-     * @return RedirectView object to the mail view
+     * @return redirects to mail which returns status message on successful sending of email
      */
     @RequestMapping(value = "/changePasswordRequest")
     public RedirectView changePasswordRequest(@RequestParam String email, RedirectAttributes attrs) {

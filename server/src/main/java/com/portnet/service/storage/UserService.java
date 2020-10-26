@@ -4,7 +4,6 @@ import com.portnet.dao.storage.UserDao;
 import com.portnet.entity.storage.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,9 +24,12 @@ public class UserService {
     @Autowired
     private DomainService domainService;
 
+    @Autowired
+    private MailService mailService;
+
     /**
      * Add User to database if data passes validity checks
-     * @param user object (null if not found)
+     * @param user object
      * @return message indicating if user registration successful
      */
     public String saveUser(User user) {
@@ -92,18 +94,18 @@ public class UserService {
     /**
      * Get content of reset password email
      * @param email registered email of the requester
-     * @return emailContent containing subject, body and recipient
+     * @return email content containing subject, body and recipient
      */
     public HashMap<String,String> changeUserPasswordRequest(String email) {
-        HashMap<String,String> emailContent = new HashMap<>();
 
         try {
             User user = getUserByEmail(email);  // if null, catch exception
             System.out.println("Request accepted"); // user is not null
-            user.setToken();    // generate password reset token
 
-            emailContent.put("subject", "Portnet Account Password Reset");
+            user.setToken();    // generate password reset token for email body
+            updateUser(user);
 
+            String subject = "Portnet Account Password Reset";
             String body = "Hi " + user.getName() +",\n\n" +
                     "We received a request to reset the password of your Portnet account.\n\n" +
                     "You may use the following token to change your password:\n" +
@@ -111,21 +113,35 @@ public class UserService {
                     "If you did not make such a request, kindly ignore this email.\n\n\n" +
                     "Thank you!\n" +
                     "G1T9";
-            emailContent.put("body", body);
+            String recipient = user.getEmail();
 
-            emailContent.put("recipient", user.getEmail());
+            return mailService.getEmailContent(subject, body, recipient);
 
         } catch (NullPointerException e) {
             System.out.println("Email is not registered");
         }
 
-        return emailContent;
+        return new HashMap<>();
     }
 
+    /**
+     * Update User with same id from database
+     * @param user object with updated details
+     */
+    public void updateUser(User user) {
+        User existingUser = getUserById(user.getId());
+
+        existingUser.setName(user.getName());
+        existingUser.setEmail(user.getEmail());
+        existingUser.setPassword(user.getPassword());
+        existingUser.setToken(user.getToken());
+
+        userDao.save(existingUser);
+    }
 
     /**
      * Update password of User with same id from database
-     * @param user object (null if not found)
+     * @param user object
      * @param password the new verified password chosen by the user
      */
     public void changeUserPassword(User user, String password) {

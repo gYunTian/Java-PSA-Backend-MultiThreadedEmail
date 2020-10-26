@@ -17,6 +17,7 @@ public class User {
      * @param name the name registered by the user
      * @param email the email registered by the user
      * @param password the encoded password of the user
+     * @param token generated token to identify user for password reset requests
      */
     @Id private int id;
     private String name;
