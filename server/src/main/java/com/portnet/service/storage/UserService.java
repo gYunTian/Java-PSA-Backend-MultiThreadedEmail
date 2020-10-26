@@ -3,9 +3,9 @@ package com.portnet.service.storage;
 import com.portnet.dao.storage.UserDao;
 import com.portnet.entity.storage.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -23,9 +23,6 @@ public class UserService {
 
     @Autowired
     private DomainService domainService;
-
-    @Autowired
-    private MailService mailService;
 
     /**
      * Add User to database if data passes validity checks
@@ -91,41 +88,9 @@ public class UserService {
         return userDao.findByToken(token);
     }
 
-    /**
-     * Get content of reset password email
-     * @param email registered email of the requester
-     * @return email content containing subject, body and recipient
-     */
-    public HashMap<String,String> changeUserPasswordRequest(String email) {
-
-        try {
-            User user = getUserByEmail(email);  // if null, catch exception
-            System.out.println("Request accepted"); // user is not null
-
-            user.setToken();    // generate password reset token for email body
-            updateUser(user);
-
-            String subject = "Portnet Account Password Reset";
-            String body = "Hi " + user.getName() +",\n\n" +
-                    "We received a request to reset the password of your Portnet account.\n\n" +
-                    "You may use the following token to change your password:\n" +
-                    "" + user.getToken() + "\n\n" +
-                    "If you did not make such a request, kindly ignore this email.\n\n\n" +
-                    "Thank you!\n" +
-                    "G1T9";
-            String recipient = user.getEmail();
-
-            return mailService.getEmailContent(subject, body, recipient);
-
-        } catch (NullPointerException e) {
-            System.out.println("Email is not registered");
-        }
-
-        return new HashMap<>();
-    }
 
     /**
-     * Update User with same id from database
+     * Update User with same id from database (helper method)
      * @param user object with updated details
      */
     public void updateUser(User user) {
@@ -139,13 +104,30 @@ public class UserService {
         userDao.save(existingUser);
     }
 
+
     /**
-     * Update password of User with same id from database
-     * @param user object
+     * Add token to specified User
+     * @param user object representing the requester
+     */
+    public void addToken(User user) {
+        user.setToken();
+        updateUser(user);
+    }
+
+    /**
+     * Update password & remove reset token of specified User
+     * @param user object from getUserByToken
      * @param password the new verified password chosen by the user
      */
-    public void changeUserPassword(User user, String password) {
+    public ResponseEntity<String> changePassword(User user, String password) {
         user.setPassword(password);
         userDao.save(user);
+
+        // remove token
+        user.setToken(null);
+        updateUser(user);
+
+        return ResponseEntity.ok("Password change successful");
     }
+
 }

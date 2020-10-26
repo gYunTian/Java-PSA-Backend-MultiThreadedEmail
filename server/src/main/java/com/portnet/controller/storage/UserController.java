@@ -3,13 +3,12 @@ package com.portnet.controller.storage;
 import com.portnet.entity.storage.User;
 import com.portnet.service.storage.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 /**
  * REST APIs using service methods for User
@@ -21,7 +20,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
 
     /**
      * Add methods
@@ -51,8 +49,8 @@ public class UserController {
      */
 
     @PutMapping("/changePassword")
-    public void changePassword(@RequestBody User user, String password) {
-        userService.changeUserPassword(user, password);
+    public ResponseEntity<String> changePassword(@RequestBody User user, String password) {
+        return userService.changePassword(user, password);
     }
 
     /**
@@ -63,12 +61,19 @@ public class UserController {
      */
     @RequestMapping(value = "/changePasswordRequest")
     public RedirectView changePasswordRequest(@RequestParam String email, RedirectAttributes attrs) {
-        HashMap<String,String> emailContent = userService.changeUserPasswordRequest(email);
+        try {
+            User user = userService.getUserByEmail(email);  // if null, catch exception
+            System.out.println("Request accepted"); // user is not null
+            userService.addToken(user); // generate password reset token for email body & save into database
 
-        Set<String> keys = emailContent.keySet();
-        for (String key : keys) {
-            attrs.addFlashAttribute(key, emailContent.get(key));
+            // For Redirection to mail
+            attrs.addFlashAttribute("user", user);
+            attrs.addFlashAttribute("type", "changePasswordRequest");
+
+        } catch (NullPointerException e) {
+            System.out.println("Email is not registered");
         }
+
         return new RedirectView("sendEmail");
     }
 
