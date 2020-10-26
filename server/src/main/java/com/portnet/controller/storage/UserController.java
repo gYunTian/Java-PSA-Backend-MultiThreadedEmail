@@ -26,7 +26,7 @@ public class UserController {
      */
 
     @PostMapping("/addUser")
-    public String addUser(@RequestBody User user) {
+    public ResponseEntity<String> addUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
 
@@ -44,6 +44,23 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+        /**
+         * sending email through url cuts the email for some reason, 
+         * might be better to pass in as json (/loginUser)?
+        */
+    @GetMapping("/userByEmail/{email}")
+    public User findUserByEmail(@PathVariable String email) {
+        return userService.getUserByEmail(email);
+    }
+
+        /**
+         * verify token @ password reset
+         */
+    @GetMapping("/userByToken/{token}")
+    public User findUserByToken(@PathVariable String token) {
+        return userService.getUserByToken(token);
+    }
+
     /**
      * Update methods
      */
@@ -56,9 +73,14 @@ public class UserController {
     /**
      * Request methods
      */
+
     @RequestMapping(value = "/changePasswordRequest")
     public RedirectView changePasswordRequest(@RequestParam String email, RedirectAttributes attrs) {
         return userService.changePasswordRequest(email, attrs);
     }
 
+//    @RequestMapping(value = "/loginUser")
+//    public ResponseEntity<String> loginUser(@RequestParam String email, @RequestParam String givenPassword) {
+//        return userService.loginUser(email, givenPassword);
+//    }
 }

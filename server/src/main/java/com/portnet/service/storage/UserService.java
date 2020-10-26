@@ -3,6 +3,7 @@ package com.portnet.service.storage;
 import com.portnet.dao.storage.UserDao;
 import com.portnet.entity.storage.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -31,29 +32,53 @@ public class UserService {
      * @param user object
      * @return message indicating if user registration successful
      */
-    public String saveUser(User user) {
+    public ResponseEntity<String> saveUser(User user) {
         // retrieve input values
         String name = user.getName();
         String email = user.getEmail();
         String pwd = user.getPassword();
 
-        // input length validity (avoid error when exceed minimum set in database)
+        // input length validity
         if (name.length()>32 || email.length()>32 || pwd.length()>32) {
-            return "Registration unsuccessful - inputs too long, keep within 32 characters";
+            return new ResponseEntity<>(
+                    "Registration unsuccessful - inputs too long, keep within 32 characters",
+                    HttpStatus.BAD_REQUEST);
         }
 
         // email validity
         if (getUserByEmail(email) != null) {
-            return "Registration unsuccessful - email already exists";
+            return new ResponseEntity<>(
+                    "Registration unsuccessful - email cannot be empty",
+                    HttpStatus.BAD_REQUEST);
         } else if (!domainService.domainAccepted(email)) {
-            return "Registration unsuccessful - email domain not accepted";
+            return new ResponseEntity<>(
+                    "Registration unsuccessful - email domain not accepted",
+                    HttpStatus.BAD_REQUEST);
         }
 
         // passed checks
         userDao.save(user);
-        return "Registration successful";
+        return ResponseEntity.ok("Registration successful");
     }
 
+//    /**
+//     * Add User to database if data passes validity checks
+//     * @return message indicating if user registration successful
+//     */
+//    public ResponseEntity<String> loginUser(String email, String givenPassword) {
+//        User user = getUserByEmail(email);
+//        if (user == null) {
+//            return new ResponseEntity<>(
+//                    "Login unsuccessful - wrong email",
+//                    HttpStatus.BAD_REQUEST);
+//        }
+//        if (!user.getPassword().equals(givenPassword)) {
+//            return new ResponseEntity<>(
+//                    "Login unsuccessful - wrong password",
+//                    HttpStatus.BAD_REQUEST);
+//        }
+//        return ResponseEntity.ok("Login successful - details valid");
+//    }
 
     /**
      * Get all Users in database

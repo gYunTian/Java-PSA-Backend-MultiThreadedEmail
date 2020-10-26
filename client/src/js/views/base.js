@@ -13,13 +13,13 @@ export const elements = {
   greeting: document.querySelector('.greeting'),
 };
 
-const ENDPOINT = 'http://localhost:8080';
+const ENDPOINT = 'http://localhost:8080/api';
 
 const CORS = 'https://cors-anywhere.herokuapp.com';
 
 export const APIs = {
   addUser: `${ENDPOINT}/addUser`,
-  getUserByEmail: `${ENDPOINT}/user`,
+  getUserByEmail: `${ENDPOINT}/userByEmail` // think got issue, see UserService
 };
 
 // *Full screen spinner clear
