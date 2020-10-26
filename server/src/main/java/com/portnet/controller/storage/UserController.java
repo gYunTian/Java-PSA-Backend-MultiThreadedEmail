@@ -55,15 +55,16 @@ public class UserController {
 
     /**
      * Specific method to send mail to user for respective purposes
-     * @param user object
-     * @param attributes to store & bring user object to next view
+     * @param email the email registered by the User
+     * @param attrs to store & bring user object to next view
      * @return RedirectView to another link
      */
 
     @RequestMapping(value = "/changePasswordRequest")
-    public RedirectView changePasswordReq(@RequestBody User user, RedirectAttributes attributes) {
-        user.setToken();
-        attributes.addFlashAttribute("user", user);
+    public RedirectView changePasswordRequest(@RequestParam String email, RedirectAttributes attrs) {
+        User user = userService.getUserByEmail(email);  // could be null, handled in next view
+        attrs.addFlashAttribute("user", user);
         return new RedirectView("sendEmail");
     }
+
 }

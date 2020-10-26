@@ -28,15 +28,16 @@ USE `portnet`;
 -- --------------------------------------------------------
 
 --
--- Table structfvure for table `user`
+-- Table structure for table `user`
 --
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(58) AUTO_INCREMENT,
-  `name` varchar(32) NOT NULL,
-  `email` varchar(32) NOT NULL,
-  `password` varchar(32) NOT NULL,
+  `id` int(11) NOT NULL,
+  `name` varchar(58) NOT NULL,
+  `email` varchar(58) NOT NULL,
+  `password` varchar(58) NOT NULL,
+  `token` varchar(58),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -45,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES
-(0, 'name', 'name@smu.edu.sg', 'password');
+(0, 'admin', 'portnet.g1t9@gmail.com', 'portnet.g1t9');
 
 -- --------------------------------------------------------
 
@@ -143,9 +144,10 @@ CREATE TABLE IF NOT EXISTS `vessel_history` (
 
 DROP TABLE IF EXISTS `voyage_sub`;
 CREATE TABLE IF NOT EXISTS `voyage_sub` (
-  `id` int(58) PRIMARY KEY AUTO_INCREMENT,
-  `user_id` int(58) NOT NULL,
-  `voyage_id` varchar(58) NOT NULL
+  `id` int(11) AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `voyage_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -156,9 +158,10 @@ CREATE TABLE IF NOT EXISTS `voyage_sub` (
 
 DROP TABLE IF EXISTS `voyage_fav`;
 CREATE TABLE IF NOT EXISTS `voyage_fav` (
-  `id` int(58) PRIMARY KEY AUTO_INCREMENT,
-  `user_id` int(58) NOT NULL,
-  `voyage_id` varchar(58) NOT NULL
+  `id` int(11) AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `voyage_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

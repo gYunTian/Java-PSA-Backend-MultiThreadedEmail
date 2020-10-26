@@ -1,6 +1,7 @@
 package com.portnet.service.storage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ public class MailService {
     @Autowired
     private JavaMailSender mailSender;
 
-    public String sendEmail(String subject, String body, String recipient) {
+    public ResponseEntity<String> sendEmail(String subject, String body, String recipient) {
         SimpleMailMessage email = new SimpleMailMessage();
 
         email.setSubject(subject);
@@ -23,7 +24,7 @@ public class MailService {
         email.setTo(recipient);
 
         mailSender.send(email);
-        return "Email successfully sent";
+        return ResponseEntity.ok("Email successfully sent");
     }
 
 }

@@ -25,7 +25,7 @@ public class UserService {
 
     /**
      * Add User to database if data passes validity checks
-     * @param user object
+     * @param user object (null if not found)
      * @return message indicating if user registration successful
      */
     public String saveUser(User user) {
@@ -54,7 +54,7 @@ public class UserService {
 
     /**
      * Get all Users in database
-     * @return users object
+     * @return users object (null if not found)
      */
     public List<User> getUsers() {
         return userDao.findAll();
@@ -63,7 +63,7 @@ public class UserService {
     /**
      * Get User with specified id in database
      * @param id the auto-generated ID of the user
-     * @return user object
+     * @return user object (null if not found)
      */
     public User getUserById(int id) {
         return userDao.findById(id).orElse(null);
@@ -72,7 +72,7 @@ public class UserService {
     /**
      * Get User with specified email in database
      * @param email the email registered by the User
-     * @return user object
+     * @return user object (null if not found)
      */
     public User getUserByEmail(String email) {
         return userDao.findByEmail(email);
@@ -81,7 +81,7 @@ public class UserService {
     /**
      * Get User with specified email in database
      * @param token the verification code generated for the user to reset password
-     * @return user object
+     * @return user object (null if not found)
      */
     public User getUserByToken(String token) {
         return userDao.findByToken(token);
@@ -90,7 +90,7 @@ public class UserService {
 
     /**
      * Update password of User with same id from database
-     * @param user object
+     * @param user object (null if not found)
      * @param password the new verified password chosen by the user
      */
     public void changeUserPassword(User user, String password) {

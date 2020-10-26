@@ -3,6 +3,7 @@ package com.portnet.controller.storage;
 import com.portnet.entity.storage.User;
 import com.portnet.service.storage.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -17,11 +18,17 @@ public class MailController {
 
     /**
      * Generic method to send mail to user
-     * @param user object
+     * @param user object (null if not found)
      * @return status message indicating that mail was successful
      */
     @RequestMapping(value = "/sendEmail")
-    public String sendEmail(@ModelAttribute("user") User user) {
+    public ResponseEntity<String> sendEmail(@ModelAttribute("user") User user) {
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        System.out.println("Request accepted");
+
+        user.setToken();
         String body = "Hi " + user.getName() +",\n\n" +
                 "We received a request to reset the password of your Portnet account.\n\n" +
                 "You may use the following token to change your password:\n" +
