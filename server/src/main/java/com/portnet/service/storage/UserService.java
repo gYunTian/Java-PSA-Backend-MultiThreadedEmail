@@ -5,6 +5,8 @@ import com.portnet.entity.storage.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
@@ -121,7 +123,7 @@ public class UserService {
      */
     public ResponseEntity<String> changePassword(User user, String password) {
         user.setPassword(password);
-        userDao.save(user);
+        updateUser(user);
 
         // remove token
         user.setToken(null);
@@ -130,4 +132,27 @@ public class UserService {
         return ResponseEntity.ok("Password change successful");
     }
 
+
+    /**
+     * Specific method to send mail to user for respective purposes
+     * @param email the email registered by the User
+     * @param attrs to store & bring email content to the next view
+     * @return redirects to mail which returns status message on successful sending of email
+     */
+    public RedirectView changePasswordRequest(String email, RedirectAttributes attrs) {
+        try {
+            User user = getUserByEmail(email);  // if null, catch exception
+            System.out.println("Request accepted"); // user is not null
+            addToken(user); // generate password reset token for email body & save into database
+
+            // For Redirection to mail
+            attrs.addFlashAttribute("user", user);
+            attrs.addFlashAttribute("type", "changePasswordRequest");
+
+        } catch (NullPointerException e) {
+            System.out.println("Email is not registered");
+        }
+
+        return new RedirectView("sendEmail");
+    }
 }

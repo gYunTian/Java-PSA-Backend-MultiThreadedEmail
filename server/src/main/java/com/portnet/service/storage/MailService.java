@@ -25,10 +25,8 @@ public class MailService {
      * @param type email purpose
      * @return status message indicating that mail was successful
      */
-    public ResponseEntity<String> sendEmail(User user, String type) {
+    public ResponseEntity<String> sendEmail(HashMap<String,String> emailContent) {
         SimpleMailMessage email = new SimpleMailMessage();
-
-        HashMap<String,String> emailContent = getEmailContent(user, type);
 
         email.setSubject(emailContent.get("subject"));
         email.setText(emailContent.get("body"));

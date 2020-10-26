@@ -54,27 +54,11 @@ public class UserController {
     }
 
     /**
-     * Specific method to send mail to user for respective purposes
-     * @param email the email registered by the User
-     * @param attrs to store & bring email content to the next view
-     * @return redirects to mail which returns status message on successful sending of email
+     * Request methods
      */
     @RequestMapping(value = "/changePasswordRequest")
     public RedirectView changePasswordRequest(@RequestParam String email, RedirectAttributes attrs) {
-        try {
-            User user = userService.getUserByEmail(email);  // if null, catch exception
-            System.out.println("Request accepted"); // user is not null
-            userService.addToken(user); // generate password reset token for email body & save into database
-
-            // For Redirection to mail
-            attrs.addFlashAttribute("user", user);
-            attrs.addFlashAttribute("type", "changePasswordRequest");
-
-        } catch (NullPointerException e) {
-            System.out.println("Email is not registered");
-        }
-
-        return new RedirectView("sendEmail");
+        return userService.changePasswordRequest(email, attrs);
     }
 
 }

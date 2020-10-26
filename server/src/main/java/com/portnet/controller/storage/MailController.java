@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 /**
  * REST APIs using service methods for mail
  */
@@ -22,7 +24,8 @@ public class MailController {
     @RequestMapping(value = "/sendEmail")
     public ResponseEntity<String> sendEmail(@ModelAttribute("user") User user,
                                             @ModelAttribute("type") String type) {
-        return mailService.sendEmail(user, type);
+        HashMap<String,String> emailContent = mailService.getEmailContent(user, type);
+        return mailService.sendEmail(emailContent);
     }
 
 }
