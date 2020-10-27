@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 /** 
  * Class to represent the external configuration properties for scheduling jobs
- * Input comes from application.yml in the following PREFIX: spring.quartz.properties
+ * Input comes from application.properties in the following PREFIX: spring.quartz.properties
  */
 
 @Component
