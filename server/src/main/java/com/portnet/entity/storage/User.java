@@ -1,6 +1,7 @@
 package com.portnet.entity.storage;
 
 import lombok.*;
+
 import javax.persistence.*;
 import java.util.UUID;
 
@@ -11,6 +12,7 @@ import java.util.UUID;
 @Entity @Data @Table
 @NoArgsConstructor @AllArgsConstructor
 public class User {
+
     /**
      * Constructs a specified User object
      * @param id the auto-generated ID of the user
@@ -19,6 +21,7 @@ public class User {
      * @param password the encoded password of the user
      * @param token generated token to identify user for password reset requests
      */
+
     @Id private int id;
     private String name;
     private String email;
@@ -27,7 +30,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-        // passwordEncoder.encode(password));
     }
 
     public void setToken() {

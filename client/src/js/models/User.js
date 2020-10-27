@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { elements, APIs } from '../views/base';
+import { elements, APIs, headers } from '../views/base';
 
 export default class User {
   constructor(name = null, email, password) {
@@ -34,6 +34,7 @@ export default class User {
           email: this.email,
           password: this.password,
         },
+        headers
       });
       this.registerStatus = result.status;
     } catch (error) {

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component  @Data
-@ConfigurationProperties(prefix = "spring.domain")
+@ConfigurationProperties(prefix = "domain")
 public class Domain {
     private String[] acceptedDomains;
 }

@@ -29,3 +29,11 @@ export const clearSpinner = () => {
     elements.spinner.parentElement.removeChild(elements.spinner);
   }
 };
+
+// API Authentication
+const USER = "g1t9";
+const PASSWORD = "999000";
+
+export const headers = { 
+  authorization: 'Basic ' + window.btoa(USER + ":" + PASSWORD) 
+};

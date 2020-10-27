@@ -34,10 +34,10 @@ USE `portnet`;
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL,
-  `name` varchar(58) NOT NULL,
-  `email` varchar(58) NOT NULL,
-  `password` varchar(58) NOT NULL,
-  `token` varchar(58),
+  `name` varchar(32) NOT NULL,
+  `email` varchar(32) NOT NULL,
+  `password` varchar(60) NOT NULL,
+  `token` varchar(60),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -56,7 +56,7 @@ INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES
 
 DROP TABLE IF EXISTS `vessel`;
 CREATE TABLE IF NOT EXISTS `vessel` (
-  `uniqueId` varchar(58) NOT NULL,
+  `uniqueId` varchar(60) NOT NULL,
   `imoN` varchar(12) DEFAULT NULL,
   `fullVslM` varchar(48) NOT NULL,
   `abbrVslM` varchar(32) NOT NULL,
@@ -124,7 +124,7 @@ DELIMITER ;
 
 DROP TABLE IF EXISTS `vessel_history`;
 CREATE TABLE IF NOT EXISTS `vessel_history` (
-  `uniqueId` varchar(58) NOT NULL,
+  `uniqueId` varchar(60) NOT NULL,
   `last_bthgDt` varchar(21) NOT NULL,
   `last_unbthgDt` varchar(21) NOT NULL,
   `bthgDt_change_count` int(2) NOT NULL DEFAULT '0',
@@ -146,7 +146,7 @@ DROP TABLE IF EXISTS `voyage_sub`;
 CREATE TABLE IF NOT EXISTS `voyage_sub` (
   `id` int(11) AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `voyage_id` varchar(58) NOT NULL,
+  `voyage_id` varchar(60) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -160,7 +160,7 @@ DROP TABLE IF EXISTS `voyage_fav`;
 CREATE TABLE IF NOT EXISTS `voyage_fav` (
   `id` int(11) AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-   `voyage_id` varchar(58) NOT NULL,
+   `voyage_id` varchar(60) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

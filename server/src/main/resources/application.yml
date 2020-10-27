@@ -1,27 +1,3 @@
-spring:
-  datasource:
-    username: root
-    password:
-    url: jdbc:mysql://localhost:3306/portnet?serverTimezone=GMT
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    show-sql: false
-    hibernate:
-      ddl-auto: none
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    properties.hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-  domain:
-    acceptedDomains:
-      - smu.edu.sg
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: portnet.g1t9@gmail.com
-    password: portnet$G1T9
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
+domain:
+  acceptedDomains:
+    - smu.edu.sg
