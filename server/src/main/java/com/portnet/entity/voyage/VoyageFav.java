@@ -25,4 +25,5 @@ public class VoyageFav {
 
     @Column(name = "voyage_id", nullable = false)
     private String voyageId;
+
 }

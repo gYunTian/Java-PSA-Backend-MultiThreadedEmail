@@ -4,6 +4,8 @@ import com.portnet.dao.voyage.VoyageFavDao;
 import com.portnet.entity.voyage.Voyage;
 import com.portnet.entity.voyage.VoyageFav;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +20,17 @@ public class VoyageFavService {
      * Add VoyageFav to database
      * @param voyageFav object
      */
-    public void saveVoyageFav(VoyageFav voyageFav) {
+    public ResponseEntity<String> saveVoyageFav(VoyageFav voyageFav) {
+        int userId = voyageFav.getUserId();
+        String voyageId = voyageFav.getVoyageId();
+        List<VoyageFav> voyageFavList = voyageFavDao.findVoyageFavByUserIdAndVoyageId(userId, voyageId);
+        if (voyageFavList.size() >= 1){
+            return new ResponseEntity<>(
+                    "voyageFav not added - voyageFav already exist",
+                    HttpStatus.BAD_REQUEST);
+        }
         voyageFavDao.save(voyageFav);
+        return ResponseEntity.ok("voyageFav added successful");
     }
 
     /**
@@ -54,8 +65,15 @@ public class VoyageFavService {
      * @param userId the auto-generated ID of the user
      * @param voyageId the unique ID of the voyage
      */
-    public void deleteVoyageFav(int userId, String voyageId) {
+    public ResponseEntity<String> deleteVoyageFav(int userId, String voyageId) {
+        List<VoyageFav> voyageFavList = voyageFavDao.findVoyageFavByUserIdAndVoyageId(userId, voyageId);
+        if (voyageFavList.size() == 0){
+            return new ResponseEntity<>(
+                    "voyageFav not deleted - voyageFav not exist",
+                    HttpStatus.BAD_REQUEST);
+        }
         voyageFavDao.deleteByUserIdAndVoyageId(userId, voyageId);
+        return ResponseEntity.ok("voyageFav deleted successful");
     }
 
 }

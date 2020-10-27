@@ -33,7 +33,7 @@ USE `portnet`;
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL,
+  `id` int(11) AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   `email` varchar(32) NOT NULL,
   `password` varchar(60) NOT NULL,

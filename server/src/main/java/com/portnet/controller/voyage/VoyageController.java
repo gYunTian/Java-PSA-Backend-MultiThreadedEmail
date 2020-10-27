@@ -51,9 +51,9 @@ public class VoyageController {
      * Update methods
      */
 
-    @PutMapping("/updateVoyage")
+    /*@PutMapping("/updateVoyage")
     public void updateVoyage(@RequestBody Voyage voyage) {
         service.updateVoyage(voyage);
-    }
+    }*/
 
 }

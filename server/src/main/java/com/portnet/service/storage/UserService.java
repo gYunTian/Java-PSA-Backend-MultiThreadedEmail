@@ -49,7 +49,7 @@ public class UserService {
         // email validity
         if (getUserByEmail(email) != null) {
             return new ResponseEntity<>(
-                    "Registration unsuccessful - user already exists",
+                    "Registration unsuccessful - email already exists",
                     HttpStatus.BAD_REQUEST);
         } else if (!domainService.domainAccepted(email)) {
             return new ResponseEntity<>(

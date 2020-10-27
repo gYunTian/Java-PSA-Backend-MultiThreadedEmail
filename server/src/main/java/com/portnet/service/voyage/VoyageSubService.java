@@ -1,8 +1,11 @@
 package com.portnet.service.voyage;
 
 import com.portnet.dao.voyage.VoyageSubDao;
+import com.portnet.entity.voyage.VoyageFav;
 import com.portnet.entity.voyage.VoyageSub;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,9 +20,19 @@ public class VoyageSubService {
      * Add VoyageSub to database
      * @param voyageSub object
      */
-    public void saveVoyageSub(VoyageSub voyageSub) {
+    public ResponseEntity<String> saveVoyageSub(VoyageSub voyageSub) {
+        int userId = voyageSub.getUserId();
+        String voyageId = voyageSub.getVoyageId();
+        List<VoyageSub> voyageSubList = voyageSubDao.findVoyageSubByUserIdAndVoyageId(userId, voyageId);
+        if (voyageSubList.size() >= 1){
+            return new ResponseEntity<>(
+                    "voyageSub not added - voyageSub already exist",
+                    HttpStatus.BAD_REQUEST);
+        }
         voyageSubDao.save(voyageSub);
+        return ResponseEntity.ok("voyageSub added successful");
     }
+
 
     /**
      * Add VoyageSubs in array to database
@@ -53,8 +66,15 @@ public class VoyageSubService {
      * @param userId the auto-generated ID of the user
      * @param voyageId the unique ID of the voyage
      */
-    public void deleteVoyageSub(int userId, String voyageId) {
+    public ResponseEntity<String> deleteVoyageSub(int userId, String voyageId) {
+        List<VoyageSub> voyageSubList = voyageSubDao.findVoyageSubByUserIdAndVoyageId(userId, voyageId);
+        if (voyageSubList.size() == 0){
+            return new ResponseEntity<>(
+                    "voyageSub not deleted - voyageSub not exist",
+                    HttpStatus.BAD_REQUEST);
+        }
         voyageSubDao.deleteByUserIdAndVoyageId(userId, voyageId);
+        return ResponseEntity.ok("voyageSub deleted successful");
     }
 
 }

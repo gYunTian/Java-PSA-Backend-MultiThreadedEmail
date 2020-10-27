@@ -52,10 +52,10 @@ public class VoyageService {
      * Update Voyage changeCount based on voyage from database
      * @param voyage object
      */
-    public void updateVoyage(Voyage voyage) {
+    /*public void updateVoyage(Voyage voyage) {
         Voyage existingVoyage = getVoyageById(voyage.getVoyageId());
         existingVoyage.setChangeCount(voyage.getChangeCount());
         voyageDao.save(existingVoyage);
-    }
+    }*/
 
 }

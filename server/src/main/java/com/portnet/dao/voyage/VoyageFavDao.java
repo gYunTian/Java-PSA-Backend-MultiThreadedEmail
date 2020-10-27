@@ -1,7 +1,10 @@
 package com.portnet.dao.voyage;
 
+import com.portnet.entity.storage.Vessel;
 import com.portnet.entity.voyage.VoyageFav;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
@@ -27,4 +30,13 @@ public interface VoyageFavDao extends JpaRepository<VoyageFav, Integer> {
      */
     @Transactional
     void deleteByUserIdAndVoyageId(int userId, String voyageId);
+
+    /**
+     * Additional custom method to find if VoyageFav is in database
+     * @param userId the auto-generated ID of the user
+     * @param voyageId the unique ID of the voyage
+     */
+
+    @Query("select f from VoyageFav f where f.userId = :userId and f.voyageId = :voyageId")
+    List<VoyageFav> findVoyageFavByUserIdAndVoyageId(@Param("userId") Integer userId,@Param("voyageId") String voyageId);
 }

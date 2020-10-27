@@ -3,6 +3,7 @@ package com.portnet.controller.voyage;
 import com.portnet.entity.voyage.VoyageSub;
 import com.portnet.service.voyage.VoyageSubService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +24,8 @@ public class VoyageSubController {
      */
 
     @PostMapping("/addVoyageSub")
-    public void addVoyageSub(@RequestBody VoyageSub voyageSub) {
-        service.saveVoyageSub(voyageSub);
+    public ResponseEntity<String> addVoyageSub(@RequestBody VoyageSub voyageSub) {
+        return service.saveVoyageSub(voyageSub);
     }
 
     @PostMapping("/addVoyageSubs")
@@ -51,8 +52,8 @@ public class VoyageSubController {
      */
 
     @DeleteMapping("/deleteVoyageSubs/{userId}/{voyageId}")
-    public void deleteVoyageSub(@PathVariable int userId,@PathVariable String voyageId) {
-        service.deleteVoyageSub(userId, voyageId);
+    public ResponseEntity<String> deleteVoyageSub(@PathVariable int userId,@PathVariable String voyageId) {
+        return service.deleteVoyageSub(userId, voyageId);
     }
 
 }

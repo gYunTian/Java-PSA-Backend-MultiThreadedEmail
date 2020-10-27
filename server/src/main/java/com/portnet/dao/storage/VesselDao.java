@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 public interface VesselDao extends CrudRepository<Vessel, String> {
     
     /**
-     * Additional custom method to find User with specified email
+     * Additional custom method to find vessel based on start and end date
      * @param startDate
      * @param endDate
      */
