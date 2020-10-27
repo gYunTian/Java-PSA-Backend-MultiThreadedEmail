@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES
-(0, 'admin', 'portnet.g1t9@gmail.com', 'portnet.g1t9');
+(0, 'admin', 'portnet.g1t9@gmail.com', '$2a$10$kbNFYaSy.5ajtfQVuQoR0.kOqP7qBMKT1n1aCOOip5yCbFe7pOT42');
 
 -- --------------------------------------------------------
 

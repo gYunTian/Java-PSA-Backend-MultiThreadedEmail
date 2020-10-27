@@ -35,16 +35,16 @@ public class UserService {
      */
     public ResponseEntity<String> saveUser(User user) {
         // retrieve input values
-        String name = user.getName();
+//        String name = user.getName();
         String email = user.getEmail();
-        String pwd = user.getPassword();
+//        String pwd = user.getPassword();
 
-        // input length validity
-        if (name.length()>32 || email.length()>32 || pwd.length()>32) {
-            return new ResponseEntity<>(
-                    "Registration unsuccessful - inputs too long, keep within 32 characters",
-                    HttpStatus.BAD_REQUEST);
-        }
+//        // input length validity
+//        if (name.length()>32 || email.length()>32 || pwd.length()>32) {
+//            return new ResponseEntity<>(
+//                    "Registration unsuccessful - inputs too long, keep within 32 characters",
+//                    HttpStatus.BAD_REQUEST);
+//        }
 
         // email validity
         if (getUserByEmail(email) != null) {
@@ -215,5 +215,15 @@ public class UserService {
         }
 
         return new RedirectView("sendEmail");
+    }
+
+
+    /**
+     * Remove specified User from database
+     * @param user object that requested deactivation of account
+     */
+    public ResponseEntity<String> deleteUser(User user) {
+        userDao.delete(user);
+        return ResponseEntity.ok("voyageFav deleted successful");
     }
 }

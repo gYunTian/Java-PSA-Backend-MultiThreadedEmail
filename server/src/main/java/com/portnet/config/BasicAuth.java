@@ -6,6 +6,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+/**
+ * Spring Security Configuration to authenticate API requests
+ */
+
 @Configuration
 @EnableWebSecurity
 public class BasicAuth extends WebSecurityConfigurerAdapter {

@@ -15,11 +15,10 @@ public class VoyageByUserId implements Serializable {
     /**
      * Constructs a specified Voyage primary key
      * @param userId the auto-generated ID of the user
-     * @param voyageId the auto-generated ID of the voyage, identified by vesselName and voyageNum
+     * @param voyageId the ID of the voyage, identified by record
      */
     private int userId;
     private String voyageId;
-    // todo: link to tables
 
     /**
      * Custom equals method to account all elements
@@ -35,7 +34,7 @@ public class VoyageByUserId implements Serializable {
         if (!(object instanceof VoyageByUserId)) return false;
         VoyageByUserId voyagebyUserId = (VoyageByUserId) object;
         return userId == voyagebyUserId.userId &&
-                voyageId == voyagebyUserId.voyageId;
+                voyageId.equals(voyagebyUserId.voyageId);
     }
 
     /**

@@ -28,14 +28,7 @@ public class Domain {
     private static final String PREFIX = "domain.";
 
     public String[] getAcceptedDomains(){
-        return environment.getProperty(PREFIX+"acceptedDomains[0]", String[].class);
+        return environment.getProperty(PREFIX+"acceptedDomains", String[].class);
     }
-
-
-    public void setAcceptedDomains(String[] acceptedDomains){
-        this.acceptedDomains = acceptedDomains;
-    }
-
-    
 
 }

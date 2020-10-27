@@ -73,4 +73,14 @@ public class UserController {
     public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDTO) {
         return userService.loginUser(loginDTO.getEmail(), loginDTO.getPassword());
     }
+
+    /**
+     * Delete methods
+     */
+
+    @DeleteMapping("/deactivateUser")
+    public ResponseEntity<String> deactivateUser(@RequestBody User user) {
+        return userService.deleteUser(user);
+    }
+
 }

@@ -1,8 +1,12 @@
 package com.portnet.entity.storage;
 
+import com.sun.istack.NotNull;
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 /**
@@ -23,13 +27,25 @@ public class User {
      */
 
     @Id private int id;
+
+    @NotBlank(message = "Name is mandatory")
     private String name;
+
+    @NotBlank(message = "Email is mandatory")
+    @Email(message = "Email should be valid")
     private String email;
+
+    @NotBlank(message = "Password is mandatory")
     private String password;
+
     private String token;
 
     public void setPassword(String password) {
-        this.password = password;
+        if (password.equals("")) {
+            this.password = password;
+        }
+        this.password = new BCryptPasswordEncoder().encode(password);
+
     }
 
     public void setToken() {
