@@ -2,12 +2,8 @@ package com.portnet.entity.storage;
 
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**

@@ -26,13 +26,14 @@ public class DomainService {
     public boolean domainAccepted(String userEmail) {
         // get accepted domains
         String[] acceptedDomains = domain.getAcceptedDomains();
-        for (String d : acceptedDomains) {System.out.println(d);}
+
         // if none accepted, no point in further checks
         if (acceptedDomains == null) return false;
 
         // there are accepted domains, check if user's domain is 1 of them
         String userDomain = userEmail.split("@")[1];    // assumes valid email
-        return Arrays.asList(acceptedDomains).contains(userDomain);
+        return Arrays.stream(acceptedDomains).parallel().anyMatch(userDomain::contains);
+        // user domain could be a substring of accepted domain
     }
 
 }

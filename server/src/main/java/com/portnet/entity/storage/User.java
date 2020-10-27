@@ -1,6 +1,5 @@
 package com.portnet.entity.storage;
 
-import com.sun.istack.NotNull;
 import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -41,11 +40,12 @@ public class User {
     private String token;
 
     public void setPassword(String password) {
-        if (password.equals("")) {
-            this.password = password;
+        if (!password.equals("")) {
+            // prevent encode "" else blank pw will end up being treated as not blank
+            this.password = new BCryptPasswordEncoder().encode(password);
+            return;
         }
-        this.password = new BCryptPasswordEncoder().encode(password);
-
+        this.password = password;
     }
 
     public void setToken() {

@@ -1,7 +1,6 @@
 package com.portnet.service.voyage;
 
 import com.portnet.dao.voyage.VoyageSubDao;
-import com.portnet.entity.voyage.VoyageFav;
 import com.portnet.entity.voyage.VoyageSub;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,9 +29,8 @@ public class VoyageSubService {
                     HttpStatus.BAD_REQUEST);
         }
         voyageSubDao.save(voyageSub);
-        return ResponseEntity.ok("voyageSub added successful");
+        return ResponseEntity.ok("Voyage Subscription added successful");
     }
-
 
     /**
      * Add VoyageSubs in array to database
@@ -70,11 +68,11 @@ public class VoyageSubService {
         List<VoyageSub> voyageSubList = voyageSubDao.findVoyageSubByUserIdAndVoyageId(userId, voyageId);
         if (voyageSubList.size() == 0){
             return new ResponseEntity<>(
-                    "voyageSub not deleted - voyageSub not exist",
+                    "Voyage unsubscription unsuccessful - subscription does not exist",
                     HttpStatus.BAD_REQUEST);
         }
         voyageSubDao.deleteByUserIdAndVoyageId(userId, voyageId);
-        return ResponseEntity.ok("voyageSub deleted successful");
+        return ResponseEntity.ok("Voyage unsubscription successful");
     }
 
 }

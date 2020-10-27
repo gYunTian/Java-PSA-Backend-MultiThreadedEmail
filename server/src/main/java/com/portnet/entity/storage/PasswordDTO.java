@@ -4,10 +4,16 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 public class PasswordDTO {
     private User user;
+
+    @NotBlank(message = "Identifier is mandatory")
     private String identifier;  // old password or token input
+
+    @NotBlank(message = "Password is mandatory")
     private String newPassword;
     // for now, assumes already validated to be not null else can hack sys
 
