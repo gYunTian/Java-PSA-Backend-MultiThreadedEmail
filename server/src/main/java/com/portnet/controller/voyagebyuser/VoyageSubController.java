@@ -1,7 +1,7 @@
-package com.portnet.controller.voyage;
+package com.portnet.controller.voyagebyuser;
 
-import com.portnet.entity.voyage.VoyageSub;
-import com.portnet.service.voyage.VoyageSubService;
+import com.portnet.entity.voyagebyuser.VoyageSub;
+import com.portnet.service.voyagebyuser.VoyageSubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -5,7 +5,7 @@ import java.util.List;
 import com.portnet.dao.storage.VesselDTODao;
 import com.portnet.dao.storage.VesselDao;
 import com.portnet.entity.storage.Vessel;
-import com.portnet.entity.storage.VesselDTO;
+import com.portnet.entity.dto.VesselDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

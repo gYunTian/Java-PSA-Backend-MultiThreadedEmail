@@ -1,22 +1,18 @@
-package com.portnet.entity.voyage;
+package com.portnet.entity.voyagebyuser;
 
-import com.portnet.utility.VoyageByUserId;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
- * Storage for the voyage subscribed by a user
+ * Storage for the voyage favorited by a user
  */
 //@IdClass(VoyageByUserId.class)
-@Entity @Data @Table(name = "voyage_sub")
+@Entity @Data @Table(name = "voyage_fav")
 @NoArgsConstructor @AllArgsConstructor
-public class VoyageSub implements Serializable {
+public class VoyageFav {
     /**
-     * Constructs a specified VoyageSub object
+     * Constructs a specified VoyageFav object
      * @param userId the auto-generated ID of the user
      * @param voyageId the unique ID of the voyage
      */
@@ -27,4 +23,5 @@ public class VoyageSub implements Serializable {
 
     @Column(name = "voyage_id", nullable = false)
     private String voyageId;
+
 }

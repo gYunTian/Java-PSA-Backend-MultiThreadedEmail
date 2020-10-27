@@ -2,7 +2,7 @@
 
 package com.portnet.listener;
 
-import com.portnet.entity.storage.VesselDTO;
+import com.portnet.entity.dto.VesselDTO;
 import com.portnet.publisher.DbEventPublisher;
 
 import org.hibernate.event.spi.PostUpdateEvent;

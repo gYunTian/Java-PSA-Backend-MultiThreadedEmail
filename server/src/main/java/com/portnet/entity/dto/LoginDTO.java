@@ -1,4 +1,4 @@
-package com.portnet.entity.storage;
+package com.portnet.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

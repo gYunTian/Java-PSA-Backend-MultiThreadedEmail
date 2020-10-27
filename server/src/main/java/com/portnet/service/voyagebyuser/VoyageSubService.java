@@ -1,7 +1,7 @@
-package com.portnet.service.voyage;
+package com.portnet.service.voyagebyuser;
 
-import com.portnet.dao.voyage.VoyageSubDao;
-import com.portnet.entity.voyage.VoyageSub;
+import com.portnet.dao.voyagebyuser.VoyageSubDao;
+import com.portnet.entity.voyagebyuser.VoyageSub;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,7 @@
 package com.portnet.controller.storage;
 
-import com.portnet.entity.storage.LoginDTO;
-import com.portnet.entity.storage.PasswordDTO;
+import com.portnet.entity.dto.LoginDTO;
+import com.portnet.entity.dto.PasswordDTO;
 import com.portnet.entity.storage.User;
 import com.portnet.service.storage.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

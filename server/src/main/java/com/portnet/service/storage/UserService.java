@@ -1,7 +1,7 @@
 package com.portnet.service.storage;
 
 import com.portnet.dao.storage.UserDao;
-import com.portnet.entity.storage.PasswordDTO;
+import com.portnet.entity.dto.PasswordDTO;
 import com.portnet.entity.storage.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

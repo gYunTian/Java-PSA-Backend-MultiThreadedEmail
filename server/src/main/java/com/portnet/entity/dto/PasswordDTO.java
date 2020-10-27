@@ -1,7 +1,8 @@
-package com.portnet.entity.storage;
+package com.portnet.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.portnet.entity.storage.User;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;

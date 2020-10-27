@@ -13,7 +13,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.portnet.config.PropertiesReloader;
-import com.portnet.entity.storage.VesselDTO;
+import com.portnet.entity.dto.VesselDTO;
 import com.portnet.service.storage.VesselService;
 
 import org.quartz.Job;

@@ -1,6 +1,6 @@
 package com.portnet.dao.storage;
 
-import com.portnet.entity.storage.VesselDTO;
+import com.portnet.entity.dto.VesselDTO;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

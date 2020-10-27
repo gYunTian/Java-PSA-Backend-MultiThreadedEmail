@@ -1,4 +1,4 @@
-package com.portnet.utility;
+package com.portnet.controller.voyagebyuser;
 
 import lombok.*;
 

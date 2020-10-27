@@ -1,7 +1,6 @@
-package com.portnet.dao.voyage;
+package com.portnet.dao.voyagebyuser;
 
-import com.portnet.entity.voyage.VoyageFav;
-import com.portnet.entity.voyage.VoyageSub;
+import com.portnet.entity.voyagebyuser.VoyageSub;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

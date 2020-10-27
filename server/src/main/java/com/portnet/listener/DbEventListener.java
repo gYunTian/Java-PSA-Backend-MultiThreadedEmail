@@ -1,8 +1,7 @@
 package com.portnet.listener;
 
 import com.portnet.entity.event.DbUpdateEvent;
-import com.portnet.entity.storage.Vessel;
-import com.portnet.entity.storage.VesselDTO;
+import com.portnet.entity.dto.VesselDTO;
 
 import org.hibernate.event.spi.PostUpdateEvent;
 import org.springframework.context.event.EventListener;

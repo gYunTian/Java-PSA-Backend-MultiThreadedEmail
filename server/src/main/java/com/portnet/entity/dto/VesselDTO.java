@@ -1,4 +1,4 @@
-package com.portnet.entity.storage;
+package com.portnet.entity.dto;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
