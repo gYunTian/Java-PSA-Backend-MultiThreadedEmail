@@ -20,11 +20,22 @@ import java.util.List;
 //@ConfigurationProperties(prefix = "domain")
 public class Domain {
 
+    private String[] acceptedDomains;
+
     @Autowired
     private StandardEnvironment environment;
 
     private static final String PREFIX = "domain.";
 
-    String[] acceptedDomains = environment.getProperty(PREFIX+"acceptedDomains[0]", String[].class);
+    public String[] getAcceptedDomains(){
+        return environment.getProperty(PREFIX+"acceptedDomains[0]", String[].class);
+    }
+
+
+    public void setAcceptedDomains(String[] acceptedDomains){
+        this.acceptedDomains = acceptedDomains;
+    }
+
+    
 
 }
