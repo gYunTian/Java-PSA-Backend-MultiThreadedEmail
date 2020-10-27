@@ -1,6 +1,7 @@
 package com.portnet.service.storage;
 
 import com.portnet.dao.storage.UserDao;
+import com.portnet.entity.storage.PasswordDTO;
 import com.portnet.entity.storage.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,7 +49,7 @@ public class UserService {
         // email validity
         if (getUserByEmail(email) != null) {
             return new ResponseEntity<>(
-                    "Registration unsuccessful - email cannot be empty",
+                    "Registration unsuccessful - user already exists",
                     HttpStatus.BAD_REQUEST);
         } else if (!domainService.domainAccepted(email)) {
             return new ResponseEntity<>(
@@ -61,24 +62,24 @@ public class UserService {
         return ResponseEntity.ok("Registration successful");
     }
 
-//    /**
-//     * Add User to database if data passes validity checks
-//     * @return message indicating if user registration successful
-//     */
-//    public ResponseEntity<String> loginUser(String email, String givenPassword) {
-//        User user = getUserByEmail(email);
-//        if (user == null) {
-//            return new ResponseEntity<>(
-//                    "Login unsuccessful - wrong email",
-//                    HttpStatus.BAD_REQUEST);
-//        }
-//        if (!user.getPassword().equals(givenPassword)) {
-//            return new ResponseEntity<>(
-//                    "Login unsuccessful - wrong password",
-//                    HttpStatus.BAD_REQUEST);
-//        }
-//        return ResponseEntity.ok("Login successful - details valid");
-//    }
+    /**
+     * Allow User to login if data passes validity checks
+     * @return message indicating if user registration successful
+     */
+    public ResponseEntity<String> loginUser(String email, String givenPassword) {
+        User user = getUserByEmail(email);
+        if (user == null) {
+            return new ResponseEntity<>(
+                    "Login unsuccessful - wrong email",
+                    HttpStatus.BAD_REQUEST);
+        }
+        if (!user.getPassword().equals(givenPassword)) {
+            return new ResponseEntity<>(
+                    "Login unsuccessful - wrong password",
+                    HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok("Login successful - details valid");
+    }
 
     /**
      * Get all Users in database
@@ -147,6 +148,8 @@ public class UserService {
      * @param password the new verified password chosen by the user
      */
     public ResponseEntity<String> changePassword(User user, String password) {
+        System.out.println("Correct details given, beginning password change");
+
         user.setPassword(password);
         updateUser(user);
 
@@ -157,6 +160,39 @@ public class UserService {
         return ResponseEntity.ok("Password change successful");
     }
 
+    /**
+     * Allow User to login if data passes validity checks
+     * @param passwordDTO containing user object, and the old password & new password input by user
+     * @return message indicating if change password successful
+     */
+    public ResponseEntity<String> changePasswordController(PasswordDTO passwordDTO) {
+        User user = passwordDTO.getUser();
+        String oldPasswordGiven = passwordDTO.getIdentifier();
+
+        if (!user.getPassword().equals(oldPasswordGiven)) {
+            return new ResponseEntity<>(
+                    "Change Password unsuccessful - wrong password",
+                    HttpStatus.BAD_REQUEST);
+        }
+        return changePassword(user, passwordDTO.getNewPassword());
+    }
+
+    /**
+     * Allow User to login if data passes validity checks
+     * @param passwordDTO containing the token & new password input by user
+     * @return message indicating if change password successful
+     */
+    public ResponseEntity<String> resetPasswordController(PasswordDTO passwordDTO) {
+        String token = passwordDTO.getIdentifier();
+        User user = getUserByToken(token);
+
+        if (user == null) {
+            return new ResponseEntity<>(
+                    "Change Password unsuccessful - wrong token",
+                    HttpStatus.BAD_REQUEST);
+        }
+        return changePassword(user, passwordDTO.getNewPassword());
+    }
 
     /**
      * Specific method to send mail to user for respective purposes

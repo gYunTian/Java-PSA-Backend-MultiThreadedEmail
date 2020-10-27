@@ -19,7 +19,7 @@ const CORS = 'https://cors-anywhere.herokuapp.com';
 
 export const APIs = {
   addUser: `${ENDPOINT}/addUser`,
-  getUserByEmail: `${ENDPOINT}/userByEmail` // think got issue, see UserService
+  getUserByEmail: `${ENDPOINT}/userByEmail` // changed imple bc got issue, see /loginUser 
 };
 
 // *Full screen spinner clear

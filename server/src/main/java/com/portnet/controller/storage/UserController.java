@@ -1,5 +1,7 @@
 package com.portnet.controller.storage;
 
+import com.portnet.entity.storage.LoginDTO;
+import com.portnet.entity.storage.PasswordDTO;
 import com.portnet.entity.storage.User;
 import com.portnet.service.storage.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,30 +46,18 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-        /**
-         * sending email through url cuts the email for some reason, 
-         * might be better to pass in as json (/loginUser)?
-        */
-    @GetMapping("/userByEmail/{email}")
-    public User findUserByEmail(@PathVariable String email) {
-        return userService.getUserByEmail(email);
-    }
-
-        /**
-         * verify token @ password reset
-         */
-    @GetMapping("/userByToken/{token}")
-    public User findUserByToken(@PathVariable String token) {
-        return userService.getUserByToken(token);
-    }
-
     /**
      * Update methods
      */
 
     @PutMapping("/changePassword")
-    public ResponseEntity<String> changePassword(@RequestBody User user, String password) {
-        return userService.changePassword(user, password);
+    public ResponseEntity<String> changePassword(@RequestBody PasswordDTO passwordDTO) {
+        return userService.changePasswordController(passwordDTO);
+    }
+
+    @PutMapping("/resetPassword")
+    public ResponseEntity<String> resetPassword(@RequestBody PasswordDTO passwordDTO) {
+        return userService.resetPasswordController(passwordDTO);
     }
 
     /**
@@ -79,8 +69,8 @@ public class UserController {
         return userService.changePasswordRequest(email, attrs);
     }
 
-//    @RequestMapping(value = "/loginUser")
-//    public ResponseEntity<String> loginUser(@RequestParam String email, @RequestParam String givenPassword) {
-//        return userService.loginUser(email, givenPassword);
-//    }
+    @RequestMapping(value = "/loginUser")
+    public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDTO) {
+        return userService.loginUser(loginDTO.getEmail(), loginDTO.getPassword());
+    }
 }
