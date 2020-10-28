@@ -57,152 +57,76 @@ public class VesselDTO {
         return uniqueId;
     }
 
-    public void setUniqueId(String uniqueId) {
-        this.uniqueId = uniqueId;
-    }
-
     public String getImoN() {
         return imoN;
-    }
-
-    public void setImoN(String imoN) {
-        this.imoN = imoN;
     }
 
     public String getFullVslM() {
         return fullVslM;
     }
 
-    public void setFullVslM(String fullVslM) {
-        this.fullVslM = fullVslM;
-    }
-
     public String getAbbrVslM() {
         return abbrVslM;
-    }
-
-    public void setAbbrVslM(String abbrVslM) {
-        this.abbrVslM = abbrVslM;
     }
 
     public String getFullInVoyN() {
         return fullInVoyN;
     }
 
-    public void setFullInVoyN(String fullInVoyN) {
-        this.fullInVoyN = fullInVoyN;
-    }
-
     public String getInVoyN() {
         return inVoyN;
-    }
-
-    public void setInVoyN(String inVoyN) {
-        this.inVoyN = inVoyN;
     }
 
     public String getOutVoyN() {
         return outVoyN;
     }
 
-    public void setOutVoyN(String outVoyN) {
-        this.outVoyN = outVoyN;
-    }
-
     public String getFullOutVoyN() {
         return fullOutVoyN;
-    }
-
-    public void setFullOutVoyN(String fullOutVoyN) {
-        this.fullOutVoyN = fullOutVoyN;
     }
 
     public String getShiftSeqN() {
         return shiftSeqN;
     }
 
-    public void setShiftSeqN(String shiftSeqN) {
-        this.shiftSeqN = shiftSeqN;
-    }
-
     public String getBthgDt() {
         return bthgDt;
-    }
-
-    public void setBthgDt(String bthgDt) {
-        this.bthgDt = bthgDt;
     }
 
     public String getUnbthgDt() {
         return unbthgDt;
     }
 
-    public void setUnbthgDt(String unbthgDt) {
-        this.unbthgDt = unbthgDt;
-    }
-
     public String getBerthN() {
         return berthN;
-    }
-
-    public void setBerthN(String berthN) {
-        this.berthN = berthN;
     }
 
     public String getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public String getAbbrTerminalM() {
         return abbrTerminalM;
-    }
-
-    public void setAbbrTerminalM(String abbrTerminalM) {
-        this.abbrTerminalM = abbrTerminalM;
     }
 
     public String getLast_bthgDt() {
         return last_bthgDt;
     }
 
-    public void setLast_bthgDt(String last_bthgDt) {
-        this.last_bthgDt = last_bthgDt;
-    }
-
     public String getLast_unbthgDt() {
         return last_unbthgDt;
-    }
-
-    public void setLast_unbthgDt(String last_unbthgDt) {
-        this.last_unbthgDt = last_unbthgDt;
     }
 
     public int getBthgDt_change_count() {
         return bthgDt_change_count;
     }
 
-    public void setBthgDt_change_count(int bthgDt_change_count) {
-        this.bthgDt_change_count = bthgDt_change_count;
-    }
-
     public int getUnbthgDt_change_count() {
         return unbthgDt_change_count;
     }
 
-    public void setUnbthgDt_change_count(int unbthgDt_change_count) {
-        this.unbthgDt_change_count = unbthgDt_change_count;
-    }
-
     public String getFirst_arrival() {
         return first_arrival;
-    }
-
-    public void setFirst_arrival(String first_arrival) {
-        this.first_arrival = first_arrival;
     }
 
 }
