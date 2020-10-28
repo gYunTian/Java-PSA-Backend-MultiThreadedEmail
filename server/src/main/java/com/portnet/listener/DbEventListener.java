@@ -1,7 +1,7 @@
 package com.portnet.listener;
 
 import com.portnet.entity.event.DbUpdateEvent;
-import com.portnet.entity.dto.VesselDTO;
+import com.portnet.entity.storage.Vessel;
 
 import org.hibernate.event.spi.PostUpdateEvent;
 import org.springframework.context.event.EventListener;
@@ -17,8 +17,8 @@ public class DbEventListener {
 
     final Object entity = pUpdateEvent.getEntity();
 
-    if (entity instanceof VesselDTO) {
-      VesselDTO vesselDTO = (VesselDTO)entity;
+    if (entity instanceof Vessel) {
+      Vessel vesselDTO = (Vessel)entity;
       System.out.println(vesselDTO);
     }
     

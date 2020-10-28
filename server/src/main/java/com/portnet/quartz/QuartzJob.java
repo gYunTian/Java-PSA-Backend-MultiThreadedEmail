@@ -13,7 +13,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.portnet.config.PropertiesReloader;
-import com.portnet.entity.dto.VesselDTO;
+import com.portnet.entity.storage.Vessel;
 import com.portnet.service.storage.VesselService;
 
 import org.quartz.Job;
@@ -75,7 +75,7 @@ public class QuartzJob implements Job {
 
             //extract values from json
             ObjectMapper mapper = new ObjectMapper();
-            List<VesselDTO> vessels = new ArrayList<>();
+            List<Vessel> vessels = new ArrayList<>();
             int length = jsonArray.size();
             String uniqueId = null;
             String temp = null;
@@ -86,7 +86,7 @@ public class QuartzJob implements Job {
                     uniqueId = (jsonArray.get(i).getAsJsonObject().get("fullVslM").getAsString() + " " 
                     + jsonArray.get(i).getAsJsonObject().get("inVoyN").getAsString());
                     temp = jsonArray.get(i).toString();
-                    vessels.add(mapper.readValue(temp.substring(0, temp.length() - 1)+",\"uniqueId\":\""+uniqueId+"\"}", VesselDTO.class));
+                    vessels.add(mapper.readValue(temp.substring(0, temp.length() - 1)+",\"uniqueId\":\""+uniqueId+"\"}", Vessel.class));
                     
                 } 
                 catch (JsonProcessingException e) {

@@ -1,86 +1,66 @@
 package com.portnet.entity.dto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
- * An abstraction of a VesselDTO
+ * An domain model of a Vessel that represents the joined database table
+ * 
  */
 
-@Entity
-@Table(name = "vessel")
 public class VesselDTO {
-
-    /**
-     * Constructs a specified VoyageId object
-     * @param uniqueId the auto-generated ID of the voyage, identified by vesselName and voyageNum
-     * ...
-     */
     
-    @JsonProperty("uniqueId") @Id
-    @Column(nullable = false, name = "uniqueId")
     private String uniqueId;
-    
-    @JsonProperty("imoN")
-    @Column(nullable = true, name = "imoN")
     private String imoN;
-
-    @JsonProperty("fullVslM")
-    @Column(nullable = false, name = "fullVslM")
     private String fullVslM;
-
-    @JsonProperty("abbrVslM")
-    @Column(nullable = false, name = "abbrVslM")
     private String abbrVslM;
-
-    @JsonProperty("fullInVoyN")
-    @Column(nullable = true, name = "fullInVoyN")
     private String fullInVoyN;
-
-    @JsonProperty("inVoyN")
-    @Column(nullable = false, name = "inVoyN")
     private String inVoyN;
-
-    @JsonProperty("outVoyN")
-    @Column(nullable = false, name = "outVoyN")
     private String outVoyN;
-
-    @JsonProperty("fullOutVoyN")
-    @Column(nullable = true, name = "fullOutVoyN")
     private String fullOutVoyN;
-
-    @JsonProperty("shiftSeqN")
-    @Column(nullable = false, name = "shiftSeqN")
     private String shiftSeqN;
-
-    @JsonProperty("bthgDt")
-    @Column(nullable = false, name = "bthgDt")
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private String bthgDt;
-    
-    @JsonProperty("unbthgDt")
-    @Column(nullable = false, name = "unbthgDt")
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
     private String unbthgDt;
-
-    @JsonProperty("berthN")
-    @Column(nullable = true, name = "berthN")
     private String berthN;
-
-    @JsonProperty("status")
-    @Column(nullable = false, name = "status")
     private String status;
-
-    @JsonProperty("abbrTerminalM")
-    @Column(nullable = true, name = "abbrTerminalM")
     private String abbrTerminalM;
-           
-    // Getter & setters
+    private String last_bthgDt;
+    private String last_unbthgDt;
+    private int bthgDt_change_count;
+    private int unbthgDt_change_count;
+    private String first_arrival;
+
+    //auto generated
+    public VesselDTO(String uniqueId, String imoN, String fullVslM, String abbrVslM, String fullInVoyN, String inVoyN,
+            String outVoyN, String fullOutVoyN, String shiftSeqN, String bthgDt, String unbthgDt, String berthN,
+            String status, String abbrTerminalM, String last_bthgDt, String last_unbthgDt, int bthgDt_change_count,
+            int unbthgDt_change_count, String first_arrival) {
+        this.uniqueId = uniqueId;
+        this.imoN = imoN;
+        this.fullVslM = fullVslM;
+        this.abbrVslM = abbrVslM;
+        this.fullInVoyN = fullInVoyN;
+        this.inVoyN = inVoyN;
+        this.outVoyN = outVoyN;
+        this.fullOutVoyN = fullOutVoyN;
+        this.shiftSeqN = shiftSeqN;
+        this.bthgDt = bthgDt;
+        this.unbthgDt = unbthgDt;
+        this.berthN = berthN;
+        this.status = status;
+        this.abbrTerminalM = abbrTerminalM;
+        this.last_bthgDt = last_bthgDt;
+        this.last_unbthgDt = last_unbthgDt;
+        this.bthgDt_change_count = bthgDt_change_count;
+        this.unbthgDt_change_count = unbthgDt_change_count;
+        this.first_arrival = first_arrival;
+    }
+
+    public String getUniqueId() {
+        return uniqueId;
+    }
+
+    public void setUniqueId(String uniqueId) {
+        this.uniqueId = uniqueId;
+    }
+
     public String getImoN() {
         return imoN;
     }
@@ -89,11 +69,11 @@ public class VesselDTO {
         this.imoN = imoN;
     }
 
-    public String getfullVslM() {
+    public String getFullVslM() {
         return fullVslM;
     }
 
-    public void setFullVs1M(String fullVslM) {
+    public void setFullVslM(String fullVslM) {
         this.fullVslM = fullVslM;
     }
 
@@ -184,25 +164,45 @@ public class VesselDTO {
     public void setAbbrTerminalM(String abbrTerminalM) {
         this.abbrTerminalM = abbrTerminalM;
     }
-        
-    public String getUniqueId() {
-        return uniqueId;
+
+    public String getLast_bthgDt() {
+        return last_bthgDt;
     }
 
-    public void setUniqueId(String uniqueId) {
-        this.uniqueId = uniqueId;
-    }
-    
-    public void setFullVslM(String fullVslM) {
-        this.fullVslM = fullVslM;
+    public void setLast_bthgDt(String last_bthgDt) {
+        this.last_bthgDt = last_bthgDt;
     }
 
-    @Override
-    public String toString() {
-        return "Vessel [abbrTerminalM=" + abbrTerminalM + ", abbrVslM=" + abbrVslM + ", berthN=" + berthN + ", bthgDt="
-                + bthgDt + ", fullInVoyN=" + fullInVoyN + ", fullOutVoyN=" + fullOutVoyN + ", fullVslM=" + fullVslM
-                + ", imoN=" + imoN + ", inVoyN=" + inVoyN + ", outVoyN=" + outVoyN + ", shiftSeqN=" + shiftSeqN
-                + ", status=" + status + ", unbthgDt=" + unbthgDt + ", uniqueId=" + uniqueId + "]";
+    public String getLast_unbthgDt() {
+        return last_unbthgDt;
+    }
+
+    public void setLast_unbthgDt(String last_unbthgDt) {
+        this.last_unbthgDt = last_unbthgDt;
+    }
+
+    public int getBthgDt_change_count() {
+        return bthgDt_change_count;
+    }
+
+    public void setBthgDt_change_count(int bthgDt_change_count) {
+        this.bthgDt_change_count = bthgDt_change_count;
+    }
+
+    public int getUnbthgDt_change_count() {
+        return unbthgDt_change_count;
+    }
+
+    public void setUnbthgDt_change_count(int unbthgDt_change_count) {
+        this.unbthgDt_change_count = unbthgDt_change_count;
+    }
+
+    public String getFirst_arrival() {
+        return first_arrival;
+    }
+
+    public void setFirst_arrival(String first_arrival) {
+        this.first_arrival = first_arrival;
     }
 
 }

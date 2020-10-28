@@ -2,7 +2,7 @@
 
 package com.portnet.listener;
 
-import com.portnet.entity.dto.VesselDTO;
+import com.portnet.entity.storage.Vessel;
 import com.portnet.publisher.DbEventPublisher;
 
 import org.hibernate.event.spi.PostUpdateEvent;
@@ -23,8 +23,8 @@ public class DbUpdateListener implements PostUpdateEventListener {
     // get updated entity
     final Object entity = event.getEntity();
     
-    if(entity instanceof VesselDTO) {
-      VesselDTO vesselDTO = (VesselDTO) entity;
+    if(entity instanceof Vessel) {
+      Vessel vesselDTO = (Vessel) entity;
       // System.out.println("Intercepted");
       // System.out.println(vesselDTO);
 
