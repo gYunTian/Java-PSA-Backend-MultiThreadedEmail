@@ -148,10 +148,9 @@ public class UserService {
      * @param password the new verified password chosen by the user
      */
     public ResponseEntity<String> changePassword(User user, String password) {
-        System.out.println("Correct details given, beginning password change");
+        System.out.println("Correct details given, begin password change");
 
         user.setPassword(password);
-        updateUser(user);
 
         // remove token
         user.setToken(null);
@@ -224,6 +223,6 @@ public class UserService {
      */
     public ResponseEntity<String> deleteUser(User user) {
         userDao.delete(user);
-        return ResponseEntity.ok("voyageFav deleted successful");
+        return ResponseEntity.ok("User deleted successful");
     }
 }
