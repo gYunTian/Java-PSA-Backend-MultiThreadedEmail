@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -50,5 +51,37 @@ public class User {
 
     public void setToken() {
         this.token = UUID.randomUUID().toString();
+    }
+
+
+    /**
+     * Custom equals method to account all elements
+     * @param object that could be VoyageSub type or otherwise
+     * @return true:  both objects are the same
+     *                or have the same id
+     *         false: object is null or not User type
+     *                or both objects have different id
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null) return false;
+        if (!(object instanceof User)) return false;
+        User user = (User) object;
+        return id == user.id;
+    }
+
+    /**
+     * Custom hash code method which represents all elements
+     * @return int representing hash code
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("User [id=%d, name=%s, email=%s, password=%s, token=%s]", id, name, email, password, token);
     }
 }

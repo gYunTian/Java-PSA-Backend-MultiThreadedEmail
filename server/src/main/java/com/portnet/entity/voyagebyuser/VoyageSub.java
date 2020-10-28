@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Storage for the voyage subscribed by a user
@@ -21,4 +22,41 @@ public class VoyageSub implements Serializable {
     @Id private int id;
     private int userId;
     private String voyageId;
+
+
+    /**
+     * Custom equals method to account all elements
+     * @param object that could be VoyageSub type or otherwise
+     * @return true:  both objects are the same
+     *                or have the same userId and voyageId
+     *         false: object is null or not VoyageId type
+     *                or both objects have different userId and/or voyageId
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null) return false;
+        if (!(object instanceof VoyageSub)) return false;
+        VoyageSub voyageSub = (VoyageSub) object;
+        return userId == voyageSub.userId &&
+                voyageId.equals(voyageSub.voyageId);
+    }
+
+    /**
+     * Custom hash code method which represents all elements
+     * @return int representing hash code
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId, voyageId);
+    }
+
+    /**
+     * String representation
+     * @return String representation of object
+     */
+    @Override
+    public String toString() {
+        return String.format("VoyageSub [id=%d, userId=%d, voyageId=%s]", id, userId, voyageId);
+    }
 }

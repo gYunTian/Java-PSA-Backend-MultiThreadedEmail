@@ -13,6 +13,8 @@
 
 
 ## Database Design
-user (id, name, email, password, token) 
-voyage_fav (user_id, voyage_id)
-voyage_sub (user_id, voyage_id)
+- user (id, name, email, password, token) 
+- voyage_fav (id, user_id, voyage_id)
+- voyage_sub (id, user_id, voyage_id)
+- vessel *data returned by the API
+- vessel_history (uniqueId, last_bthgDt, last_unbthgDt, bthgDt_change_count, nbthgDt_change_count, first_arrival)
