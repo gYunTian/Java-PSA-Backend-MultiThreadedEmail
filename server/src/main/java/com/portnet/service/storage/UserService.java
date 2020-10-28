@@ -144,12 +144,10 @@ public class UserService {
 
     /**
      * Update password & remove reset token of specified User
-     * @param user object from getUserByToken
+     * @param user object that has been verified to be correct
      * @param password the new verified password chosen by the user
      */
     public ResponseEntity<String> changePassword(User user, String password) {
-        System.out.println("Correct details given, begin password change");
-
         user.setPassword(password);
 
         // remove token
@@ -202,7 +200,8 @@ public class UserService {
     public RedirectView changePasswordRequest(String email, RedirectAttributes attrs) {
         try {
             User user = getUserByEmail(email);  // if null, catch exception
-            System.out.println("Request accepted"); // user is not null
+            
+            // if proceed, means user is not null so request accepted
             addToken(user); // generate password reset token for email body & save into database
 
             // For Redirection to mail
@@ -210,7 +209,8 @@ public class UserService {
             attrs.addFlashAttribute("type", "changePasswordRequest");
 
         } catch (NullPointerException e) {
-            System.out.println("Email is not registered");
+            attrs.addFlashAttribute("user", null);
+            attrs.addFlashAttribute("type", "rejectRequest");
         }
 
         return new RedirectView("sendEmail");

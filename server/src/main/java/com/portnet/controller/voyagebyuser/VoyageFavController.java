@@ -28,19 +28,19 @@ public class VoyageFavController {
         return service.saveVoyageFav(voyageFav);
     }
 
-    @PostMapping("/addVoyageFavs")
-    public void addVoyageFavs(@RequestBody List<VoyageFav> voyageFavs) {
-        service.saveVoyageFavs(voyageFavs);
-    }
+    // @PostMapping("/addVoyageFavs")
+    // public void addVoyageFavs(@RequestBody List<VoyageFav> voyageFavs) {
+    //     service.saveVoyageFavs(voyageFavs);
+    // }
 
     /**
      * Get methods
      */
 
-    @GetMapping("/voyageFavs")
-    public List<VoyageFav> findAllVoyageFavs() {
-        return service.getVoyageFav();
-    }
+    // @GetMapping("/voyageFavs")
+    // public List<VoyageFav> findAllVoyageFavs() {
+    //     return service.getVoyageFav();
+    // }
 
     @GetMapping("/voyageFavsByUserId/{userId}")
     public List<VoyageFav> findVoyageFavsByUserId(@PathVariable int userId) {

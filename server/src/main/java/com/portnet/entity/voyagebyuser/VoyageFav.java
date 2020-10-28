@@ -7,21 +7,15 @@ import javax.persistence.*;
 /**
  * Storage for the voyage favorited by a user
  */
-//@IdClass(VoyageByUserId.class)
-@Entity @Data @Table(name = "voyage_fav")
+@Entity @Data @Table
 @NoArgsConstructor @AllArgsConstructor
 public class VoyageFav {
     /**
      * Constructs a specified VoyageFav object
      * @param userId the auto-generated ID of the user
-     * @param voyageId the unique ID of the voyage
+     * @param voyageId the unique ID of the voyage, identified by record
      */
     @Id private int id;
-
-    @Column(name = "user_id", nullable = false)
     private int userId;
-
-    @Column(name = "voyage_id", nullable = false)
     private String voyageId;
-
 }

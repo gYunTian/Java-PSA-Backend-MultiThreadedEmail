@@ -19,9 +19,9 @@ public class DomainService {
     private Domain domain;
 
     /**
-     * Helper method to check if email is of accepted domain name
-     * @param userEmail the email provided by the user at registration
-     * @return boolean with 1 indicating email exists
+     * Helper method to check if given domain is (part of or otherwise) an accepted domain indicated in reload.properties
+     * @param userEmail the email provided by the user at registration. assumes valid email ie with '@'
+     * @return boolean with 1 indicating that email is of an accepted domain name
      */
     public boolean domainAccepted(String userEmail) {
         // get accepted domains
@@ -31,9 +31,8 @@ public class DomainService {
         if (acceptedDomains == null) return false;
 
         // there are accepted domains, check if user's domain is 1 of them
-        String userDomain = userEmail.split("@")[1];    // assumes valid email
+        String userDomain = userEmail.split("@")[1];
         return Arrays.stream(acceptedDomains).parallel().anyMatch(userDomain::contains);
-        // user domain could be a substring of accepted domain
     }
 
 }

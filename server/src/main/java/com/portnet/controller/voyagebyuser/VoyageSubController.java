@@ -28,19 +28,19 @@ public class VoyageSubController {
         return service.saveVoyageSub(voyageSub);
     }
 
-    @PostMapping("/addVoyageSubs")
-    public void addVoyageSubs(@RequestBody List<VoyageSub> voyageSubs) {
-        service.saveVoyageSubs(voyageSubs);
-    }
+    // @PostMapping("/addVoyageSubs")
+    // public void addVoyageSubs(@RequestBody List<VoyageSub> voyageSubs) {
+    //     service.saveVoyageSubs(voyageSubs);
+    // }
 
     /**
      * Get methods
      */
 
-    @GetMapping("/voyageSubs")
-    public List<VoyageSub> findAllVoyageSubs() {
-        return service.getVoyageSub();
-    }
+    // @GetMapping("/voyageSubs")
+    // public List<VoyageSub> findAllVoyageSubs() {
+    //     return service.getVoyageSub();
+    // }
 
     @GetMapping("/voyageSubsByUserId/{userId}")
     public List<VoyageSub> findVoyageSubsByUserId(@PathVariable int userId) {

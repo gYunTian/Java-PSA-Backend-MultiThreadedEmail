@@ -19,11 +19,20 @@ public class MailController {
     private MailService mailService;
 
     /**
-     * Generic method to send mail to user
+     * Generic method that handles the sending of email to requesters
+     * - if email exists: sends email to user & return ok response
+     * - if email DNE: return bad request response 
      */
     @RequestMapping(value = "/sendEmail")
     public ResponseEntity<String> sendEmail(@ModelAttribute("user") User user,
                                             @ModelAttribute("type") String type) {
+        
+        if (type.equals("rejectRequest")) {
+            return new ResponseEntity<>(
+                    "Change Password unsuccessful - email not registered",
+                    HttpStatus.BAD_REQUEST);
+        }
+
         HashMap<String,String> emailContent = mailService.getEmailContent(user, type);
         return mailService.sendEmail(emailContent);
     }
