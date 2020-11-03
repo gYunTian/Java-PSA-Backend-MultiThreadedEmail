@@ -1,3 +1,5 @@
+// https://stackoverflow.com/questions/54805120/best-way-to-map-query-result-to-dto
+
 package com.portnet.entity.dto;
 
 /**

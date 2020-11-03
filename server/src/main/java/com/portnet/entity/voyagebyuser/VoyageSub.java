@@ -59,4 +59,28 @@ public class VoyageSub implements Serializable {
     public String toString() {
         return String.format("VoyageSub [id=%d, userId=%d, voyageId=%s]", id, userId, voyageId);
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getVoyageId() {
+        return voyageId;
+    }
+
+    public void setVoyageId(String voyageId) {
+        this.voyageId = voyageId;
+    }
 }

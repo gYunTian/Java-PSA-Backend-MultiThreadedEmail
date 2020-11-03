@@ -49,7 +49,7 @@ public class VoyageSubService {
      * @return voyageSubs array
      */
     public List<VoyageSub> getVoyageSub() {
-        return voyageSubDao.findAll();
+        return (List<VoyageSub>) voyageSubDao.findAll();
     }
 
     /**
