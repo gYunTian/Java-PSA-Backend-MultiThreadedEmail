@@ -79,7 +79,7 @@ public class User {
     public int hashCode() {
         return Objects.hash(id);
     }
-
+    
     @Override
     public String toString() {
         return String.format("User [id=%d, name=%s, email=%s, password=%s, token=%s]", id, name, email, password, token);

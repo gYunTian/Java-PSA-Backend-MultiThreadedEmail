@@ -31,7 +31,7 @@ public class MailService {
         email.setSubject(emailContent.get("subject"));
         email.setText(emailContent.get("body"));
         email.setTo(emailContent.get("recipient"));
-
+        
         mailSender.send(email);
         return ResponseEntity.ok("Email successfully sent");
     }
@@ -64,4 +64,27 @@ public class MailService {
         return emailContent;
     }
 
+    /**
+     * Overloaded getEmailContent method
+     * with different implementation as well
+     * @param email
+     * @param body
+     * @return
+     */
+    public HashMap<String,String> getEmailContent(String email, String body, String id) {
+        HashMap<String,String> emailContent = new HashMap<>();
+
+        emailContent.put("recipient", email);
+
+        emailContent.put("subject", "Changes to vessel detail: "+id);
+
+        String content = "Hi " + email + ",\n\n" +
+                "Details of the vessel: "+id+" has changed.\n\n" +
+                body + "\n" +
+                "Thank you!\n" +
+                "G1T9";
+        emailContent.put("body", content);
+
+        return emailContent;
+    }
 }

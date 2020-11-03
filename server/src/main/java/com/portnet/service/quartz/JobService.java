@@ -15,13 +15,17 @@ import com.google.gson.JsonParser;
 import com.portnet.entity.storage.Vessel;
 import com.portnet.quartz.QuartzProperties;
 import com.portnet.service.storage.VesselService;
+import com.portnet.service.voyagebyuser.VoyageSubService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -108,7 +112,7 @@ public class JobService {
   }
 
   public JsonArray PostAndParse(String requestJson, HttpHeaders headers) {
-    RestTemplate restTemplate = new RestTemplate();
+    RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
     HttpEntity<String> request = new HttpEntity<String>(requestJson, headers);
     JsonObject jsonObject = null;
     String res = null;
@@ -116,6 +120,7 @@ public class JobService {
 
     try {
       res = restTemplate.postForObject(prop.getApiURL(), request, String.class);
+
       jsonObject = new JsonParser().parse(res).getAsJsonObject();
 
       if (!jsonObject.get("errors").isJsonNull()) {
@@ -123,6 +128,8 @@ public class JobService {
       } else {
         jsonArray = jsonObject.getAsJsonArray("results");
       }
+    } catch (ResourceAccessException e) {
+      System.out.println("Connection timed out: " + e);
     } catch (HttpStatusCodeException e) {
       // non 200 status code
       System.out.println(e.getStatusCode().value());
@@ -131,5 +138,12 @@ public class JobService {
     }
 
     return jsonArray;
+  }
+
+  private ClientHttpRequestFactory getClientHttpRequestFactory() {
+    int timeout = 10000;
+    HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+    clientHttpRequestFactory.setConnectTimeout(timeout);
+    return clientHttpRequestFactory;
   }
 }

@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `voyage_sub` (
   `user_id` int(11) NOT NULL,
   `voyage_id` varchar(60) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -160,7 +160,7 @@ DROP TABLE IF EXISTS `voyage_fav`;
 CREATE TABLE IF NOT EXISTS `voyage_fav` (
   `id` int(11) AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-   `voyage_id` varchar(60) NOT NULL,
+  `voyage_id` varchar(60) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -171,6 +171,10 @@ ALTER TABLE `vessel`
   ADD CONSTRAINT `vessel_ibfk_1` FOREIGN KEY (`uniqueId`) REFERENCES `vessel_history` (`uniqueId`);
 COMMIT;
 
+ALTER TABLE `voyage_sub`
+  ADD CONSTRAINT `voyage_sub_ibfk_1` FOREIGN KEY (`voyage_id`) REFERENCES `vessel` (`uniqueId`),
+  ADD CONSTRAINT `voyage_sub_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

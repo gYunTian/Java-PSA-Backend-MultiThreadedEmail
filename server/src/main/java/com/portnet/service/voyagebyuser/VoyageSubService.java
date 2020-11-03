@@ -1,12 +1,15 @@
 package com.portnet.service.voyagebyuser;
 
 import com.portnet.dao.voyagebyuser.VoyageSubDao;
+import com.portnet.dao.voyagebyuser.VoyageSubDao.UserProjection;
+import com.portnet.entity.storage.User;
 import com.portnet.entity.voyagebyuser.VoyageSub;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,7 +17,7 @@ public class VoyageSubService {
 
     @Autowired
     private VoyageSubDao voyageSubDao;
-
+    
     /**
      * Add VoyageSub to database
      * @param voyageSub object
@@ -73,6 +76,24 @@ public class VoyageSubService {
         }
         voyageSubDao.deleteByUserIdAndVoyageId(userId, voyageId);
         return ResponseEntity.ok("Voyage unsubscription successful");
+    }
+
+    /**
+     * Get the emails of all users subbed to a voyage/vessel
+     * @param voyageId the unique ID of the voyage
+     * @return List of email strings
+     */ 
+    public List<String> getSubs(String voyageId) {
+        List<String> emails = new ArrayList<>();
+        List<UserProjection> users = new ArrayList<>();
+        users = voyageSubDao.findSubs(voyageId);
+        
+        for (UserProjection user : users) {
+            emails.add(user.getemail());
+        }
+        
+        return emails;
+
     }
 
 }
