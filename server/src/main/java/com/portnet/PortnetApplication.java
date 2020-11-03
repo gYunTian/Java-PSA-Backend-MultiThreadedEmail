@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @PropertySource("classpath:/reload.properties")
 public class PortnetApplication {
-    
+
     public static void main(String[] args) {
         SpringApplication.run(PortnetApplication.class, args);
     }

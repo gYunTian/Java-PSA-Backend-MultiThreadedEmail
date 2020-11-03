@@ -32,7 +32,6 @@ public class VesselController {
             @RequestParam(value = "endDate") String endDate) {
         
         List<VesselDTO> vesselList = vesselService.getVesselsByDate(startDate, endDate);
-        System.out.println(vesselList.size());
         
         return ResponseEntity.ok(vesselList);  
     }
