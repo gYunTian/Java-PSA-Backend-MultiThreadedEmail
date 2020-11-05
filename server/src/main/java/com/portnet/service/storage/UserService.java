@@ -2,7 +2,7 @@ package com.portnet.service.storage;
 
 import com.portnet.dao.storage.UserDao;
 import com.portnet.entity.dto.LoginDTO;
-import com.portnet.entity.dto.ResetPasswordDTO;
+import com.portnet.entity.dto.NewPasswordDTO;
 import com.portnet.entity.storage.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -164,28 +164,28 @@ public class UserService {
 
     /**
      * Allow User to login if data passes validity checks
-     * @param resetPasswordDTO containing user object, and the old password & new password input by user
+     * @param newPasswordDTO containing user object, and the old password & new password input by user
      * @return message indicating if change password successful
      */
-    public ResponseEntity<String> changePasswordController(ResetPasswordDTO resetPasswordDTO) {
-        User user = resetPasswordDTO.getUser();
-        String oldPasswordGiven = resetPasswordDTO.getIdentifier();
+    public ResponseEntity<String> changePasswordController(NewPasswordDTO newPasswordDTO) {
+        User user = newPasswordDTO.getUser();
+        String oldPasswordGiven = newPasswordDTO.getIdentifier();
 
         if (!user.getPassword().equals(oldPasswordGiven)) {
             return new ResponseEntity<>(
                     "Change Password unsuccessful - wrong password",
                     HttpStatus.BAD_REQUEST);
         }
-        return changePassword(user, resetPasswordDTO.getNewPassword());
+        return changePassword(user, newPasswordDTO.getNewPassword());
     }
 
     /**
      * Allow User to login if data passes validity checks
-     * @param resetPasswordDTO containing the token & new password input by user
+     * @param newPasswordDTO containing the token & new password input by user
      * @return message indicating if change password successful
      */
-    public ResponseEntity<String> resetPasswordController(ResetPasswordDTO resetPasswordDTO) {
-        String token = resetPasswordDTO.getIdentifier();
+    public ResponseEntity<String> resetPasswordController(NewPasswordDTO newPasswordDTO) {
+        String token = newPasswordDTO.getIdentifier();
         User user = getUserByToken(token);
 
         if (user == null) {
@@ -193,7 +193,7 @@ public class UserService {
                     "Change Password unsuccessful - wrong token",
                     HttpStatus.BAD_REQUEST);
         }
-        return changePassword(user, resetPasswordDTO.getNewPassword());
+        return changePassword(user, newPasswordDTO.getNewPassword());
     }
 
     /**
