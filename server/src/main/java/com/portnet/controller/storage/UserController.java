@@ -1,7 +1,7 @@
 package com.portnet.controller.storage;
 
 import com.portnet.entity.dto.LoginDTO;
-import com.portnet.entity.dto.PasswordDTO;
+import com.portnet.entity.dto.ResetPasswordDTO;
 import com.portnet.entity.storage.User;
 import com.portnet.service.storage.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,13 +51,13 @@ public class UserController {
      */
 
     @PutMapping("/changePassword")
-    public ResponseEntity<String> changePassword(@RequestBody PasswordDTO passwordDTO) {
-        return userService.changePasswordController(passwordDTO);
+    public ResponseEntity<String> changePassword(@RequestBody ResetPasswordDTO resetPasswordDTO) {
+        return userService.changePasswordController(resetPasswordDTO);
     }
 
     @PutMapping("/resetPassword")
-    public ResponseEntity<String> resetPassword(@RequestBody PasswordDTO passwordDTO) {
-        return userService.resetPasswordController(passwordDTO);
+    public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordDTO resetPasswordDTO) {
+        return userService.resetPasswordController(resetPasswordDTO);
     }
 
     /**
@@ -71,7 +71,7 @@ public class UserController {
 
     @RequestMapping(value = "/loginUser")
     public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDTO) {
-        return userService.loginUser(loginDTO.getEmail(), loginDTO.getPassword());
+        return userService.loginUser(loginDTO);
     }
 
     /**

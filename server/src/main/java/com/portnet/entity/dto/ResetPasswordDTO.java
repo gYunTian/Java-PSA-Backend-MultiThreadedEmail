@@ -8,7 +8,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class PasswordDTO {
+public class ResetPasswordDTO {
     private User user;
 
     @NotBlank(message = "Identifier is mandatory")
@@ -24,8 +24,8 @@ public class PasswordDTO {
      * @param newPassword chosen password the user wants to change to
      */
     @JsonCreator
-    public PasswordDTO(@JsonProperty("identifier") String identifier,
-                       @JsonProperty("new_password") String newPassword) {
+    public ResetPasswordDTO(@JsonProperty("identifier") String identifier,
+                            @JsonProperty("new_password") String newPassword) {
         this.identifier = identifier;
         this.newPassword = newPassword;
     }
@@ -36,9 +36,9 @@ public class PasswordDTO {
      * @param newPassword chosen password the user wants to change to
      */
     @JsonCreator
-    public PasswordDTO(@JsonProperty("user") User user,
-                       @JsonProperty("identifier") String identifier,
-                       @JsonProperty("new_password") String newPassword) {
+    public ResetPasswordDTO(@JsonProperty("user") User user,
+                            @JsonProperty("identifier") String identifier,
+                            @JsonProperty("new_password") String newPassword) {
         this.user = user;
         this.identifier = identifier;
         this.newPassword = newPassword;

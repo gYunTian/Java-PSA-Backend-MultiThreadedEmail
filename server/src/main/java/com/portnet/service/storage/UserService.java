@@ -1,11 +1,13 @@
 package com.portnet.service.storage;
 
 import com.portnet.dao.storage.UserDao;
-import com.portnet.entity.dto.PasswordDTO;
+import com.portnet.entity.dto.LoginDTO;
+import com.portnet.entity.dto.ResetPasswordDTO;
 import com.portnet.entity.storage.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -66,14 +68,17 @@ public class UserService {
      * Allow User to login if data passes validity checks
      * @return message indicating if user registration successful
      */
-    public ResponseEntity<String> loginUser(String email, String givenPassword) {
+    public ResponseEntity<String> loginUser(LoginDTO loginDTO) {
+        String email = loginDTO.getEmail();
+        String givenPassword = loginDTO.getPassword();
+
         User user = getUserByEmail(email);
         if (user == null) {
             return new ResponseEntity<>(
                     "Login unsuccessful - wrong email",
                     HttpStatus.BAD_REQUEST);
         }
-        if (!user.getPassword().equals(givenPassword)) {
+        if (!new BCryptPasswordEncoder().matches(givenPassword, user.getPassword())) {
             return new ResponseEntity<>(
                     "Login unsuccessful - wrong password",
                     HttpStatus.BAD_REQUEST);
@@ -159,28 +164,28 @@ public class UserService {
 
     /**
      * Allow User to login if data passes validity checks
-     * @param passwordDTO containing user object, and the old password & new password input by user
+     * @param resetPasswordDTO containing user object, and the old password & new password input by user
      * @return message indicating if change password successful
      */
-    public ResponseEntity<String> changePasswordController(PasswordDTO passwordDTO) {
-        User user = passwordDTO.getUser();
-        String oldPasswordGiven = passwordDTO.getIdentifier();
+    public ResponseEntity<String> changePasswordController(ResetPasswordDTO resetPasswordDTO) {
+        User user = resetPasswordDTO.getUser();
+        String oldPasswordGiven = resetPasswordDTO.getIdentifier();
 
         if (!user.getPassword().equals(oldPasswordGiven)) {
             return new ResponseEntity<>(
                     "Change Password unsuccessful - wrong password",
                     HttpStatus.BAD_REQUEST);
         }
-        return changePassword(user, passwordDTO.getNewPassword());
+        return changePassword(user, resetPasswordDTO.getNewPassword());
     }
 
     /**
      * Allow User to login if data passes validity checks
-     * @param passwordDTO containing the token & new password input by user
+     * @param resetPasswordDTO containing the token & new password input by user
      * @return message indicating if change password successful
      */
-    public ResponseEntity<String> resetPasswordController(PasswordDTO passwordDTO) {
-        String token = passwordDTO.getIdentifier();
+    public ResponseEntity<String> resetPasswordController(ResetPasswordDTO resetPasswordDTO) {
+        String token = resetPasswordDTO.getIdentifier();
         User user = getUserByToken(token);
 
         if (user == null) {
@@ -188,7 +193,7 @@ public class UserService {
                     "Change Password unsuccessful - wrong token",
                     HttpStatus.BAD_REQUEST);
         }
-        return changePassword(user, passwordDTO.getNewPassword());
+        return changePassword(user, resetPasswordDTO.getNewPassword());
     }
 
     /**
