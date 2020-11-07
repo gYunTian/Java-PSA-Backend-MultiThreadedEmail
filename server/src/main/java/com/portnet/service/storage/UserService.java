@@ -83,7 +83,9 @@ public class UserService {
                     "Login unsuccessful - wrong password",
                     HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok("Login successful - details valid");
+        return ResponseEntity.ok()
+            .header("name", getUserByEmail(email).getName())
+            .body("Login successful - details valid");
     }
 
     /**
