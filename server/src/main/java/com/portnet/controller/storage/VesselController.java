@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  * REST APIs using service methods for Vessel
  */
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class VesselController {
     
