@@ -1,10 +1,13 @@
-import { elements } from '../views/base';
+import { elements, compare } from '../views/base';
 
-export const renderByDate = data => {
+export const renderByDate = (data, sortReq) => {
     elements.dataTableBody.innerHTML = '';
+    const { by, order } = sortReq;
+    data.sort(compare(by, order));
+    console.log(by, order);
 
     data.forEach(e => {
-        const {
+        let {
             vesselName,
             inVoyN,
             outVoyN,
@@ -16,6 +19,7 @@ export const renderByDate = data => {
             status,
             uniqueID,
         } = e;
+        berthN = !berthN ? '-' : berthN;
         const markup = `
         <tr>
             <td>${vesselName}</td>

@@ -1,197 +1,255 @@
 // Buttons
 %btn-shared {
-  display: inline-block;
-  padding: 0.8rem 2rem;
-  transition: all 0.5s;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    transition: all 0.5s;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .btn {
-  &-main {
-    @extend %btn-shared;
-    color: $light-color;
-    background-color: $main-color;
+    &-main {
+        @extend %btn-shared;
+        color: $light-color;
+        background-color: $main-color;
 
-    &:hover {
-      background-color: $dark-color;
+        &:hover {
+            background-color: $dark-color;
+        }
     }
-  }
 
-  &-dark {
-    @extend %btn-shared;
-    color: white;
-    background-color: $dark-color;
+    &-dark {
+        @extend %btn-shared;
+        color: white;
+        background-color: $dark-color;
 
-    &:hover {
-      background-color: $main-color;
+        &:hover {
+            background-color: $main-color;
+        }
     }
-  }
 
-  &-darkest {
-    @extend %btn-shared;
-    color: white;
-    background-color: $darkest-color;
+    &-darkest {
+        @extend %btn-shared;
+        color: white;
+        background-color: $darkest-color;
 
-    &:hover {
-      background-color: $main-color;
+        &:hover {
+            background-color: $main-color;
+        }
     }
-  }
 
-  &-sign-up {
-    @extend %btn-shared;
-    color: $dark-color;
-    background-color: #fff;
+    &-sign-up {
+        @extend %btn-shared;
+        color: $dark-color;
+        background-color: #fff;
 
-    &:hover {
-      color: #fff;
-      background-color: $main-color;
+        &:hover {
+            color: #fff;
+            background-color: $main-color;
+        }
     }
-  }
 
-  &-date {
-    @extend %btn-shared;
-    color: #fff;
-    background-color: $comp-medium-color;
-    max-width: 140px;
-    text-align: center;
-    font-size: 0.9rem;
-    line-height: 1.2rem;
-    padding: 0.6rem 1.1rem;
+    &-date {
+        @extend %btn-shared;
+        color: #fff;
+        background-color: $comp-medium-color;
+        max-width: 140px;
+        text-align: center;
+        font-size: 0.9rem;
+        line-height: 1.2rem;
+        padding: 0.6rem 1.1rem;
 
-    &:hover {
-      background-color: $comp-dark-color;
+        &:hover {
+            background-color: $comp-dark-color;
+        }
     }
-  }
 
-  &-selected {
-    color: white;
-    background-color: $comp-darkest-color;
-    &:hover {
-      background-color: $comp-darkest-color;
+    &-selected {
+        color: white;
+        background-color: $comp-darkest-color;
+        &:hover {
+            background-color: $comp-darkest-color;
+        }
     }
-  }
 
-  &-favorite {
-    @extend %btn-shared;
-    padding: 5px 10px;
-    background-color: $main-color;
-    color: #fff;
-    &:hover {
-      background-color: $dark-color;
+    &-favorite {
+        @extend %btn-shared;
+        padding: 5px 10px;
+        background-color: $main-color;
+        color: #fff;
+        &:hover {
+            background-color: $dark-color;
+        }
     }
-  }
-  
-  &-favorited {
-    @extend %btn-shared;
-    padding: 5px 10px;
-    background-color: $darkest-color;
-    color: #fff;
-    &:hover {
-      background-color: $main-color;
-    }
-  }
 
-  &-subscribe {
-    @extend %btn-shared;
-    padding: 5px 10px;
-    background-color: $comp-medium-color;
-    color: #fff;
-    &:hover {
-      background-color: $comp-dark-color;
+    &-favorited {
+        @extend %btn-shared;
+        padding: 5px 10px;
+        background-color: $darkest-color;
+        color: #fff;
+        &:hover {
+            background-color: $main-color;
+        }
     }
-  }
-  
-  &-subscribed {
-    @extend %btn-shared;
-    padding: 5px 10px;
-    background-color: $comp-darkest-color;
-    color: #fff;
-    &:hover {
-      background-color: $comp-color;
+
+    &-subscribe {
+        @extend %btn-shared;
+        padding: 5px 10px;
+        background-color: $comp-medium-color;
+        color: #fff;
+        &:hover {
+            background-color: $comp-dark-color;
+        }
     }
-  }
 
-  &-disabled {
-    color: white;
-    background-color: $medium-color;
-    &:hover {
-      background-color: $medium-color;
+    &-subscribed {
+        @extend %btn-shared;
+        padding: 5px 10px;
+        background-color: $comp-darkest-color;
+        color: #fff;
+        &:hover {
+            background-color: $comp-color;
+        }
     }
-  }
 
-  &-med {
-    padding: 0.6rem 1.5rem;
-  }
+    &-disabled {
+        color: white;
+        background-color: $medium-color;
+        &:hover {
+            background-color: $medium-color;
+        }
+    }
 
-  &-mr {
-    margin-right: 8px;
-  }
+    &-sort {
+        cursor: pointer;
+    }
+
+    &-med {
+        padding: 0.6rem 1.5rem;
+    }
+
+    &-mr {
+        margin-right: 8px;
+    }
 }
 
 // Mixins
 @mixin shrinkLabel {
-  top: -20px;
-  font-size: 12px;
+    top: -20px;
+    font-size: 12px;
 }
 
 // *Full page spinner
 .spinner-wrapper {
-  width: 100%;
-  height: 100%;
-  background-color: $light-color;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: $light-color;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  .spinner {
-    position: relative;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+    .spinner {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
 
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      border-radius: 50%;
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        &::before {
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(
+                90deg,
+                $medium-color 0%,
+                $main-color 100%
+            );
+            animation: spinner-rotate 1s infinite linear;
+        }
+
+        &::after {
+            width: 85%;
+            height: 85%;
+            background-color: $light-color;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     }
 
-    &::before {
-      width: 100%;
-      height: 100%;
-      background-image: linear-gradient(
-        90deg,
-        $medium-color 0%,
-        $main-color 100%
-      );
-      animation: spinner-rotate 1s infinite linear;
+    @keyframes spinner-rotate {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+}
+
+// *Spinner contained
+.spinner-contained {
+    width: 100%;
+    height: 100%;
+    background-color: $light-color;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .spinner {
+        position: relative;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+        }
+
+        &::before {
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(
+                90deg,
+                $medium-color 0%,
+                $main-color 100%
+            );
+            animation: spinner-rotate 1s infinite linear;
+        }
+
+        &::after {
+            width: 85%;
+            height: 85%;
+            background-color: $light-color;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
     }
 
-    &::after {
-      width: 85%;
-      height: 85%;
-      background-color: $light-color;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+    @keyframes spinner-rotate {
+        to {
+            transform: rotate(360deg);
+        }
     }
-  }
-
-  @keyframes spinner-rotate {
-    to {
-      transform: rotate(360deg);
-    }
-  }
 }
 
 .mx {
-  &-1 {
-    margin: 0 15px;
-  }
+    &-1 {
+        margin: 0 15px;
+    }
 }

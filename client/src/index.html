@@ -65,25 +65,25 @@
                         2020-09-30 WEDNESDAY
                     </a>
                 </div>
-                <div class="data-table-container">
+                <div class="data-table-container"> 
                     <table class="data-table">
                         <thead class="data-table-head">
                             <tr>
-                                <th>Vessel Name &#9660</th>
-                                <th>Incoming Voyage No. &#9650</th>
-                                <th>Outgoing Voyage No.</th>
-                                <th>Berthing Time</th>
-                                <th>Change Count</th>
-                                <th>Departure Time</th>
-                                <th>Berth Number</th>
-                                <th>Status</th>
-                                <th>Favorite</th>
-                                <th>Subscribe</th>
+                                <!-- &#9660 for decreasing arrow -->
+                                <th><div class="btn-sort" sortby="vesselName" order="desc">Vessel Name &#9650</div></th>
+                                <th><div class="btn-sort" sortby="inVoyN" order="desc">Incoming Voyage No. &#9650</div></th>
+                                <th><div class="btn-sort" sortby="outVoyN" order="desc">Outgoing Voyage No. &#9650</div></th>
+                                <th><div class="btn-sort" sortby="berthingTime" order="desc">Berthing Time &#9650</div></th>
+                                <th><div class="btn-sort" sortby="changeCount" order="desc">Change Count &#9650</div></th>
+                                <th><div class="btn-sort" sortby="departureTime" order="desc">Departure Time &#9650</div></th>
+                                <th><div class="btn-sort" sortby="berthN" order="desc">Berth Number &#9650</div></th>
+                                <th><div class="btn-sort" sortby="status" order="desc">Status &#9650</div></th>
+                                <th><div class="btn-sort">Favorite</div></th>
+                                <th><div class="btn-sort">Subscribe</div></th>
                             </tr>
                         </thead>
-
                         <tbody class="data-table-body">
-                            <tr>
+                            <!-- <tr>
                                 <td>AEGEAN EXP</td>
                                 <td>1237S</td>
                                 <td>1237S</td>
@@ -93,28 +93,12 @@
                                 <td>-</td>
                                 <td>BERTHING</td>
                                 <td>
-                                    <div class="btn-favorited">Remove Favorite</div>
+                                    <div class="btn-favorited">Unfavorite</div>
                                 </td>
                                 <td>
                                     <div class="btn-subscribed">Unsubscribe</div>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>AEGEAN EXP</td>
-                                <td>1237S</td>
-                                <td>1237S</td>
-                                <td class="small-change">2300hrs</td>
-                                <td>5</td>
-                                <td>2355hrs</td>
-                                <td>-</td>
-                                <td>BERTHING</td>
-                                <td>
-                                    <div class="btn-favorite">Favorite</div>
-                                </td>
-                                <td>
-                                    <div class="btn-subscribe">Subscribe</div>
-                                </td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>

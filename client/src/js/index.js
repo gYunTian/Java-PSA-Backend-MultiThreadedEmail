@@ -71,6 +71,7 @@ elements.signOutBtn.addEventListener('click', e => {
 
 // *Control vessels (Get data into state and format it)
 const controlVessels = async () => {
+    console.log('refetching..');
     // *Get date range from state
     const startDate = state.time.dateRange[0][0];
     const endDate = state.time.dateRange[6][0];
@@ -84,14 +85,15 @@ const controlVessels = async () => {
 };
 
 // *Control table
-const controlTable = () => {
+const controlTable = (sortReq = { by: 'berthingTime', order: 'asc' }) => {
     const hash = window.location.hash.replace('#', '');
     if (!hash) {
         // *Highlight today in selection
         selectionView.highlightSelectedDate(state.time.dateRange[0][0]);
         // *Load data for today
         tableView.renderByDate(
-            state.vessel.niceData[state.time.dateRange[0][0]]
+            state.vessel.niceData[state.time.dateRange[0][0]],
+            sortReq
         );
     } else {
         if (hash == 'favorites') {
@@ -99,7 +101,8 @@ const controlTable = () => {
         } else if (hash == 'subscriptions') {
             console.log('load subscriptions');
         } else {
-            console.log('load respective dates.');
+            selectionView.highlightSelectedDate(hash);
+            tableView.renderByDate(state.vessel.niceData[hash], sortReq);
         }
     }
 };
@@ -107,4 +110,22 @@ const controlTable = () => {
 // *Event Listener for hash change (to trigger different tables)
 window.addEventListener('hashchange', e => {
     controlTable();
+});
+
+// *Event Listener for sorting
+elements.dataTableHead.addEventListener('click', e => {
+    const sortBtnClicked = e.target.closest('.btn-sort');
+    if (sortBtnClicked) {
+        console.log(sortBtnClicked);
+        const by = sortBtnClicked.getAttribute('sortby');
+        const order = sortBtnClicked.getAttribute('order');
+        const namingArr = sortBtnClicked.innerHTML.split(' ');
+        const naming = namingArr.slice(0, namingArr.length - 1).join(' ');
+        const sortReq = { by, order };
+        controlTable(sortReq);
+        sortBtnClicked.setAttribute('order', order == 'asc' ? 'desc' : 'asc');
+        sortBtnClicked.innerHTML = `${naming} ${
+            order == 'desc' ? '&#9660' : '&#9650'
+        }`;
+    }
 });

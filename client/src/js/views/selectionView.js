@@ -15,6 +15,11 @@ export const renderDateSelection = dateRange => {
 };
 
 export const highlightSelectedDate = date => {
-    console.log("done?");
+    const btnlist = Array.from(document.querySelectorAll('.btn-date'));
+    btnlist.forEach(btn => {
+        if (btn.classList.contains('btn-selected')) {
+            btn.classList.remove('btn-selected');
+        }
+    });
     document.getElementById(date).classList.add('btn-selected');
 };
