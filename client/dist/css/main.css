@@ -419,3 +419,9 @@ a {
             color: white; }
           #main-wrapper .main-content .data-table-container .data-table tbody tr td.small-change {
             background-color: yellow; }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s; }

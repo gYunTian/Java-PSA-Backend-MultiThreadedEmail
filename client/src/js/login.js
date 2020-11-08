@@ -13,6 +13,7 @@ window.addEventListener('load', () => {
     controlForms();
 });
 
+
 // *Control forms
 const controlForms = () => {
     // *Labels stay shrinked if there is form input in that field
