@@ -1,362 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./css/main.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.ico" />
-    <title>VSTA: Vessel Data Central Hub</title>
-  </head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./css/main.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+        <link
+            rel="shortcut icon"
+            type="image/x-icon"
+            href="assets/favicon.ico"
+        />
+        <title>VSTA: Vessel Data Central Hub</title>
+    </head>
 
-  <body>
-    <div class="spinner-wrapper">
-      <div class="spinner"></div>
-    </div>
-    <div id="main-wrapper">
-      <div class="top-bar">
-        <div class="top-bar-left">
-          <img src="assets/logo.png" alt="" class="logo" />
-          <div class="logo-text">Vessel Schedule Tracking Application</div>
+    <body>
+        <div class="spinner-wrapper">
+            <div class="spinner"></div>
         </div>
-        <div class="top-bar-right">
-          <div class="greeting">Welcome, Yeow Leong!</div>
-          <div class="btn-main btn-med">Favorites</div>
-          <div class="btn-main btn-med mx-1">Subscriptions</div>
-          <div id="sign-out" class="btn-main btn-med">Sign Out</div>
-        </div>
-      </div>
-      <div class="main-content">
-        <div class="date-selection-container">
-          <div id="day-1-selector" class="btn-date btn-selected">
-            2020-09-24 THURSDAY
-          </div>
-          <div id="day-1-selector" class="btn-date">2020-09-24 THURSDAY</div>
-          <div id="day-2-selector" class="btn-date">2020-09-25 FRIDAY</div>
-          <div id="day-3-selector" class="btn-date">2020-09-26 SATURDAY</div>
-          <div id="day-4-selector" class="btn-date">2020-09-27 SUNDAY</div>
-          <div id="day-5-selector" class="btn-date">2020-09-28 MONDAY</div>
-          <div id="day-6-selector" class="btn-date">2020-09-29 TUESDAY</div>
-          <div id="day-7-selector" class="btn-date">2020-09-30 WEDNESDAY</div>
-          <div id="day-8-selector" class="btn-date">2020-10-01 THURSDAY</div>
-        </div>
-        <div class="data-table-container">
-          <table class="data-table">
-            <thead class="data-table-head">
-              <tr>
-                <th>Vessel Name</th>
-                <th>Incoming Voyage No.</th>
-                <th>Outgoing Voyage No.</th>
-                <th>Berthing Time</th>
-                <th>Departure Time</th>
-                <th>Berth Number</th>
-                <th>Status</th>
-                <th>Change Count</th>
-                <th>Favorite</th>
-                <th>Subscribe</th>
-              </tr>
-            </thead>
+        <div id="main-wrapper">
+            <div class="top-bar">
+                <div class="top-bar-left">
+                    <a href="index.html"
+                        ><img src="assets/logo.png" alt="" class="logo"
+                    /></a>
+                    <div class="logo-text">
+                        Vessel Schedule Tracking Application
+                    </div>
+                </div>
+                <div class="top-bar-right">
+                    <div class="greeting">Welcome, Yeow Leong!</div>
+                    <a class="btn-main btn-med" href="#favorites">Favorites</a>
+                    <a class="btn-main btn-med mx-1" href="#subscriptions">Subscriptions</a>
+                    <div id="sign-out" class="btn-main btn-med">Sign Out</div>
+                </div>
+            </div>
+            <div class="main-content">
+                <div class="date-selection-container">
+                    <a id="day-1-selector" class="btn-date btn-selected">
+                        2020-09-24 THURSDAY
+                    </a>
+                    <a id="day-2-selector" class="btn-date">
+                        2020-09-25 FRIDAY
+                    </a>
+                    <a id="day-3-selector" class="btn-date">
+                        2020-09-26 SATURDAY
+                    </a>
+                    <a id="day-4-selector" class="btn-date">
+                        2020-09-27 SUNDAY
+                    </a>
+                    <a id="day-5-selector" class="btn-date">
+                        2020-09-28 MONDAY
+                    </a>
+                    <a id="day-6-selector" class="btn-date">
+                        2020-09-29 TUESDAY
+                    </a>
+                    <a id="day-7-selector" class="btn-date">
+                        2020-09-30 WEDNESDAY
+                    </a>
+                </div>
+                <div class="data-table-container">
+                    <table class="data-table">
+                        <thead class="data-table-head">
+                            <tr>
+                                <th>Vessel Name &#9660</th>
+                                <th>Incoming Voyage No. &#9650</th>
+                                <th>Outgoing Voyage No.</th>
+                                <th>Berthing Time</th>
+                                <th>Change Count</th>
+                                <th>Departure Time</th>
+                                <th>Berth Number</th>
+                                <th>Status</th>
+                                <th>Favorite</th>
+                                <th>Subscribe</th>
+                            </tr>
+                        </thead>
 
-            <tbody class="data-table-body">
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite btn-disabled">Favorited</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe btn-disabled">Subscribed</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-              <tr>
-                <td>AEGEAN EXP</td>
-                <td>1237S</td>
-                <td>1237S</td>
-                <td>2300hrs</td>
-                <td>1700hrs</td>
-                <td>-</td>
-                <td>BERTHING</td>
-                <td>5</td>
-                <td><div class="btn-favorite">Favorite</div></td>
-                <td><div class="btn-subscribe">Subscribe</div></td>
-              </tr>
-            </tbody>
-          </table>
+                        <tbody class="data-table-body">
+                            <tr>
+                                <td>AEGEAN EXP</td>
+                                <td>1237S</td>
+                                <td>1237S</td>
+                                <td class="big-change">2300hrs</td>
+                                <td>3</td>
+                                <td>2345hrs</td>
+                                <td>-</td>
+                                <td>BERTHING</td>
+                                <td>
+                                    <div class="btn-favorited">Remove Favorite</div>
+                                </td>
+                                <td>
+                                    <div class="btn-subscribed">Unsubscribe</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>AEGEAN EXP</td>
+                                <td>1237S</td>
+                                <td>1237S</td>
+                                <td class="small-change">2300hrs</td>
+                                <td>5</td>
+                                <td>2355hrs</td>
+                                <td>-</td>
+                                <td>BERTHING</td>
+                                <td>
+                                    <div class="btn-favorite">Favorite</div>
+                                </td>
+                                <td>
+                                    <div class="btn-subscribe">Subscribe</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </body>
+    </body>
 </html>

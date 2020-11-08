@@ -3,41 +3,108 @@ import { elements, clearSpinner } from './views/base';
 import { data, processData } from './data/data';
 
 import * as navView from './views/navView';
+import * as selectionView from './views/selectionView';
+import * as tableView from './views/tableView';
+import Vessel from './models/Vessel';
 
 const state = {};
 console.log({ state });
 
 // *Perform tasks after page loads
-window.addEventListener('load', () => {
-  controlLogin();
-  // !Data for testing
-  state.data = processData(data);
-  
-  // *Get current date into state
-  state.date = new Date();
+window.addEventListener('load', async () => {
+    controlTime();
+    controlLogin();
+    // *Get all data into state and format it
+    await controlVessels();
+    controlTable();
 });
 
-// *Control login (note that state.user.id = null for sign up)
-const controlLogin = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (!user) {
-    window.location.replace('login.html');
-  } else {
-    state.user = user;
-    // *This is to handle the case of login, user's display name is in user.state.dataFromServer
-    if (!state.user.name) {
-      state.user.name = state.user.dataFromServer.name;
+// *Control date
+const controlTime = () => {
+    const days = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+    ];
+    let today = new Date();
+    state.time = {};
+    let range = [today];
+    for (let i = 1; i <= 6; i++) {
+        const nextDay = new Date(today);
+        nextDay.setDate(today.getDate() + 1);
+        range.push(nextDay);
+        today = nextDay;
     }
+    state.time.dateRange = [];
+    range.forEach(e => {
+        const year = e.getFullYear().toString(10);
+        const month = ('0' + (e.getMonth() + 1).toString(10)).slice(-2);
+        const date = ('0' + e.getDate().toString(10)).slice(-2);
+        const day = days[e.getDay()];
+        state.time.dateRange.push([`${year}-${month}-${date}`, day]);
+    });
+};
 
-    navView.updateGreeting(state.user.name);
-  }
+// *Control login
+const controlLogin = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+        window.location.replace('login.html');
+    } else {
+        clearSpinner();
+        state.user = user;
+        // *Update greeting
+        navView.updateGreeting(state.user.name);
+    }
 };
 
 // *Event Listener for sign out button
 elements.signOutBtn.addEventListener('click', e => {
-  e.preventDefault();
-  localStorage.setItem('user', 'null');
-  window.location.replace('login.html');
+    e.preventDefault();
+    localStorage.setItem('user', 'null');
+    window.location.replace('login.html');
 });
 
-setTimeout(clearSpinner(), 10000);
+// *Control vessels (Get data into state and format it)
+const controlVessels = async () => {
+    // *Get date range from state
+    const startDate = state.time.dateRange[0][0];
+    const endDate = state.time.dateRange[6][0];
+    state.vessel = new Vessel(startDate, endDate);
+    selectionView.renderDateSelection(state.time.dateRange);
+    try {
+        await state.vessel.getNext7Days();
+    } catch (err) {
+        console.log(`Error getting next 7 days data: ${err}`);
+    }
+};
+
+// *Control table
+const controlTable = () => {
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) {
+        // *Highlight today in selection
+        selectionView.highlightSelectedDate(state.time.dateRange[0][0]);
+        // *Load data for today
+        tableView.renderByDate(
+            state.vessel.niceData[state.time.dateRange[0][0]]
+        );
+    } else {
+        if (hash == 'favorites') {
+            console.log('load favorites');
+        } else if (hash == 'subscriptions') {
+            console.log('load subscriptions');
+        } else {
+            console.log('load respective dates.');
+        }
+    }
+};
+
+// *Event Listener for hash change (to trigger different tables)
+window.addEventListener('hashchange', e => {
+    controlTable();
+});

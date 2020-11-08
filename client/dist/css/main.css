@@ -14,7 +14,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #cccccc; }
 
-.btn-main, .btn-dark, .btn-darkest, .btn-sign-up, .btn-date, .btn-favorite, .btn-subscribe {
+.btn-main, .btn-dark, .btn-darkest, .btn-sign-up, .btn-date, .btn-favorite, .btn-favorited, .btn-subscribe, .btn-subscribed {
   display: inline-block;
   padding: 0.8rem 2rem;
   transition: all 0.5s;
@@ -71,12 +71,26 @@
   .btn-favorite:hover {
     background-color: #9e2a2b; }
 
+.btn-favorited {
+  padding: 5px 10px;
+  background-color: #8a2526;
+  color: #fff; }
+  .btn-favorited:hover {
+    background-color: #c63536; }
+
 .btn-subscribe {
   padding: 5px 10px;
-  background-color: #c63536;
+  background-color: #476c76;
   color: #fff; }
   .btn-subscribe:hover {
-    background-color: #9e2a2b; }
+    background-color: #284952; }
+
+.btn-subscribed {
+  padding: 5px 10px;
+  background-color: #1e373d;
+  color: #fff; }
+  .btn-subscribed:hover {
+    background-color: #335c67; }
 
 .btn-disabled {
   color: white;
@@ -359,3 +373,8 @@ a {
             background-color: #f3f3f3; }
           #main-wrapper .main-content .data-table-container .data-table tbody tr:last-of-type {
             border-bottom: 2px solid #dddddd; }
+          #main-wrapper .main-content .data-table-container .data-table tbody tr td.big-change {
+            background-color: red;
+            color: white; }
+          #main-wrapper .main-content .data-table-container .data-table tbody tr td.small-change {
+            background-color: yellow; }

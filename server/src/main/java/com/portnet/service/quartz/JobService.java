@@ -59,9 +59,8 @@ public class JobService {
       headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 
       // create request body as json
-      // String requestJson = "{\"dateFrom\":\"" + prop.getDateFrom() + "\",
-      // \"dateTo\":\"" + prop.getDateTo() + "\"}";
-      String requestJson = "{\"dateFrom\":\"" + "2020-09-08" + "\", \"dateTo\":\"" + "2020-09-08" + "\"}";
+      String requestJson = "{\"dateFrom\":\"" + prop.getDateFrom() + "\", \"dateTo\":\"" + prop.getDateTo() + "\"}";
+    //   String requestJson = "{\"dateFrom\":\"" + "2020-11-05" + "\", \"dateTo\":\"" + "2020-11-11" + "\"}";
       System.out.println(date + "  - Quartz job: Sending Post request");
 
       // parse json array

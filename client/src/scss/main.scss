@@ -3,329 +3,340 @@
 
 // *Global Styles
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: 'Open-Sans', sans-serif;
-  height: 100vh;
-  background: $main-bg no-repeat center center/cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  color: $dark-color;
+    font-family: 'Open-Sans', sans-serif;
+    height: 100vh;
+    background: $main-bg no-repeat center center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: $dark-color;
 }
 
 a {
-  text-decoration: none;
-  color: #000;
+    text-decoration: none;
+    color: #000;
 }
 
 // *Login page
 #login {
-  // *Main wrapper for everything
-  &-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    // *Main wrapper for everything
+    &-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-  // *Center box with 2 columns
-  &-box {
-    display: flex;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
-    background: $light-color;
-
-    // *Left col (sign in)
-    .sign-in {
-      background: $light-color;
-      width: 525px;
-      padding: 3rem 4.5rem 3.5rem 4.5rem;
-
-      &-top {
-        display: grid;
-        grid-template-areas:
-          'logo title'
-          'logo msg';
-        margin-bottom: 22px;
-
-        .sign-in-logo {
-          grid-area: logo;
-          width: 80px;
-          height: 90px;
-          align-self: center;
-          justify-self: center;
-          margin-right: 25px;
-        }
-
-        .sign-in-title {
-          grid-area: title;
-          align-self: center;
-          font-weight: bold;
-          font-size: 1.8rem;
-          color: $dark-color;
-        }
-
-        .sign-in-message {
-          grid-area: msg;
-          align-self: center;
-          color: $main-color;
-        }
-      }
-
-      &-form-area {
+    // *Center box with 2 columns
+    &-box {
+        display: flex;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.8);
         background: $light-color;
-        display: flex;
-        flex-direction: column;
 
-        .group {
-          position: relative;
-          margin: 32px 0;
+        // *Left col (sign in)
+        .sign-in {
+            background: $light-color;
+            width: 525px;
+            padding: 3rem 4.5rem 3.5rem 4.5rem;
 
-          .form-input {
-            background: none;
-            background-color: $light-color;
-            color: $main-color;
-            font-size: 22px;
-            padding: 3px 3px;
-            display: block;
-            width: 100%;
-            border: none;
-            border-radius: 0;
-            border-bottom: 2px solid $main-color;
+            &-top {
+                display: grid;
+                grid-template-areas:
+                    'logo title'
+                    'logo msg';
+                margin-bottom: 22px;
 
-            &:focus {
-              outline: none;
+                .sign-in-logo {
+                    grid-area: logo;
+                    width: 80px;
+                    height: 90px;
+                    align-self: center;
+                    justify-self: center;
+                    margin-right: 25px;
+                }
+
+                .sign-in-title {
+                    grid-area: title;
+                    align-self: center;
+                    font-weight: bold;
+                    font-size: 1.8rem;
+                    color: $dark-color;
+                }
+
+                .sign-in-message {
+                    grid-area: msg;
+                    align-self: center;
+                    color: $main-color;
+                }
             }
 
-            &:focus ~ .form-input-label {
-              @include shrinkLabel();
+            &-form-area {
+                background: $light-color;
+                display: flex;
+                flex-direction: column;
+
+                .group {
+                    position: relative;
+                    margin: 32px 0;
+
+                    .form-input {
+                        background: none;
+                        background-color: $light-color;
+                        color: $main-color;
+                        font-size: 22px;
+                        padding: 3px 3px;
+                        display: block;
+                        width: 100%;
+                        border: none;
+                        border-radius: 0;
+                        border-bottom: 2px solid $main-color;
+
+                        &:focus {
+                            outline: none;
+                        }
+
+                        &:focus ~ .form-input-label {
+                            @include shrinkLabel();
+                        }
+                    }
+
+                    input[type='password'] {
+                        letter-spacing: 0.3rem;
+                    }
+
+                    .form-input-label {
+                        color: $medium-color;
+                        font-size: 16px;
+                        font-weight: normal;
+                        position: absolute;
+                        pointer-events: none;
+                        left: 3px;
+                        top: 7px;
+                        transition: 300ms ease all;
+
+                        &.shrink {
+                            @include shrinkLabel();
+                        }
+                    }
+                }
+
+                .btn-main {
+                    margin: 29px 0 26px 0;
+                }
             }
-          }
-
-          input[type='password'] {
-            letter-spacing: 0.3rem;
-          }
-
-          .form-input-label {
-            color: $medium-color;
-            font-size: 16px;
-            font-weight: normal;
-            position: absolute;
-            pointer-events: none;
-            left: 3px;
-            top: 7px;
-            transition: 300ms ease all;
-
-            &.shrink {
-              @include shrinkLabel();
-            }
-          }
         }
 
-        .btn-main {
-          margin: 29px 0 26px 0;
+        // *Right col (sign-up)
+        .sign-up {
+            background: $dark-color;
+            width: 525px;
+            padding: 3rem 4.5rem 3.5rem 4.5rem;
+
+            &-top {
+                display: grid;
+                grid-template-areas:
+                    'title'
+                    'msg';
+                height: 83px;
+                margin-bottom: 10px;
+
+                .sign-up-title {
+                    grid-area: title;
+                    font-size: 1.8rem;
+                    color: #fff;
+                    font-weight: bold;
+                    align-self: center;
+                }
+
+                .sign-up-message {
+                    grid-area: msg;
+                    color: $light-color;
+                    align-self: center;
+                }
+            }
+
+            &-form-area {
+                background: $dark-color;
+                display: flex;
+                flex-direction: column;
+
+                .group {
+                    position: relative;
+                    margin: 20px 0;
+
+                    .form-input {
+                        background: none;
+                        background-color: $dark-color;
+                        color: #fff;
+                        font-size: 20px;
+                        padding: 3px 3px;
+                        display: block;
+                        width: 100%;
+                        border: none;
+                        border-radius: 0;
+                        border-bottom: 1.5px solid $light-color;
+
+                        &:focus {
+                            outline: none;
+                        }
+
+                        &:focus ~ .form-input-label {
+                            @include shrinkLabel();
+                        }
+                    }
+
+                    input[type='password'] {
+                        letter-spacing: 0.3rem;
+                    }
+
+                    .form-input-label {
+                        color: $medium-color;
+                        font-size: 16px;
+                        font-weight: normal;
+                        position: absolute;
+                        pointer-events: none;
+                        left: 3px;
+                        top: 5px;
+                        transition: 300ms ease all;
+
+                        &.shrink {
+                            @include shrinkLabel();
+                        }
+                    }
+                }
+
+                .btn-sign-up {
+                    margin-top: 22px;
+                }
+            }
         }
-      }
     }
-
-    // *Right col (sign-up)
-    .sign-up {
-      background: $dark-color;
-      width: 525px;
-      padding: 3rem 4.5rem 3.5rem 4.5rem;
-
-      &-top {
-        display: grid;
-        grid-template-areas:
-          'title'
-          'msg';
-        height: 83px;
-        margin-bottom: 10px;
-
-        .sign-up-title {
-          grid-area: title;
-          font-size: 1.8rem;
-          color: #fff;
-          font-weight: bold;
-          align-self: center;
-        }
-
-        .sign-up-message {
-          grid-area: msg;
-          color: $light-color;
-          align-self: center;
-        }
-      }
-
-      &-form-area {
-        background: $dark-color;
-        display: flex;
-        flex-direction: column;
-
-        .group {
-          position: relative;
-          margin: 20px 0;
-
-          .form-input {
-            background: none;
-            background-color: $dark-color;
-            color: #fff;
-            font-size: 20px;
-            padding: 3px 3px;
-            display: block;
-            width: 100%;
-            border: none;
-            border-radius: 0;
-            border-bottom: 1.5px solid $light-color;
-
-            &:focus {
-              outline: none;
-            }
-
-            &:focus ~ .form-input-label {
-              @include shrinkLabel();
-            }
-          }
-
-          input[type='password'] {
-            letter-spacing: 0.3rem;
-          }
-
-          .form-input-label {
-            color: $medium-color;
-            font-size: 16px;
-            font-weight: normal;
-            position: absolute;
-            pointer-events: none;
-            left: 3px;
-            top: 5px;
-            transition: 300ms ease all;
-
-            &.shrink {
-              @include shrinkLabel();
-            }
-          }
-        }
-
-        .btn-sign-up {
-          margin-top: 22px;
-        }
-      }
-    }
-  }
 }
 
 // *Main page
 #main-wrapper {
-  width: 100%;
-  height: 100%;
-
-  // *Top bar
-  .top-bar {
-    height: 77px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     width: 100%;
-    background-color: $light-color;
-    border-bottom: 4px solid $main-color;
-    padding: 10px 30px;
-    min-width: $website-width;
+    height: 100%;
 
-    .top-bar-left {
-      display: flex;
-      align-items: center;
-
-      .logo-text {
-        color: $main-color;
-        font-weight: bold;
-        margin-left: 20px;
-        font-size: 20px;
-        cursor: default;
-      }
-
-      .logo {
-        height: 52px;
-        width: 44px;
-      }
-    }
-
-    .top-bar-right {
-      display: flex;
-      align-items: center;
-
-      .greeting {
-        margin-right: 20px;
-        font-size: 20px;
-        color: $dark-color;
-        cursor: default;
-        font-weight: bold;
-      }
-    }
-  }
-
-  .main-content {
-    background-color: $light-color;
-    height: calc(100vh - 77px);
-    padding: 10px 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: $website-width;
-
-    .date-selection-container {
-      margin: 20px 0;
-      display: flex;
-      justify-content: space-between;
-      width: 80%;
-      min-width: 775px;
-    }
-
-    .data-table-container {
-      width: 80%;
-      max-height: 725px;
-      overflow-y: auto;
-      .data-table {
-        border-collapse: collapse;
-        font-size: 0.9em;
+    // *Top bar
+    .top-bar {
+        height: 77px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         width: 100%;
-        min-width: 100%;
-        th,
-        td {
-          padding: 12px 15px;
-        }
-        thead {
-          position: sticky;
-          top: 0;
-          th {
-            position: sticky;
-            top: 0;
-            background-color: $main-color;
-            color: #fff;
-            text-align: center;
-            font-weight: bold;
-          }
-        }
-        tbody {
-          tr {
-            border-bottom: 1px solid #dddddd;
-            text-align: center;
-            background-color: #fff;
+        background-color: $light-color;
+        border-bottom: 4px solid $main-color;
+        padding: 10px 30px;
+        min-width: $website-width;
 
-            &:nth-of-type(even) {
-              background-color: #f3f3f3;
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+
+            .logo-text {
+                color: $main-color;
+                font-weight: bold;
+                margin-left: 20px;
+                font-size: 20px;
+                cursor: default;
             }
 
-            &:last-of-type {
-              border-bottom: 2px solid #dddddd;
+            .logo {
+                height: 52px;
+                width: 44px;
             }
-          }
         }
-      }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+
+            .greeting {
+                margin-right: 20px;
+                font-size: 20px;
+                color: $dark-color;
+                cursor: default;
+                font-weight: bold;
+            }
+        }
     }
-  }
+
+    .main-content {
+        background-color: $light-color;
+        height: calc(100vh - 77px);
+        padding: 10px 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: $website-width;
+
+        .date-selection-container {
+            margin: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            min-width: 775px;
+        }
+
+        .data-table-container {
+            width: 80%;
+            max-height: 725px;
+            overflow-y: auto;
+            .data-table {
+                border-collapse: collapse;
+                font-size: 0.9em;
+                width: 100%;
+                min-width: 100%;
+                th,
+                td {
+                    padding: 12px 15px;
+                }
+                thead {
+                    position: sticky;
+                    top: 0;
+                    th {
+                        position: sticky;
+                        top: 0;
+                        background-color: $main-color;
+                        color: #fff;
+                        text-align: center;
+                        font-weight: bold;
+                    }
+                }
+                tbody {
+                    tr {
+                        border-bottom: 1px solid #dddddd;
+                        text-align: center;
+                        background-color: #fff;
+
+                        &:nth-of-type(even) {
+                            background-color: #f3f3f3;
+                        }
+
+                        &:last-of-type {
+                            border-bottom: 2px solid #dddddd;
+                        }
+
+                        td {
+                            &.big-change {
+                                background-color: red;
+                                color: white;
+                            }
+
+                            &.small-change {
+                                background-color: yellow;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

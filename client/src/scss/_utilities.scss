@@ -82,14 +82,34 @@
       background-color: $dark-color;
     }
   }
+  
+  &-favorited {
+    @extend %btn-shared;
+    padding: 5px 10px;
+    background-color: $darkest-color;
+    color: #fff;
+    &:hover {
+      background-color: $main-color;
+    }
+  }
 
   &-subscribe {
     @extend %btn-shared;
     padding: 5px 10px;
-    background-color: $main-color;
+    background-color: $comp-medium-color;
     color: #fff;
     &:hover {
-      background-color: $dark-color;
+      background-color: $comp-dark-color;
+    }
+  }
+  
+  &-subscribed {
+    @extend %btn-shared;
+    padding: 5px 10px;
+    background-color: $comp-darkest-color;
+    color: #fff;
+    &:hover {
+      background-color: $comp-color;
     }
   }
 
