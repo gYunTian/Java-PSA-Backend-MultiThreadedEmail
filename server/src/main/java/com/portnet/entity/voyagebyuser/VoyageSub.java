@@ -11,7 +11,7 @@ import java.util.Objects;
 /**
  * Storage for the voyage subscribed by a user
  */
-@Entity @Data @Table
+@Entity @Data @Table(name = "voyage_sub")
 @NoArgsConstructor @AllArgsConstructor
 public class VoyageSub implements Serializable {
     /**
@@ -20,7 +20,10 @@ public class VoyageSub implements Serializable {
      * @param voyageId the unique ID of the voyage, identified by record
      */
     @Id private int id;
+    @Column(name = "user_id")
     private int userId;
+
+    @Column(name = "voyage_id")
     private String voyageId;
 
 

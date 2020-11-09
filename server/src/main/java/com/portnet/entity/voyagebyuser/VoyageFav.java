@@ -8,7 +8,8 @@ import java.util.Objects;
 /**
  * Storage for the voyage favorited by a user
  */
-@Entity @Data @Table
+@Entity @Data
+@Table(name = "voyage_fav")
 @NoArgsConstructor @AllArgsConstructor
 public class VoyageFav {
     /**
@@ -17,9 +18,13 @@ public class VoyageFav {
      * @param voyageId the unique ID of the voyage, identified by record
      */
     @Id private int id;
-    private int userId;
-    private String voyageId;
 
+    @Column(name = "user_id")
+    private int userId;
+
+    @Column(name = "voyage_id")
+    private String voyageId;
+    
     /**
      * Custom equals method to account all elements
      * @param object that could be VoyageFav type or otherwise
@@ -55,4 +60,5 @@ public class VoyageFav {
     public String toString() {
         return String.format("VoyageFav [id=%d, userId=%d, voyageId=%s]", id, userId, voyageId);
     }
+
 }
