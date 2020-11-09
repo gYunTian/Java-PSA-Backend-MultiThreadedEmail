@@ -113,6 +113,10 @@
         }
     }
 
+    &-default {
+        cursor: default;
+    }
+
     &-disabled {
         color: white;
         background-color: $medium-color;

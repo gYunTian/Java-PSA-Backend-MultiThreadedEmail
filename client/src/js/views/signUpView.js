@@ -46,7 +46,7 @@ export const signUpFormValidation = signUpInputs => {
     return;
   }
 
-  // Invalid Email
+  // Invalid Email 
   if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
     alert('Email is invalid.');
     elements.signUpEmailInput.value = '';
@@ -65,15 +65,15 @@ export const signUpFormValidation = signUpInputs => {
     return;
   }
 
-  // Email doesn't end with @smu.edu.sg
-  if (email.split('@')[1] != 'sis.smu.edu.sg') {
-    alert("Email domain is invalid.");
-    console.log(email.split('@'[1]));
-    elements.signUpEmailInput.value = '';
-    elements.signUpEmailInput.focus();
-    errors += 1;
-    return;
-  }
+//   //? Email doesn't end with @sis.smu.edu.sg (commented out cuz handled by backend)
+//   if (email.split('@')[1] != 'sis.smu.edu.sg') {
+//     alert("Email domain is invalid.");
+//     console.log(email.split('@'[1]));
+//     elements.signUpEmailInput.value = '';
+//     elements.signUpEmailInput.focus();
+//     errors += 1;
+//     return;
+//   }
 
   if (errors) {
     return false;

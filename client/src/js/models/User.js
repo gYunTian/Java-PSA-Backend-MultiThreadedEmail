@@ -8,7 +8,7 @@ export default class User {
         this.password = password;
     }
 
-    // // *Get user by email (deprecated method to login)
+    //? // Get user by email (deprecated method to login)
     // async getUserByEmail() {
     //     const serviceURL = `${APIs.getUserByEmail}/${this.email}`;
     //     try {

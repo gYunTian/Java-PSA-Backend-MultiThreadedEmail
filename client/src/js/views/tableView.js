@@ -47,3 +47,15 @@ export const renderByDate = (data, sortReq) => {
         elements.dataTableBody.insertAdjacentHTML('beforeend', markup);
     });
 };
+
+// // ?Probably not needed since sort works fine
+// export const resetSort = excludeName => {
+//     const sortBtnList = Array.from(document.querySelectorAll('.btn-sort'));
+//     sortBtnList.forEach(btn => {
+//         const namingArr = btn.innerHTML.split(' ');
+//         const naming = namingArr.slice(0, namingArr.length - 1).join(' ');
+//         if (naming != excludeName) {
+//             btn.innerHTML = `${naming} &#9650`;
+//         }
+//     });
+// };

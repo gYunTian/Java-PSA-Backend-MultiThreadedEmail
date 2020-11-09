@@ -124,8 +124,12 @@ elements.dataTableHead.addEventListener('click', e => {
         const sortReq = { by, order };
         controlTable(sortReq);
         sortBtnClicked.setAttribute('order', order == 'asc' ? 'desc' : 'asc');
+        // tableView.resetSort(naming);
         sortBtnClicked.innerHTML = `${naming} ${
             order == 'desc' ? '&#9660' : '&#9650'
         }`;
     }
 });
+
+
+// *Event Listener for add fav

@@ -92,6 +92,9 @@
   .btn-subscribed:hover {
     background-color: #335c67; }
 
+.btn-default {
+  cursor: default; }
+
 .btn-disabled {
   color: white;
   background-color: #ce9495; }

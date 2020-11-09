@@ -13,7 +13,6 @@ window.addEventListener('load', () => {
     controlForms();
 });
 
-
 // *Control forms
 const controlForms = () => {
     // *Labels stay shrinked if there is form input in that field
@@ -67,6 +66,9 @@ const controlSignUp = async () => {
             if (state.user.registerStatus == 200) {
                 localStorage.setItem('user', JSON.stringify(state.user));
                 window.location.replace('index.html');
+            } else {
+                // !Connect with backend handling better
+                alert('Email domain not allowed.');
             }
         } catch (error) {
             console.log(`Error registering user: ${error}`);
