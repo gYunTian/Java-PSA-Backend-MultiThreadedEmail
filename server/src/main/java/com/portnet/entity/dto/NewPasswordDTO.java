@@ -16,7 +16,7 @@ public class NewPasswordDTO {
 
     @NotBlank(message = "Password is mandatory")
     private String newPassword;
-    // for now, assumes already validated to be not null else can hack sys
+    // assumes already validated to be not null else can hack sys
 
     /**
      * Constructs object for Reset password functionality

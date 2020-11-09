@@ -40,22 +40,27 @@ public class User {
 
     private String token;
 
+    /**
+     * Custom setPassword method to encode passwords
+     */
     public void setPassword(String password) {
-        if (!password.equals("")) {
-            // prevent encode "" else blank pw will end up being treated as not blank
+        if (!password.equals("")) { // prevent encode "" else blank pw will end up being treated as not blank
             this.password = new BCryptPasswordEncoder().encode(password);
             return;
         }
         this.password = password;
     }
 
+    /**
+     * Custom setToken method to generate random token for new password requests
+     */
     public void setToken() {
         this.token = UUID.randomUUID().toString();
     }
 
 
     /**
-     * Custom equals method to account all elements
+     * Override equals method to account all elements
      * @param object that could be VoyageSub type or otherwise
      * @return true:  both objects are the same
      *                or have the same id
@@ -72,14 +77,18 @@ public class User {
     }
 
     /**
-     * Custom hash code method which represents all elements
+     * Override hashCode method to uniquely represent all elements
      * @return int representing hash code
      */
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
-    
+
+    /**
+     * Override toString method to encapsulate all elements in string representation
+     * @return string representation of object
+     */
     @Override
     public String toString() {
         return String.format("User [id=%d, name=%s, email=%s, password=%s, token=%s]", id, name, email, password, token);

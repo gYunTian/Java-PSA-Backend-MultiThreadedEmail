@@ -48,7 +48,7 @@ public class MailService {
         emailContent.put("recipient", user.getEmail());
 
         // customise subject & body
-        if (type.equals("changePasswordRequest")) {
+        if (type.equals("resetPasswordRequest")) {
             emailContent.put("subject", "Portnet Account Password Reset");
 
             String body = "Hi " + user.getName() + ",\n\n" +

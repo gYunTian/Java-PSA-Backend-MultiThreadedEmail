@@ -36,19 +36,9 @@ public class UserService {
      * @return message indicating if user registration successful
      */
     public ResponseEntity<String> saveUser(User user) {
-        // retrieve input values
-//        String name = user.getName();
-        String email = user.getEmail();
-//        String pwd = user.getPassword();
-
-//        // input length validity
-//        if (name.length()>32 || email.length()>32 || pwd.length()>32) {
-//            return new ResponseEntity<>(
-//                    "Registration unsuccessful - inputs too long, keep within 32 characters",
-//                    HttpStatus.BAD_REQUEST);
-//        }
 
         // email validity
+        String email = user.getEmail();
         if (getUserByEmail(email) != null) {
             return new ResponseEntity<>(
                     "Registration unsuccessful - email already exists",
@@ -83,7 +73,8 @@ public class UserService {
                     "Login unsuccessful - wrong password",
                     HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok(getUserByEmail(email).getName() + "'s Login successful - details valid");
+
+        return ResponseEntity.ok("User " + user.getId() +", " + user.getName() + "'s Login successful - details valid");
     }
 
     /**
@@ -180,7 +171,7 @@ public class UserService {
     }
 
     /**
-     * Allow User to login if data passes validity checks
+     * Allow User to change password if data passes validity checks
      * @param newPasswordDTO containing the token & new password input by user
      * @return message indicating if change password successful
      */
@@ -202,7 +193,7 @@ public class UserService {
      * @param attrs to store & bring email content to the next view
      * @return redirects to mail which returns status message on successful sending of email
      */
-    public RedirectView changePasswordRequest(String email, RedirectAttributes attrs) {
+    public RedirectView resetPasswordRequest(String email, RedirectAttributes attrs) {
         try {
             User user = getUserByEmail(email);  // if null, catch exception
             
@@ -211,7 +202,7 @@ public class UserService {
 
             // For Redirection to mail
             attrs.addFlashAttribute("user", user);
-            attrs.addFlashAttribute("type", "changePasswordRequest");
+            attrs.addFlashAttribute("type", "resetPasswordRequest");
 
         } catch (NullPointerException e) {
             attrs.addFlashAttribute("user", null);

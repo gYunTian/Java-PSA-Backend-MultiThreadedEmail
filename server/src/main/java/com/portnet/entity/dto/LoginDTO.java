@@ -10,6 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class LoginDTO {
 
+    @NotBlank(message = "Email is mandatory")
     @Email(message = "Email should be valid")
     String email;
 
