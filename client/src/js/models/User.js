@@ -35,8 +35,9 @@ export default class User {
                 },
                 headers,
             });
-            console.log(result.data);
-            this.name = result.data.split('\'')[0];
+            this.name = result.data.split("'")[0].split(' ')[2];
+            this.name = this.name.charAt(0).toUpperCase() + this.name.slice(1);
+            this.userID = parseInt(result.data.split(',')[0].split(' ')[1]);
             this.loginStatus = result.status;
         } catch (error) {
             console.log(`User.js loginUser error: ${error}`);

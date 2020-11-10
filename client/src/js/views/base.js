@@ -29,6 +29,12 @@ export const APIs = {
     getUserByEmail: `${ENDPOINT}/userByEmail`, // ?Not needed anymore
     loginUser: `${ENDPOINT}/loginUser`, // *Using this to authenticate users
     getVessels: `${ENDPOINT}/vessels`,
+    addFav: `${ENDPOINT}/addVoyageFav`,
+    getFavs: `${ENDPOINT}/voyageFavsByUserId`,
+    deleteFav: `${ENDPOINT}/deleteVoyageFav`,
+    addSub: `${ENDPOINT}/addVoyageSub`,
+    getSubs: `${ENDPOINT}/voyageSubsByUserId`,
+    deleteSub: `${ENDPOINT}/deleteVoyageSubs`,
 };
 
 // *Full screen spinner clear

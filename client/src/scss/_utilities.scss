@@ -73,7 +73,7 @@
         }
     }
 
-    &-favorite {
+    &-favourite {
         @extend %btn-shared;
         padding: 5px 10px;
         background-color: $main-color;
@@ -83,7 +83,7 @@
         }
     }
 
-    &-favorited {
+    &-favourited {
         @extend %btn-shared;
         padding: 5px 10px;
         background-color: $darkest-color;

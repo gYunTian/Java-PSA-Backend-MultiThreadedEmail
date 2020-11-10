@@ -14,7 +14,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #cccccc; }
 
-.btn-main, .btn-dark, .btn-darkest, .btn-sign-up, .btn-date, .btn-favorite, .btn-favorited, .btn-subscribe, .btn-subscribed {
+.btn-main, .btn-dark, .btn-darkest, .btn-sign-up, .btn-date, .btn-favourite, .btn-favourited, .btn-subscribe, .btn-subscribed {
   display: inline-block;
   padding: 0.8rem 2rem;
   transition: all 0.5s;
@@ -64,18 +64,18 @@
   .btn-selected:hover {
     background-color: #1e373d; }
 
-.btn-favorite {
+.btn-favourite {
   padding: 5px 10px;
   background-color: #c63536;
   color: #fff; }
-  .btn-favorite:hover {
+  .btn-favourite:hover {
     background-color: #9e2a2b; }
 
-.btn-favorited {
+.btn-favourited {
   padding: 5px 10px;
   background-color: #8a2526;
   color: #fff; }
-  .btn-favorited:hover {
+  .btn-favourited:hover {
     background-color: #c63536; }
 
 .btn-subscribe {

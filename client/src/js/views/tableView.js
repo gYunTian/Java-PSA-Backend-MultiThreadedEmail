@@ -1,10 +1,9 @@
 import { elements, compare } from '../views/base';
 
-export const renderByDate = (data, sortReq) => {
+export const renderByDate = (data, sortReq, favsArr, subsArr) => {
     elements.dataTableBody.innerHTML = '';
     const { by, order } = sortReq;
     data.sort(compare(by, order));
-    console.log(by, order);
 
     data.forEach(e => {
         let {
@@ -20,6 +19,8 @@ export const renderByDate = (data, sortReq) => {
             uniqueID,
         } = e;
         berthN = !berthN ? '-' : berthN;
+        const isFav = favsArr.includes(uniqueID);
+        const isSub = subsArr.includes(uniqueID);
         const markup = `
         <tr>
             <td>${vesselName}</td>
@@ -37,15 +38,44 @@ export const renderByDate = (data, sortReq) => {
             <td>${berthN}</td>
             <td>${status}</td>
             <td>
-                <div class="btn-favorite" uniqueID="${uniqueID}">Favorite</div>
+                <div class=${
+                    isFav ? 'btn-favourited' : 'btn-favourite'
+                } uniqueID="${uniqueID}">${
+            isFav ? 'Unfavourite' : 'Favourite'
+        }</div>
             </td>
             <td>
-                <div class="btn-subscribe" uniqueID="${uniqueID}">Subscribe</div>
+                <div class=${
+                    isSub ? 'btn-subscribed' : 'btn-subscribe'
+                } uniqueID="${uniqueID}">${
+            isSub ? 'Unsubscribe' : 'Subscribe'
+        }</div>
             </td>
         </tr>
         `;
         elements.dataTableBody.insertAdjacentHTML('beforeend', markup);
     });
+};
+
+// *Favourite/Subscription button toggle
+export const FSBtnToggle = btn => {
+    if (btn.classList.contains('btn-favourite')) {
+        btn.classList.remove('btn-favourite');
+        btn.classList.add('btn-favourited');
+        btn.innerHTML = 'Unfavourite';
+    } else if (btn.classList.contains('btn-favourited')) {
+        btn.classList.remove('btn-favourited');
+        btn.classList.add('btn-favourite');
+        btn.innerHTML = 'Favourite';
+    } else if (btn.classList.contains('btn-subscribe')) {
+        btn.classList.remove('btn-subscribe');
+        btn.classList.add('btn-subscribed');
+        btn.innerHTML = 'Unsubscribe';
+    } else if (btn.classList.contains('btn-subscribed')) {
+        btn.classList.remove('btn-subscribed');
+        btn.classList.add('btn-subscribe');
+        btn.innerHTML = 'Subscribe';
+    }
 };
 
 // // ?Probably not needed since sort works fine
