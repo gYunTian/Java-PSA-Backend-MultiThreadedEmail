@@ -50,10 +50,12 @@ public class UserService {
         }
 
         user.setPassword(hashPassword(user.getPassword()));
-
         // passed checks
         userDao.save(user);
-        return ResponseEntity.ok("Registration successful");
+
+        User savedUser = getUserByEmail(email);
+
+        return ResponseEntity.ok("Registration successful, user has ID: " + savedUser.getId());
     }
 
     /**
@@ -134,7 +136,7 @@ public class UserService {
         if (!password.equals("")) { // prevent encode "" else blank pw will end up being treated as not blank
             return new BCryptPasswordEncoder().encode(password);
         }
-        return null;
+        return "";
     }
 
 

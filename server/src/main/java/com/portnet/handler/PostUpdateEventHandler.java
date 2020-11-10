@@ -33,7 +33,7 @@ public class PostUpdateEventHandler {
                             .append(event.getState()[p]).append(")\n");
                 }
                 String changes = sb.toString();
-                String uniqueId = (String) event.getId();
+                String uniqueId = String.valueOf(event.getId());
                 
                 List<String> emails = service.getSubs(uniqueId);
                 for (String email: emails) {
