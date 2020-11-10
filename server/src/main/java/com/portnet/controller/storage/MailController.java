@@ -13,6 +13,7 @@ import java.util.HashMap;
  * REST APIs using service methods for mail
  */
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class MailController {
 

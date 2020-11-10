@@ -7,6 +7,10 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Details input by user at Change & Reset password
+ */
+
 @Data
 public class NewPasswordDTO {
     private User user;

@@ -7,6 +7,10 @@ import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Details input by user at Login
+ */
+
 @Data
 public class LoginDTO {
 

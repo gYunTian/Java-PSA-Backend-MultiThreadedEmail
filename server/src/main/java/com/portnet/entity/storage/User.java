@@ -40,6 +40,7 @@ public class User {
 
     private String token;
 
+
     /**
      * Custom setPassword method to encode passwords
      */

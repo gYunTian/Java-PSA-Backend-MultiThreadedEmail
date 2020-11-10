@@ -143,14 +143,14 @@ public class UserService {
      * @param user object that has been verified to be correct
      * @param password the new verified password chosen by the user
      */
-    public ResponseEntity<String> changePassword(User user, String password) {
+    public ResponseEntity<String> resetPassword(User user, String password) {
         user.setPassword(password);
 
         // remove token
         user.setToken(null);
         updateUser(user);
 
-        return ResponseEntity.ok("Password change successful");
+        return ResponseEntity.ok("Password reset successful");
     }
 
     /**
@@ -167,7 +167,10 @@ public class UserService {
                     "Change Password unsuccessful - wrong password",
                     HttpStatus.BAD_REQUEST);
         }
-        return changePassword(user, newPasswordDTO.getNewPassword());
+
+        user.setPassword(newPasswordDTO.getNewPassword());
+        updateUser(user);
+        return ResponseEntity.ok("Password reset successful");
     }
 
     /**
@@ -184,7 +187,7 @@ public class UserService {
                     "Change Password unsuccessful - wrong token",
                     HttpStatus.BAD_REQUEST);
         }
-        return changePassword(user, newPasswordDTO.getNewPassword());
+        return resetPassword(user, newPasswordDTO.getNewPassword());
     }
 
     /**
