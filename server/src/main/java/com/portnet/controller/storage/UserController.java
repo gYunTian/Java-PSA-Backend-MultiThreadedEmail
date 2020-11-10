@@ -50,10 +50,10 @@ public class UserController {
      * Update methods
      */
 
-    @PutMapping("/changePassword")
-    public ResponseEntity<String> changePassword(@RequestBody NewPasswordDTO newPasswordDTO) {
-        return userService.changePasswordController(newPasswordDTO);
-    }
+//    @PutMapping("/changePassword")
+//    public ResponseEntity<String> changePassword(@RequestBody NewPasswordDTO newPasswordDTO) {
+//        return userService.changePasswordController(newPasswordDTO);
+//    }
 
     @PutMapping("/resetPassword")
     public ResponseEntity<String> resetPassword(@RequestBody NewPasswordDTO newPasswordDTO) {

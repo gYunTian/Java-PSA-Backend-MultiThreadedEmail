@@ -49,6 +49,8 @@ public class UserService {
                     HttpStatus.BAD_REQUEST);
         }
 
+        user.setPassword(hashPassword(user.getPassword()));
+
         // passed checks
         userDao.save(user);
         return ResponseEntity.ok("Registration successful");
@@ -122,10 +124,17 @@ public class UserService {
 
         existingUser.setName(user.getName());
         existingUser.setEmail(user.getEmail());
-        existingUser.setPassword(user.getPassword());
+        existingUser.setPassword(hashPassword(user.getPassword()));
         existingUser.setToken(user.getToken());
 
         userDao.save(existingUser);
+    }
+
+    public String hashPassword(String password) {
+        if (!password.equals("")) { // prevent encode "" else blank pw will end up being treated as not blank
+            return new BCryptPasswordEncoder().encode(password);
+        }
+        return null;
     }
 
 
@@ -153,28 +162,28 @@ public class UserService {
         return ResponseEntity.ok("Password reset successful");
     }
 
+//    /**
+//     * Allow User to login if data passes validity checks
+//     * @param newPasswordDTO containing user object, and the old password & new password input by user
+//     * @return message indicating if change password successful
+//     */
+//    public ResponseEntity<String> changePasswordController(NewPasswordDTO newPasswordDTO) {
+//        User user = newPasswordDTO.getUser();
+//        String oldPasswordGiven = newPasswordDTO.getIdentifier();
+//
+//        if (!user.getPassword().equals(oldPasswordGiven)) {
+//            return new ResponseEntity<>(
+//                    "Change Password unsuccessful - wrong password",
+//                    HttpStatus.BAD_REQUEST);
+//        }
+//
+//        user.setPassword(newPasswordDTO.getNewPassword());
+//        updateUser(user);
+//        return ResponseEntity.ok("Password change successful");
+//    }
+
     /**
-     * Allow User to login if data passes validity checks
-     * @param newPasswordDTO containing user object, and the old password & new password input by user
-     * @return message indicating if change password successful
-     */
-    public ResponseEntity<String> changePasswordController(NewPasswordDTO newPasswordDTO) {
-        User user = newPasswordDTO.getUser();
-        String oldPasswordGiven = newPasswordDTO.getIdentifier();
-
-        if (!user.getPassword().equals(oldPasswordGiven)) {
-            return new ResponseEntity<>(
-                    "Change Password unsuccessful - wrong password",
-                    HttpStatus.BAD_REQUEST);
-        }
-
-        user.setPassword(newPasswordDTO.getNewPassword());
-        updateUser(user);
-        return ResponseEntity.ok("Password reset successful");
-    }
-
-    /**
-     * Allow User to change password if data passes validity checks
+     * Allow User to reset password if data passes validity checks
      * @param newPasswordDTO containing the token & new password input by user
      * @return message indicating if change password successful
      */

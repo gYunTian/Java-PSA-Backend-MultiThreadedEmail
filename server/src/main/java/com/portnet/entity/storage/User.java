@@ -45,10 +45,10 @@ public class User {
      * Custom setPassword method to encode passwords
      */
     public void setPassword(String password) {
-        if (!password.equals("")) { // prevent encode "" else blank pw will end up being treated as not blank
-            this.password = new BCryptPasswordEncoder().encode(password);
-            return;
-        }
+//        if (!password.equals("")) { // prevent encode "" else blank pw will end up being treated as not blank
+//            this.password = new BCryptPasswordEncoder().encode(password);
+//            return;
+//        }
         this.password = password;
     }
 
