@@ -2,25 +2,11 @@ import axios from 'axios';
 import { elements, APIs, headers } from '../views/base';
 
 export default class User {
-    constructor(name = null, email, password) {
+    constructor(name = null, email = null, password = null) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
-
-    //? // Get user by email (deprecated method to login)
-    // async getUserByEmail() {
-    //     const serviceURL = `${APIs.getUserByEmail}/${this.email}`;
-    //     try {
-    //         const result = await axios({
-    //             method: 'GET',
-    //             url: serviceURL,
-    //         });
-    //         this.dataFromServer = result.data;
-    //     } catch (error) {
-    //         console.log(`User.js getUserByEmail error: ${error}`);
-    //     }
-    // }
 
     // *Login user
     async loginUser() {
@@ -39,6 +25,7 @@ export default class User {
             this.name = this.name.charAt(0).toUpperCase() + this.name.slice(1);
             this.userID = parseInt(result.data.split(',')[0].split(' ')[1]);
             this.loginStatus = result.status;
+            this.password = null;
         } catch (error) {
             console.log(`User.js loginUser error: ${error}`);
         }
@@ -59,8 +46,44 @@ export default class User {
                 headers,
             });
             this.registerStatus = result.status;
+            this.userID = parseInt(result.data.split(' ').pop());
         } catch (error) {
             console.log(`User.js addUser error: ${error}`);
+        }
+    }
+
+    // *Request token
+    async requestToken(email) {
+        const serviceURL = `${APIs.requestToken}?email=${email}`;
+        console.log({ serviceURL });
+        try {
+            const result = await axios({
+                method: 'POST',
+                url: serviceURL,
+                headers,
+            });
+            alert(result.status);
+        } catch (err) {
+            console.log(`User.js requestToken error: ${err}`);
+        }
+    }
+
+    // *Reset password
+    async resetPassword(token, pw) {
+        const serviceURL = `${APIs.resetPassword}`;
+        console.log(serviceURL);
+        try {
+            const result = await axios({
+                method: 'PUT',
+                url: serviceURL,
+                data: {
+                    identifier: token,
+                    new_password: pw,
+                },
+            });
+            alert(result.data);
+        } catch (err) {
+            console.log(`User.js resetPassword error: ${err}`);
         }
     }
 }

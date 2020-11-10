@@ -2,7 +2,7 @@ export const elements = {
     signInEmailInput: document.querySelector('.sign-in-email-input'),
     signInPasswordInput: document.querySelector('.sign-in-password-input'),
     signInBtn: document.querySelector('#sign-in'),
-    resetPwButton: document.querySelector('#reset-password'),
+    resetPwBtn: document.querySelector('#reset-password'),
     signUpDisplayNameInput: document.querySelector(
         '.sign-up-display-name-input'
     ),
@@ -35,6 +35,8 @@ export const APIs = {
     addUser: `${ENDPOINT}/addUser`,
     getUserByEmail: `${ENDPOINT}/userByEmail`, // ?Not needed anymore
     loginUser: `${ENDPOINT}/loginUser`, // *Using this to authenticate users
+    requestToken: `${ENDPOINT}/resetPasswordRequest`,
+    resetPassword: `${ENDPOINT}/resetPassword`,
     getVessels: `${ENDPOINT}/vessels`,
     addFav: `${ENDPOINT}/addVoyageFav`,
     getFavs: `${ENDPOINT}/voyageFavsByUserId`,

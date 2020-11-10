@@ -1,6 +1,7 @@
 import * as formsView from './views/formsView';
 import * as signUpView from './views/signUpView';
 import * as signInView from './views/signInView';
+import * as resetView from './views/resetView';
 import { elements } from './views/base';
 
 import User from './models/User';
@@ -78,4 +79,53 @@ const controlSignUp = async () => {
 elements.signUpBtn.addEventListener('click', e => {
     e.preventDefault();
     controlSignUp();
+});
+
+// *Control reset
+const controlToken = async () => {
+    const email = prompt('Please enter your login email:');
+    if (email) {
+        state.user = new User();
+        resetView.addLoadBlock();
+        try {
+            await state.user.requestToken(email);
+        } catch (err) {
+            console.log(`Error at controlToken requestToken(): ${err}`);
+        }
+        resetView.removeLoadBlock();
+    } else {
+        alert('Email cannot be empty');
+    }
+};
+
+// *Control reset
+const controlReset = async () => {
+    const token = prompt('Please enter your token:');
+    const newPw = prompt('Please enter your new password:');
+    const confirmNewPw = prompt('please confirm your new passowrd');
+    if (!token || !newPw || !confirmNewPw) {
+        alert('Fields cannot be empty.');
+    } else if (newPw != confirmNewPw) {
+        alert("New passwords don't match.");
+    } else {
+        state.user = new User();
+        resetView.addLoadBlock();
+        try {
+            await state.user.resetPassword(token, newPw);
+        } catch (err) {
+            console.log(`Error at controlReset resetPassword(): ${err}`);
+        }
+        resetView.removeLoadBlock();
+    }
+};
+
+// *Event listener for reset password
+elements.resetPwBtn.addEventListener('click', e => {
+    e.preventDefault();
+    const hasToken = confirm('Do you have a reset token?');
+    if (hasToken) {
+        controlReset();
+    } else {
+        controlToken();
+    }
 });

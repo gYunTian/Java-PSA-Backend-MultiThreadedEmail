@@ -189,6 +189,30 @@
 .mx-1 {
   margin: 0 15px; }
 
+#loadingmsg {
+  color: #c63536;
+  background-color: #f5e9e9;
+  height: 60px;
+  width: 450px;
+  font-weight: bold;
+  font-size: 1.3rem;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50px;
+  margin: auto; }
+
+#blockDiv {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 999; }
+
 * {
   margin: 0;
   padding: 0;
