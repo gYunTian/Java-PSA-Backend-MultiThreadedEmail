@@ -283,6 +283,12 @@ a {
             justify-content: space-between;
             width: 80%;
             min-width: 775px;
+
+            .special-heading {
+                font-size: 1.5rem;
+                font-weight: bold;
+                color: $dark-color;
+            }
         }
 
         .data-table-container {

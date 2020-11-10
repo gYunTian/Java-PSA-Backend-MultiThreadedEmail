@@ -15,7 +15,13 @@ console.log({ state });
 // *Perform tasks after page loads
 window.addEventListener('load', async () => {
     controlTime();
-    selectionView.renderDateSelection(state.time.dateRange.slice(0, -1));
+    // *Handles bookmarked hashed page
+    const hash = window.location.hash.replace('#', '');
+    if (!hash || (hash != 'favourites' && hash != 'subscriptions')) {
+        selectionView.renderDateSelection(state.time.dateRange.slice(0, -1));
+    } else {
+        selectionView.renderHeading(hash);
+    }
     controlLogin();
     // *Get all data into state and format it
     await controlVessel();
@@ -104,10 +110,34 @@ const controlTable = async (sortReq = { by: 'berthingTime', order: 'asc' }) => {
     } else {
         if (hash == 'favourites') {
             // *Render favourites
-            console.log('load favourites');
+            selectionView.renderHeading(hash);
+            tableView.clearTable();
+            controlTime();
+            await controlVessel();
+            await controlFavs();
+            await controlSubs();
+            tableView.renderFavOrSub(
+                state.vessel.niceData,
+                sortReq,
+                state.favourite.favsArr,
+                state.subscription.subsArr,
+                hash
+            );
         } else if (hash == 'subscriptions') {
             // *Render subscriptions
-            console.log('load subscriptions');
+            selectionView.renderHeading(hash);
+            tableView.clearTable();
+            controlTime();
+            await controlVessel();
+            await controlFavs();
+            await controlSubs();
+            tableView.renderFavOrSub(
+                state.vessel.niceData,
+                sortReq,
+                state.favourite.favsArr,
+                state.subscription.subsArr,
+                hash
+            );
         } else {
             selectionView.highlightSelectedDate(hash);
             controlTime();
@@ -121,6 +151,8 @@ const controlTable = async (sortReq = { by: 'berthingTime', order: 'asc' }) => {
                 state.favourite.favsArr,
                 state.subscription.subsArr
             );
+            // *Scroll table to the top
+            elements.dataTableContainer.scrollTop = 0;
         }
     }
 };
@@ -151,6 +183,7 @@ elements.dataTableHead.addEventListener('click', e => {
 
 // *Control favourites
 const controlFavs = async (uniqueID = null, btn = null) => {
+    const hash = window.location.hash.replace('#', '');
     if (!state.favourite) {
         state.favourite = new Favourite(state.user.userID, uniqueID);
     } else {
@@ -172,6 +205,10 @@ const controlFavs = async (uniqueID = null, btn = null) => {
             } catch (err) {
                 console.log(`Error at controlFavs deleteFav: ${err}`);
             }
+            // *If at favs page
+            if (hash == 'favourites') {
+                controlTable();
+            }
         }
     } else {
         // *Get favs (done after awaiting get all vessels)
@@ -185,6 +222,7 @@ const controlFavs = async (uniqueID = null, btn = null) => {
 
 // *Control Subscriptions
 const controlSubs = async (uniqueID = null, btn = null) => {
+    const hash = window.location.hash.replace('#', '');
     if (!state.subscription) {
         state.subscription = new Subscription(state.user.userID, uniqueID);
     } else {
@@ -205,6 +243,10 @@ const controlSubs = async (uniqueID = null, btn = null) => {
                 await state.subscription.deleteSub();
             } catch (err) {
                 console.log(`Error at controlSubs deleteSub: ${err}`);
+            }
+            // *If at subs page
+            if (hash == 'subscriptions') {
+                controlTable();
             }
         }
     } else {
@@ -242,4 +284,14 @@ elements.dataTableBody.addEventListener('click', e => {
         const uniqueID = unSubBtnClicked.getAttribute('uniqueID');
         controlSubs(uniqueID, unSubBtnClicked);
     }
+});
+
+// *Event Listener for refresh without hash change
+elements.navBtns.forEach(btn => {
+    btn.addEventListener('click', e => {
+        const hash = window.location.hash.replace('#', '');
+        if (hash == btn.id) {
+            controlTable();
+        }
+    });
 });

@@ -105,7 +105,9 @@
   cursor: pointer; }
 
 .btn-med {
-  padding: 0.6rem 1.5rem; }
+  padding: 0.6rem 1.5rem;
+  min-width: 123px;
+  text-align: center; }
 
 .btn-mr {
   margin-right: 8px; }
@@ -386,6 +388,10 @@ a {
       justify-content: space-between;
       width: 80%;
       min-width: 775px; }
+      #main-wrapper .main-content .date-selection-container .special-heading {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #9e2a2b; }
     #main-wrapper .main-content .data-table-container {
       width: 80%;
       max-height: 725px;

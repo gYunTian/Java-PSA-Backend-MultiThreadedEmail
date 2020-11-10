@@ -16,8 +16,15 @@ export const elements = {
     spinner: document.querySelector('.spinner-wrapper'),
     greeting: document.querySelector('.greeting'),
     dateSelectionContainer: document.querySelector('.date-selection-container'),
+    dataTableContainer: document.querySelector('.data-table-container'),
     dataTableBody: document.querySelector('.data-table-body'),
     dataTableHead: document.querySelector('.data-table-head'),
+    navFavsBtn: document.getElementById('favourites'),
+    navSubsBtn: document.getElementById('subscriptions'),
+    navBtns: [
+        document.getElementById('favourites'),
+        document.getElementById('subscriptions'),
+    ],
 };
 
 const ENDPOINT = 'http://localhost:8080/api';

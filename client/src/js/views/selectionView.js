@@ -23,3 +23,8 @@ export const highlightSelectedDate = date => {
     });
     document.getElementById(date).classList.add('btn-selected');
 };
+
+export const renderHeading = type => {
+    const heading = type.charAt(0).toUpperCase() + type.slice(1);
+    elements.dateSelectionContainer.innerHTML = `<div class="special-heading">${heading}</div>`;
+};
