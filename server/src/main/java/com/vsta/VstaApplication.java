@@ -8,9 +8,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableScheduling
 @PropertySource("classpath:/reload.properties")
-public class PortnetApplication {
+public class VstaApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PortnetApplication.class, args);
+        SpringApplication.run(VstaApplication.class, args);
     }
 }

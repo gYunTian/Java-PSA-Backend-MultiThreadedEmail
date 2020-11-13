@@ -1,9 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 4.8.5
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1:3306
--- Generation Time: Oct 06, 2020 at 02:37 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.2.18
 
@@ -19,11 +13,11 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `portnet`
+-- Database: `vsta`
 --
-DROP DATABASE IF EXISTS `portnet`;
-CREATE DATABASE IF NOT EXISTS `portnet`;
-USE `portnet`;
+DROP DATABASE IF EXISTS `vsta`;
+CREATE DATABASE IF NOT EXISTS `vsta`;
+USE `vsta`;
 
 -- --------------------------------------------------------
 
@@ -46,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES
-(0, 'admin', 'portnet.g1t9@gmail.com', '$2a$10$kbNFYaSy.5ajtfQVuQoR0.kOqP7qBMKT1n1aCOOip5yCbFe7pOT42');
+(0, 'admin', 'vsta.g1t9@gmail.com', '$2a$10$Cn8axdkeNlb8cgLsrdvBMem/Esklvb8Cg4KZqvOgE4klRQASEDRr.');
 
 -- --------------------------------------------------------
 
