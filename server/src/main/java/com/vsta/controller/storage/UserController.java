@@ -65,8 +65,8 @@ public class UserController {
      */
 
     @RequestMapping(value = "/resetPasswordRequest")
-    public RedirectView resetPasswordRequest(@RequestParam String email, RedirectAttributes attrs) {
-        return userService.resetPasswordRequest(email, attrs);
+    public ResponseEntity<String> resetPasswordRequest(@RequestParam String email) {
+        return userService.resetPasswordRequest(email);
     }
 
     @RequestMapping(value = "/loginUser")

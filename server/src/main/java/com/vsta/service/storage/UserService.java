@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -29,6 +30,9 @@ public class UserService {
 
     @Autowired
     private DomainService domainService;
+
+    @Autowired
+    private MailService mailService;
 
     /**
      * Add User to database if data passes validity checks
@@ -204,28 +208,24 @@ public class UserService {
     /**
      * Specific method to send mail to user for respective purposes
      * @param email the email registered by the User
-     * @param attrs to store & bring email content to the next view
      * @return redirects to mail which returns status message on successful sending of email
      */
-    public RedirectView resetPasswordRequest(String email, RedirectAttributes attrs) {
+
+    public ResponseEntity<String> resetPasswordRequest(String email) {
         try {
             User user = getUserByEmail(email);  // if null, catch exception
-            
+
             // if proceed, means user is not null so request accepted
             addToken(user); // generate password reset token for email body & save into database
-
-            // For Redirection to mail
-            attrs.addFlashAttribute("user", user);
-            attrs.addFlashAttribute("type", "resetPasswordRequest");
+            HashMap<String,String> emailContent = mailService.getEmailContent(user, "resetPasswordRequest");
+            return mailService.sendEmail(emailContent);
 
         } catch (NullPointerException e) {
-            attrs.addFlashAttribute("user", null);
-            attrs.addFlashAttribute("type", "rejectRequest");
+            return new ResponseEntity<>(
+                "Change Password unsuccessful - email not registered",
+                HttpStatus.BAD_REQUEST);
         }
-
-        return new RedirectView("sendEmail");
     }
-
 
     /**
      * Remove specified User from database
