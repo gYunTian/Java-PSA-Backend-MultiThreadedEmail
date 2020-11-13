@@ -25,11 +25,11 @@ public class VoyageFavService {
         List<VoyageFav> voyageFavList = voyageFavDao.findVoyageFavByUserIdAndVoyageId(userId, voyageId);
         if (voyageFavList.size() >= 1){
             return new ResponseEntity<>(
-                    "voyageFav not added - voyageFav already exist",
+                    "Voyage favourite unsuccessful as it already exist",
                     HttpStatus.BAD_REQUEST);
         }
         voyageFavDao.save(voyageFav);
-        return ResponseEntity.ok("voyageFav added successful");
+        return ResponseEntity.ok("Voyage favourited successful");
     }
 
     /**
@@ -61,18 +61,20 @@ public class VoyageFavService {
 
     /**
      * Remove VoyageFav with specified userId and voyageId from database
-     * @param userId the auto-generated ID of the user
-     * @param voyageId the unique ID of the voyage
+     * @param voyageFav object
      */
-    public ResponseEntity<String> deleteVoyageFav(int userId, String voyageId) {
+    public ResponseEntity<String> deleteVoyageFav(VoyageFav voyageFav) {
+        int userId = voyageFav.getUserId();
+        String voyageId = voyageFav.getVoyageId();
+
         List<VoyageFav> voyageFavList = voyageFavDao.findVoyageFavByUserIdAndVoyageId(userId, voyageId);
         if (voyageFavList.size() == 0){
             return new ResponseEntity<>(
-                    "voyageFav not deleted - voyageFav not exist",
+                    "Voyage unfavourite unsuccessful as it does not exist",
                     HttpStatus.BAD_REQUEST);
         }
         voyageFavDao.deleteByUserIdAndVoyageId(userId, voyageId);
-        return ResponseEntity.ok("voyageFav deleted successful");
+        return ResponseEntity.ok("Voyage unfavourited successfully");
     }
 
 }

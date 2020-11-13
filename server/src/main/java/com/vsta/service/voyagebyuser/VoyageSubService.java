@@ -27,11 +27,11 @@ public class VoyageSubService {
         List<VoyageSub> voyageSubList = voyageSubDao.findVoyageSubByUserIdAndVoyageId(userId, voyageId);
         if (voyageSubList.size() >= 1){
             return new ResponseEntity<>(
-                    "voyageSub not added - voyageSub already exist",
+                    "Voyage subscription unsuccessful as it already exist",
                     HttpStatus.BAD_REQUEST);
         }
         voyageSubDao.save(voyageSub);
-        return ResponseEntity.ok("Voyage Subscription added successful");
+        return ResponseEntity.ok("Voyage subscribed successful");
     }
 
     /**
@@ -63,10 +63,12 @@ public class VoyageSubService {
 
     /**
      * Remove VoyageSub with specified userId and voyageId from database
-     * @param userId the auto-generated ID of the user
-     * @param voyageId the unique ID of the voyage
+     * @param voyageSub object
      */
-    public ResponseEntity<String> deleteVoyageSub(int userId, String voyageId) {
+    public ResponseEntity<String> deleteVoyageSub(VoyageSub voyageSub) {
+        int userId = voyageSub.getUserId();
+        String voyageId = voyageSub.getVoyageId();
+
         List<VoyageSub> voyageSubList = voyageSubDao.findVoyageSubByUserIdAndVoyageId(userId, voyageId);
         if (voyageSubList.size() == 0){
             return new ResponseEntity<>(
@@ -84,8 +86,7 @@ public class VoyageSubService {
      */ 
     public List<String> getSubs(String voyageId) {
         List<String> emails = new ArrayList<>();
-        List<UserProjection> users = new ArrayList<>();
-        users = voyageSubDao.findSubs(voyageId);
+        List<UserProjection> users = voyageSubDao.findSubs(voyageId);
         
         for (UserProjection user : users) {
             emails.add(user.getemail());

@@ -65,7 +65,11 @@ public class UserController {
      */
 
     @RequestMapping(value = "/resetPasswordRequest")
-    public ResponseEntity<String> resetPasswordRequest(@RequestParam String email) {
+    public ResponseEntity<String> resetPasswordRequest(
+            @RequestHeader(
+                name = "authorization",
+                defaultValue = "Basic ZzF0OTo5OTkwMDA=")
+            @RequestParam String email) {
         return userService.resetPasswordRequest(email);
     }
 

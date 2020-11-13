@@ -51,9 +51,9 @@ public class VoyageFavController {
      * Delete methods
      */
 
-    @DeleteMapping("/deleteVoyageFav/{userId}/{voyageId}")
-    public ResponseEntity<String> deleteVoyageFav(@PathVariable int userId,@PathVariable String voyageId) {
-        return service.deleteVoyageFav(userId, voyageId);
+    @DeleteMapping("/deleteVoyageFav")
+    public ResponseEntity<String> deleteVoyageFav(@RequestBody VoyageFav voyageFav) {
+        return service.deleteVoyageFav(voyageFav);
     }
 
 }

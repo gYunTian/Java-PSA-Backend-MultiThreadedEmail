@@ -51,9 +51,9 @@ public class VoyageSubController {
      * Delete methods
      */
 
-    @DeleteMapping("/deleteVoyageSubs/{userId}/{voyageId}")
-    public ResponseEntity<String> deleteVoyageSub(@PathVariable int userId,@PathVariable String voyageId) {
-        return service.deleteVoyageSub(userId, voyageId);
+    @DeleteMapping("/deleteVoyageSubs")
+    public ResponseEntity<String> deleteVoyageSub(@RequestBody VoyageSub voyageSub) {
+        return service.deleteVoyageSub(voyageSub);
     }
 
 }
