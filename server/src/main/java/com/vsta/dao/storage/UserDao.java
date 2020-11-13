@@ -13,6 +13,7 @@ public interface UserDao extends JpaRepository<User, Integer> {
     /**
      * Additional custom method to find User with specified email
      * @param email the email registered by the User
+     * @return user object
      */
     User findByEmail(String email);
     User findByToken(String token);

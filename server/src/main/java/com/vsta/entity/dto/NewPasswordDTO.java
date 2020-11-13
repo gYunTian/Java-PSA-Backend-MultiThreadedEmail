@@ -8,7 +8,7 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 /**
- * Details input by user at Change & Reset password
+ * Details input by user at Change and Reset password
  */
 
 @Data
@@ -35,6 +35,7 @@ public class NewPasswordDTO {
 
     /**
      * Constructs object for Change password functionality
+     * @param user user object that requested for change of password
      * @param identifier old password of the user
      * @param newPassword chosen password the user wants to change to
      */

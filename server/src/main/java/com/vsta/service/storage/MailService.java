@@ -20,10 +20,9 @@ public class MailService {
     private JavaMailSender mailSender;
 
     /**
-     * Generic method to send mail to user (for controller)
-     * @param user object representing the requester
-     * @param type email purpose
-     * @return status message indicating that mail was successful
+     * Generic method to send mail to user
+     * @param emailContent object that contain subject, body and recipent for the email
+     * @return ResponseEntity with the given status code and message indicating that mail was successful
      */
     public ResponseEntity<String> sendEmail(HashMap<String,String> emailContent) {
         SimpleMailMessage email = new SimpleMailMessage();
@@ -37,10 +36,10 @@ public class MailService {
     }
 
     /**
-     * Get content of reset password email (helper method)
-     * @param user object representing the requester
-     * @param type email purpose
-     * @return email content containing subject, body and recipient
+     * Generic method to send mail to user for reset password purpose
+     * @param user user object representing the requester
+     * @param type
+     * @return emailContent email content containing subject, body and recipient
      */
     public HashMap<String,String> getEmailContent(User user, String type) {
         HashMap<String,String> emailContent = new HashMap<>();
@@ -67,9 +66,10 @@ public class MailService {
     /**
      * Overloaded getEmailContent method
      * with different implementation as well
-     * @param email
-     * @param body
-     * @return
+     * @param email email address of user
+     * @param body message on the changes for vessel
+     * @param id auto-generated ID of the vessel
+     * @return emailContent email content containing subject, body and recipient
      */
     public HashMap<String,String> getEmailContent(String email, String body, String id) {
         HashMap<String,String> emailContent = new HashMap<>();

@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 /**
  * Helper service tasks
- * - validation for UserService
+ * - validate domains for UserService
  */
 
 @Service

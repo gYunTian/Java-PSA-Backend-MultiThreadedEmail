@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Service tasks that use DAO methods - retrieve and modify database
- * 
+ * Service tasks that use DAO methods
+ * - retrieve and modify database for Vessel Object
  */
 
 @Service
@@ -25,7 +25,7 @@ public class VesselService {
     /**
      * Add Vessel to database
      * 
-     * @param vessel object
+     * @param vessel vessel object
      */
     public void saveVessel(Vessel vessel) {
         vesselDao.save(vessel);
@@ -34,7 +34,7 @@ public class VesselService {
     /**
      * Add Vessels in array to database
      * 
-     * @param vessels array
+     * @param vessels list of vessel objects
      */
     public void saveVessels(List<Vessel> vessels) {
         vesselDao.saveAll(vessels);
@@ -42,8 +42,9 @@ public class VesselService {
 
     /**
      * Get all Vessels in database
-     * 
-     * @return List<VesselDTO>
+     * @param startDate user specified Date with format YYYY-MM-DD to retrieve vessels from
+     * @param endDate user specified Date with format YYYY-MM-DD to retrieve vessels to
+     * @return a list of vesselDTO objects
      */
 
     // use vessel dao for this

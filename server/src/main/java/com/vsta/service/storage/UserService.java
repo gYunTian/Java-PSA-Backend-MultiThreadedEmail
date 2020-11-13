@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Service tasks that use DAO methods
  * - retrieve and modify database
- * - useful for REST APIs for User
+ * - useful for REST APIs for User Object
  */
 
 @Service
@@ -37,7 +37,7 @@ public class UserService {
     /**
      * Add User to database if data passes validity checks
      * @param user object
-     * @return message indicating if user registration successful
+     * @return ResponseEntity with the given status code and message indicating if user registration successful
      */
     public ResponseEntity<String> saveUser(User user) {
 
@@ -64,7 +64,8 @@ public class UserService {
 
     /**
      * Allow User to login if data passes validity checks
-     * @return message indicating if user registration successful
+     * @param loginDTO containing the email and password of user
+     * @return ResponseEntity with the given status code and message indicating if user registration successful
      */
     public ResponseEntity<String> loginUser(LoginDTO loginDTO) {
         String email = loginDTO.getEmail();
@@ -136,6 +137,11 @@ public class UserService {
         userDao.save(existingUser);
     }
 
+    /**
+     * Hash the password that is pass in
+     * @param password password to be hashed
+     * @return password that is hashed, if password is blank, empty string will be returned
+     */
     public String hashPassword(String password) {
         if (!password.equals("")) { // prevent encode "" else blank pw will end up being treated as not blank
             return new BCryptPasswordEncoder().encode(password);
@@ -154,9 +160,10 @@ public class UserService {
     }
 
     /**
-     * Update password & remove reset token of specified User
+     * Update password and remove reset token of specified User
      * @param user object that has been verified to be correct
      * @param password the new verified password chosen by the user
+     * @return ResponseEntity with the given status code and message indicating if password updated
      */
     public ResponseEntity<String> resetPassword(User user, String password) {
         user.setPassword(password);
@@ -190,8 +197,8 @@ public class UserService {
 
     /**
      * Allow User to reset password if data passes validity checks
-     * @param newPasswordDTO containing the token & new password input by user
-     * @return message indicating if change password successful
+     * @param newPasswordDTO containing the token and new password input by user
+     * @return ResponseEntity with the given status code and message indicating if change password successful
      */
     public ResponseEntity<String> resetPasswordController(NewPasswordDTO newPasswordDTO) {
         String token = newPasswordDTO.getIdentifier();
@@ -208,7 +215,7 @@ public class UserService {
     /**
      * Specific method to send mail to user for respective purposes
      * @param email the email registered by the User
-     * @return redirects to mail which returns status message on successful sending of email
+     * @return ResponseEntity with the given status code and message indicating successful sending of email
      */
 
     public ResponseEntity<String> resetPasswordRequest(String email) {
@@ -230,6 +237,7 @@ public class UserService {
     /**
      * Remove specified User from database
      * @param user object that requested deactivation of account
+     * @return ResponseEntity with the given status code and message indicating if user is deleted successfully
      */
     public ResponseEntity<String> deleteUser(User user) {
         userDao.delete(user);

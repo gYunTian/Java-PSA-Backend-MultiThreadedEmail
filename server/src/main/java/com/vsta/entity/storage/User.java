@@ -42,6 +42,7 @@ public class User {
 
     /**
      * Custom setPassword method to encode passwords
+     * @param password password used to encode password
      */
     public void setPassword(String password) {
 //        if (!password.equals("")) { // prevent encode "" else blank pw will end up being treated as not blank

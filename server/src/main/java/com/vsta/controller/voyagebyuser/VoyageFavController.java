@@ -20,7 +20,9 @@ public class VoyageFavController {
     private VoyageFavService service;
 
     /**
-     * Add methods
+     * Add method - Add voyage favorite to database
+     * @param voyageFav voyageFav object to be added into database
+     * @return ResponseEntity with the given status code and message indicating if voyageFav is added successfully
      */
 
     @PostMapping("/addVoyageFav")
@@ -34,7 +36,7 @@ public class VoyageFavController {
     // }
 
     /**
-     * Get methods
+     * Get method
      */
 
     // @GetMapping("/voyageFavs")
@@ -42,13 +44,20 @@ public class VoyageFavController {
     //     return service.getVoyageFav();
     // }
 
+    /**
+     * Get method - Get all voyage favourites by userId
+     * @param userId the auto-generated ID of the user
+     * @return a list of voyageFav objects
+     */
     @GetMapping("/voyageFavsByUserId/{userId}")
     public List<VoyageFav> findVoyageFavsByUserId(@PathVariable int userId) {
         return service.getVoyageFavByUserId(userId);
     }
 
     /**
-     * Delete methods
+     * Delete method - Remove specified voyageFav from database
+     * @param voyageFav voyageFav object requested to be remove from database
+     * @return ResponseEntity with the given status code and message indicating if voyageFav is deleted successfully
      */
 
     @DeleteMapping("/deleteVoyageFav")

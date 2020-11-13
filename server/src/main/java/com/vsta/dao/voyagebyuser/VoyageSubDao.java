@@ -39,16 +39,16 @@ public interface VoyageSubDao extends CrudRepository<VoyageSub, Integer> {
      * 
      * @param userId   the auto-generated ID of the user
      * @param voyageId the unique ID of the voyage
+     * @return list of voyageSub objects
      */
     @Query("select s from VoyageSub s where s.userId = :userId and s.voyageId = :voyageId")
     List<VoyageSub> findVoyageSubByUserIdAndVoyageId(@Param("userId") Integer userId,
             @Param("voyageId") String voyageId);
 
     /**
-     * Find users subbed to a voyage
-     * 
-     * @param voyageId
-     * @return
+     * Find users who subscribed to a voyage
+     * @param voyageId the unique ID of the voyage
+     * @return a list of user projections
      */
     @Query(value = "select u.email from user u inner join voyage_sub v on u.id = v.user_id "
             + "where v.voyage_id = :voyageId", nativeQuery = true)

@@ -34,6 +34,7 @@ public interface VoyageFavDao extends JpaRepository<VoyageFav, Integer> {
      * Additional custom method to find if VoyageFav is in database
      * @param userId the auto-generated ID of the user
      * @param voyageId the unique ID of the voyage
+     * @return list of voyageFav objects
      */
 
     @Query("select f from VoyageFav f where f.userId = :userId and f.voyageId = :voyageId")

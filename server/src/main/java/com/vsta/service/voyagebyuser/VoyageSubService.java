@@ -16,10 +16,11 @@ public class VoyageSubService {
 
     @Autowired
     private VoyageSubDao voyageSubDao;
-    
+
     /**
      * Add VoyageSub to database
-     * @param voyageSub object
+     * @param voyageSub object to be save in database
+     * @return ResponseEntity with the given status code and message indicating if voyageSub added successfully
      */
     public ResponseEntity<String> saveVoyageSub(VoyageSub voyageSub) {
         int userId = voyageSub.getUserId();
@@ -36,7 +37,7 @@ public class VoyageSubService {
 
     /**
      * Add VoyageSubs in array to database
-     * @param voyageSubs array
+     * @param voyageSubs a list of voyageSub objects
      */
     public void saveVoyageSubs(List<VoyageSub> voyageSubs) {
         voyageSubDao.saveAll(voyageSubs);
@@ -44,8 +45,8 @@ public class VoyageSubService {
 
     
     /**
-     * Get all VoyageSubs in database
-     * @return voyageSubs array
+     * Get a list of VoyageSubs in database
+     * @return a list of voyageSub objects
      */
     public List<VoyageSub> getVoyageSub() {
         return (List<VoyageSub>) voyageSubDao.findAll();
@@ -54,7 +55,7 @@ public class VoyageSubService {
     /**
      * Get VoyageSubs with specified userId in database
      * @param userId the auto-generated ID of the user
-     * @return voyageSub object
+     * @return a list of voyageSub objects
      */
     public List<VoyageSub> getVoyageSubByUserId(int userId) {
         return voyageSubDao.findByUserId(userId);
@@ -62,8 +63,9 @@ public class VoyageSubService {
 
 
     /**
-     * Remove VoyageSub with specified userId and voyageId from database
-     * @param voyageSub object
+     * Remove specified voyageSub from database
+     * @param voyageSub object that to be removed
+     * @return ResponseEntity with the given status code and message indicating if voyageSub is deleted successfully
      */
     public ResponseEntity<String> deleteVoyageSub(VoyageSub voyageSub) {
         int userId = voyageSub.getUserId();

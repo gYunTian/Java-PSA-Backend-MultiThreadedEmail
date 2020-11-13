@@ -18,8 +18,7 @@ public class Vessel {
 
     /**
      * Constructs a specified VoyageId object
-     * @param uniqueId the auto-generated ID of the voyage, identified by vesselName and voyageNum
-     * ...
+     * @param uniqueId the auto-generated ID of the vessel
      */
     
     @JsonProperty("uniqueId") @Id

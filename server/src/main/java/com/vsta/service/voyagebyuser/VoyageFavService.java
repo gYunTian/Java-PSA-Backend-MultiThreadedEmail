@@ -17,7 +17,8 @@ public class VoyageFavService {
 
     /**
      * Add VoyageFav to database
-     * @param voyageFav object
+     * @param voyageFav object to be save in database
+     * @return ResponseEntity with the given status code and message indicating if voyageFav added successfully
      */
     public ResponseEntity<String> saveVoyageFav(VoyageFav voyageFav) {
         int userId = voyageFav.getUserId();
@@ -34,7 +35,7 @@ public class VoyageFavService {
 
     /**
      * Add VoyageFavs in array to database
-     * @param voyageFavs array
+     * @param voyageFavs a list of voyageFav objects
      */
     public void saveVoyageFavs(List<VoyageFav> voyageFavs) {
         voyageFavDao.saveAll(voyageFavs);
@@ -42,8 +43,8 @@ public class VoyageFavService {
 
     
     /**
-     * Get all VoyageFavs in database
-     * @return voyageFavs array
+     * Get a list of VoyageFavs from database
+     * @return a list of voyageFav objects
      */
     public List<VoyageFav> getVoyageFav() {
         return voyageFavDao.findAll();
@@ -52,7 +53,7 @@ public class VoyageFavService {
     /**
      * Get VoyageFavs with specified userId in database
      * @param userId the auto-generated ID of the user
-     * @return voyageFav object
+     * @return a list of voyageFav objects
      */
     public List<VoyageFav> getVoyageFavByUserId(int userId) {
         return voyageFavDao.findByUserId(userId);
@@ -60,8 +61,9 @@ public class VoyageFavService {
 
 
     /**
-     * Remove VoyageFav with specified userId and voyageId from database
-     * @param voyageFav object
+     * Remove specified voyageFav from database
+     * @param voyageFav object that to be removed
+     * @return ResponseEntity with the given status code and message indicating if voyageFav is deleted successfully
      */
     public ResponseEntity<String> deleteVoyageFav(VoyageFav voyageFav) {
         int userId = voyageFav.getUserId();

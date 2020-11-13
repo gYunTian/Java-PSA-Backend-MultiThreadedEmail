@@ -20,7 +20,9 @@ public class VoyageSubController {
     private VoyageSubService service;
 
     /**
-     * Add methods
+     * Add method - Add voyage subscription to database
+     * @param voyageSub voyageSub object to be added into database
+     * @return ResponseEntity with the given status code and message indicating if voyageSub is added successfully
      */
 
     @PostMapping("/addVoyageSub")
@@ -42,13 +44,20 @@ public class VoyageSubController {
     //     return service.getVoyageSub();
     // }
 
+    /**
+     * Get method - Get all voyage subscriptions by userId
+     * @param userId the auto-generated ID of the user
+     * @return a list of voyageSub objects
+     */
     @GetMapping("/voyageSubsByUserId/{userId}")
     public List<VoyageSub> findVoyageSubsByUserId(@PathVariable int userId) {
         return service.getVoyageSubByUserId(userId);
     }
 
     /**
-     * Delete methods
+     * Delete method - Remove specified voyageSub from database
+     * @param voyageSub voyageSub object requested to be remove from database
+     * @return ResponseEntity with the given status code and message indicating if voyageSub is deleted successfully
      */
 
     @DeleteMapping("/deleteVoyageSubs")
