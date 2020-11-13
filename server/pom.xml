@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com</groupId>
-    <artifactId>portnet</artifactId>
+    <artifactId>vsta</artifactId>
     <version>0.0.1.RELEASE</version>
-    <name>portnet</name>
-    <description>Portnet Application</description>
+    <name>vsta</name>
+    <description>Vsta Application</description>
 
     <properties>
         <java.version>11</java.version>
