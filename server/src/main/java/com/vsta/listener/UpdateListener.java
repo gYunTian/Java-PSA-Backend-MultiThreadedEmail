@@ -13,12 +13,19 @@ import org.hibernate.persister.entity.EntityPersister;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * This listener class listens for db update events
+ * It will register the event to a thread managed by Executor service
+ * The event will then be handled by our custom handler
+ */
+
 @Component
 public class UpdateListener implements PostUpdateEventListener {
 
   private final DefaultExecutorServiceFactory factory;
-  
-  // required for passing into the handler as param which otherwise is unable to auto inject the dependencies
+
+  // required for passing into the handler as param which otherwise is unable to
+  // auto inject the dependencies
   @Autowired
   private VoyageSubService voyageService;
 
@@ -27,16 +34,16 @@ public class UpdateListener implements PostUpdateEventListener {
 
   @Autowired
   public UpdateListener(DefaultExecutorServiceFactory factory) {
-      this.factory = factory;
+    this.factory = factory;
   }
-  
+
   @Override
   public void onPostUpdate(PostUpdateEvent postUpdateEvent) {
     PostUpdateEventHandler handler = new PostUpdateEventHandler();
     handler.register(postUpdateEvent);
     this.factory.getExecutorService().execute(handler.newRunnable(voyageService, mailService));
   }
-  
+
   @Override
   public boolean requiresPostCommitHanding(EntityPersister entityPersister) {
     return false;

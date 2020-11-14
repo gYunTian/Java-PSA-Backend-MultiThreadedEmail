@@ -77,8 +77,14 @@ public class QuartzSheduler {
 
     @Bean
     public CronTrigger jobATrigger(JobDetail job) {
-        return TriggerBuilder.newTrigger().forJob(job).withIdentity("myTrigger")// .withIdentity("JobTrigger")
-                .withSchedule(CronScheduleBuilder.cronSchedule(prop.getInterval())).build();
+        try {
+            return TriggerBuilder.newTrigger().forJob(job).withIdentity("myTrigger")// .withIdentity("JobTrigger")
+                    .withSchedule(CronScheduleBuilder.cronSchedule(prop.getInterval())).build();
+        } catch (Exception e) {
+            System.out.println("Invaild cron trigger, a default of hourly will be used");
+            return TriggerBuilder.newTrigger().forJob(job).withIdentity("myTrigger")// .withIdentity("JobTrigger")
+                    .withSchedule(CronScheduleBuilder.cronSchedule("0 0 0/1 ? * * *")).build();
+        }
     }
 
     public CronTrigger getTrigger(JobDetail job, String interval) {

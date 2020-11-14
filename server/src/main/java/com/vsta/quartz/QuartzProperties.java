@@ -9,8 +9,9 @@ import org.springframework.core.env.StandardEnvironment;
 import org.springframework.stereotype.Component;
 
 /**
- * Class to represent the external configuration properties required for scheduling of quartz jobs 
- * The Input are from application.properties file and uses the following PREFIX: spring.quartz.properties Consists of getter
+ * Class to represent the external configuration properties required for
+ * scheduling of quartz jobs The Input are from application.properties file and
+ * uses the following PREFIX: spring.quartz.properties Consists of getter
  * Consists of getter methods to retrieve the properties
  * 
  * This is placed here instead of entity folder to represent the domain usage
@@ -37,7 +38,13 @@ public class QuartzProperties {
     }
 
     public Boolean isEnabled() {
-        return Boolean.parseBoolean(environment.getProperty(PREFIX + "jobEnabled"));
+        try {
+            return Boolean.parseBoolean(environment.getProperty(PREFIX + "jobEnabled"));
+        } catch (Exception e) {
+            System.out
+                    .println("An invalid boolean value is used for isEnabled property, default of true will be used.");
+            return true;
+        }
     }
 
     public String getApiKey() {
@@ -49,7 +56,13 @@ public class QuartzProperties {
     }
 
     public int getPlusDays() {
-        return Integer.parseInt(environment.getProperty(PREFIX + "plusDays"));
+        try {
+            return Integer.parseInt(environment.getProperty(PREFIX + "plusDays").trim());
+        } catch (NumberFormatException e) {
+            System.out.println(
+                    "PlusDays property in reload.properties is not a valid int, a default value of 6 will be used.");
+            return 6;
+        }
     }
 
     public LocalDate getDateFrom() {
@@ -61,7 +74,13 @@ public class QuartzProperties {
     }
 
     public boolean isReloadInterval() {
-        return Boolean.parseBoolean(environment.getProperty(PREFIX + "reloadInterval"));
+        try {
+            return Boolean.parseBoolean(environment.getProperty(PREFIX + "reloadInterval"));
+        } catch (Exception e) {
+            System.out.println(
+                    "An invalid boolean value is used for reloadInterval property, default of false will be used.");
+            return false;
+        }
     }
 
 }

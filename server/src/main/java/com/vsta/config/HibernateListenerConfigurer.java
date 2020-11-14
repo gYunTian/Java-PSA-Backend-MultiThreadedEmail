@@ -12,6 +12,10 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 
+/**
+ * Configuration class to setup DB POST UPDATE Event listening
+ * 
+ */
 @Component
 public class HibernateListenerConfigurer {
 

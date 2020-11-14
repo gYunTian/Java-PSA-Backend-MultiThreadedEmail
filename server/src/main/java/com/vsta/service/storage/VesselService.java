@@ -39,7 +39,7 @@ public class VesselService {
     public void saveVessels(List<Vessel> vessels) {
         vesselDao.saveAll(vessels);
     }
-
+    
     /**
      * Get all Vessels in database
      * @param startDate user specified Date with format YYYY-MM-DD to retrieve vessels from
@@ -50,21 +50,8 @@ public class VesselService {
     // use vessel dao for this
     public List<VesselDTO> getVesselsByDate(String startDate, String endDate) {
 
-        List<VesselProjection> vesselRetrieved = vesselDao.findByDate(startDate, endDate);
-        List<VesselDTO> vesselList = new ArrayList<>();
-
-        // manual mapping
-        for (VesselProjection vesselProjection : vesselRetrieved) {
-            vesselList.add(new VesselDTO(vesselProjection.getuniqueId(), vesselProjection.getimoN(),
-                    vesselProjection.getfullVslM(), vesselProjection.getabbrVslM(), vesselProjection.getfullInVoyN(),
-                    vesselProjection.getinVoyN(), vesselProjection.getoutVoyN(), vesselProjection.getfullInVoyN(),
-                    vesselProjection.getshiftSeqN(), vesselProjection.getbthgDt(), vesselProjection.getunbthgDt(),
-                    vesselProjection.getberthN(), vesselProjection.getstatus(), vesselProjection.getabbrTerminalM(),
-                    vesselProjection.getlast_bthgDt(), vesselProjection.getlast_unbthgDt(),
-                    vesselProjection.getbthgDt_change_count(), vesselProjection.getunbthgDt_change_count(),
-                    vesselProjection.getfirst_arrival()));
-        }
-
-        return vesselList;
+        List<VesselDTO> vesselRetrieved = vesselDao.findByDate(startDate, endDate);
+        
+        return vesselRetrieved;
     }
 }

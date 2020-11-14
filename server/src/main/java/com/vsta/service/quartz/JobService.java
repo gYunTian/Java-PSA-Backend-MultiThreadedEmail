@@ -28,7 +28,7 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Quartz job service that executes the actual underlying task
+ * Quartz job service Project functional requirement: 1), 2), 3)
  */
 
 @JsonInclude(Include.NON_DEFAULT)
@@ -45,7 +45,7 @@ public class JobService {
     LocalDateTime now = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String date = now.format(formatter);
-
+    
     // reload properties file before executing job
     if (prop.isEnabled()) {
       System.out.println(date + "  - Quartz job: Executing job");
@@ -59,12 +59,17 @@ public class JobService {
 
       // create request body as json
       String requestJson = "{\"dateFrom\":\"" + prop.getDateFrom() + "\", \"dateTo\":\"" + prop.getDateTo() + "\"}";
-    //   String requestJson = "{\"dateFrom\":\"" + "2020-11-05" + "\", \"dateTo\":\"" + "2020-11-11" + "\"}";
+      // String requestJson = "{\"dateFrom\":\"" + "2020-11-08" + "\", \"dateTo\":\""
+      // + "2020-11-10" + "\"}";
+      // String requestJson = "{\"dateFrom\":\"" + "2020-09-08" + "\", \"dateTo\":\""
+      // + "2020-09-14" + "\"}";
       System.out.println(date + "  - Quartz job: Sending Post request");
 
       // parse json array
       JsonArray jsonArray = PostAndParse(requestJson, headers);
+
       if (jsonArray == null) {
+        System.out.println(date + "  - Quartz job: There was a problem with sending the post request!");
         return;
       }
 
@@ -77,7 +82,7 @@ public class JobService {
 
       for (int i = 0; i < length; i++) {
         try {
-
+          // create uniqueIds for each vessel using fullVsLm and inVoyN
           uniqueId = (jsonArray.get(i).getAsJsonObject().get("fullVslM").getAsString() + " "
               + jsonArray.get(i).getAsJsonObject().get("inVoyN").getAsString());
           temp = jsonArray.get(i).toString();
@@ -99,7 +104,11 @@ public class JobService {
 
       // add to db
       System.out.println(date + "  - Quartz job: Saving vessels to DB");
-      vesselService.saveVessels(vessels);
+
+      for (Vessel vessel : vessels) {
+        vesselService.saveVessel(vessel);
+      }
+      // vesselService.saveVessels(vessels);
 
       System.out.println(date + "  - Quartz job: Cron complete");
     } else {

@@ -11,6 +11,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * Event handler 
+ * It finds the subbed users and sends them an email on the changes
+ * 
+ */
 @Component
 public class PostUpdateEventHandler {
 
@@ -34,11 +39,11 @@ public class PostUpdateEventHandler {
                 }
                 String changes = sb.toString();
                 String uniqueId = String.valueOf(event.getId());
-                
+
                 List<String> emails = service.getSubs(uniqueId);
-                for (String email: emails) {
-                    HashMap<String,String> emailContent = mailService.getEmailContent(email, changes, uniqueId);
-                    System.out.println(emailContent.get("body"));
+                // currently voyage sub is empty
+                for (String email : emails) {
+                    HashMap<String, String> emailContent = mailService.getEmailContent(email, changes, uniqueId);
                     mailService.sendEmail(emailContent);
                 }
             }

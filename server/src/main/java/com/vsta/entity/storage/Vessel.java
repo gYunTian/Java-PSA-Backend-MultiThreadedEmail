@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * An abstraction of a VesselDTO
+ * An abstraction of a Vessel 
  */
 
 @Entity
@@ -18,7 +18,7 @@ public class Vessel {
 
     /**
      * Constructs a specified VoyageId object
-     * @param uniqueId the auto-generated ID of the vessel
+     * @param uniqueId from fullInVoyN + inVoyN
      */
     
     @JsonProperty("uniqueId") @Id

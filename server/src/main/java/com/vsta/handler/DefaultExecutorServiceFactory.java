@@ -8,12 +8,17 @@ import org.springframework.stereotype.Component;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * Executor factory
+ * This class is used to create a default executor service
+ */
+
 @Component
 @Configuration
 @EnableConfigurationProperties
 @ConfigurationProperties("threads")
 public class DefaultExecutorServiceFactory {
-  
+
   private int threadPoolSize;
 
   private ExecutorService service;
@@ -21,7 +26,7 @@ public class DefaultExecutorServiceFactory {
   public int getThreadPoolSize() {
     return threadPoolSize;
   }
-  
+
   public void setThreadPoolSize(int threadPoolSize) {
     this.threadPoolSize = threadPoolSize;
   }
