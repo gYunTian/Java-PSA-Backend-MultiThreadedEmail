@@ -37,7 +37,7 @@ public class MailService {
 
     /**
      * Generic method to send mail to user for reset password purpose
-     * @param user user object representing the requested
+     * @param user user object representing the requestor
      * @return emailContent email content containing subject, body and recipient
      */
     public HashMap<String,String> getEmailContent(User user) {
@@ -63,7 +63,7 @@ public class MailService {
     /**
      * Overloaded getEmailContent method
      * with different implementation as well
-     * @param email email address of user
+     * @param user user object representing the requestor
      * @param changes message on the changes for vessel
      * @param id auto-generated ID of the vessel
      * @return emailContent email content containing subject, body and recipient

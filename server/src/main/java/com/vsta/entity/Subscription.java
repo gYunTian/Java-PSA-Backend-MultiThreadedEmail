@@ -12,11 +12,7 @@ import java.util.Objects;
 @Entity @Data @Table(name = "voyage_sub")
 @NoArgsConstructor @AllArgsConstructor
 public class Subscription implements Serializable {
-    /**
-     * Constructs a specified Subscription object
-     * @param userId the auto-generated ID of the user
-     * @param voyageId the unique ID of the voyage, identified by record
-     */
+
     @Id private int id;
 
     @Column(name = "user_id")
@@ -25,6 +21,37 @@ public class Subscription implements Serializable {
     @Column(name = "voyage_id")
     private String voyageId;
 
+    /**
+     * Constructs a specified Subscription object
+     * @param userId the auto-generated ID of the user
+     * @param voyageId the unique ID of the voyage, identified by record
+     */
+
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getVoyageId() {
+        return voyageId;
+    }
+
+    public void setVoyageId(String voyageId) {
+        this.voyageId = voyageId;
+    }
 
     /**
      * Custom equals method to account all elements
@@ -62,27 +89,4 @@ public class Subscription implements Serializable {
         return String.format("Subscription [id=%d, userId=%d, voyageId=%s]", id, userId, voyageId);
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getVoyageId() {
-        return voyageId;
-    }
-
-    public void setVoyageId(String voyageId) {
-        this.voyageId = voyageId;
-    }
 }

@@ -2,7 +2,9 @@ package com.vsta.entity;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
@@ -21,10 +23,11 @@ public class User {
 
     /**
      * The ID to uniquely identify a User.
-     * Auto-generated & auto-incremented
+     * Auto-generated and auto-incremented
      * by database.
      */
-    @Id private int id;
+    @Id
+    private int id;
 
     /**
      * The name to identify the User.
@@ -36,7 +39,7 @@ public class User {
 
     /**
      * The email used by the User at registration.
-     * This is not nullable & should have a valid
+     * This is not nullable and should have a valid
      * format, which are checked at registration,
      * but the validation annotations are still
      * in place to enforce this before storing
@@ -74,8 +77,12 @@ public class User {
     }
     /**
      * Constructs a new User object.
-     * This is when name, email & password
+     * This is when name, email and password
      * are specified at registration.
+     * @param id The ID to uniquely identify a User
+     * @param name The name to identify the User.
+     * @param email The email used by the User at registration.
+     * @param password The modifiable password set by the User.
      */
     public User(int id, String name, String email, String password) {
         this.id = id;
@@ -85,10 +92,13 @@ public class User {
     }
     /**
      * Constructs a new User object.
-     * This is when only email & password
+     * This is when only email and password
      * are specified at registration stage.
      * The name is derived from the email
      * username since it is not provided.
+     * @param id The ID to uniquely identify a User
+     * @param email The email used by the User at registration.
+     * @param password The modifiable password set by the User.
      */
     public User(int id, String email, String password) {
         this.id = id;
@@ -146,7 +156,7 @@ public class User {
      * Gets the password of the User.
      * @return  This User's password.
      *          Password should be hashed,
-     *          & has been validated to be
+     *          and has been validated to be
      *          not blank by annotation.
      */
     public String getPassword() {
@@ -156,7 +166,7 @@ public class User {
      * Overwrites the password of this User.
      * @param password  This User's password.
      *                  Password should be hashed
-     *                  & has been validated to be
+     *                  and has been validated to be
      *                  not blank by annotation.
      */
     public void setPassword(String password) {
@@ -167,12 +177,12 @@ public class User {
      * use it to overwrite the password of this user.
      * @param   password This User's password.
      *                   Password can be plaintext,
-     *                   & has been validated to be
+     *                   and has been validated to be
      *                   not blank by annotation.
      *                   It is vital to be not blank
      *                   as otherwise it will be
      *                   encoded as well, which is
-     *                   misleading & exposes the
+     *                   misleading and exposes the
      *                   account to security issues.
      */
     public void setHashedPassword(String password) {
@@ -194,7 +204,7 @@ public class User {
         this.token = token;
     }
     /**
-     * Custom method to create & set a random UUID
+     * Custom method to create and set a random UUID
      * as the token for reset password requests.
      */
     public void setToken() {
