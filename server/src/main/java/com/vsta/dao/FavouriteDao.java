@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
- * Data Access Objects for "voyage_fav" table to perform various operations
+ * Data Access Objects for "favourite" table to perform various operations
  */
 
 @Repository

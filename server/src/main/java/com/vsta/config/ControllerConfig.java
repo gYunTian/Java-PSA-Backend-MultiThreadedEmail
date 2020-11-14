@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * Auto configuration class to overide the default api base url
+ * Auto configuration class to override the default api base url
  */
 
 @Configuration

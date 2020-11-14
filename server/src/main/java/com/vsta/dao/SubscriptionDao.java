@@ -12,7 +12,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Data Access Objects for "voyage_sub" table to perform various operations
+ * Data Access Objects for "subscription" table to perform various operations
  */
 @Repository
 public interface SubscriptionDao extends CrudRepository<Subscription, Integer> {
@@ -50,7 +50,7 @@ public interface SubscriptionDao extends CrudRepository<Subscription, Integer> {
      * @param voyageId the unique ID of the voyage
      * @return a list of user projections
      */
-    @Query(value = "select u.email from user u inner join voyage_sub v on u.id = v.user_id "
+    @Query(value = "select u.email from user u inner join subscription v on u.id = v.user_id "
             + "where v.voyage_id = :voyageId", nativeQuery = true)
     List<UserProjection> findSubs(@Param("voyageId") String voyageId);
 

@@ -1,29 +1,94 @@
 package com.vsta.entity;
 
-import lombok.*;
-
 import javax.persistence.*;
 import java.util.Objects;
 
 /**
- * Storage for the voyage favorited by a user
+ * Represents a voyage that is favourite by a user
  */
-@Entity @Data @Table(name = "voyage_fav")
-@NoArgsConstructor @AllArgsConstructor
+@Entity @Table(name = "favourite")
 public class Favourite {
+
     /**
-     * Constructs a specified Favourite object
-     * @param userId the auto-generated ID of the user
-     * @param voyageId the unique ID of the voyage, identified by record
+     * The ID to uniquely identify a Favourite.
+     * Auto-generated and auto-incremented
+     * by database.
      */
     @Id private int id;
 
+    /**
+     * The ID to uniquely identify a User.
+     */
     @Column(name = "user_id")
     private int userId;
 
+    /**
+     * The ID to uniquely identify a voyage.
+     */
     @Column(name = "voyage_id")
     private String voyageId;
-    
+
+    /**
+     * Default no argument constructor for Favourite.
+     */
+    public Favourite() {
+    }
+
+    /**
+     * Constructs a new Favourite object.
+     * The userId and voyageId will be passed in
+     * from the client side when user click Favourite
+     * @param id The ID to uniquely identify a Favourite
+     * @param userId The ID to uniquely identify a User
+     * @param voyageId The ID to uniquely identify a Voyage
+     */
+    public Favourite(int id, int userId, String voyageId) {
+        this.id = id;
+        this.userId = userId;
+        this.voyageId = voyageId;
+    }
+
+    /**
+     * Gets the ID of the a Favourite.
+     * @return This Favourite's ID.
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Overwrites the ID of this Favourite.
+     * @param id This Favourite's ID.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Gets the ID of the User.
+     * @return  ID of User who favourited the voyage.
+     */
+    public int getUserId() {
+        return userId;
+    }
+
+    /**
+     * Overwrites the ID of the User.
+     * @param userId ID of User who favourited the voyage.
+     */
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * Gets the ID of the Voyage.
+     * @return  ID of Voyage that User favourited.
+     */
+    public String getVoyageId() {
+        return voyageId;
+    }
+
+
     /**
      * Custom equals method to account all elements
      * @param object that could be Favourite type or otherwise
@@ -43,7 +108,8 @@ public class Favourite {
     }
 
     /**
-     * Custom hash code method which represents all elements
+     * Custom hash code method which will uniquely
+     * identify Favourite by userId and voyageId
      * @return int representing hash code
      */
     @Override
@@ -53,34 +119,10 @@ public class Favourite {
 
     /**
      * String representation
-     * @return String representation of object
+     * @return String representation of Favourite object
      */
     @Override
     public String toString() {
         return String.format("Favourite [id=%d, userId=%d, voyageId=%s]", id, userId, voyageId);
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getVoyageId() {
-        return voyageId;
-    }
-
-    public void setVoyageId(String voyageId) {
-        this.voyageId = voyageId;
     }
 }

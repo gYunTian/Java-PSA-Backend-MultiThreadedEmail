@@ -133,11 +133,11 @@ CREATE TABLE IF NOT EXISTS `vessel_history` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `voyage_sub`
+-- Table structure for table `subscription`
 --
 
-DROP TABLE IF EXISTS `voyage_sub`;
-CREATE TABLE IF NOT EXISTS `voyage_sub` (
+DROP TABLE IF EXISTS `subscription`;
+CREATE TABLE IF NOT EXISTS `subscription` (
   `id` int(11) AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `voyage_id` varchar(60) NOT NULL,
@@ -147,11 +147,11 @@ CREATE TABLE IF NOT EXISTS `voyage_sub` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `voyage_fav`
+-- Table structure for table `favourite`
 --
 
-DROP TABLE IF EXISTS `voyage_fav`;
-CREATE TABLE IF NOT EXISTS `voyage_fav` (
+DROP TABLE IF EXISTS `favourite`;
+CREATE TABLE IF NOT EXISTS `favourite` (
   `id` int(11) AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `voyage_id` varchar(60) NOT NULL,
