@@ -1,4 +1,4 @@
-package com.vsta.entity;
+package com.vsta.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * An abstraction of a Vessel 
+ * Represents a voyage.
  */
 
 @Entity

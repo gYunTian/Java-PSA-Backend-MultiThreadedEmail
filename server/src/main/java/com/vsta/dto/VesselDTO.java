@@ -1,7 +1,7 @@
 package com.vsta.dto;
 
 /**
- * DTO Projection helper to support the conversion 
+ * Data Transfer Object Projection helper to support the conversion
  * of result from native query object to a temporary Vessel entity
  * Reference: https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#projections
  */

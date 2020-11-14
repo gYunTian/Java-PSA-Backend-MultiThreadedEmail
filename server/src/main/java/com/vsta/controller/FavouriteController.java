@@ -1,6 +1,6 @@
 package com.vsta.controller;
 
-import com.vsta.entity.Favourite;
+import com.vsta.model.Favourite;
 import com.vsta.service.FavouriteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,49 +20,35 @@ public class FavouriteController {
     private FavouriteService service;
 
     /**
-     * Add method - Add voyage favorite to database
-     * @param favourite favourite object to be added into database
-     * @return ResponseEntity with the given status code and message indicating if favourite is added successfully
+     * Add Add voyage favorite to database
+     * @param favourite Favourite object to be added into database
+     * @return  ResponseEntity with the given status code and message
+     *          indicating if favourite is added successfully
      */
-
-    @PostMapping("/addVoyageFav")
-    public ResponseEntity<String> addVoyageFav(@RequestBody Favourite favourite) {
-        return service.saveVoyageFav(favourite);
-    }
-
-    // @PostMapping("/addVoyageFavs")
-    // public void addVoyageFavs(@RequestBody List<Favourite> voyageFavs) {
-    //     service.saveVoyageFavs(voyageFavs);
-    // }
-
-    /**
-     * Get method
-     */
-
-    // @GetMapping("/voyageFavs")
-    // public List<Favourite> findAllVoyageFavs() {
-    //     return service.getVoyageFav();
-    // }
-
-    /**
-     * Get method - Get all voyage favourites by userId
-     * @param userId the auto-generated ID of the user
-     * @return a list of voyageFav objects
-     */
-    @GetMapping("/voyageFavsByUserId/{userId}")
-    public List<Favourite> findVoyageFavsByUserId(@PathVariable int userId) {
-        return service.getVoyageFavByUserId(userId);
+    @PostMapping("/addFavourite")
+    public ResponseEntity<String> addFavourite(@RequestBody Favourite favourite) {
+        return service.saveFavourite(favourite);
     }
 
     /**
-     * Delete method - Remove specified favourite from database
-     * @param favourite favourite object requested to be remove from database
-     * @return ResponseEntity with the given status code and message indicating if favourite is deleted successfully
+     * Get all voyage favourites by userId
+     * @param userId Auto-generated ID of the user
+     * @return List of Favourite objects
      */
+    @GetMapping("/favouritesByUserId/{userId}")
+    public List<Favourite> findFavouritesByUserId(@PathVariable int userId) {
+        return service.getFavouriteByUserId(userId);
+    }
 
-    @DeleteMapping("/deleteVoyageFav")
-    public ResponseEntity<String> deleteVoyageFav(@RequestBody Favourite favourite) {
-        return service.deleteVoyageFav(favourite);
+    /**
+     * Delete specified favourite from database
+     * @param favourite     Favourite object requested to be remove from database
+     * @return  ResponseEntity with the given status code and message
+     *          indicating if favourite is deleted successfully
+     */
+    @DeleteMapping("/deleteFavourite")
+    public ResponseEntity<String> deleteFavourite(@RequestBody Favourite favourite) {
+        return service.deleteFavourite(favourite);
     }
 
 }

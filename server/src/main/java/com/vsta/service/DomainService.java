@@ -1,6 +1,6 @@
 package com.vsta.service;
 
-import com.vsta.entity.Domain;
+import com.vsta.model.Domain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

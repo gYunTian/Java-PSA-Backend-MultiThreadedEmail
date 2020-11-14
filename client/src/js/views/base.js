@@ -38,12 +38,12 @@ export const APIs = {
     requestToken: `${ENDPOINT}/resetPasswordRequest`,
     resetPassword: `${ENDPOINT}/resetPassword`,
     getVessels: `${ENDPOINT}/vessels`,
-    addFav: `${ENDPOINT}/addVoyageFav`,
-    getFavs: `${ENDPOINT}/voyageFavsByUserId`,
-    deleteFav: `${ENDPOINT}/deleteVoyageFav`,
-    addSub: `${ENDPOINT}/addVoyageSub`,
-    getSubs: `${ENDPOINT}/voyageSubsByUserId`,
-    deleteSub: `${ENDPOINT}/deleteVoyageSubs`,
+    addFav: `${ENDPOINT}/addFavourite`,
+    getFavs: `${ENDPOINT}/favouritesByUserId`,
+    deleteFav: `${ENDPOINT}/deleteFavourite`,
+    addSub: `${ENDPOINT}/addSubscription`,
+    getSubs: `${ENDPOINT}/subscriptionsByUserId`,
+    deleteSub: `${ENDPOINT}/deleteSubscriptions`,
 };
 
 // *Full screen spinner clear

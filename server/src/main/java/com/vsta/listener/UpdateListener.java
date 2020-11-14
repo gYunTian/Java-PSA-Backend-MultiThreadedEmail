@@ -14,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * This listener class listens for db update events
- * It will register the event to a thread managed by Executor service
- * The event will then be handled by our custom handler
+ * This listener class listens for database update events.
+ * It will register the event to a thread managed by Executor service.
+ * The event will then be handled by our custom handler.
  */
 
 @Component
@@ -27,7 +27,7 @@ public class UpdateListener implements PostUpdateEventListener {
   // required for passing into the handler as param which otherwise is unable to
   // auto inject the dependencies
   @Autowired
-  private SubscriptionService voyageService;
+  private SubscriptionService subscriptionService;
 
   @Autowired
   private MailService mailService;
@@ -41,7 +41,7 @@ public class UpdateListener implements PostUpdateEventListener {
   public void onPostUpdate(PostUpdateEvent postUpdateEvent) {
     PostUpdateEventHandler handler = new PostUpdateEventHandler();
     handler.register(postUpdateEvent);
-    this.factory.getExecutorService().execute(handler.newRunnable(voyageService, mailService));
+    this.factory.getExecutorService().execute(handler.newRunnable(subscriptionService, mailService));
   }
 
   @Override

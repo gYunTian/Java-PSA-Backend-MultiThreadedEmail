@@ -9,8 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Executor factory
- * This class is used to create a default executor service
+ * Executor factory that is used to create a default executor service
  */
 
 @Component

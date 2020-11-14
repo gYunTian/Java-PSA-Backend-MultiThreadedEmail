@@ -3,7 +3,7 @@ package com.vsta.handler;
 import java.util.HashMap;
 import java.util.List;
 
-import com.vsta.entity.User;
+import com.vsta.model.User;
 import com.vsta.service.MailService;
 import com.vsta.service.UserService;
 import com.vsta.service.SubscriptionService;
@@ -15,9 +15,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * Event handler 
- * It finds the subbed users and sends them an email on the changes
- * 
+ * Event handler that finds the subbed users and sends them an email on the changes.
  */
 @Component
 public class PostUpdateEventHandler {

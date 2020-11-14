@@ -1,4 +1,4 @@
-package com.vsta.entity;
+package com.vsta.model;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -18,7 +18,7 @@ import java.util.UUID;
  */
 
 @Entity
-@Table
+@Table(name = "user")
 public class User {
 
     /**
@@ -79,10 +79,10 @@ public class User {
      * Constructs a new User object.
      * This is when name, email and password
      * are specified at registration.
-     * @param id The ID to uniquely identify a User
+     * @param id ID to uniquely identify a User.
      * @param name The name to identify the User.
-     * @param email The email used by the User at registration.
-     * @param password The modifiable password set by the User.
+     * @param email Email specified by the User at registration.
+     * @param password Password specified by the User.
      */
     public User(int id, String name, String email, String password) {
         this.id = id;
@@ -96,9 +96,9 @@ public class User {
      * are specified at registration stage.
      * The name is derived from the email
      * username since it is not provided.
-     * @param id The ID to uniquely identify a User
-     * @param email The email used by the User at registration.
-     * @param password The modifiable password set by the User.
+     * @param id ID to uniquely identify a User.
+     * @param email Email specified by the User at registration.
+     * @param password Password specified by the User.
      */
     public User(int id, String email, String password) {
         this.id = id;

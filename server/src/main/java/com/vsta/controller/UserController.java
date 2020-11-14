@@ -2,13 +2,11 @@ package com.vsta.controller;
 
 import com.vsta.dto.LoginDTO;
 import com.vsta.dto.NewPasswordDTO;
-import com.vsta.entity.User;
+import com.vsta.model.User;
 import com.vsta.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * REST APIs using service methods for User
@@ -22,41 +20,31 @@ public class UserController {
     private UserService userService;
 
     /**
-     * Add method - Add user into database
-     * @param user user object to be added into database
-     * @return ResponseEntity with the given status code and message indicating if user is added successfully
+     * Add user into database
+     * @param user User object to be added into database
+     * @return  ResponseEntity with the given status code and message
+     *          indicating if user is added successfully
      */
-
     @PostMapping("/addUser")
     public ResponseEntity<String> addUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
 
     /**
-     * Get method - Get all users stored in database
-     * @return a list of user objects
+     * Get user with specified id in database
+     * @param id Auto-generated ID of the user
+     * @return List of user objects
      */
-
-    @GetMapping("/users")
-    public List<User> findAllUsers() {
-        return userService.getUsers();
-    }
-
-    /**
-     * Get method - Get user with specified id in database
-     * @param id the auto-generated ID of the user
-     * @return a list of user objects
-     */
-
     @GetMapping("/userById/{id}")
     public User findUserById(@PathVariable int id) {
         return userService.getUserById(id);
     }
 
     /**
-     * Update method - Reset user's password
-     * @param newPasswordDTO containing the token and new password input by user
-     * @return ResponseEntity with the given status code and message indicating if change password successful
+     * Update password of password reset requester
+     * @param newPasswordDTO Token and new password specified by user
+     * @return  ResponseEntity with the given status code and message
+     *          indicating if password reset successful
      */
 
 //    @PutMapping("/changePassword")
@@ -70,11 +58,10 @@ public class UserController {
     }
 
     /**
-     * Request method - Receive reset password request and send email
-     * @param email the email registered by the User
+     * Receive reset password request and send email if valid User
+     * @param email Email specified by user
      * @return ResponseEntity with the given status code and message indicating successful sending of email
      */
-
     @RequestMapping(value = "/resetPasswordRequest")
     public ResponseEntity<String> resetPasswordRequest(
             @RequestHeader(
@@ -85,25 +72,14 @@ public class UserController {
     }
 
     /**
-     * Request method - Allow User to login if data passes validity checks
-     * @param loginDTO containing the email and password of user
-     * @return ResponseEntity with the given status code and message indicating if user registration successful
+     * Check if User login details are valid
+     * @param loginDTO Email and password specified by user
+     * @return  ResponseEntity with the given status code and message
+     *          indicating if user login successful
      */
-
     @RequestMapping(value = "/loginUser")
     public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDTO) {
         return userService.loginUser(loginDTO);
-    }
-
-    /**
-     * Delete method - Remove specified User from database
-     * @param user object that requested deactivation of account
-     * @return ResponseEntity with the given status code and message indicating if user is deleted successfully
-     */
-
-    @DeleteMapping("/deactivateUser")
-    public ResponseEntity<String> deactivateUser(@RequestBody User user) {
-        return userService.deleteUser(user);
     }
 
 }

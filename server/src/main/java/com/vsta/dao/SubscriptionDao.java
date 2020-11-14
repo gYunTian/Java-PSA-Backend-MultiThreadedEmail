@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.vsta.entity.Subscription;
+import com.vsta.model.Subscription;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -12,42 +12,40 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
- * Data Access Objects for "subscription" table to perform various operations
+ * Data Access Objects for "subscription" table.
+ * Used to perform various operations on the database
+ * including retrieval and modification.
  */
 @Repository
-public interface SubscriptionDao extends CrudRepository<Subscription, Integer> {
+public interface SubscriptionDAO extends CrudRepository<Subscription, Integer> {
     /**
-     * Additional custom method to find subscriptions by the user's ID
-     * 
-     * @param userId the auto-generated ID of the user
-     * @return VoyageSubs array (empty list if no Subscription found)
+     * Custom method to find subscriptions by the user's ID
+     * @param userId Auto-generated ID of the user
+     * @return Subscriptions array (empty list if no matching Subscription found)
      */
     List<Subscription> findByUserId(int userId);
 
     /**
-     * Additional custom method to delete subscriptions by the user's ID and
-     * voyage's ID
-     * 
-     * @param userId   the auto-generated ID of the user
-     * @param voyageId the unique ID of the voyage
+     * Custom method to delete subscriptions by the user's ID and voyage's ID
+     * @param userId   Auto-generated ID of the user
+     * @param voyageId Unique ID of the voyage
      */
     @Transactional
     void deleteByUserIdAndVoyageId(int userId, String voyageId);
 
     /**
-     * Additional custom method to find if Subscription is in database
-     * 
-     * @param userId   the auto-generated ID of the user
-     * @param voyageId the unique ID of the voyage
-     * @return list of voyageSub objects
+     * Custom method to find if Subscription is in database
+     * @param userId   Auto-generated ID of the user
+     * @param voyageId Unique ID of the voyage
+     * @return list of Subscription objects
      */
     @Query("select s from Subscription s where s.userId = :userId and s.voyageId = :voyageId")
-    List<Subscription> findVoyageSubByUserIdAndVoyageId(@Param("userId") Integer userId,
+    List<Subscription> findSubscriptionByUserIdAndVoyageId(@Param("userId") Integer userId,
                                                         @Param("voyageId") String voyageId);
 
     /**
-     * Find users who subscribed to a voyage
-     * @param voyageId the unique ID of the voyage
+     * Custom method to find users who subscribed to a voyage
+     * @param voyageId Unique ID of the voyage
      * @return a list of user projections
      */
     @Query(value = "select u.email from user u inner join subscription v on u.id = v.user_id "
@@ -55,13 +53,13 @@ public interface SubscriptionDao extends CrudRepository<Subscription, Integer> {
     List<UserProjection> findSubs(@Param("voyageId") String voyageId);
 
     /**
-     * Projection helper to support the conversion of result from the native query
-     * object to a temporary User entity
+     * Projection helper to support the conversion of result
+     * from the native query object to a temporary User entity
      * 
-     * Naming convention must follow exact name in the entity hence the lack of
-     * camel cased letters
+     * Naming convention must follow exact name in the entity
+     * hence the lack of camel cased letters
      */
-    public static interface UserProjection {
+    interface UserProjection {
         String getemail();
     }
 }

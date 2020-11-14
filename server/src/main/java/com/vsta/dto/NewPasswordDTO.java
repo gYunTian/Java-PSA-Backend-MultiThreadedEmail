@@ -2,28 +2,37 @@ package com.vsta.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.vsta.entity.User;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
 /**
- * Details input by user at Change and Reset password
+ * Details input by user at Change or Reset password
  */
 
 @Data
 public class NewPasswordDTO {
-    private User user;
 
+//    /**
+//     * Logged in User object (optional)
+//     */
+//    private User user;
+
+    /**
+     * Old password or token specified by the User
+     */
     @NotBlank(message = "Identifier is mandatory")
-    private String identifier;  // old password or token input
+    private String identifier;
 
+    /**
+     * Password the user wants to change to
+     */
     @NotBlank(message = "Password is mandatory")
     private String newPassword;
 
     /**
      * Constructs object for Reset password functionality
-     * @param identifier token
+     * @param identifier token specified by the User
      * @param newPassword chosen password the user wants to change to
      */
     @JsonCreator
@@ -33,36 +42,35 @@ public class NewPasswordDTO {
         this.newPassword = newPassword;
     }
 
+//    /**
+//     * Constructs object for Change password functionality
+//     * @param user User object that requested for change of password
+//     * @param identifier Old password specified by the User
+//     * @param newPassword Password the user wants to change to
+//     */
+//    @JsonCreator
+//    public NewPasswordDTO(@JsonProperty("user") User user,
+//                          @JsonProperty("identifier") String identifier,
+//                          @JsonProperty("new_password") String newPassword) {
+//        this.user = user;
+//        this.identifier = identifier;
+//        this.newPassword = newPassword;
+//    }
+
     /**
-     * Constructs object for Change password functionality
-     * @param user user object that requested for change of password
-     * @param identifier old password of the user
-     * @param newPassword chosen password the user wants to change to
+     * Gets the old password or token specified by the User
+     * @return  This User's specified old password or token
      */
-    @JsonCreator
-    public NewPasswordDTO(@JsonProperty("user") User user,
-                          @JsonProperty("identifier") String identifier,
-                          @JsonProperty("new_password") String newPassword) {
-        this.user = user;
-        this.identifier = identifier;
-        this.newPassword = newPassword;
-    }
-
-
     public String getIdentifier() {
         return identifier;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier;
-    }
-
+    /**
+     * Gets the password the User wants to change to
+     * @return  This User's specified new password
+     */
     public String getNewPassword() {
         return newPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
     }
 
 }

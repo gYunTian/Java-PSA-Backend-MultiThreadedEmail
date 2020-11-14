@@ -12,8 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.vsta.entity.Vessel;
-import com.vsta.quartz.QuartzProperties;
+import com.vsta.model.Vessel;
 import com.vsta.service.VesselService;
 
 import org.springframework.beans.factory.annotation.Autowired;

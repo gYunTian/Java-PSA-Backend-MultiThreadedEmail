@@ -165,9 +165,9 @@ ALTER TABLE `vessel`
   ADD CONSTRAINT `vessel_ibfk_1` FOREIGN KEY (`uniqueId`) REFERENCES `vessel_history` (`uniqueId`);
 COMMIT;
 
-ALTER TABLE `voyage_sub`
-  ADD CONSTRAINT `voyage_sub_ibfk_1` FOREIGN KEY (`voyage_id`) REFERENCES `vessel` (`uniqueId`),
-  ADD CONSTRAINT `voyage_sub_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+ALTER TABLE `subscription`
+  ADD CONSTRAINT `subscription_ibfk_1` FOREIGN KEY (`voyage_id`) REFERENCES `vessel` (`uniqueId`),
+  ADD CONSTRAINT `subscription_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

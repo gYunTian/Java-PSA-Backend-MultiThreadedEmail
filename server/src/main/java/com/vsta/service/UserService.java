@@ -1,9 +1,9 @@
 package com.vsta.service;
 
-import com.vsta.dao.UserDao;
+import com.vsta.dao.UserDAO;
 import com.vsta.dto.LoginDTO;
 import com.vsta.dto.NewPasswordDTO;
-import com.vsta.entity.User;
+import com.vsta.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,16 +15,15 @@ import java.util.List;
 
 
 /**
- * Service tasks that use DAO methods
- * - retrieve and modify database
- * - useful for REST APIs for User Object
+ * User Service tasks that use DAO methods
+ * and used for REST APIs for User Object.
  */
 
 @Service
 public class UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserDAO userDao;
 
     @Autowired
     private DomainService domainService;
@@ -34,8 +33,9 @@ public class UserService {
 
     /**
      * Add User to database if data passes validity checks
-     * @param user object
-     * @return ResponseEntity with the given status code and message indicating if user registration successful
+     * @param user User object of details input at registration
+     * @return  ResponseEntity with the given status code and message
+     *          indicating if user registration successful
      */
     public ResponseEntity<String> saveUser(User user) {
 
@@ -62,8 +62,9 @@ public class UserService {
 
     /**
      * Allow User to login if data passes validity checks
-     * @param loginDTO containing the email and password of user
-     * @return ResponseEntity with the given status code and message indicating if user registration successful
+     * @param loginDTO Email and password specified by user
+     * @return  ResponseEntity with the given status code and message
+     *          indicating if user registration successful
      */
     public ResponseEntity<String> loginUser(LoginDTO loginDTO) {
         String email = loginDTO.getEmail();
@@ -85,17 +86,9 @@ public class UserService {
     }
 
     /**
-     * Get all Users in database
-     * @return users object (null if not found)
-     */
-    public List<User> getUsers() {
-        return userDao.findAll();
-    }
-
-    /**
      * Get User with specified id in database
-     * @param id the auto-generated ID of the user
-     * @return user object (null if not found)
+     * @param id Auto-generated ID of the user
+     * @return User object (null if not found)
      */
     public User getUserById(int id) {
         return userDao.findById(id).orElse(null);
@@ -103,17 +96,17 @@ public class UserService {
 
     /**
      * Get User with specified email in database
-     * @param email the email registered by the User
-     * @return user object (null if not found)
+     * @param email User Email specified
+     * @return User object (null if not found)
      */
     public User getUserByEmail(String email) {
         return userDao.findByEmail(email);
     }
 
     /**
-     * Get User with specified email in database
-     * @param token the verification code generated for the user to reset password
-     * @return user object (null if not found)
+     * Get User with specified password reset token in database
+     * @param token Verification code generated for User to reset password
+     * @return User object (null if not found)
      */
     public User getUserByToken(String token) {
         return userDao.findByToken(token);
@@ -121,8 +114,8 @@ public class UserService {
 
 
     /**
-     * Update User with same id from database (helper method)
-     * @param user object with updated details
+     * Update User with same ID from database
+     * @param user User object with updated details
      */
     public void updateUser(User user) {
         User existingUser = getUserById(user.getId());
@@ -137,8 +130,8 @@ public class UserService {
 
 
     /**
-     * Add token to specified User
-     * @param user object representing the requester
+     * Generate and save token of User who successfully requested password reset
+     * @param user User object representing the requester
      */
     public void addToken(User user) {
         user.setToken();
@@ -147,9 +140,10 @@ public class UserService {
 
     /**
      * Update password and remove reset token of specified User
-     * @param user object that has been verified to be correct
-     * @param password the new verified password chosen by the user
-     * @return ResponseEntity with the given status code and message indicating if password updated
+     * @param user User object that has been verified to be correct
+     * @param password New password chosen by User
+     * @return  ResponseEntity with the given status code and message
+     *          indicating if password reset successful
      */
     public ResponseEntity<String> resetPassword(User user, String password) {
         user.setPassword(password);
@@ -183,8 +177,10 @@ public class UserService {
 
     /**
      * Allow User to reset password if data passes validity checks
-     * @param newPasswordDTO containing the token and new password input by user
-     * @return ResponseEntity with the given status code and message indicating if change password successful
+     * @param newPasswordDTO Token and new password input by User
+     * @return  ResponseEntity with the given status code and message
+     *          indicating if password reset successful
+     *          (resetPassword output)
      */
     public ResponseEntity<String> resetPasswordController(NewPasswordDTO newPasswordDTO) {
         String token = newPasswordDTO.getIdentifier();
@@ -199,11 +195,11 @@ public class UserService {
     }
 
     /**
-     * Specific method to send mail to user for respective purposes
-     * @param email the email registered by the User
-     * @return ResponseEntity with the given status code and message indicating successful sending of email
+     * Specific method to send mail to User
+     * @param email User Email specified
+     * @return  ResponseEntity with the given status code and message
+     *          indicating successful sending of email
      */
-
     public ResponseEntity<String> resetPasswordRequest(String email) {
         try {
             User user = getUserByEmail(email);  // if null, catch exception
@@ -220,13 +216,4 @@ public class UserService {
         }
     }
 
-    /**
-     * Remove specified User from database
-     * @param user object that requested deactivation of account
-     * @return ResponseEntity with the given status code and message indicating if user is deleted successfully
-     */
-    public ResponseEntity<String> deleteUser(User user) {
-        userDao.delete(user);
-        return ResponseEntity.ok("User deleted successful");
-    }
 }
