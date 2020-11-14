@@ -5,7 +5,7 @@ package com.vsta.listener;
 import com.vsta.handler.DefaultExecutorServiceFactory;
 import com.vsta.handler.PostUpdateEventHandler;
 import com.vsta.service.MailService;
-import com.vsta.service.VoyageSubService;
+import com.vsta.service.SubscriptionService;
 
 import org.hibernate.event.spi.PostUpdateEvent;
 import org.hibernate.event.spi.PostUpdateEventListener;
@@ -27,7 +27,7 @@ public class UpdateListener implements PostUpdateEventListener {
   // required for passing into the handler as param which otherwise is unable to
   // auto inject the dependencies
   @Autowired
-  private VoyageSubService voyageService;
+  private SubscriptionService voyageService;
 
   @Autowired
   private MailService mailService;

@@ -1,8 +1,6 @@
 package com.vsta.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,13 +11,14 @@ import java.util.Objects;
  */
 @Entity @Data @Table(name = "voyage_sub")
 @NoArgsConstructor @AllArgsConstructor
-public class VoyageSub implements Serializable {
+public class Subscription implements Serializable {
     /**
-     * Constructs a specified VoyageSub object
+     * Constructs a specified Subscription object
      * @param userId the auto-generated ID of the user
      * @param voyageId the unique ID of the voyage, identified by record
      */
     @Id private int id;
+
     @Column(name = "user_id")
     private int userId;
 
@@ -29,7 +28,7 @@ public class VoyageSub implements Serializable {
 
     /**
      * Custom equals method to account all elements
-     * @param object that could be VoyageSub type or otherwise
+     * @param object that could be Subscription type or otherwise
      * @return true:  both objects are the same
      *                or have the same userId and voyageId
      *         false: object is null or not VoyageId type
@@ -39,10 +38,10 @@ public class VoyageSub implements Serializable {
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null) return false;
-        if (!(object instanceof VoyageSub)) return false;
-        VoyageSub voyageSub = (VoyageSub) object;
-        return userId == voyageSub.userId &&
-                voyageId.equals(voyageSub.voyageId);
+        if (!(object instanceof Subscription)) return false;
+        Subscription subscription = (Subscription) object;
+        return userId == subscription.userId &&
+                voyageId.equals(subscription.voyageId);
     }
 
     /**
@@ -60,7 +59,7 @@ public class VoyageSub implements Serializable {
      */
     @Override
     public String toString() {
-        return String.format("VoyageSub [id=%d, userId=%d, voyageId=%s]", id, userId, voyageId);
+        return String.format("Subscription [id=%d, userId=%d, voyageId=%s]", id, userId, voyageId);
     }
 
     public int getId() {

@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.vsta.entity.VoyageSub;
+import com.vsta.entity.Subscription;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -15,14 +15,14 @@ import org.springframework.stereotype.Repository;
  * Data Access Objects for "voyage_sub" table to perform various operations
  */
 @Repository
-public interface VoyageSubDao extends CrudRepository<VoyageSub, Integer> {
+public interface SubscriptionDao extends CrudRepository<Subscription, Integer> {
     /**
      * Additional custom method to find subscriptions by the user's ID
      * 
      * @param userId the auto-generated ID of the user
-     * @return VoyageSubs array (empty list if no VoyageSub found)
+     * @return VoyageSubs array (empty list if no Subscription found)
      */
-    List<VoyageSub> findByUserId(int userId);
+    List<Subscription> findByUserId(int userId);
 
     /**
      * Additional custom method to delete subscriptions by the user's ID and
@@ -35,15 +35,15 @@ public interface VoyageSubDao extends CrudRepository<VoyageSub, Integer> {
     void deleteByUserIdAndVoyageId(int userId, String voyageId);
 
     /**
-     * Additional custom method to find if VoyageSub is in database
+     * Additional custom method to find if Subscription is in database
      * 
      * @param userId   the auto-generated ID of the user
      * @param voyageId the unique ID of the voyage
      * @return list of voyageSub objects
      */
-    @Query("select s from VoyageSub s where s.userId = :userId and s.voyageId = :voyageId")
-    List<VoyageSub> findVoyageSubByUserIdAndVoyageId(@Param("userId") Integer userId,
-            @Param("voyageId") String voyageId);
+    @Query("select s from Subscription s where s.userId = :userId and s.voyageId = :voyageId")
+    List<Subscription> findVoyageSubByUserIdAndVoyageId(@Param("userId") Integer userId,
+                                                        @Param("voyageId") String voyageId);
 
     /**
      * Find users who subscribed to a voyage

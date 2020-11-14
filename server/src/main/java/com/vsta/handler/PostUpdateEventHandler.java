@@ -6,7 +6,7 @@ import java.util.List;
 import com.vsta.entity.User;
 import com.vsta.service.MailService;
 import com.vsta.service.UserService;
-import com.vsta.service.VoyageSubService;
+import com.vsta.service.SubscriptionService;
 
 import org.hibernate.event.spi.PostUpdateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class PostUpdateEventHandler {
 
     @Bean
     @Scope("prototype")
-    public Runnable newRunnable(final VoyageSubService service, final MailService mailService) {
+    public Runnable newRunnable(final SubscriptionService service, final MailService mailService) {
         return new Runnable() {
             public void run() {
                 StringBuilder sb = new StringBuilder();

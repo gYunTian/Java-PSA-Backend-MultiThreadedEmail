@@ -51,7 +51,7 @@ public class UserService {
                     HttpStatus.BAD_REQUEST);
         }
 
-        user.setPassword(hashPassword(user.getPassword()));
+        user.setHashedPassword(user.getPassword());
         // passed checks
         userDao.save(user);
 
@@ -129,22 +129,10 @@ public class UserService {
 
         existingUser.setName(user.getName());
         existingUser.setEmail(user.getEmail());
-        existingUser.setPassword(hashPassword(user.getPassword()));
+        existingUser.setHashedPassword(user.getPassword());
         existingUser.setToken(user.getToken());
 
         userDao.save(existingUser);
-    }
-
-    /**
-     * Hash the password that is pass in
-     * @param password password to be hashed
-     * @return password that is hashed, if password is blank, empty string will be returned
-     */
-    public String hashPassword(String password) {
-        if (!password.equals("")) { // prevent encode "" else blank pw will end up being treated as not blank
-            return new BCryptPasswordEncoder().encode(password);
-        }
-        return "";
     }
 
 

@@ -8,12 +8,11 @@ import java.util.Objects;
 /**
  * Storage for the voyage favorited by a user
  */
-@Entity @Data
-@Table(name = "voyage_fav")
+@Entity @Data @Table(name = "voyage_fav")
 @NoArgsConstructor @AllArgsConstructor
-public class VoyageFav {
+public class Favourite {
     /**
-     * Constructs a specified VoyageFav object
+     * Constructs a specified Favourite object
      * @param userId the auto-generated ID of the user
      * @param voyageId the unique ID of the voyage, identified by record
      */
@@ -27,7 +26,7 @@ public class VoyageFav {
     
     /**
      * Custom equals method to account all elements
-     * @param object that could be VoyageFav type or otherwise
+     * @param object that could be Favourite type or otherwise
      * @return true:  both objects are the same
      *                or have the same userId and voyageId
      *         false: object is null or not VoyageId type
@@ -37,10 +36,10 @@ public class VoyageFav {
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null) return false;
-        if (!(object instanceof VoyageFav)) return false;
-        VoyageFav voyageFav = (VoyageFav) object;
-        return userId == voyageFav.userId &&
-                voyageId.equals(voyageFav.voyageId);
+        if (!(object instanceof Favourite)) return false;
+        Favourite favourite = (Favourite) object;
+        return userId == favourite.userId &&
+                voyageId.equals(favourite.voyageId);
     }
 
     /**
@@ -58,7 +57,30 @@ public class VoyageFav {
      */
     @Override
     public String toString() {
-        return String.format("VoyageFav [id=%d, userId=%d, voyageId=%s]", id, userId, voyageId);
+        return String.format("Favourite [id=%d, userId=%d, voyageId=%s]", id, userId, voyageId);
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getVoyageId() {
+        return voyageId;
+    }
+
+    public void setVoyageId(String voyageId) {
+        this.voyageId = voyageId;
+    }
 }
