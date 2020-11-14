@@ -1,4 +1,4 @@
-package com.vsta.entity.dto;
+package com.vsta.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

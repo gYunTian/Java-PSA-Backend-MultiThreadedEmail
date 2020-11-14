@@ -1,6 +1,6 @@
-package com.vsta.dao.voyagebyuser;
+package com.vsta.dao;
 
-import com.vsta.entity.voyagebyuser.VoyageFav;
+import com.vsta.entity.VoyageFav;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

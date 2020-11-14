@@ -3,10 +3,10 @@ package com.vsta.handler;
 import java.util.HashMap;
 import java.util.List;
 
-import com.vsta.entity.storage.User;
-import com.vsta.service.storage.MailService;
-import com.vsta.service.storage.UserService;
-import com.vsta.service.voyagebyuser.VoyageSubService;
+import com.vsta.entity.User;
+import com.vsta.service.MailService;
+import com.vsta.service.UserService;
+import com.vsta.service.VoyageSubService;
 
 import org.hibernate.event.spi.PostUpdateEvent;
 import org.springframework.beans.factory.annotation.Autowired;

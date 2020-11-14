@@ -1,10 +1,10 @@
-package com.vsta.dao.voyagebyuser;
+package com.vsta.dao;
 
 import java.util.List;
 
 import javax.transaction.Transactional;
 
-import com.vsta.entity.voyagebyuser.VoyageSub;
+import com.vsta.entity.VoyageSub;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

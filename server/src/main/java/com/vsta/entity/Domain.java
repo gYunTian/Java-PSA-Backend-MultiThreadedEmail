@@ -1,4 +1,4 @@
-package com.vsta.entity.storage;
+package com.vsta.entity;
 
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;

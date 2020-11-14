@@ -4,8 +4,8 @@ package com.vsta.listener;
 
 import com.vsta.handler.DefaultExecutorServiceFactory;
 import com.vsta.handler.PostUpdateEventHandler;
-import com.vsta.service.storage.MailService;
-import com.vsta.service.voyagebyuser.VoyageSubService;
+import com.vsta.service.MailService;
+import com.vsta.service.VoyageSubService;
 
 import org.hibernate.event.spi.PostUpdateEvent;
 import org.hibernate.event.spi.PostUpdateEventListener;

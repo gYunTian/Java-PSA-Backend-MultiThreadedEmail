@@ -1,6 +1,6 @@
-package com.vsta.dao.storage;
+package com.vsta.dao;
 
-import com.vsta.entity.storage.User;
+import com.vsta.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

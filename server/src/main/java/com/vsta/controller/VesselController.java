@@ -1,9 +1,9 @@
-package com.vsta.controller.storage;
+package com.vsta.controller;
 
 import java.util.List;
 
-import com.vsta.entity.dto.VesselDTO;
-import com.vsta.service.storage.VesselService;
+import com.vsta.dto.VesselDTO;
+import com.vsta.service.VesselService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

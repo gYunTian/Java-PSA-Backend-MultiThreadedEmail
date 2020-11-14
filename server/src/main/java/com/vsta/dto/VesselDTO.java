@@ -1,5 +1,4 @@
-
-package com.vsta.entity.dto;
+package com.vsta.dto;
 
 /**
  * DTO Projection helper to support the conversion 

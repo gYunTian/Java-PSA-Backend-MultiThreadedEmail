@@ -1,7 +1,5 @@
 package com.vsta.quartz;
 
-import com.vsta.service.quartz.JobService;
-
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;

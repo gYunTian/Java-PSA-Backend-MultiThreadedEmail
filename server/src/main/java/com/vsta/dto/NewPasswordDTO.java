@@ -1,8 +1,8 @@
-package com.vsta.entity.dto;
+package com.vsta.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.vsta.entity.storage.User;
+import com.vsta.entity.User;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;

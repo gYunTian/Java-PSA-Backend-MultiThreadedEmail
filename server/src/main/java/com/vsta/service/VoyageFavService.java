@@ -1,7 +1,7 @@
-package com.vsta.service.voyagebyuser;
+package com.vsta.service;
 
-import com.vsta.dao.voyagebyuser.VoyageFavDao;
-import com.vsta.entity.voyagebyuser.VoyageFav;
+import com.vsta.dao.VoyageFavDao;
+import com.vsta.entity.VoyageFav;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

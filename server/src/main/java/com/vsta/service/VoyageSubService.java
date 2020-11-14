@@ -1,8 +1,8 @@
-package com.vsta.service.voyagebyuser;
+package com.vsta.service;
 
-import com.vsta.dao.voyagebyuser.VoyageSubDao;
-import com.vsta.dao.voyagebyuser.VoyageSubDao.UserProjection;
-import com.vsta.entity.voyagebyuser.VoyageSub;
+import com.vsta.dao.VoyageSubDao;
+import com.vsta.dao.VoyageSubDao.UserProjection;
+import com.vsta.entity.VoyageSub;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,9 +1,9 @@
-package com.vsta.dao.storage;
+package com.vsta.dao;
 
 import java.util.List;
 
-import com.vsta.entity.dto.VesselDTO;
-import com.vsta.entity.storage.Vessel;
+import com.vsta.dto.VesselDTO;
+import com.vsta.entity.Vessel;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

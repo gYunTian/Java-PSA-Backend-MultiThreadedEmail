@@ -1,16 +1,14 @@
-package com.vsta.service.storage;
+package com.vsta.service;
 
-import com.vsta.dao.storage.UserDao;
-import com.vsta.entity.dto.LoginDTO;
-import com.vsta.entity.dto.NewPasswordDTO;
-import com.vsta.entity.storage.User;
+import com.vsta.dao.UserDao;
+import com.vsta.dto.LoginDTO;
+import com.vsta.dto.NewPasswordDTO;
+import com.vsta.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.HashMap;
 import java.util.List;

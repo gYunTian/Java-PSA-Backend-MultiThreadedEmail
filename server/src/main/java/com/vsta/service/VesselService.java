@@ -1,10 +1,10 @@
-package com.vsta.service.storage;
+package com.vsta.service;
 
 import java.util.List;
 
-import com.vsta.dao.storage.VesselDao;
-import com.vsta.entity.dto.VesselDTO;
-import com.vsta.entity.storage.Vessel;
+import com.vsta.dao.VesselDao;
+import com.vsta.dto.VesselDTO;
+import com.vsta.entity.Vessel;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

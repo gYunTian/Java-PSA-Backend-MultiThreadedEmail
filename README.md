@@ -7,7 +7,9 @@ stores them in a relational database to be displayed on the user interface.
 - By default, the web service is called at 00:00 hours daily to retrieve the vessels’ arrival timings for the next 7 days (excluding the current day). 
 - The web service is also called hourly to retrieve the vessels’ arrival timing for the current day (00:00 - 23:59).
 
-## Notes
+## Configurable Settings
+The following settings can be found in `server/src/main/resources`.
+
 Credentials for the **database & Spring Security** can be found in `application.properties`.
 
 Settings for the following are configurable at `reload.properties` without the need to recompile code: 
@@ -18,7 +20,12 @@ Settings for the following are configurable at `reload.properties` without the n
 - **Support email** for subscription notifications & resetting password functionalities
     - Username
     - Password
-    - [Host](https://www.jhipster.tech/tips/011_tip_configuring_email_in_jhipster.html). *Note: If gmail host is used, ensure the following for the account so emails can be sent smoothly: Manage your Google Account > Security > Less secure app access > On.*
+    - [Host](https://www.jhipster.tech/tips/011_tip_configuring_email_in_jhipster.html)
+
+*Note: If gmail host is used, ensure the following for the account so emails can be sent smoothly:*
+> Manage your Google Account > Security > Less secure app access > On
+
+Other cron job settings can also be found in `quartz.properties`.
 
 
 ## Production

@@ -1,6 +1,6 @@
-package com.vsta.service.storage;
+package com.vsta.service;
 
-import com.vsta.entity.storage.Domain;
+import com.vsta.entity.Domain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,8 +8,7 @@ import java.util.Arrays;
 
 
 /**
- * Helper service tasks
- * - validate domains for UserService
+ * Helper service tasks to validate domains for UserService
  */
 
 @Service

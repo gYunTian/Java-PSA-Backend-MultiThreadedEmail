@@ -1,14 +1,12 @@
-package com.vsta.controller.storage;
+package com.vsta.controller;
 
-import com.vsta.entity.dto.LoginDTO;
-import com.vsta.entity.dto.NewPasswordDTO;
-import com.vsta.entity.storage.User;
-import com.vsta.service.storage.UserService;
+import com.vsta.dto.LoginDTO;
+import com.vsta.dto.NewPasswordDTO;
+import com.vsta.entity.User;
+import com.vsta.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.vsta.entity.storage;
+package com.vsta.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

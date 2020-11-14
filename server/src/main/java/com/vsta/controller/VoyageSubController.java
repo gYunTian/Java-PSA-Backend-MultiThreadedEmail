@@ -1,7 +1,7 @@
-package com.vsta.controller.voyagebyuser;
+package com.vsta.controller;
 
-import com.vsta.entity.voyagebyuser.VoyageSub;
-import com.vsta.service.voyagebyuser.VoyageSubService;
+import com.vsta.entity.VoyageSub;
+import com.vsta.service.VoyageSubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

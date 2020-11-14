@@ -1,35 +1,33 @@
-package com.vsta.entity.voyagebyuser;
+package com.vsta.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * Storage for the voyage subscribed by a user
+ * Storage for the voyage favorited by a user
  */
-@Entity @Data @Table(name = "voyage_sub")
+@Entity @Data
+@Table(name = "voyage_fav")
 @NoArgsConstructor @AllArgsConstructor
-public class VoyageSub implements Serializable {
+public class VoyageFav {
     /**
-     * Constructs a specified VoyageSub object
+     * Constructs a specified VoyageFav object
      * @param userId the auto-generated ID of the user
      * @param voyageId the unique ID of the voyage, identified by record
      */
     @Id private int id;
+
     @Column(name = "user_id")
     private int userId;
 
     @Column(name = "voyage_id")
     private String voyageId;
-
-
+    
     /**
      * Custom equals method to account all elements
-     * @param object that could be VoyageSub type or otherwise
+     * @param object that could be VoyageFav type or otherwise
      * @return true:  both objects are the same
      *                or have the same userId and voyageId
      *         false: object is null or not VoyageId type
@@ -39,10 +37,10 @@ public class VoyageSub implements Serializable {
     public boolean equals(Object object) {
         if (this == object) return true;
         if (object == null) return false;
-        if (!(object instanceof VoyageSub)) return false;
-        VoyageSub voyageSub = (VoyageSub) object;
-        return userId == voyageSub.userId &&
-                voyageId.equals(voyageSub.voyageId);
+        if (!(object instanceof VoyageFav)) return false;
+        VoyageFav voyageFav = (VoyageFav) object;
+        return userId == voyageFav.userId &&
+                voyageId.equals(voyageFav.voyageId);
     }
 
     /**
@@ -60,30 +58,7 @@ public class VoyageSub implements Serializable {
      */
     @Override
     public String toString() {
-        return String.format("VoyageSub [id=%d, userId=%d, voyageId=%s]", id, userId, voyageId);
+        return String.format("VoyageFav [id=%d, userId=%d, voyageId=%s]", id, userId, voyageId);
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getVoyageId() {
-        return voyageId;
-    }
-
-    public void setVoyageId(String voyageId) {
-        this.voyageId = voyageId;
-    }
 }
