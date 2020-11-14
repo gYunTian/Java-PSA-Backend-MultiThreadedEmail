@@ -1,10 +1,8 @@
 package com.vsta.service.storage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.vsta.dao.storage.VesselDao;
-import com.vsta.dao.storage.VesselDao.VesselProjection;
 import com.vsta.entity.dto.VesselDTO;
 import com.vsta.entity.storage.Vessel;
 
@@ -51,7 +49,7 @@ public class VesselService {
     public List<VesselDTO> getVesselsByDate(String startDate, String endDate) {
 
         List<VesselDTO> vesselRetrieved = vesselDao.findByDate(startDate, endDate);
-        
+
         return vesselRetrieved;
     }
 }
