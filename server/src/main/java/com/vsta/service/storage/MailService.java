@@ -68,14 +68,14 @@ public class MailService {
      * @param id auto-generated ID of the vessel
      * @return emailContent email content containing subject, body and recipient
      */
-    public HashMap<String,String> getEmailContent(String email, String changes, String id) {
+    public HashMap<String,String> getEmailContent(User user, String changes, String id) {
         HashMap<String,String> emailContent = new HashMap<>();
 
-        emailContent.put("recipient", email);
+        emailContent.put("recipient", user.getEmail());
 
         emailContent.put("subject", "Changes to vessel detail: "+id);
 
-        String content = "Hi " + email + ",\n\n" +
+        String content = "Hi " + user.getName() + ",\n\n" +
                 "Details of the vessel: "+id+" has changed.\n\n" +
                 changes + "\n" +
                 "Thank you!\n" +

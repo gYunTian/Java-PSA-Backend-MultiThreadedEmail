@@ -3,10 +3,13 @@ package com.vsta.handler;
 import java.util.HashMap;
 import java.util.List;
 
+import com.vsta.entity.storage.User;
 import com.vsta.service.storage.MailService;
+import com.vsta.service.storage.UserService;
 import com.vsta.service.voyagebyuser.VoyageSubService;
 
 import org.hibernate.event.spi.PostUpdateEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -20,6 +23,9 @@ import org.springframework.stereotype.Component;
 public class PostUpdateEventHandler {
 
     protected PostUpdateEvent event;
+
+    @Autowired
+    private UserService userService;
 
     public final void register(PostUpdateEvent event) {
         this.event = event;
@@ -43,7 +49,8 @@ public class PostUpdateEventHandler {
                 List<String> emails = service.getSubs(uniqueId);
                 // currently voyage sub is empty
                 for (String email : emails) {
-                    HashMap<String, String> emailContent = mailService.getEmailContent(email, changes, uniqueId);
+                    User user = userService.getUserByEmail(email);
+                    HashMap<String, String> emailContent = mailService.getEmailContent(user, changes, uniqueId);
                     mailService.sendEmail(emailContent);
                 }
             }
