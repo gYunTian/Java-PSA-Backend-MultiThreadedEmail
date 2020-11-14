@@ -224,7 +224,7 @@ public class UserService {
 
             // if proceed, means user is not null so request accepted
             addToken(user); // generate password reset token for email body & save into database
-            HashMap<String,String> emailContent = mailService.getEmailContent(user, "resetPasswordRequest");
+            HashMap<String,String> emailContent = mailService.getEmailContent(user);
             return mailService.sendEmail(emailContent);
 
         } catch (NullPointerException e) {

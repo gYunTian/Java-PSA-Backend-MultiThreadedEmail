@@ -37,28 +37,25 @@ public class MailService {
 
     /**
      * Generic method to send mail to user for reset password purpose
-     * @param user user object representing the requester
-     * @param type
+     * @param user user object representing the requested
      * @return emailContent email content containing subject, body and recipient
      */
-    public HashMap<String,String> getEmailContent(User user, String type) {
+    public HashMap<String,String> getEmailContent(User user) {
         HashMap<String,String> emailContent = new HashMap<>();
 
         emailContent.put("recipient", user.getEmail());
 
         // customise subject & body
-        if (type.equals("resetPasswordRequest")) {
-            emailContent.put("subject", "Portnet Account Password Reset");
+        emailContent.put("subject", "Vsta Account Password Reset");
 
-            String body = "Hi " + user.getName() + ",\n\n" +
-                    "We received a request to reset the password of your Portnet account.\n\n" +
-                    "You may use the following token to change your password:\n" +
-                    "" + user.getToken() + "\n\n" +
-                    "If you did not make such a request, kindly ignore this email.\n\n\n" +
-                    "Thank you!\n" +
-                    "G1T9";
-            emailContent.put("body", body);
-        }
+        String body = "Hi " + user.getName() + ",\n\n" +
+                "We received a request to reset the password of your Vsta account.\n\n" +
+                "You may use the following token to change your password:\n" +
+                "" + user.getToken() + "\n\n" +
+                "If you did not make such a request, kindly ignore this email.\n\n\n" +
+                "Thank you!\n" +
+                "G1T9";
+        emailContent.put("body", body);
 
         return emailContent;
     }
@@ -67,11 +64,11 @@ public class MailService {
      * Overloaded getEmailContent method
      * with different implementation as well
      * @param email email address of user
-     * @param body message on the changes for vessel
+     * @param changes message on the changes for vessel
      * @param id auto-generated ID of the vessel
      * @return emailContent email content containing subject, body and recipient
      */
-    public HashMap<String,String> getEmailContent(String email, String body, String id) {
+    public HashMap<String,String> getEmailContent(String email, String changes, String id) {
         HashMap<String,String> emailContent = new HashMap<>();
 
         emailContent.put("recipient", email);
@@ -80,7 +77,7 @@ public class MailService {
 
         String content = "Hi " + email + ",\n\n" +
                 "Details of the vessel: "+id+" has changed.\n\n" +
-                body + "\n" +
+                changes + "\n" +
                 "Thank you!\n" +
                 "G1T9";
         emailContent.put("body", content);
