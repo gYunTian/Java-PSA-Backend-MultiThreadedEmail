@@ -39,9 +39,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES
-(0, 'admin', 'vsta.g1t9@gmail.com', '$2a$10$Cn8axdkeNlb8cgLsrdvBMem/Esklvb8Cg4KZqvOgE4klRQASEDRr.');
-
 -- --------------------------------------------------------
 
 --
