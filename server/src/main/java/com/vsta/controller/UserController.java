@@ -64,10 +64,10 @@ public class UserController {
 //    }
 
     /**
-     * Update password of password change requester
-     * @param newPasswordDTO Token and new password specified by user
+     * Update password of password change requester.
+     * @param newPasswordDTO Token and new password specified by user.
      * @return  ResponseEntity with the given status code and message
-     *          indicating if password change successful
+     *          indicating if password change successful.
      */
     @PutMapping("/resetPassword")
     public ResponseEntity<String> resetPassword(@RequestBody NewPasswordDTO newPasswordDTO) {
@@ -75,16 +75,22 @@ public class UserController {
     }
 
     /**
-     * Request token for reset password then send email if valid User
-     * @param email Email specified by user
+     * Request token for reset password then send email if valid User.
+     * @param email Email specified by user.
      * @return  ResponseEntity with the given status code and message
-     *          indicating successful sending of email
+     *          indicating successful sending of email.
      */
+//    @RequestMapping(value = "/resetPasswordRequest")
+//    public ResponseEntity<String> resetPasswordRequest(
+//            @RequestHeader(
+//                name = "authorization",
+//                defaultValue = "Basic ZzF0OTo5OTkwMDA=")
+//            @RequestParam String email) {
+//        return userService.resetPasswordRequest(email);
+//    }
+
     @RequestMapping(value = "/resetPasswordRequest")
     public ResponseEntity<String> resetPasswordRequest(
-            @RequestHeader(
-                name = "authorization",
-                defaultValue = "Basic ZzF0OTo5OTkwMDA=")
             @RequestParam String email) {
         return userService.resetPasswordRequest(email);
     }

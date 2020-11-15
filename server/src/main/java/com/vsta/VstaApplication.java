@@ -18,8 +18,4 @@ public class VstaApplication {
         SpringApplication.run(VstaApplication.class, args);
     }
 
-    @Bean
-    RestOperations restTemplate(RestTemplateBuilder restTemplateBuilder) {
-        return restTemplateBuilder.basicAuthentication("g1t9", "999000").build();
-    }
 }

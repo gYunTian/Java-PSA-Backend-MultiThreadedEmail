@@ -87,7 +87,7 @@ public class UserService {
 
     /**
      * Get User with specified id in database
-     * @param id Auto-generated ID of the user
+     * @param id ID to uniquely identify a User.
      * @return User object (null if not found)
      */
     public User getUserById(int id) {
@@ -96,7 +96,7 @@ public class UserService {
 
     /**
      * Get User with specified email in database
-     * @param email User Email specified
+     * @param email Email used by the User at registration.
      * @return User object (null if not found)
      */
     public User getUserByEmail(String email) {

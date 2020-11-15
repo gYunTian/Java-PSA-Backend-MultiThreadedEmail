@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * User Service tasks that use DAO methods
+ * Vessel Service tasks that use DAO methods
  * and used for REST APIs for Vessel Object.
  */
 
@@ -40,9 +40,8 @@ public class VesselService {
      * Get all Vessels in database
      * @param startDate user specified Date with format YYYY-MM-DD to retrieve vessels from
      * @param endDate user specified Date with format YYYY-MM-DD to retrieve vessels to
-     * @return a list of vesselDTO objects
+     * @return a list of vesselDTO objects with Berth date from indicated startDate to indicated endDate.
      */
-    // use vessel dao for this
     public List<VesselDTO> getVesselsByDate(String startDate, String endDate) {
         return vesselDao.findByDate(startDate, endDate);
     }

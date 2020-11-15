@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * User Service tasks that use DAO methods
+ * Favourite Service tasks that use DAO methods
  * and used for REST APIs for Favourite Object.
  */
 
@@ -41,7 +41,7 @@ public class FavouriteService {
 
     /**
      * Get Favourites with specified userId in database
-     * @param userId Auto-generated ID of User
+     * @param userId ID to uniquely identify a User.
      * @return List of favourite objects
      */
     public List<Favourite> getFavouriteByUserId(int userId) {

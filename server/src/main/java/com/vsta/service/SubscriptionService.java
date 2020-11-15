@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * User Service tasks that use DAO methods
+ * Subscription Service tasks that use DAO methods
  * and used for REST APIs for Subscription Object.
  */
 
@@ -23,10 +23,10 @@ public class SubscriptionService {
     private SubscriptionDAO subscriptionDao;
 
     /**
-     * Add Subscription to database
-     * @param subscription object to be save in database
+     * Add Subscription to database.
+     * @param subscription object to be save in database.
      * @return  ResponseEntity with the given status code and message
-     *          indicating if subscription added successfully
+     *          indicating if subscription added successfully.
      */
     public ResponseEntity<String> saveSubscription(Subscription subscription) {
         int userId = subscription.getUserId();
@@ -42,19 +42,19 @@ public class SubscriptionService {
     }
 
     /**
-     * Get Subscriptions with specified userId in database
-     * @param userId the auto-generated ID of the user
-     * @return List of subscription objects subscribed to by User
+     * Get Subscriptions with specified userId in database.
+     * @param userId ID to uniquely identify a User.
+     * @return List of subscription objects subscribed to by User.
      */
     public List<Subscription> getSubscriptionByUserId(int userId) {
         return subscriptionDao.findByUserId(userId);
     }
 
     /**
-     * Remove specified subscription from database
-     * @param subscription Subscription object to be removed
+     * Remove specified subscription from database.
+     * @param subscription Subscription object to be removed.
      * @return  ResponseEntity with the given status code and message
-     *          indicating if subscription is deleted successfully
+     *          indicating if subscription is deleted successfully.
      */
     public ResponseEntity<String> deleteSubscription(Subscription subscription) {
         int userId = subscription.getUserId();
@@ -71,9 +71,9 @@ public class SubscriptionService {
     }
 
     /**
-     * Get the emails of all users subbed to a voyage/vessel
-     * @param voyageId Unique ID of the voyage
-     * @return List of email strings
+     * Get the emails of all users subbed to a voyage/vessel.
+     * @param voyageId ID to uniquely identify a Voyage.
+     * @return List of email strings of users subbed to indicated voyageId;
      */ 
     public List<String> getSubs(String voyageId) {
         List<String> emails = new ArrayList<>();

@@ -14,17 +14,17 @@ import org.springframework.stereotype.Repository;
 public interface UserDAO extends JpaRepository<User, Integer> {
 
     /**
-     * Custom method to find User with specified email
+     * Custom method to find User with specified email.
      * @param email Email used by the User at registration.
-     * @return user object
+     * @return User object of indicated email.
      */
     User findByEmail(String email);
 
     /**
-     * Custom method to find User with specified token
+     * Custom method to find User with specified token.
      * @param token Generated token which verifies a
-     *              User for password reset requests
-     * @return User object
+     *              User for password reset requests.
+     * @return User object of indicated token.
      */
     User findByToken(String token);
 }

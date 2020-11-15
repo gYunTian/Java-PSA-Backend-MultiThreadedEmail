@@ -18,7 +18,8 @@ public class BasicAuth extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                    .antMatchers("/", "/resetPasswordRequest", "/resetPassword").permitAll()
+                    .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
         //.formLogin().and()

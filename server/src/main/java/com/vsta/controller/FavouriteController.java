@@ -20,10 +20,10 @@ public class FavouriteController {
     private FavouriteService service;
 
     /**
-     * Add Add voyage favorite to database
-     * @param favourite Favourite object to be added into database
+     * Add Add voyage favorite to database.
+     * @param favourite Favourite object to be added into database.
      * @return  ResponseEntity with the given status code and message
-     *          indicating if favourite is added successfully
+     *          indicating if favourite is added successfully.
      */
     @PostMapping("/addFavourite")
     public ResponseEntity<String> addFavourite(@RequestBody Favourite favourite) {
@@ -31,9 +31,9 @@ public class FavouriteController {
     }
 
     /**
-     * Get all voyage favourites by userId
-     * @param userId Auto-generated ID of the user
-     * @return List of Favourite objects
+     * Get all voyage favourites by userId.
+     * @param userId ID to uniquely identify a User.
+     * @return list of Favourite objects of indicated userId.
      */
     @GetMapping("/favouritesByUserId/{userId}")
     public List<Favourite> findFavouritesByUserId(@PathVariable int userId) {
@@ -42,7 +42,7 @@ public class FavouriteController {
 
     /**
      * Delete specified favourite from database
-     * @param favourite     Favourite object requested to be remove from database
+     * @param favourite Favourite object requested to be remove from database
      * @return  ResponseEntity with the given status code and message
      *          indicating if favourite is deleted successfully
      */

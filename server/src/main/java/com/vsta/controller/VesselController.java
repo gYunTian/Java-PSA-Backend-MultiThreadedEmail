@@ -22,11 +22,11 @@ public class VesselController {
     private VesselService vesselService;
 
     /**
-     * Get all Vessels in database between a user-specified time period
-     * @param startDate Date with format YYYY-MM-DD to start retrieving vessels from
-     * @param endDate   Date with format YYYY-MM-DD that retrieval of vessels is to be done until
+     * Get all Vessels in database between a user-specified time period.
+     * @param startDate Date with format YYYY-MM-DD to start retrieving vessels from.
+     * @param endDate   Date with format YYYY-MM-DD that retrieval of vessels is to be done until.
      * @return  ResponseEntity with the given status code and message
-     *          indicating vessel list is retrieved
+     *          indicating vessel list is retrieved.
      */
     @GetMapping(value = "/vessels", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<VesselDTO>> getVesselsByDate(@RequestParam(value = "startDate") String startDate,

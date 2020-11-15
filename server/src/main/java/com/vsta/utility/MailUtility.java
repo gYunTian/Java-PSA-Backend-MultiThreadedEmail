@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 
 /**
- * Service that send email to recipient
+ * Mail Utility that send email to recipient
  */
 
 @Service
@@ -20,9 +20,9 @@ public class MailUtility {
     private JavaMailSender mailSender;
 
     /**
-     * Generic method to send mail to user
-     * @param emailContent object that contain subject, body and recipent for the email
-     * @return ResponseEntity with the given status code and message indicating that mail was successful
+     * Generic method to send mail to user.
+     * @param emailContent object that contain subject, body and recipent for the email.
+     * @return ResponseEntity with the given status code and message indicating that mail was successful.
      */
     public ResponseEntity<String> sendEmail(HashMap<String,String> emailContent) {
         SimpleMailMessage email = new SimpleMailMessage();
@@ -36,9 +36,9 @@ public class MailUtility {
     }
 
     /**
-     * Generic method to send mail to user for reset password purpose
-     * @param user user object representing the requestor
-     * @return emailContent email content containing subject, body and recipient
+     * Generic method to send mail to user for reset password purpose.
+     * @param user user object representing the requestor.
+     * @return emailContent email content containing subject, body and recipient.
      */
     public HashMap<String,String> getEmailContent(User user) {
         HashMap<String,String> emailContent = new HashMap<>();
@@ -62,11 +62,11 @@ public class MailUtility {
 
     /**
      * Overloaded getEmailContent method
-     * with different implementation as well
-     * @param user user object representing the requestor
-     * @param changes message on the changes for vessel
-     * @param id auto-generated ID of the vessel
-     * @return emailContent email content containing subject, body and recipient
+     * with different implementation for notification purpose.
+     * @param user user object representing the requestor.
+     * @param changes message on the changes for voyage.
+     * @param id ID to uniquely identify a Voyage.
+     * @return emailContent email content containing subject, body and recipient.
      */
     public HashMap<String,String> getEmailContent(User user, String changes, String id) {
         HashMap<String,String> emailContent = new HashMap<>();

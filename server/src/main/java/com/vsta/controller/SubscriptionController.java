@@ -20,10 +20,10 @@ public class SubscriptionController {
     private SubscriptionService service;
 
     /**
-     * Add voyage subscription to database
-     * @param subscription Subscription object to be added into database
+     * Add voyage subscription to database.
+     * @param subscription Subscription object to be added into database.
      * @return  ResponseEntity with the given status code and message
-     *          indicating if subscription is added successfully
+     *          indicating if subscription is added successfully.
      */
     @PostMapping("/addSubscription")
     public ResponseEntity<String> addSubscription(@RequestBody Subscription subscription) {
@@ -31,9 +31,9 @@ public class SubscriptionController {
     }
 
     /**
-     * Get all voyage subscriptions by userId
-     * @param userId the auto-generated ID of the user
-     * @return  List of subscription objects
+     * Get all voyage subscriptions by userId.
+     * @param userId ID to uniquely identify a User.
+     * @return  list of Subscription objects of indicated userId.
      */
     @GetMapping("/subscriptionsByUserId/{userId}")
     public List<Subscription> findSubscriptionsByUserId(@PathVariable int userId) {
@@ -41,10 +41,10 @@ public class SubscriptionController {
     }
 
     /**
-     * Delete specified subscription from database
-     * @param subscription subscription object requested to be remove from database
+     * Delete specified subscription from database.
+     * @param subscription Subscription object requested to be remove from database.
      * @return  ResponseEntity with the given status code and message
-     *          indicating if subscription is deleted successfully
+     *          indicating if subscription is deleted successfully.
      */
     @DeleteMapping("/deleteSubscriptions")
     public ResponseEntity<String> deleteSubscription(@RequestBody Subscription subscription) {

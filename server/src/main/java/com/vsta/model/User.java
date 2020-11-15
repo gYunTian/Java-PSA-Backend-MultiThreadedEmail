@@ -215,9 +215,10 @@ public class User {
     /**
      * Override equals method to compare two Users.
      * @param object that could be of User type or otherwise
-     * @return true:  both objects are the same
+     * @return <code>true</code> if both objects are the same
      *                or have the same id
-     *         false: object is null or not User type
+     *         <p>
+     *         <code>false</code> if object is null or not User type
      *                or both objects have different id
      */
     @Override
@@ -232,7 +233,7 @@ public class User {
     /**
      * Override hashCode method to uniquely
      * identify a User using their id.
-     * @return int representing hash code
+     * @return a hash code value for this object.
      */
     @Override
     public int hashCode() {
@@ -242,7 +243,7 @@ public class User {
     /**
      * Override toString method to encapsulate
      * all elements in string representation.
-     * @return string representation of object
+     * @return string representation of User object
      */
     @Override
     public String toString() {

@@ -196,6 +196,11 @@ public class Vessel {
         this.fullVslM = fullVslM;
     }
 
+    /**
+     * Override toString method to encapsulate
+     * all elements in string representation.
+     * @return string representation of Voyage object
+     */
     @Override
     public String toString() {
         return "Vessel [abbrTerminalM=" + abbrTerminalM + ", abbrVslM=" + abbrVslM + ", berthN=" + berthN + ", bthgDt="

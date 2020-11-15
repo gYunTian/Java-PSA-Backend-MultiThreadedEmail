@@ -93,9 +93,10 @@ public class Favourite {
     /**
      * Custom equals method to account all elements
      * @param object that could be Favourite type or otherwise
-     * @return true:  both objects are the same
+     * @return <code>true</code> if  both objects are the same
      *                or have the same userId and voyageId
-     *         false: object is null or not VoyageId type
+     *         <p>
+     *         <code>false</code> if object is null or not VoyageId type
      *                or both objects have different userId and/or voyageId
      */
     @Override
@@ -111,7 +112,7 @@ public class Favourite {
     /**
      * Custom hash code method which will uniquely
      * identify Favourite by userId and voyageId
-     * @return int representing hash code
+     * @return a hash code value for this object.
      */
     @Override
     public int hashCode() {
