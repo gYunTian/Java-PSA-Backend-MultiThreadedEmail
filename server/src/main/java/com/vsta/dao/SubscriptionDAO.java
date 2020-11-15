@@ -46,7 +46,7 @@ public interface SubscriptionDAO extends CrudRepository<Subscription, Integer> {
     /**
      * Custom method to find users who subscribed to a voyage.
      * @param voyageId ID to uniquely identify a Voyage.
-     * @return a list of user projections of indicated userId and voyageId.
+     * @return List of user projections of indicated userId and voyageId.
      */
     @Query(value = "select u.email from user u inner join subscription v on u.id = v.user_id "
             + "where v.voyage_id = :voyageId", nativeQuery = true)
