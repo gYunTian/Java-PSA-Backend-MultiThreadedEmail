@@ -33,7 +33,7 @@ export default class User {
 
     // *Add user to database
     async registerUser() {
-        const serviceURL = APIs.addUser;
+        const serviceURL = APIs.registerUser;
         try {
             const result = await axios({
                 method: 'POST',
@@ -48,7 +48,7 @@ export default class User {
             this.registerStatus = result.status;
             this.userID = parseInt(result.data.split(' ').pop());
         } catch (error) {
-            console.log(`User.js addUser error: ${error}`);
+            console.log(`User.js registerUser error: ${error}`);
         }
     }
 

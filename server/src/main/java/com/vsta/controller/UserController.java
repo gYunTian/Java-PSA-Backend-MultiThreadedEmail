@@ -25,8 +25,8 @@ public class UserController {
      * @return  ResponseEntity with the given status code and message
      *          indicating if user is added successfully
      */
-    @PostMapping("/addUser")
-    public ResponseEntity<String> addUser(@RequestBody User user) {
+    @PostMapping("/registerUser")
+    public ResponseEntity<String> registerUser(@RequestBody User user) {
         return userService.saveUser(user);
     }
 
