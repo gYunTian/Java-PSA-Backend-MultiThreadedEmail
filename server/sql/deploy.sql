@@ -88,19 +88,19 @@ CREATE TRIGGER `if_berth_changed_update_history` BEFORE UPDATE ON `vessel` FOR E
             last_bthgDt = OLD.`bthgDt`,
             bthgDt_change_count = 	bthgDt_change_count + 1,
             last_unbthgDt = OLD.`unbthgDt`,
-            unbthgDt_change_count = 		unbthgDt_change_count + 1
+            unbthgDt_change_count = unbthgDt_change_count + 1
             where `uniqueId` = NEW.`uniqueId`;
 
-     ELSEIF (NEW.`bthgDt` <> OLD.`bthgDt`) THEN
+    ELSEIF (NEW.`bthgDt` <> OLD.`bthgDt`) THEN
             UPDATE vessel_history SET
             last_bthgDt = OLD.`bthgDt`,
             bthgDt_change_count = 	bthgDt_change_count + 1
             where `uniqueId` = NEW.`uniqueId`;
 
-        ELSEIF (NEW.`unbthgDt` <> OLD.`unbthgDt`) THEN
+    ELSEIF (NEW.`unbthgDt` <> OLD.`unbthgDt`) THEN
             UPDATE vessel_history SET
             last_unbthgDt = OLD.`unbthgDt`,
-            unbthgDt_change_count = 		unbthgDt_change_count + 1
+            unbthgDt_change_count = unbthgDt_change_count + 1
             where `uniqueId` = NEW.`uniqueId`;
         END IF;
 END
@@ -165,6 +165,11 @@ COMMIT;
 ALTER TABLE `subscription`
   ADD CONSTRAINT `subscription_ibfk_1` FOREIGN KEY (`voyage_id`) REFERENCES `vessel` (`uniqueId`),
   ADD CONSTRAINT `subscription_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+COMMIT;
+
+ALTER TABLE `favourite`
+  ADD CONSTRAINT `favourite_ibfk_1` FOREIGN KEY (`voyage_id`) REFERENCES `vessel` (`uniqueId`),
+  ADD CONSTRAINT `favourite_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
