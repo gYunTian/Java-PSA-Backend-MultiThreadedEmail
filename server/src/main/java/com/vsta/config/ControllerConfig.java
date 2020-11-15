@@ -13,11 +13,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-public class ControllerConfig implements WebMvcConfigurer{
-    
+public class ControllerConfig implements WebMvcConfigurer {
+
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
-        configurer.addPathPrefix("/api", 
-            HandlerTypePredicate.forAnnotation(RestController.class));
+        configurer.addPathPrefix("/api", HandlerTypePredicate.forAnnotation(RestController.class));
     }
 }

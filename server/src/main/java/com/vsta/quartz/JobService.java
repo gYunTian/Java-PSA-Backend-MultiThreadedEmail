@@ -14,13 +14,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.vsta.model.Vessel;
 import com.vsta.service.VesselService;
+import com.vsta.utility.HttpUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.client.ClientHttpRequestFactory;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.ResourceAccessException;
@@ -40,86 +37,61 @@ public class JobService {
   @Autowired
   private VesselService vesselService;
 
+  /**
+   * Main method that will be executed by the QuartJob
+   */
   public void executeJob() {
-    LocalDateTime now = LocalDateTime.now();
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-    String date = now.format(formatter);
-    
     // reload properties file before executing job
     if (prop.isEnabled()) {
-      System.out.println(date + "  - Quartz job: Executing job");
-      // objects for sending post request
-      HttpHeaders headers = new HttpHeaders();
+      printStatus("Executing job");
 
-      // set up request header
-      headers.setContentType(MediaType.APPLICATION_JSON);
-      headers.add("Apikey", prop.getApiKey());
-      headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
-
-      // create request body as json
+      // create request body
+      // gets date range from reload.properties file
       String requestJson = "{\"dateFrom\":\"" + prop.getDateFrom() + "\", \"dateTo\":\"" + prop.getDateTo() + "\"}";
       // String requestJson = "{\"dateFrom\":\"" + "2020-11-08" + "\", \"dateTo\":\""
       // + "2020-11-10" + "\"}";
       // String requestJson = "{\"dateFrom\":\"" + "2020-09-08" + "\", \"dateTo\":\""
       // + "2020-09-14" + "\"}";
-      System.out.println(date + "  - Quartz job: Sending Post request");
 
+      printStatus("Sending Post request");
       // parse json array
-      JsonArray jsonArray = PostAndParse(requestJson, headers);
+      JsonArray jsonArray = PostAndParse(requestJson, prop.getApiKey());
 
       if (jsonArray == null) {
-        System.out.println(date + "  - Quartz job: There was a problem with sending the post request!");
+        printStatus("There was a problem with sending the post request!");
         return;
       }
 
-      // extract values from json
-      ObjectMapper mapper = new ObjectMapper();
       List<Vessel> vessels = new ArrayList<>();
-      int length = jsonArray.size();
-      String uniqueId = null;
-      String temp = null;
+      vessels = mapVessels(jsonArray);
 
-      for (int i = 0; i < length; i++) {
-        try {
-          // create uniqueIds for each vessel using fullVsLm and inVoyN
-          uniqueId = (jsonArray.get(i).getAsJsonObject().get("fullVslM").getAsString() + " "
-              + jsonArray.get(i).getAsJsonObject().get("inVoyN").getAsString());
-          temp = jsonArray.get(i).toString();
-          vessels.add(mapper.readValue(temp.substring(0, temp.length() - 1) + ",\"uniqueId\":\"" + uniqueId + "\"}",
-              Vessel.class));
-
-        } catch (JsonProcessingException e) {
-          System.out.println(date + "  - Quartz job: JSON Processing Error");
-          e.printStackTrace();
-        } catch (NullPointerException e) {
-          System.out.println(date + "  - Quartz job: Null pointer Error");
-          e.printStackTrace();
-        } catch (Exception e) {
-          System.out.println(date + "  - Quartz job: Exception Error");
-          e.printStackTrace();
-        }
-      }
-      System.out.println(date + "  - Quartz job: Post request complete");
+      printStatus("Post request complete");
+      printStatus("Saving vessels to DB");
 
       // add to db
-      System.out.println(date + "  - Quartz job: Saving vessels to DB");
-
       for (Vessel vessel : vessels) {
         vesselService.saveVessel(vessel);
       }
       // vesselService.saveVessels(vessels);
+      printStatus("Cron job complete");
 
-      System.out.println(date + "  - Quartz job: Cron complete");
     } else {
-      System.out
-          .println(date + "  - Quartz Job disabled. If you want to run jobs, please enable it in reload.properties file"
-              + " - quartz.properties.enabled = true");
+      printStatus(
+          "Quartz Job disabled. If you want to run jobs, please enable it in reload.properties file by setting quartz.properties.enabled = true");
     }
   }
 
-  public JsonArray PostAndParse(String requestJson, HttpHeaders headers) {
-    RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
-    HttpEntity<String> request = new HttpEntity<String>(requestJson, headers);
+  /**
+   * A customized method that makes a POST request and parse the results
+   * 
+   * @param requestJson
+   * @param headers
+   * @return JSON ARRAY
+   */
+  private JsonArray PostAndParse(String requestJson, String apikey) {
+    HttpEntity<String> request = HttpUtil.getHttpEntity(requestJson, prop.getApiKey());
+    RestTemplate restTemplate = HttpUtil.getRestTemplate();
+
     JsonObject jsonObject = null;
     String res = null;
     JsonArray jsonArray = null;
@@ -130,26 +102,67 @@ public class JobService {
       jsonObject = new JsonParser().parse(res).getAsJsonObject();
 
       if (!jsonObject.get("errors").isJsonNull()) {
-        System.out.println("Error in header or request body");
+        printStatus("Error in header or request body");
       } else {
         jsonArray = jsonObject.getAsJsonArray("results");
       }
     } catch (ResourceAccessException e) {
-      System.out.println("Connection timed out: " + e);
+      printStatus("Connection timed out: " + e);
     } catch (HttpStatusCodeException e) {
       // non 200 status code
-      System.out.println(e.getStatusCode().value());
+      printStatus("Non 200 status code: " + e.getStatusCode().value());
     } catch (Exception e) {
-      System.out.println(e);
+      printStatus("Unknown exception occured: " + e);
     }
 
     return jsonArray;
   }
 
-  private ClientHttpRequestFactory getClientHttpRequestFactory() {
-    int timeout = 10000;
-    HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-    clientHttpRequestFactory.setConnectTimeout(timeout);
-    return clientHttpRequestFactory;
+  /**
+   * Customized status printer
+   */
+  private void printStatus(String msg) {
+    LocalDateTime now = LocalDateTime.now();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    String date = now.format(formatter);
+    System.out.println(date + "  - Quartz job: " + msg);
+
+  }
+
+  /**
+   * A customized method that maps a json array to list
+   * 
+   * @param jsonArray
+   * @return List<Vessel>
+   */
+  private List<Vessel> mapVessels(JsonArray jsonArray) {
+    // extract values from json
+    ObjectMapper mapper = new ObjectMapper();
+    List<Vessel> vessels = new ArrayList<>();
+    int length = jsonArray.size();
+    String uniqueId = null;
+    String temp = null;
+
+    for (int i = 0; i < length; i++) {
+      try {
+        // create uniqueIds for each vessel using fullVsLm and inVoyN
+        uniqueId = (jsonArray.get(i).getAsJsonObject().get("fullVslM").getAsString() + " "
+            + jsonArray.get(i).getAsJsonObject().get("inVoyN").getAsString());
+        temp = jsonArray.get(i).toString();
+        vessels.add(mapper.readValue(temp.substring(0, temp.length() - 1) + ",\"uniqueId\":\"" + uniqueId + "\"}",
+            Vessel.class));
+
+      } catch (JsonProcessingException e) {
+        printStatus("JSON Processing Error");
+        e.printStackTrace();
+      } catch (NullPointerException e) {
+        printStatus("Null pointer Error");
+        e.printStackTrace();
+      } catch (Exception e) {
+        printStatus("Exception Error");
+        e.printStackTrace();
+      }
+    }
+    return vessels;
   }
 }

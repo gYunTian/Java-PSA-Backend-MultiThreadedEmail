@@ -14,9 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * This listener class listens for database update events.
- * It will register the event to a thread managed by Executor service.
- * The event will then be handled by our custom handler.
+ * This listener class listens for database update events. It will register the
+ * event to a thread managed by Executor service. The event will then be handled
+ * by our custom handler.
  */
 
 @Component

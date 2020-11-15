@@ -15,7 +15,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * Event handler that finds the subbed users and sends them an email on the changes.
+ * Event handler that finds the subbed users and sends them an email on the
+ * changes.
  */
 @Component
 public class PostUpdateEventHandler {

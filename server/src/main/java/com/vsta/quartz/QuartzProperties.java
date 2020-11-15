@@ -9,12 +9,10 @@ import org.springframework.core.env.StandardEnvironment;
 import org.springframework.stereotype.Component;
 
 /**
- * Represents the external configuration properties required for
- * scheduling of quartz jobs The Input are from reload.properties file and
- * uses the following PREFIX: spring.quartz.properties
- * Consists of getter methods to retrieve the properties
- * 
- * This is placed here instead of entity folder to represent the domain usage
+ * Represents the external configuration properties required for scheduling of
+ * quartz jobs The Input are from reload.properties file and uses the following
+ * PREFIX: spring.quartz.properties Consists of getter methods to retrieve the
+ * properties
  */
 
 @Component

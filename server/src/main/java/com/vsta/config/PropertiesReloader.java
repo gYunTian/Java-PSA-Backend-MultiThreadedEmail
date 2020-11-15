@@ -33,11 +33,6 @@ import lombok.Cleanup;
  * Class to hot reload properties
  */
 
-// to-do
-// on reload, intercept quartz schedule and create new trigger
-// on cron trigger, run properties reloader as well
-// check file modified before reading else same
-
 @Component
 public class PropertiesReloader {
 
@@ -58,18 +53,19 @@ public class PropertiesReloader {
     private String prevInterval;
     private String newInterval;
 
-    // private Properties old;
-
+    /**
+     * This method is scheduled to auto run every 10 secs. It will refresh the file
+     * loaded in memory so properties within it will be reread
+     * 
+     * @throws IOException
+     */
     @Scheduled(fixedRate = 10000)
     public void reload() throws IOException {
 
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String date = now.format(formatter);
-
         try {
             prevInterval = prop.getInterval();
-            System.out.println(date + "  - Prop reloader: Reloading properties");
+            printer("Reloading properties");
+
             MutablePropertySources propertySources = environment.getPropertySources();
             PropertySource<?> resourcePropertySource = propertySources.get("class path resource [reload.properties]");
             Properties properties = new Properties();
@@ -84,34 +80,46 @@ public class PropertiesReloader {
                     new PropertiesPropertySource("class path resource [reload.properties]", properties));
 
             if (!(prevInterval.equals(newInterval)) && prop.isReloadInterval()) {
-                System.out.println(date + "  - Prop reloader: Updating interval");
-                System.out.println(date + "  - Prop reloader: Interval changed from " + prevInterval + " to " + newInterval);
-
-                try {
-                    Scheduler scheduler = schedulerFactoryBean.getScheduler();
-                    scheduler.clear();
-                    scheduler.standby();
-
-                    // generating new job and trigger
-                    JobDetail jobDetail = quartzSheduler.getJobDetail(QuartzJob.class);
-                    CronTrigger jobTrigger = quartzSheduler.getTrigger(jobDetail, prop.getInterval());
-
-                    scheduler.start();
-                    scheduler.scheduleJob(jobDetail, jobTrigger);
-
-                } catch (SchedulerException e) {
-                    e.printStackTrace();
-                }
-
-                System.out.println(date + "  - Prop reloader: Updated interval");
+                printer("Updating cron job interval");
+                printer("Interval changed from " + prevInterval + " to " + newInterval);
+                updateCronInterval();
+                printer("Updated cron interval");
             }
-
-            System.out.println(date + "  - Prop reloader: Reloaded properties");
+            printer("Reloaded properties");
 
         } catch (IOException e) {
-            System.out.println(date + "  - Prop reloader: Your reload.properties file cannot be located - " + e);
-            System.out.println(date + "  - Prop reloader: Make sure it is in resources folder");
-            System.out.println(date + "  - Prop reloader: Quartz job will be stopped");
+            printer("Your reload.properties file cannot be located - " + e);
+            printer("Make sure it is in resources folder");
         }
+    }
+
+    /**
+     * this method will update the cron job's interval It clears the existing
+     * scheduled jobs and create a new job based on the updated interval
+     */
+    public void updateCronInterval() {
+        try {
+            Scheduler scheduler = schedulerFactoryBean.getScheduler();
+            scheduler.clear();
+            scheduler.standby();
+
+            // generating new job and trigger
+            JobDetail jobDetail = quartzSheduler.getJobDetail(QuartzJob.class);
+            CronTrigger jobTrigger = quartzSheduler.getTrigger(jobDetail, prop.getInterval());
+
+            scheduler.start();
+            scheduler.scheduleJob(jobDetail, jobTrigger);
+
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void printer(String msg) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String date = now.format(formatter);
+
+        System.out.println(date + "  - Prop reloader: " + msg);
     }
 }
