@@ -1,7 +1,8 @@
+Prerequisites:
 - Ensure your WAMP/MAMP server is running to allow access to the database.
-- If not done so, import the deploy.sql script which is located in the server/sql folder. This can be done in phpmyadmin, MySQL Workbench or otherwise.
+- If not done so, import the deploy.sql script. This can be done in phpmyadmin, MySQL Workbench or otherwise.
 
-Below are the information on the tables for the deploy.sql:
+Below are the information on the tables for deploy.sql:
 +----------------+-----------------------------------------------------+-------------+--------------------------+
 | Table Name     | Columns Name                                        | Primary Key | Foreign Key              |
 +----------------+-----------------------------------------------------+-------------+--------------------------+
@@ -42,7 +43,7 @@ Below are the information on the tables for the deploy.sql:
 |                | voyage_id: varchar(60) NOT NULL                     |             |                          |
 +----------------+-----------------------------------------------------+-------------+--------------------------+
 
-Below are the information 2 triggers created for vessel table and below:
+Below are the information on the 2 triggers created for the vessel table:
 +---------------------------------+--------------------------+--------------------------------------------------------+
 | Trigger Name                    | Trigger Point?           | Description                                            |
 +---------------------------------+--------------------------+--------------------------------------------------------+

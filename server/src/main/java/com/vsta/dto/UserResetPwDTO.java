@@ -2,7 +2,6 @@ package com.vsta.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
@@ -11,39 +10,54 @@ import javax.validation.constraints.NotBlank;
  * Change or Reset password
  */
 
-@Data
-public class UserNewPwDTO {
+public class UserResetPwDTO {
 
     /**
-     * Old password or token specified by the User
+     * Email specified by the User
      */
-    @NotBlank(message = "Identifier is mandatory")
-    private String identifier;
+    final private String email;
+    
+    /**
+     * Token specified by the User
+     */
+    @NotBlank(message = "Token is mandatory")
+    final private String token;
 
     /**
      * Password the user wants to change to
      */
     @NotBlank(message = "Password is mandatory")
-    private String newPassword;
+    final private String newPassword;
 
     /**
      * Constructs object for Reset password functionality
-     * @param identifier token specified by the User
+     * @param token token specified by the User
      * @param newPassword chosen password the user wants to change to
      */
     @JsonCreator
-    public UserNewPwDTO(@JsonProperty("identifier") String identifier,
-                        @JsonProperty("new_password") String newPassword) {
-        this.identifier = identifier;
+    public UserResetPwDTO(
+            @JsonProperty("email") String email,
+            @JsonProperty("token") String token,
+            @JsonProperty("new_password") String newPassword) {
+        this.email = email;
+        this.token = token;
         this.newPassword = newPassword;
     }
 
     /**
-     * Gets the old password or token specified by the User
+     * Gets the email specified by the User
      * @return  This User's specified old password or token
      */
-    public String getIdentifier() {
-        return identifier;
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Gets the token specified by the User
+     * @return  This User's specified old password or token
+     */
+    public String getToken() {
+        return token;
     }
 
     /**

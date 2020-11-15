@@ -7,8 +7,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 /**
- * Details input by User at
- * Login
+ * Details input by User at Login
  */
 
 public class UserLoginDTO {
@@ -22,7 +21,7 @@ public class UserLoginDTO {
      */
     @NotBlank(message = "Email is mandatory")
     @Email(message = "Email should be valid")
-    private String email;
+    final private String email;
 
     /**
      * The raw password set by the User.
@@ -32,7 +31,7 @@ public class UserLoginDTO {
      * This has not been hashed yet.
      */
     @NotBlank(message = "Password is mandatory")
-    private String password;
+    final private String password;
 
     /**
      * Constructs a new User object at login.

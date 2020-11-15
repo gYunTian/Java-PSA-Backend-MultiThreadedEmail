@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * REST APIs using service methods for
- * Subscription
+ * REST APIs using service methods for Subscription
  */
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")

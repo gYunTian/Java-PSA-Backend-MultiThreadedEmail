@@ -14,13 +14,13 @@ import java.util.HashMap;
  */
 
 @Service
-public class MailUtility {
+public class MailUtil {
 
     @Autowired
     private JavaMailSender mailSender;
 
     /**
-     * Generic method to send mail to user.
+     * Generic method to send email to user.
      * @param emailContent object that contain subject, body and recipent for the email.
      * @return ResponseEntity with the given status code and message indicating that mail was successful.
      */
@@ -34,6 +34,7 @@ public class MailUtility {
         mailSender.send(email);
         return ResponseEntity.ok("Email successfully sent");
     }
+
 
     /**
      * Generic method to send mail to user for reset password purpose.

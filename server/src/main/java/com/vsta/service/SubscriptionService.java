@@ -31,12 +31,14 @@ public class SubscriptionService {
     public ResponseEntity<String> saveSubscription(Subscription subscription) {
         int userId = subscription.getUserId();
         String voyageId = subscription.getVoyageId();
+
         List<Subscription> subscriptionList = subscriptionDao.findSubscriptionByUserIdAndVoyageId(userId, voyageId);
         if (subscriptionList.size() >= 1){
             return new ResponseEntity<>(
                     "Voyage subscription unsuccessful as it already exist",
                     HttpStatus.BAD_REQUEST);
         }
+
         subscriptionDao.save(subscription);
         return ResponseEntity.ok("Voyage subscribed successful");
     }
@@ -66,6 +68,7 @@ public class SubscriptionService {
                     "Voyage unsubscription unsuccessful - subscription does not exist",
                     HttpStatus.BAD_REQUEST);
         }
+
         subscriptionDao.deleteByUserIdAndVoyageId(userId, voyageId);
         return ResponseEntity.ok("Voyage unsubscription successful");
     }

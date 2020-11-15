@@ -7,8 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * REST APIs using service methods for
- * User
+ * REST APIs using service methods for User
  */
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")

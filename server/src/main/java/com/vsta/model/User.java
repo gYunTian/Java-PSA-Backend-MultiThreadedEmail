@@ -90,22 +90,6 @@ public class User {
         this.email = email;
         this.password = password;
     }
-    /**
-     * Constructs a new User object.
-     * This is when only email and password
-     * are specified at registration stage.
-     * The name is derived from the email
-     * username since it is not provided.
-     * @param id ID to uniquely identify a User.
-     * @param email Email specified by the User at registration.
-     * @param password Password specified by the User.
-     */
-    public User(int id, String email, String password) {
-        this.id = id;
-        this.name = email.split("@")[0];
-        this.email = email;
-        this.password = password;
-    }
 
     /**
      * Gets the ID of the User.

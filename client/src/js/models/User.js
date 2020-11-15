@@ -77,7 +77,7 @@ export default class User {
                 method: 'PUT',
                 url: serviceURL,
                 data: {
-                    identifier: token,
+                    token: token,
                     new_password: pw,
                 },
             });

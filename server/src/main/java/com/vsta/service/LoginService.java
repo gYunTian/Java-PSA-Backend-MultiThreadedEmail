@@ -20,6 +20,11 @@ public class LoginService {
     @Autowired
     UserService userService;
 
+
+    final String errorMsgPrefix = "Login unsuccessful - ";
+    final String nonExistentEmailMsg = errorMsgPrefix + "email not registered";
+    final String wrongPasswordMsg = errorMsgPrefix + "wrong password";
+
     /**
      * Allow User to login if data passes validity checks
      * @param userLoginDTO Email and password specified by user
@@ -31,15 +36,12 @@ public class LoginService {
         String givenPassword = userLoginDTO.getPassword();
 
         User user = userService.getUserByEmail(email);
-        if (user == null) {
-            return new ResponseEntity<>(
-                    "Login unsuccessful - wrong email",
-                    HttpStatus.BAD_REQUEST);
-        }
+
+        ResponseEntity<String> emailValidationResult = userService.nullUserResult(user, nonExistentEmailMsg);
+        if (emailValidationResult != null) return emailValidationResult;
+
         if (!new BCryptPasswordEncoder().matches(givenPassword, user.getPassword())) {
-            return new ResponseEntity<>(
-                    "Login unsuccessful - wrong password",
-                    HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(wrongPasswordMsg, HttpStatus.BAD_REQUEST);
         }
 
         String responseMessage = String.format(

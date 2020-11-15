@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * REST APIs using service methods for
- * User Login
+ * REST APIs using service methods for User Login
  */
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")

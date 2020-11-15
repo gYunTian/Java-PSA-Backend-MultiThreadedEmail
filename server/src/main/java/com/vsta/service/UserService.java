@@ -22,6 +22,12 @@ public class UserService {
     @Autowired
     private DomainService domainService;
 
+
+    final String errorMsgPrefix = "Registration unsuccessful - ";
+
+    final String duplicateEmailMsg = errorMsgPrefix + "email already exists";
+    final String unacceptedDomainMsg = errorMsgPrefix + "email domain not accepted";
+
     /**
      * Add User to database if data passes validity checks
      * @param user User object to be added into database
@@ -29,37 +35,55 @@ public class UserService {
      *          indicating if user is added successfully
      */
     public ResponseEntity<String> saveUser(User user) {
-
-        // email validity
         String email = user.getEmail();
-        if (getUserByEmail(email) != null) {
-            return new ResponseEntity<>(
-                    "Registration unsuccessful - email already exists",
-                    HttpStatus.BAD_REQUEST);
-        } else if (!domainService.domainAccepted(email)) {
-            return new ResponseEntity<>(
-                    "Registration unsuccessful - email domain not accepted",
-                    HttpStatus.BAD_REQUEST);
-        }
 
-        user.setHashedPassword(user.getPassword());
+        ResponseEntity<String> invalidEmailResult = invalidRegisteredEmailResult(email);
+        if (invalidEmailResult != null) return invalidEmailResult;
+
         // passed checks
+        user.setHashedPassword(user.getPassword());
         userDao.save(user);
 
+        // save to get ID
         User savedUser = getUserByEmail(email);
-
         return ResponseEntity.ok("Registration successful, user has ID: " + savedUser.getId());
     }
 
 
     /**
-     * Get User with specified id in database
-     * @param id ID to uniquely identify a User.
-     * @return User object (null if not found)
+     * Check if registered email passes validity checks
+     * @param email Email used by the User at registration.
+     * @return  ResponseEntity with an error message and Bad Request status code if user is not null,
+     *          else return null
      */
-    public User getUserById(int id) {
-        return userDao.findById(id).orElse(null);
+    public ResponseEntity<String> invalidRegisteredEmailResult(String email) {
+        User existingUser = getUserByEmail(email);
+        if (existingUser != null) {
+            return new ResponseEntity<>(duplicateEmailMsg, HttpStatus.BAD_REQUEST);
+        }
+        if (!domainService.domainAccepted(email)) {
+            return new ResponseEntity<>(unacceptedDomainMsg, HttpStatus.BAD_REQUEST);
+        }
+
+        return null;
     }
+
+    /**
+     * Check if User object is null
+     * @param existingUser existing User object that is to be verified
+     * @param errorMsg Error message to return if needed
+     * @return  ResponseEntity with the given error message and Bad Request status code if user is null,
+     *          else return null
+     */
+    public ResponseEntity<String> nullUserResult(User existingUser, String errorMsg) {
+
+        if (existingUser == null) {
+            return new ResponseEntity<>(errorMsg, HttpStatus.BAD_REQUEST);
+        }
+
+        return null;
+    }
+
 
     /**
      * Get User with specified email in database
@@ -71,12 +95,12 @@ public class UserService {
     }
 
     /**
-     * Get User with specified password reset token in database
-     * @param token Verification code generated for User to reset password
+     * Get User with specified id in database
+     * @param id ID to uniquely identify a User.
      * @return User object (null if not found)
      */
-    public User getUserByToken(String token) {
-        return userDao.findByToken(token);
+    public User getUserById(int id) {
+        return userDao.findById(id).orElse(null);
     }
 
     /**

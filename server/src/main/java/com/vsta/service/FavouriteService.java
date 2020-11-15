@@ -29,12 +29,14 @@ public class FavouriteService {
     public ResponseEntity<String> saveFavourite(Favourite favourite) {
         int userId = favourite.getUserId();
         String voyageId = favourite.getVoyageId();
+
         List<Favourite> favouriteList = favouriteDao.findFavouriteByUserIdAndVoyageId(userId, voyageId);
         if (favouriteList.size() >= 1){
             return new ResponseEntity<>(
                     "Voyage favourite unsuccessful as it already exist",
                     HttpStatus.BAD_REQUEST);
         }
+
         favouriteDao.save(favourite);
         return ResponseEntity.ok("Voyage favourited successful");
     }
