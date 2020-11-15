@@ -7,10 +7,12 @@ stores them in a relational database to be displayed on the user interface.
 - By default, the web service is called at 00:00 hours daily to retrieve the vessels’ arrival timings for the next 7 days (excluding the current day). 
 - The web service is also called hourly to retrieve the vessels’ arrival timing for the current day (00:00 - 23:59).
 
+
 ## Configurable Settings
 The following settings can be found in `server/src/main/resources`.
 
-Credentials for the **database & Spring Security** can be found in `application.properties`.
+Credentials for the **database & Spring Security** can be found in `application.properties`. 
+> Spring Security is used for API authentication, and change in credentials requires change in the header constant in `client/src/js/views/base.js` as well.
 
 Settings for the following are configurable at `reload.properties` without the need to recompile code: 
 - Accepted **email domains** at user registration
@@ -33,9 +35,9 @@ The application is currently available on https://g1t9-vsta.netlify.app/.
 
 ## Development
 
-Prerequisites 
-- Ensure your *WAMP* server is turned on to allow access to the database. 
-- If not done so, import the `deploy.sql` script which is located in the `server/sql` folder.
+Before running our application, ensure the following prerequisites are fulfilled.
+- Ensure your *WAMP/MAMP* server is running to allow access to the database. 
+- If not done so, import the `deploy.sql` script which is located in the `server/sql` folder. This can be done in *phpmyadmin*, *MySQL Workbench* or otherwise. 
 - If not done so, ensure your local computer has the `JAVA_HOME` environment variable set to your Java SDK location.
 - If `node_modules` not already present in the `client` folder, install the dependencies with `npm run install`.
 
