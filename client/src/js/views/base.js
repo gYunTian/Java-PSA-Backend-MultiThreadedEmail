@@ -32,18 +32,22 @@ const ENDPOINT = 'http://localhost:8080/api';
 const CORS = 'https://cors-anywhere.herokuapp.com';
 
 export const APIs = {
+
     registerUser: `${ENDPOINT}/registerUser`,
-    getUserByEmail: `${ENDPOINT}/userByEmail`, // ?Not needed anymore
     loginUser: `${ENDPOINT}/loginUser`, // *Using this to authenticate users
     requestToken: `${ENDPOINT}/resetPasswordRequest`,
     resetPassword: `${ENDPOINT}/resetPassword`,
+
     getVessels: `${ENDPOINT}/vessels`,
+
     addFav: `${ENDPOINT}/addFavourite`,
     getFavs: `${ENDPOINT}/favouritesByUserId`,
     deleteFav: `${ENDPOINT}/deleteFavourite`,
+
     addSub: `${ENDPOINT}/addSubscription`,
     getSubs: `${ENDPOINT}/subscriptionsByUserId`,
     deleteSub: `${ENDPOINT}/deleteSubscriptions`,
+    
 };
 
 // *Full screen spinner clear

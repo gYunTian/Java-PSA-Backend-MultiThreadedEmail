@@ -4,6 +4,7 @@ import com.vsta.dao.UserDAO;
 import com.vsta.dto.LoginDTO;
 import com.vsta.dto.NewPasswordDTO;
 import com.vsta.model.User;
+import com.vsta.utility.MailUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,13 +29,13 @@ public class UserService {
     private DomainService domainService;
 
     @Autowired
-    private MailService mailService;
+    private MailUtility mailUtility;
 
     /**
      * Add User to database if data passes validity checks
-     * @param user User object of details input at registration
+     * @param user User object to be added into database
      * @return  ResponseEntity with the given status code and message
-     *          indicating if user registration successful
+     *          indicating if user is added successfully
      */
     public ResponseEntity<String> saveUser(User user) {
 
@@ -205,8 +206,8 @@ public class UserService {
 
             // if proceed, means user is not null so request accepted
             addToken(user); // generate password reset token for email body & save into database
-            HashMap<String,String> emailContent = mailService.getEmailContent(user);
-            return mailService.sendEmail(emailContent);
+            HashMap<String,String> emailContent = mailUtility.getEmailContent(user);
+            return mailUtility.sendEmail(emailContent);
 
         } catch (NullPointerException e) {
             return new ResponseEntity<>(

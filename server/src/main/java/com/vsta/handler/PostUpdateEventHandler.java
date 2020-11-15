@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.vsta.model.User;
-import com.vsta.service.MailService;
+import com.vsta.utility.MailUtility;
 import com.vsta.service.UserService;
 import com.vsta.service.SubscriptionService;
 
@@ -31,7 +31,7 @@ public class PostUpdateEventHandler {
 
     @Bean
     @Scope("prototype")
-    public Runnable newRunnable(final SubscriptionService service, final MailService mailService) {
+    public Runnable newRunnable(final SubscriptionService service, final MailUtility mailUtility) {
         return new Runnable() {
             public void run() {
                 StringBuilder sb = new StringBuilder();
@@ -48,8 +48,8 @@ public class PostUpdateEventHandler {
                 // currently voyage sub is empty
                 for (String email : emails) {
                     User user = userService.getUserByEmail(email);
-                    HashMap<String, String> emailContent = mailService.getEmailContent(user, changes, uniqueId);
-                    mailService.sendEmail(emailContent);
+                    HashMap<String, String> emailContent = mailUtility.getEmailContent(user, changes, uniqueId);
+                    mailUtility.sendEmail(emailContent);
                 }
             }
         };

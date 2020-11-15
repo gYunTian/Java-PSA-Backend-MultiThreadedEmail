@@ -4,7 +4,7 @@ package com.vsta.listener;
 
 import com.vsta.handler.DefaultExecutorServiceFactory;
 import com.vsta.handler.PostUpdateEventHandler;
-import com.vsta.service.MailService;
+import com.vsta.utility.MailUtility;
 import com.vsta.service.SubscriptionService;
 
 import org.hibernate.event.spi.PostUpdateEvent;
@@ -30,7 +30,7 @@ public class UpdateListener implements PostUpdateEventListener {
   private SubscriptionService subscriptionService;
 
   @Autowired
-  private MailService mailService;
+  private MailUtility mailUtility;
 
   @Autowired
   public UpdateListener(DefaultExecutorServiceFactory factory) {
@@ -41,7 +41,7 @@ public class UpdateListener implements PostUpdateEventListener {
   public void onPostUpdate(PostUpdateEvent postUpdateEvent) {
     PostUpdateEventHandler handler = new PostUpdateEventHandler();
     handler.register(postUpdateEvent);
-    this.factory.getExecutorService().execute(handler.newRunnable(subscriptionService, mailService));
+    this.factory.getExecutorService().execute(handler.newRunnable(subscriptionService, mailUtility));
   }
 
   @Override

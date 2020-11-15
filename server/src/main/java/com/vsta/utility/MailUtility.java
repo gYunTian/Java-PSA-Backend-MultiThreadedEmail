@@ -1,4 +1,4 @@
-package com.vsta.service;
+package com.vsta.utility;
 
 import com.vsta.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.HashMap;
  */
 
 @Service
-public class MailService {
+public class MailUtility {
 
     @Autowired
     private JavaMailSender mailSender;

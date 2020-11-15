@@ -1,6 +1,5 @@
 package com.vsta.model;
 
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.stereotype.Component;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-@Data
 public class Domain {
 
     /**
@@ -30,7 +28,8 @@ public class Domain {
     private static final String PREFIX = "domain.";
 
     /**
-     * Gets the list of accepted domains.
+     * Gets the list of accepted domains
+     * retrieved from reload.properties.
      * @return List of accepted domains.
      */
     public String[] getAcceptedDomains(){
