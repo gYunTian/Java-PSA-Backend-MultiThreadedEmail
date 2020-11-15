@@ -7,16 +7,12 @@ import lombok.Data;
 import javax.validation.constraints.NotBlank;
 
 /**
- * Details input by user at Change or Reset password
+ * Details input by user at
+ * Change or Reset password
  */
 
 @Data
-public class NewPasswordDTO {
-
-//    /**
-//     * Logged in User object (optional)
-//     */
-//    private User user;
+public class UserNewPwDTO {
 
     /**
      * Old password or token specified by the User
@@ -36,26 +32,11 @@ public class NewPasswordDTO {
      * @param newPassword chosen password the user wants to change to
      */
     @JsonCreator
-    public NewPasswordDTO(@JsonProperty("identifier") String identifier,
-                          @JsonProperty("new_password") String newPassword) {
+    public UserNewPwDTO(@JsonProperty("identifier") String identifier,
+                        @JsonProperty("new_password") String newPassword) {
         this.identifier = identifier;
         this.newPassword = newPassword;
     }
-
-//    /**
-//     * Constructs object for Change password functionality
-//     * @param user User object that requested for change of password
-//     * @param identifier Old password specified by the User
-//     * @param newPassword Password the user wants to change to
-//     */
-//    @JsonCreator
-//    public NewPasswordDTO(@JsonProperty("user") User user,
-//                          @JsonProperty("identifier") String identifier,
-//                          @JsonProperty("new_password") String newPassword) {
-//        this.user = user;
-//        this.identifier = identifier;
-//        this.newPassword = newPassword;
-//    }
 
     /**
      * Gets the old password or token specified by the User

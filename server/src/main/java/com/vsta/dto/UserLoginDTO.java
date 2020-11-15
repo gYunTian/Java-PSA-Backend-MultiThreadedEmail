@@ -2,17 +2,16 @@ package com.vsta.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 /**
- * Details input by User at login
+ * Details input by User at
+ * Login
  */
 
-@Data
-public class LoginDTO {
+public class UserLoginDTO {
 
     /**
      * The email used by the User at login.
@@ -35,9 +34,14 @@ public class LoginDTO {
     @NotBlank(message = "Password is mandatory")
     private String password;
 
+    /**
+     * Constructs a new User object at login.
+     * @param email Email specified by the User.
+     * @param password Password specified by the User.
+     */
     @JsonCreator
-    public LoginDTO(@JsonProperty("email") String email,
-                    @JsonProperty("password") String password) {
+    public UserLoginDTO(@JsonProperty("email") String email,
+                        @JsonProperty("password") String password) {
         this.email = email;
         this.password = password;
     }
