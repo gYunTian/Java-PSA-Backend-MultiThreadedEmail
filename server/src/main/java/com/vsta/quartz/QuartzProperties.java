@@ -22,19 +22,39 @@ public class QuartzProperties {
     @Autowired
     private StandardEnvironment environment;
 
+    /**
+     * Constant variable that contains the file name.
+     */
     private static final String PREFIX = "quartz.properties.";
 
+    /**
+     * Date variable with encoded JSON pattern and timezone. This variable
+     * represents the from part in a date range.
+     */
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT")
     private LocalDate dateFrom = LocalDate.now();
 
+    /**
+     * DateTo variable with encoded JSON pattern and timezone. ThIs variable
+     * represents the to part in a date range.
+     */
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT")
     private LocalDate dateTo;
 
-    // Getter functions
+    /**
+     * Gets the interval value in the properties file
+     * 
+     * @return String - Quartz job Cron interval
+     */
     public String getInterval() {
         return environment.getProperty(PREFIX + "interval");
     }
 
+    /**
+     * Gets the enabled value in the properties file
+     * 
+     * @return Boolean - Quartz job enabled value
+     */
     public Boolean isEnabled() {
         try {
             return Boolean.parseBoolean(environment.getProperty(PREFIX + "jobEnabled"));
@@ -45,14 +65,30 @@ public class QuartzProperties {
         }
     }
 
+    /**
+     * Gets the api key value in the properties file
+     * 
+     * @return String - target api key
+     */
     public String getApiKey() {
         return environment.getProperty(PREFIX + "apiKey");
     }
 
+    /**
+     * Gets the api url value in the properties file
+     * 
+     * @return String - target api url
+     */
     public String getApiURL() {
         return environment.getProperty(PREFIX + "apiUrl");
     }
 
+    /**
+     * Gets the plus days value in the properties file. This variable represents the
+     * days 'gap' inbetween a date range.
+     * 
+     * @return int - plus days
+     */
     public int getPlusDays() {
         try {
             return Integer.parseInt(environment.getProperty(PREFIX + "plusDays").trim());
@@ -63,14 +99,29 @@ public class QuartzProperties {
         }
     }
 
+    /**
+     * Gets the private dateFrom instance variable.
+     * 
+     * @return LocalDate - dateFrom
+     */
     public LocalDate getDateFrom() {
         return dateFrom;
     }
 
+    /**
+     * Gets the private daateTo instance variable.
+     * 
+     * @return LocalDate - dateTo
+     */
     public LocalDate getDateTo() {
         return dateTo = dateFrom.plusDays(this.getPlusDays());
     }
 
+    /**
+     * Gets the reload quartz job interval value in the properties file..
+     * 
+     * @return boolean - isReloadInterval
+     */
     public boolean isReloadInterval() {
         try {
             return Boolean.parseBoolean(environment.getProperty(PREFIX + "reloadInterval"));

@@ -24,7 +24,8 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Quartz job service Project functional requirement: 1), 2), 3)
+ * Quartz job service. This class contains methods required to perform project
+ * functional requirement: 1), 2), 3)
  */
 
 @JsonInclude(Include.NON_DEFAULT)
@@ -38,7 +39,9 @@ public class JobService {
   private VesselService vesselService;
 
   /**
-   * Main method that will be executed by the QuartJob
+   * The main method that will be executed by the QuartJob. This method will send
+   * a post request to PORTNET API, parse the returned JSON object and save the
+   * result in database.
    */
   public void executeJob() {
     // reload properties file before executing job
@@ -82,7 +85,8 @@ public class JobService {
   }
 
   /**
-   * A customized method that makes a POST request and parse the results
+   * A private and customized method that makes a POST request and parse the
+   * results. It uses the static methods from HttpUtil class.
    * 
    * @param requestJson
    * @param headers
@@ -119,7 +123,9 @@ public class JobService {
   }
 
   /**
-   * Customized status printer
+   * A private and customized status printer.
+   * 
+   * @param msg
    */
   private void printStatus(String msg) {
     LocalDateTime now = LocalDateTime.now();
@@ -130,7 +136,8 @@ public class JobService {
   }
 
   /**
-   * A customized method that maps a json array to list
+   * A priavte and customized method that maps a JSON array to Java List of Vessel
+   * type.
    * 
    * @param jsonArray
    * @return List<Vessel>

@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component;
 import lombok.Cleanup;
 
 /**
- * Class to hot reload properties
+ * Class containing method that hot reload environment properties.
  */
 
 @Component
@@ -55,7 +55,7 @@ public class PropertiesReloader {
 
     /**
      * This method is scheduled to auto run every 10 secs. It will refresh the file
-     * loaded in memory so properties within it will be reread
+     * loaded in memory so properties within it will be reread into the app.
      * 
      * @throws IOException
      */
@@ -94,7 +94,7 @@ public class PropertiesReloader {
     }
 
     /**
-     * this method will update the cron job's interval It clears the existing
+     * This method will update the cron job's interval. It clears the existing
      * scheduled jobs and create a new job based on the updated interval
      */
     public void updateCronInterval() {
@@ -115,6 +115,9 @@ public class PropertiesReloader {
         }
     }
 
+    /**
+     * Custom console message printer for status and debugging.
+     */
     public void printer(String msg) {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

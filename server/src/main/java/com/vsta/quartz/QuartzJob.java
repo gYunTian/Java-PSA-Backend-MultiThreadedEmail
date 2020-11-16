@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Quartz Job clas. Main method that will be auto run It uses jobService's
- * executeJob method
+ * Quartz Job clas. Contains the main method that will be auto run by quartz
+ * job. It uses jobService's executeJob method.
  * 
  */
 
@@ -17,7 +17,9 @@ public class QuartzJob implements Job {
     @Autowired
     private JobService jobService;
 
-    // Main method to execute
+    /**
+     * Main method to be used by quartz job.
+     */
     @Override
     public void execute(JobExecutionContext context) {
         jobService.executeJob();

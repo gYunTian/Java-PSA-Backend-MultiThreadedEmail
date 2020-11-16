@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Configuration class to setup DB POST UPDATE Event listening
+ * Class to setup DB POST UPDATE Event listening.
  * 
  */
 @Component
@@ -24,11 +24,22 @@ public class HibernateListenerConfigurer {
 
     private final UpdateListener updateListener;
 
+    /**
+     * Assigns an update listener object to its instance variable
+     * 
+     * @param updateListener
+     */
     @Autowired
     public HibernateListenerConfigurer(UpdateListener updateListener) {
         this.updateListener = updateListener;
     }
 
+    /**
+     * Auto runs after class is auto instantiatied. This method does necessary stuff
+     * required for DB update listening.
+     * 
+     * @param updateListener
+     */
     @PostConstruct
     protected void init() {
         SessionFactoryImpl sessionFactory = emf.unwrap(SessionFactoryImpl.class);

@@ -15,8 +15,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * Event handler that finds the subbed users and sends them an email on the
- * changes.
+ * Event handler class that acquires the DB POST UPDATE Event from our Executor
+ * Service Factory instance. It contains methods that will find the subbed users
+ * to a vessel update in the db update event. It will then send them an email on
+ * the changes extract from the DB update event object.
  */
 @Component
 public class PostUpdateEventHandler {
