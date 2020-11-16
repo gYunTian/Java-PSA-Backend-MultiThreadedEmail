@@ -51,4 +51,14 @@ public class VesselService {
     public List<VesselDTO> getVesselsByDate(String startDate, String endDate) {
         return vesselDao.findByDate(startDate, endDate);
     }
+
+    /**
+     * Get all Vessels of specified uniqueId in database
+     *
+     * @param uniqueId ID to uniquely identify a Voyage.
+     * @return Vessel object of indicated uniqueId.
+     */
+    public Vessel getVesselByUniqueId(String uniqueId){
+        return vesselDao.findByUniqueId(uniqueId);
+    }
 }

@@ -32,4 +32,10 @@ public interface VesselDAO extends CrudRepository<Vessel, String> {
       + " where v.uniqueId = vh.uniqueId and v.bthgDt >= :startDate and v.bthgDt <= :endDate", nativeQuery = true)
   List<VesselDTO> findByDate(String startDate, String endDate);
 
+  /**
+   * Custom method to find Vessel with specified uniqueId.
+   * @param uniqueId ID to uniquely identify a Voyage object.
+   * @return Vessel object of indicated uniqueId.
+   */
+  Vessel findByUniqueId(String uniqueId);
 }

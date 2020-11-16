@@ -1,8 +1,8 @@
 package com.vsta.service;
 
 import com.vsta.dao.SubscriptionDAO;
-import com.vsta.dao.SubscriptionDAO.UserProjection;
 import com.vsta.model.Subscription;
+import com.vsta.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +22,21 @@ public class SubscriptionService {
     @Autowired
     private SubscriptionDAO subscriptionDao;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private VesselService vesselService;
+
+    final String subErrorMsgPrefix = "Voyage subscription unsuccessful - ";
+
+    final String nonExistUserMsg = subErrorMsgPrefix + "user do not exist";
+    final String nonExistVoyageMsg = subErrorMsgPrefix + "voyage do not exist";
+    final String existingSubMsg = subErrorMsgPrefix + "subscription already exist";
+
+    final String unSubErrorMsgPrefix = "Voyage unsubscription unsuccessful - subscription does not exist";
+
+
     /**
      * Add Subscription to database.
      * @param subscription object to be save in database.
@@ -30,13 +45,18 @@ public class SubscriptionService {
      */
     public ResponseEntity<String> saveSubscription(Subscription subscription) {
         int userId = subscription.getUserId();
+        if (userService.getUserById(userId) == null){
+            return new ResponseEntity<>(nonExistUserMsg, HttpStatus.BAD_REQUEST);
+        }
+
         String voyageId = subscription.getVoyageId();
+        if (vesselService.getVesselByUniqueId(voyageId) == null){
+            return new ResponseEntity<>(nonExistVoyageMsg, HttpStatus.BAD_REQUEST);
+        }
 
         List<Subscription> subscriptionList = subscriptionDao.findSubscriptionByUserIdAndVoyageId(userId, voyageId);
         if (subscriptionList.size() >= 1){
-            return new ResponseEntity<>(
-                    "Voyage subscription unsuccessful as it already exist",
-                    HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(existingSubMsg, HttpStatus.BAD_REQUEST);
         }
 
         subscriptionDao.save(subscription);
@@ -64,9 +84,7 @@ public class SubscriptionService {
 
         List<Subscription> subscriptionList = subscriptionDao.findSubscriptionByUserIdAndVoyageId(userId, voyageId);
         if (subscriptionList.size() == 0){
-            return new ResponseEntity<>(
-                    "Voyage unsubscription unsuccessful - subscription does not exist",
-                    HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(unSubErrorMsgPrefix, HttpStatus.BAD_REQUEST);
         }
 
         subscriptionDao.deleteByUserIdAndVoyageId(userId, voyageId);
@@ -77,16 +95,10 @@ public class SubscriptionService {
      * Get the emails of all users subbed to a voyage/vessel.
      * @param voyageId ID to uniquely identify a Voyage.
      * @return List of email strings of users subbed to indicated voyageId;
-     */ 
-    public List<String> getSubs(String voyageId) {
-        List<String> emails = new ArrayList<>();
-        List<UserProjection> users = subscriptionDao.findSubs(voyageId);
-        
-        for (UserProjection user : users) {
-            emails.add(user.getemail());
-        }
-        
-        return emails;
+     */
+
+    public List<User> getSubs(String voyageId) {
+        return subscriptionDao.findSubs(voyageId);
     }
 
 }

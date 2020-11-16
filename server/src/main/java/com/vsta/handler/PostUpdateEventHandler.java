@@ -47,10 +47,14 @@ public class PostUpdateEventHandler {
                 String changes = sb.toString();
                 String uniqueId = String.valueOf(event.getId());
 
-                List<String> emails = service.getSubs(uniqueId);
+                List<User> users = service.getSubs(uniqueId);
                 // currently voyage sub is empty
-                for (String email : emails) {
-                    User user = userService.getUserByEmail(email);
+                for (User user : users) {
+                    String subject = "Changes to vessel detail: " + uniqueId;
+
+                    String content = "Details of the vessel: " + uniqueId + " has changed.\n\n" +
+                            changes + "\n";
+
                     HashMap<String, String> emailContent = mailUtil.getEmailContent(user, changes, uniqueId);
                     mailUtil.sendEmail(emailContent);
                 }

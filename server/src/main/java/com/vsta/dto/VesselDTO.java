@@ -96,14 +96,13 @@ public interface VesselDTO {
 
     /**
      * Gets the Status of this VesselDTO object.
-     * 
-     * @return This VesselDTO's Status.
-     *         <p>
-     *         The possible values are:
-     *         <p>
-     *         - BERTHING which means voyage is on the way to the berth - ALONGSIDE
-     *         which means voyage is at the berth - UNBERTHED which means voyage
-     *         left the berth
+     * @return  This VesselDTO's Status.
+     *          <p>
+     *          The possible values are:
+     *          <br>
+     *          - BERTHING which means voyage is on the way to the berth<br>
+     *          - ALONGSIDE which means voyage is at the berth<br>
+     *          - UNBERTHED which means voyage left the berth<br>
      */
     String getStatus();
 

@@ -20,6 +20,20 @@ public class FavouriteService {
     @Autowired
     private FavouriteDAO favouriteDao;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private VesselService vesselService;
+
+    final String subErrorMsgPrefix = "Voyage favourite unsuccessful - ";
+
+    final String nonExistUserMsg = subErrorMsgPrefix + "user do not exist";
+    final String nonExistVoyageMsg = subErrorMsgPrefix + "voyage do not exist";
+    final String existingSubMsg = subErrorMsgPrefix + "favourite already exist";
+
+    final String unSubErrorMsgPrefix = "Voyage unfavourite unsuccessful - favourite does not exist";
+
     /**
      * Add Favourite to database
      * @param favourite Favourite object to be saved in database
@@ -28,13 +42,18 @@ public class FavouriteService {
      */
     public ResponseEntity<String> saveFavourite(Favourite favourite) {
         int userId = favourite.getUserId();
+        if (userService.getUserById(userId) == null){
+            return new ResponseEntity<>(nonExistUserMsg, HttpStatus.BAD_REQUEST);
+        }
+
         String voyageId = favourite.getVoyageId();
+        if (vesselService.getVesselByUniqueId(voyageId) == null){
+            return new ResponseEntity<>(nonExistVoyageMsg, HttpStatus.BAD_REQUEST);
+        }
 
         List<Favourite> favouriteList = favouriteDao.findFavouriteByUserIdAndVoyageId(userId, voyageId);
         if (favouriteList.size() >= 1){
-            return new ResponseEntity<>(
-                    "Voyage favourite unsuccessful as it already exist",
-                    HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(existingSubMsg, HttpStatus.BAD_REQUEST);
         }
 
         favouriteDao.save(favourite);
@@ -63,9 +82,7 @@ public class FavouriteService {
 
         List<Favourite> favouriteList = favouriteDao.findFavouriteByUserIdAndVoyageId(userId, voyageId);
         if (favouriteList.size() == 0){
-            return new ResponseEntity<>(
-                    "Voyage unfavourite unsuccessful as it does not exist",
-                    HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(unSubErrorMsgPrefix, HttpStatus.BAD_REQUEST);
         }
         favouriteDao.deleteByUserIdAndVoyageId(userId, voyageId);
         return ResponseEntity.ok("Voyage unfavourited successfully");
