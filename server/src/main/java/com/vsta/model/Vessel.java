@@ -347,9 +347,9 @@ public class Vessel {
      * @return  This Voyage's Status.
      *          <p>
      *          The possible values are:
-     *          <p>
-     *          - BERTHING which means Voyage is on the way to the berth
-     *          - ALONGSIDE which means Voyage is at the berth
+     *          <br>
+     *          - BERTHING which means Voyage is on the way to the berth<br>
+     *          - ALONGSIDE which means Voyage is at the berth<br>
      *          - UNBERTHED which means Voyage left the berth
      */
     public String getStatus() {
@@ -361,9 +361,9 @@ public class Vessel {
      * @param status  This Voyage's Status.
      *                <p>
      *                The possible values are:
-     *                <p>
-     *                - BERTHING which means Voyage is on the way to the berth
-     *                - ALONGSIDE which means Voyage is at the berth
+     *                <br>
+     *                - BERTHING which means Voyage is on the way to the berth<br>
+     *                - ALONGSIDE which means Voyage is at the berth<br>
      *                - UNBERTHED which means Voyage left the berth
      */
     public void setStatus(String status) {

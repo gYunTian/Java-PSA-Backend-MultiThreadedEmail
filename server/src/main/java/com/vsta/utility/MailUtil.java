@@ -37,23 +37,20 @@ public class MailUtil {
 
 
     /**
-     * Generic method to send mail to user for reset password purpose.
-     * @param user user object representing the requestor.
+     * Generic method to send mail to user for reset password/notification purposes.
+     * @param user user object representing the requestor/subscriber of voyage.
+     * @param subject the subject header for the email.
+     * @param partBody the body of the email excluding greetings and sign off.
      * @return emailContent email content containing subject, body and recipient.
      */
-    public HashMap<String,String> getEmailContent(User user) {
+    public HashMap<String,String> getEmailContent(User user, String subject, String partBody) {
         HashMap<String,String> emailContent = new HashMap<>();
 
         emailContent.put("recipient", user.getEmail());
 
-        // customise subject & body
-        emailContent.put("subject", "Vsta Account Password Reset");
+        emailContent.put("subject", subject);
 
-        String body = "Hi " + user.getName() + ",\n\n" +
-                "We received a request to reset the password of your Vsta account.\n\n" +
-                "You may use the following token to change your password:\n" +
-                "" + user.getToken() + "\n\n" +
-                "If you did not make such a request, kindly ignore this email.\n\n\n" +
+        String body = "Hi " + user.getName() + ",\n\n" + partBody +
                 "Thank you!\n" +
                 "G1T9";
         emailContent.put("body", body);
@@ -61,28 +58,4 @@ public class MailUtil {
         return emailContent;
     }
 
-    /**
-     * Overloaded getEmailContent method
-     * with different implementation for notification purpose.
-     * @param user user object representing the requestor.
-     * @param changes message on the changes for voyage.
-     * @param id ID to uniquely identify a Voyage.
-     * @return emailContent email content containing subject, body and recipient.
-     */
-    public HashMap<String,String> getEmailContent(User user, String changes, String id) {
-        HashMap<String,String> emailContent = new HashMap<>();
-
-        emailContent.put("recipient", user.getEmail());
-
-        emailContent.put("subject", "Changes to vessel detail: "+id);
-
-        String content = "Hi " + user.getName() + ",\n\n" +
-                "Details of the vessel: "+id+" has changed.\n\n" +
-                changes + "\n" +
-                "Thank you!\n" +
-                "G1T9";
-        emailContent.put("body", content);
-
-        return emailContent;
-    }
 }

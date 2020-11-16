@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import com.vsta.model.Subscription;
 
+import com.vsta.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -46,20 +47,10 @@ public interface SubscriptionDAO extends CrudRepository<Subscription, Integer> {
     /**
      * Custom method to find users who subscribed to a voyage.
      * @param voyageId ID to uniquely identify a Voyage.
-     * @return List of user projections of indicated userId and voyageId.
+     * @return List of user of indicated voyageId.
      */
-    @Query(value = "select u.email from user u inner join subscription v on u.id = v.user_id "
+    @Query(value = "select u from user u inner join subscription v on u.id = v.user_id "
             + "where v.voyage_id = :voyageId", nativeQuery = true)
-    List<UserProjection> findSubs(@Param("voyageId") String voyageId);
+    List<User> findSubs(@Param("voyageId") String voyageId);
 
-    /**
-     * Projection helper to support the conversion of result
-     * from the native query object to a temporary User entity.
-     * <p>
-     * Naming convention must follow exact name in the entity
-     * hence the lack of camel cased letters.
-     */
-    interface UserProjection {
-        String getemail();
-    }
 }

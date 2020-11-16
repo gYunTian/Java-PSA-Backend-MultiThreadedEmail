@@ -46,7 +46,16 @@ public class ResetPwService {
 
         // if proceed, means user is not null so request accepted
         addToken(user); // generate password reset token for email body & save into database
-        HashMap<String,String> emailContent = mailUtil.getEmailContent(user);
+
+        String subject = "Vsta Account Password Reset";
+
+        String body = "We received a request to reset the password of your Vsta account.\n\n" +
+                "You may use the following token to change your password:\n" +
+                "" + user.getToken() + "\n\n" +
+                "If you did not make such a request, kindly ignore this email.\n\n\n";
+
+        HashMap<String,String> emailContent = mailUtil.getEmailContent(user,subject,body);
+
         return mailUtil.sendEmail(emailContent);
     }
     /**
