@@ -26,6 +26,7 @@ public class FavouriteService {
     @Autowired
     private VesselService vesselService;
 
+
     final String subErrorMsgPrefix = "Voyage favourite unsuccessful - ";
 
     final String nonExistUserMsg = subErrorMsgPrefix + "user do not exist";
@@ -37,7 +38,7 @@ public class FavouriteService {
     /**
      * Add Favourite to database
      * @param favourite Favourite object to be saved in database
-     * @return  ResponseEntity with the given status code and message
+     * @return  ResponseEntity with a status code and message
      *          indicating if favourite added successfully
      */
     public ResponseEntity<String> saveFavourite(Favourite favourite) {
@@ -73,7 +74,7 @@ public class FavouriteService {
     /**
      * Remove specified favourite from database
      * @param favourite Favourite object to be removed
-     * @return  ResponseEntity with the given status code and message
+     * @return  ResponseEntity with a status code and message
      *          indicating if favourite is deleted successfully
      */
     public ResponseEntity<String> deleteFavourite(Favourite favourite) {

@@ -89,11 +89,11 @@ public class JobService {
    * results. It uses the static methods from HttpUtil class.
    * 
    * @param requestJson
-   * @param headers
+   * @param apiKey
    * @return JSON ARRAY
    */
-  private JsonArray PostAndParse(String requestJson, String apikey) {
-    HttpEntity<String> request = HttpUtil.getHttpEntity(requestJson, prop.getApiKey());
+  private JsonArray PostAndParse(String requestJson, String apiKey) {
+    HttpEntity<String> request = HttpUtil.getHttpEntity(requestJson, apiKey);
     RestTemplate restTemplate = HttpUtil.getRestTemplate();
 
     JsonObject jsonObject = null;

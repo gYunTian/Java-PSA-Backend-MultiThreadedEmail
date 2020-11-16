@@ -12,27 +12,25 @@ import org.springframework.web.client.RestTemplate;
  * Http utility class. This class contains static methods that creates and
  * return objects required for working with HTTP requests
  */
+
 @Service
 public class HttpUtil {
 
   /**
-   * This method creates a HTTP REST Template. This object is used to invoke CRUD
-   * operations - i.e. POST, UPDATE, GET etc..
-   * 
+   * This method creates a HTTP REST Template. This object is used to
+   * invoke CRUD operations - i.e. POST, UPDATE, GET etc..
    * @return RestTemplate
    */
   public static RestTemplate getRestTemplate() {
-    RestTemplate restTemplate = new RestTemplate(getClientHttpRequestFactory());
-    return restTemplate;
+    return new RestTemplate(getClientHttpRequestFactory());
   }
 
   /**
    * This method creates a generic http request entity. This object is used to
    * store the HTTP header and body. The default content type is JSON
-   * 
-   * @param requestJson - Body of http request
-   * @param apiKey
-   * @return HttpEntity
+   * @param requestJson Body of http request
+   * @param apiKey API key
+   * @return HttpEntity request
    */
   public static HttpEntity<String> getHttpEntity(String requestJson, String apiKey) {
 
@@ -41,15 +39,13 @@ public class HttpUtil {
     headers.add("Apikey", apiKey);
     headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 
-    HttpEntity<String> request = new HttpEntity<String>(requestJson, headers);
-    return request;
+    return new HttpEntity<String>(requestJson, headers);
   }
 
   /**
    * This method creates a Http request factory . This factory is used to store
    * configuration details such as timeout. In this case, HTTP timeout is hard
    * coded to 10 sec
-   * 
    * @return ClientHttpRequestFactory
    */
   public static ClientHttpRequestFactory getClientHttpRequestFactory() {

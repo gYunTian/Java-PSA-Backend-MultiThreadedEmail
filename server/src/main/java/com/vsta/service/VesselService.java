@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Vessel Service tasks that use DAO methods and used for REST APIs for Vessel
- * Object.
+ * Vessel Service tasks that use DAO methods
+ * and used for REST APIs for Vessel Object.
  */
 
 @Service
@@ -20,9 +20,9 @@ public class VesselService {
     @Autowired
     private VesselDAO vesselDao;
 
+
     /**
      * Add Vessel to database
-     * 
      * @param vessel Vessel object to be saved
      */
     public void saveVessel(Vessel vessel) {
@@ -31,7 +31,6 @@ public class VesselService {
 
     /**
      * Add Vessels in array to database
-     * 
      * @param vessels List of vessel objects
      */
     public void saveVessels(List<Vessel> vessels) {
@@ -40,12 +39,10 @@ public class VesselService {
 
     /**
      * Get all Vessels in database
-     * 
-     * @param startDate user specified Date with format YYYY-MM-DD to retrieve
-     *                  vessels from
-     * @param endDate   user specified Date with format YYYY-MM-DD to retrieve
-     *                  vessels to
-     * @return a list of vesselDTO objects with Berth date from indicated startDate
+     * @param startDate Date with format YYYY-MM-DD to start retrieving vessels from.
+     * @param endDate   Date with format YYYY-MM-DD that retrieval of vessels is to
+     *                  be done until.
+     * @return List of vesselDTO objects with Berth date from indicated startDate
      *         to indicated endDate.
      */
     public List<VesselDTO> getVesselsByDate(String startDate, String endDate) {
@@ -54,7 +51,6 @@ public class VesselService {
 
     /**
      * Get all Vessels of specified uniqueId in database
-     *
      * @param uniqueId ID to uniquely identify a Voyage.
      * @return Vessel object of indicated uniqueId.
      */

@@ -21,8 +21,7 @@ public interface VesselDAO extends CrudRepository<Vessel, String> {
    * startDate and endDate cannot be same and endDate must minimally be 1 day
    * later.
    * 
-   * @param startDate Date with format YYYY-MM-DD to start retrieving vessels
-   *                  from.
+   * @param startDate Date with format YYYY-MM-DD to start retrieving vessels from.
    * @param endDate   Date with format YYYY-MM-DD that retrieval of vessels is to
    *                  be done until.
    * @return List of Vessel objects with Berth date from indicated startDate to

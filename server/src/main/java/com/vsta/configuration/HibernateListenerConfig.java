@@ -1,4 +1,4 @@
-package com.vsta.config;
+package com.vsta.configuration;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManagerFactory;
@@ -13,11 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- * Class to setup DB POST UPDATE Event listening.
- * 
+ * Configuration class to setup database POST UPDATE Event listening.
  */
+
 @Component
-public class HibernateListenerConfigurer {
+public class HibernateListenerConfig {
 
     @PersistenceUnit
     private EntityManagerFactory emf;
@@ -25,20 +25,17 @@ public class HibernateListenerConfigurer {
     private final UpdateListener updateListener;
 
     /**
-     * Assigns an update listener object to its instance variable
-     * 
+     * Assigns an update listener object to its instance variable.
      * @param updateListener
      */
     @Autowired
-    public HibernateListenerConfigurer(UpdateListener updateListener) {
+    public HibernateListenerConfig(UpdateListener updateListener) {
         this.updateListener = updateListener;
     }
 
     /**
-     * Auto runs after class is auto instantiatied. This method does necessary stuff
-     * required for DB update listening.
-     * 
-     * @param updateListener
+     * Auto runs after the class is auto instantiated.
+     * This method does the necessary stuff required for DB update listening.
      */
     @PostConstruct
     protected void init() {

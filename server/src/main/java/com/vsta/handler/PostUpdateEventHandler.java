@@ -51,12 +51,8 @@ public class PostUpdateEventHandler {
                 // currently voyage sub is empty
                 for (User user : users) {
                     String subject = "Changes to vessel detail: " + uniqueId;
-
-                    String content = "Details of the vessel: " + uniqueId + " has changed.\n\n" +
-                            changes + "\n";
-
-                    HashMap<String, String> emailContent = mailUtil.getEmailContent(user, changes, uniqueId);
-                    mailUtil.sendEmail(emailContent);
+                    String body = "Details of the vessel: " + uniqueId + " has changed.\n\n" + changes;
+                    mailUtil.sendEmail(user, subject, body);
                 }
             }
         };

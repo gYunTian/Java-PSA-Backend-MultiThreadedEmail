@@ -31,7 +31,7 @@ public class VesselController {
      *                  from.
      * @param endDate   Date with format YYYY-MM-DD that retrieval of vessels is to
      *                  be done until.
-     * @return ResponseEntity with the given status code and message indicating
+     * @return ResponseEntity with a status code and message indicating
      *         vessel list is retrieved.
      */
     @GetMapping(value = "/vessels", produces = MediaType.APPLICATION_JSON_VALUE)

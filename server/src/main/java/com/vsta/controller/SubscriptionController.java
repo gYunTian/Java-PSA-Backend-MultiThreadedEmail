@@ -22,7 +22,7 @@ public class SubscriptionController {
     /**
      * Add voyage subscription to database.
      * @param subscription Subscription object to be added into database.
-     * @return  ResponseEntity with the given status code and message
+     * @return  ResponseEntity with a status code and message
      *          indicating if subscription is added successfully.
      */
     @PostMapping("/addSubscription")
@@ -43,7 +43,7 @@ public class SubscriptionController {
     /**
      * Delete specified subscription from database.
      * @param subscription Subscription object requested to be remove from database.
-     * @return  ResponseEntity with the given status code and message
+     * @return  ResponseEntity with a status code and message
      *          indicating if subscription is deleted successfully.
      */
     @DeleteMapping("/deleteSubscriptions")

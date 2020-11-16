@@ -1,7 +1,7 @@
 package com.vsta.controller;
 
 import com.vsta.dto.UserResetPwDTO;
-import com.vsta.service.ResetPwService;
+import com.vsta.service.UserResetPwService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,30 +12,21 @@ import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-public class UserResetPwController {
+public class UserResetPwDTOController {
 
     @Autowired
-    private ResetPwService resetPwService;
+    private UserResetPwService userResetPwService;
 
-    /**
-     * Request token for password reset then send email if valid User.
-     * @param email Email specified by user.
-     * @return  ResponseEntity with the given status code and message
-     *          indicating successful sending of email.
-     */
-    @PostMapping(value = "/resetPasswordRequest")
-    public ResponseEntity<String> resetPasswordRequest(@RequestParam String email) {
-        return resetPwService.resetPasswordRequest(email);
-    }
+
     /**
      * Update password of password reset requester.
      * @param userResetPwDTO Token and reset password specified by user.
-     * @return  ResponseEntity with the given status code and message
+     * @return  ResponseEntity with a status code and message
      *          indicating if password change successful.
      */
     @PutMapping("/resetPassword")
     public ResponseEntity<String> resetPassword(@RequestBody UserResetPwDTO userResetPwDTO) {
-        return resetPwService.resetPasswordController(userResetPwDTO);
+        return userResetPwService.resetPassword(userResetPwDTO);
     }
 
 }

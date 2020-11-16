@@ -6,7 +6,7 @@ package com.vsta.quartz;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.vsta.config.AutoWiringSpringBeanJobFactory;
+import com.vsta.configuration.AutoWiringSpringBeanJobFactory;
 
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
@@ -29,7 +29,6 @@ import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 /**
  * This class contains all the methods required for setting up and controlling
  * of Quartz job
- * 
  */
 
 @Configuration
@@ -102,7 +101,6 @@ public class QuartzSheduler {
 
     /**
      * This method defines, builds and return the job trigger.
-     * 
      * @param job
      * @return
      */
@@ -121,7 +119,6 @@ public class QuartzSheduler {
     /**
      * Getter method to retrieve job trigger. This method allows for custom
      * interval.
-     * 
      * @param interval
      * @param JobDetail
      * @return trigger
@@ -133,7 +130,6 @@ public class QuartzSheduler {
 
     /**
      * Getter method to retrieve job details.
-     * 
      * @param jobType
      * @param JobDetail
      * @return job detail
