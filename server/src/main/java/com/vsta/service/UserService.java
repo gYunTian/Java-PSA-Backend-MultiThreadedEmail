@@ -9,9 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-
-
 /**
  * User Service tasks that use DAO methods
  * and used for REST APIs for User Object.
@@ -67,6 +64,7 @@ public class UserService {
     public ResponseEntity<String> saveUser(User user) {
         String email = user.getEmail();
 
+        // if invalid, don't allow user to register
         ResponseEntity<String> invalidResponse = invalidRegistrationResponse(email);
         if (invalidResponse != null) {
             return invalidResponse;

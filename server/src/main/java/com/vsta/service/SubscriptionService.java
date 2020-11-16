@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,12 +30,36 @@ public class SubscriptionService {
 
     final String subErrorMsgPrefix = "Voyage subscription unsuccessful - ";
 
-    final String nonExistUserMsg = subErrorMsgPrefix + "user do not exist";
-    final String nonExistVoyageMsg = subErrorMsgPrefix + "voyage do not exist";
+    final String nonExistentUserMsg = subErrorMsgPrefix + "user do not exist";
+    final String nonExistentVoyageMsg = subErrorMsgPrefix + "voyage do not exist";
     final String existingSubMsg = subErrorMsgPrefix + "subscription already exist";
 
     final String unSubErrorMsg = "Voyage unsubscription unsuccessful - subscription does not exist";
 
+    /**
+     * Check if Subscription object can be saved in database.
+     * @param subscription object to be save in database.
+     * @return  ResponseEntity with an error message and
+     *          400 status code if invalid, else null
+     */
+    public ResponseEntity<String> invalidSubscriptionResponse(Subscription subscription) {
+
+        int userId = subscription.getUserId();
+        if (userService.getUserById(userId) == null){
+            return new ResponseEntity<>(nonExistentUserMsg, HttpStatus.BAD_REQUEST);
+        }
+        String voyageId = subscription.getVoyageId();
+        if (vesselService.getVesselByUniqueId(voyageId) == null){
+            return new ResponseEntity<>(nonExistentVoyageMsg, HttpStatus.BAD_REQUEST);
+        }
+
+        List<Subscription> subscriptionList = subscriptionDao.findSubscriptionByUserIdAndVoyageId(userId, voyageId);
+        if (subscriptionList.size() >= 1){
+            return new ResponseEntity<>(existingSubMsg, HttpStatus.BAD_REQUEST);
+        }
+
+        return null;
+    }
 
     /**
      * Add Subscription to database.
@@ -45,19 +68,10 @@ public class SubscriptionService {
      *          indicating if subscription added successfully.
      */
     public ResponseEntity<String> saveSubscription(Subscription subscription) {
-        int userId = subscription.getUserId();
-        if (userService.getUserById(userId) == null){
-            return new ResponseEntity<>(nonExistUserMsg, HttpStatus.BAD_REQUEST);
-        }
 
-        String voyageId = subscription.getVoyageId();
-        if (vesselService.getVesselByUniqueId(voyageId) == null){
-            return new ResponseEntity<>(nonExistVoyageMsg, HttpStatus.BAD_REQUEST);
-        }
-
-        List<Subscription> subscriptionList = subscriptionDao.findSubscriptionByUserIdAndVoyageId(userId, voyageId);
-        if (subscriptionList.size() >= 1){
-            return new ResponseEntity<>(existingSubMsg, HttpStatus.BAD_REQUEST);
+        ResponseEntity<String> invalidResponse = invalidSubscriptionResponse(subscription);
+        if (invalidResponse != null) {
+            return invalidResponse;
         }
 
         subscriptionDao.save(subscription);
@@ -97,8 +111,7 @@ public class SubscriptionService {
      * @param voyageId ID to uniquely identify a Voyage.
      * @return List of email strings of users subbed to indicated voyageId;
      */
-
-    public List<User> getSubs(String voyageId) {
+    public List<User> getSubscribers(String voyageId) {
         return subscriptionDao.findSubs(voyageId);
     }
 

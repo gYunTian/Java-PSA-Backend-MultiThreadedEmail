@@ -29,30 +29,29 @@ The following settings can be found in `server/src/main/resources`.
 > Manage your Google Account > Security > Less secure app access
 
 
-## Development
+## Server Application
 
 Before running our server application, ensure the following prerequisites are fulfilled:
 - Ensure your WAMP/MAMP server is running to allow access to the database. 
 - If not done so, import the `deploy.sql` script which is located in the `server/sql` folder. This can be done in phpmyadmin, MySQL Workbench or otherwise. 
 - If not done so, ensure your local computer has the `JAVA_HOME` environment variable set to your Java SDK location.
 
-Before running our client application, ensure that the dependencies are installed with `npm run install` if `node_modules` not already present in the `client` folder.
+To run the server application, do `./mvnw spring-boot:run` or open `server-start.bat`. 
 
-To run both server & client applications, open `start.bat`.
-- The server will be accessible on `localhost:8080`.
-- The UI will be accessible on `localhost:9001`.
+The server will be accessible on `localhost:8080`. To terminate the connection, simply close the terminal.
 
-Alternatively, to run each individual application, use the following in the in terminal at the respective folders:
-- Server: `./mvnw spring-boot:run` or open `server.bat`
-- Client: `npm run start` or open `client.bat`
+## Client Application
 
-To terminate the connections, simply close the terminals.
-
-
-## Production
 The client application is currently available on https://g1t9-vsta.netlify.app/.
 
 To use the functionalities, the server has to be started as with the procedure above.
+
+To use the development version,
+
+1. Ensure that the dependencies are installed. If `node_modules` is not already present in the `client` folder, do a `npm run install` or `client-dependencies.bat`.
+2. To run the client application, do `npm run start` or open `client-start.bat`. 
+
+The UI will be accessible on `localhost:9001`. To terminate the connection, simply close the terminal.
 
 
 ## Database Design

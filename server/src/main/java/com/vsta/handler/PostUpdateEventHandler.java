@@ -1,6 +1,5 @@
 package com.vsta.handler;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.vsta.model.User;
@@ -47,7 +46,7 @@ public class PostUpdateEventHandler {
                 String changes = sb.toString();
                 String uniqueId = String.valueOf(event.getId());
 
-                List<User> users = service.getSubs(uniqueId);
+                List<User> users = service.getSubscribers(uniqueId);
                 // currently voyage sub is empty
                 for (User user : users) {
                     String subject = "Changes to vessel detail: " + uniqueId;

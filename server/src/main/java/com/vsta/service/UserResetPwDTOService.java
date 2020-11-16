@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class UserResetPwService {
+public class UserResetPwDTOService {
 
     @Autowired
     private UserService userService;
@@ -26,32 +26,6 @@ public class UserResetPwService {
     final String wrongTokenMsg = errorMsgPrefix + "wrong token";
 
     final String successMsg = "Password reset successful";
-
-    /**
-     * If data passes validity checks, update password and remove reset token of User
-     * @param userResetPwDTO Token and new password input by User
-     * @return  ResponseEntity with a status code and message
-     *          indicating if password reset successful
-     */
-    public ResponseEntity<String> resetPassword(UserResetPwDTO userResetPwDTO) {
-        User existingUser = userService.getUserByEmail(userResetPwDTO.getEmail());
-        String tokenGiven = userResetPwDTO.getToken();
-
-        ResponseEntity<String> invalidResponse = invalidResetPwResponse(existingUser, tokenGiven);
-        if (invalidResponse != null) {
-            return invalidResponse;
-        }
-
-        // since passed checks, request accepted
-        String newPassword = userResetPwDTO.getNewPassword();
-        existingUser.setPassword(newPassword);
-
-        // remove token
-        existingUser.setToken(null);
-        userService.updateUser(existingUser);
-
-        return ResponseEntity.ok(successMsg);
-    }
 
     /**
      * Check if specified details passes validity checks
@@ -70,6 +44,33 @@ public class UserResetPwService {
         }
 
         return null;
+    }
+
+    /**
+     * If data passes validity checks, update password and remove reset token of User
+     * @param userResetPwDTO Token and new password input by User
+     * @return  ResponseEntity with a status code and message
+     *          indicating if password reset successful
+     */
+    public ResponseEntity<String> resetPassword(UserResetPwDTO userResetPwDTO) {
+        User existingUser = userService.getUserByEmail(userResetPwDTO.getEmail());
+        String tokenGiven = userResetPwDTO.getToken();
+
+        // if invalid, don't allow user to reset password
+        ResponseEntity<String> invalidResponse = invalidResetPwResponse(existingUser, tokenGiven);
+        if (invalidResponse != null) {
+            return invalidResponse;
+        }
+
+        // since passed checks, request accepted
+        String newPassword = userResetPwDTO.getNewPassword();
+        existingUser.setPassword(newPassword);
+
+        // remove token
+        existingUser.setToken(null);
+        userService.updateUser(existingUser);
+
+        return ResponseEntity.ok(successMsg);
     }
 
 }

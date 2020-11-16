@@ -1,6 +1,5 @@
 package com.vsta.domain;
 
-import com.vsta.domain.DomainProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,14 +7,8 @@ import java.util.Arrays;
 
 
 /**
- * Helper service tasks to validate domains for UserService
+ * Service to validate domains for UserService
  */
-/**
- * Represents the externally configured accepted email domain names.
- * Inputs comes from reload.properties in the following prefix: domain.
- * Consists of getter method to retrieve the accepted domains.
- */
-
 
 @Service
 public class DomainService {
@@ -31,14 +24,14 @@ public class DomainService {
     public boolean domainAccepted(String userEmail) {
         String[] acceptedDomains = domainProperties.getAcceptedDomains();
 
-        // if none accepted, no point in further checks
-        if (acceptedDomains == null) return false;
+        // if no accepted domains indicated, no point in further checks
+        if (acceptedDomains == null) {
+            return false;
+        }
 
-        // there are accepted domains indicated
+        // since passed checks, there are accepted domains indicated
         String userDomain = userEmail.split("@")[1];
-
         return Arrays.asList(acceptedDomains).contains(userDomain); // domain valid only if it is an exact match with an accepted domain
-        // return Arrays.stream(acceptedDomains).parallel().anyMatch(userDomain::contains);  // domain valid as long as a part is contained
     }
 
 }

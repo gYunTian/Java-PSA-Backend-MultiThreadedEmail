@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class UserLoginService {
+public class UserLoginDTOService {
 
     @Autowired
     UserService userService;
@@ -26,32 +26,6 @@ public class UserLoginService {
     final String wrongPasswordMsg = errorMsgPrefix + "wrong password";
 
     final String successMsg = "Login successful";
-
-    /**
-     * Allow User to login if data passes validity checks
-     * @param userLoginDTO Email and password specified by user
-     * @return  ResponseEntity with a status code and message
-     *          indicating if user registration successful
-     */
-    public ResponseEntity<String> verifyUser(UserLoginDTO userLoginDTO) {
-        String email = userLoginDTO.getEmail();
-        String givenPassword = userLoginDTO.getPassword();
-
-        User existingUser = userService.getUserByEmail(email);
-
-        ResponseEntity<String> invalidResponse = invalidLoginResponse(existingUser, givenPassword);
-        if (invalidResponse != null) {
-            return invalidResponse;
-        }
-
-        String responseMessage =
-                "User " + existingUser.getId() + ", " +
-                existingUser.getName() + "'s " +
-                successMsg;
-
-        return ResponseEntity.ok(responseMessage);
-    }
-
 
     /**
      * Check if registered email passes validity checks
@@ -69,4 +43,32 @@ public class UserLoginService {
 
         return null;
     }
+
+    /**
+     * Allow User to login if data passes validity checks
+     * @param userLoginDTO Email and password specified by user
+     * @return  ResponseEntity with a status code and message
+     *          indicating if user registration successful
+     */
+    public ResponseEntity<String> verifyUser(UserLoginDTO userLoginDTO) {
+        String email = userLoginDTO.getEmail();
+        String givenPassword = userLoginDTO.getPassword();
+
+        User existingUser = userService.getUserByEmail(email);
+
+        // if invalid, don't allow user to login
+        ResponseEntity<String> invalidResponse = invalidLoginResponse(existingUser, givenPassword);
+        if (invalidResponse != null) {
+            return invalidResponse;
+        }
+
+        // since passed checks, login details are valid, allow user to login
+        String responseMessage =
+                "User " + existingUser.getId() + ", " +
+                existingUser.getName() + "'s " +
+                successMsg;
+
+        return ResponseEntity.ok(responseMessage);
+    }
+
 }

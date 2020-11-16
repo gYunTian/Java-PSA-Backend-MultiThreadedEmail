@@ -1,7 +1,7 @@
 package com.vsta.controller;
 
 import com.vsta.dto.UserResetPwDTO;
-import com.vsta.service.UserResetPwService;
+import com.vsta.service.UserResetPwDTOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserResetPwDTOController {
 
     @Autowired
-    private UserResetPwService userResetPwService;
+    private UserResetPwDTOService userResetPwDTOService;
 
 
     /**
@@ -26,7 +26,7 @@ public class UserResetPwDTOController {
      */
     @PutMapping("/resetPassword")
     public ResponseEntity<String> resetPassword(@RequestBody UserResetPwDTO userResetPwDTO) {
-        return userResetPwService.resetPassword(userResetPwDTO);
+        return userResetPwDTOService.resetPassword(userResetPwDTO);
     }
 
 }

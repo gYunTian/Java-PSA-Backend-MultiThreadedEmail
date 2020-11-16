@@ -1,7 +1,7 @@
 package com.vsta.controller;
 
 import com.vsta.dto.UserLoginDTO;
-import com.vsta.service.UserLoginService;
+import com.vsta.service.UserLoginDTOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserLoginDTOController {
 
     @Autowired
-    UserLoginService userLoginService;
+    UserLoginDTOService userLoginDTOService;
 
     /**
      * Check if User login details are valid
@@ -28,7 +28,7 @@ public class UserLoginDTOController {
      */
     @PostMapping(value = "/loginUser")
     public ResponseEntity<String> loginUser(@RequestBody UserLoginDTO userLoginDTO) {
-        return userLoginService.verifyUser(userLoginDTO);
+        return userLoginDTOService.verifyUser(userLoginDTO);
     }
 
 }
