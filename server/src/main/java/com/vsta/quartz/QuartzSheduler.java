@@ -3,20 +3,8 @@
 //https://dzone.com/articles/adding-quartz-to-spring-boot
 package com.vsta.quartz;
 
-import java.io.IOException;
-import java.util.Properties;
-
 import com.vsta.configuration.AutoWiringSpringBeanJobFactory;
-
-import org.quartz.CronScheduleBuilder;
-import org.quartz.CronTrigger;
-import org.quartz.Job;
-import org.quartz.JobBuilder;
-import org.quartz.JobDetail;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.Trigger;
-import org.quartz.TriggerBuilder;
+import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.ApplicationContext;
@@ -25,6 +13,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.scheduling.quartz.SpringBeanJobFactory;
+
+import java.io.IOException;
+import java.util.Properties;
 
 /**
  * This class contains all the methods required for setting up and controlling

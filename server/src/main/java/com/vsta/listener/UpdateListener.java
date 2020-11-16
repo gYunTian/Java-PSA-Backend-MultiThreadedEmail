@@ -4,9 +4,8 @@ package com.vsta.listener;
 
 import com.vsta.handler.DefaultExecutorServiceFactory;
 import com.vsta.handler.PostUpdateEventHandler;
-import com.vsta.utility.MailUtil;
 import com.vsta.service.SubscriptionService;
-
+import com.vsta.utility.MailUtil;
 import org.hibernate.event.spi.PostUpdateEvent;
 import org.hibernate.event.spi.PostUpdateEventListener;
 import org.hibernate.persister.entity.EntityPersister;

@@ -1,12 +1,11 @@
 package com.vsta.quartz;
 
-import java.time.LocalDate;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 /**
  * Represents the external configuration properties required for scheduling of

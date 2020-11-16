@@ -1,8 +1,8 @@
 package com.vsta.service;
 
 import com.vsta.dao.UserDAO;
-import com.vsta.model.User;
 import com.vsta.domain.DomainService;
+import com.vsta.model.User;
 import com.vsta.utility.MailUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

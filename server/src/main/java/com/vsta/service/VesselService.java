@@ -1,13 +1,12 @@
 package com.vsta.service;
 
-import java.util.List;
-
 import com.vsta.dao.VesselDAO;
 import com.vsta.dto.VesselDTO;
 import com.vsta.model.Vessel;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Vessel Service tasks that use DAO methods

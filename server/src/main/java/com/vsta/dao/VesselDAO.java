@@ -1,13 +1,12 @@
 package com.vsta.dao;
 
-import java.util.List;
-
 import com.vsta.dto.VesselDTO;
 import com.vsta.model.Vessel;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Data Access Object shared by "vessel" and "vesselDTO" tables. Used to perform

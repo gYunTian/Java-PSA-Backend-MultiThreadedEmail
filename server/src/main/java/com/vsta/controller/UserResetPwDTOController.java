@@ -4,7 +4,10 @@ import com.vsta.dto.UserResetPwDTO;
 import com.vsta.service.UserResetPwDTOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * REST APIs using service methods for User Reset/Change Password
