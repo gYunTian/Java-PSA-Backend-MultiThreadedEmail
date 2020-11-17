@@ -32,9 +32,9 @@ public class QuartzSheduler {
     private ApplicationContext applicationContext;
 
     /**
-     * The SpringBeanJobFactory provides support for injecting the scheduler
-     * context, job data map, and trigger data entries as properties into the job
-     * bean while creating an instance. Taken from baeldung.
+     * Uses AutoWiringSpringBeanJobFactory class to inject quartz objects such
+     * as scheduler context, job data map, and trigger data entries as properties
+     * from applicationContext into the job bean while creating an instance.
      */
     @Bean
     public SpringBeanJobFactory springBeanJobFactory() {
@@ -92,7 +92,7 @@ public class QuartzSheduler {
 
     /**
      * This method defines, builds and return the job trigger.
-     * @param job
+     * @param job contains the details properties of a Job instance.
      * @return
      */
     @Bean
@@ -110,8 +110,8 @@ public class QuartzSheduler {
     /**
      * Getter method to retrieve job trigger. This method allows for custom
      * interval.
+     * @param job contains the details properties of a Job instance.
      * @param interval
-     * @param JobDetail
      * @return trigger
      */
     public CronTrigger getTrigger(JobDetail job, String interval) {
@@ -121,12 +121,20 @@ public class QuartzSheduler {
 
     /**
      * Getter method to retrieve job details.
-     * @param jobType
-     * @param JobDetail
-     * @return job detail
+     * Calls the JobBuilder method from Quartz
+     * Scheduler to create a JobBuilder, containing
+     * the job details and the class name of the
+     * Job to be executed. The JobBuilder is then
+     * built and produced JobDetail.
+     * @param jobType type of job to be executed.
+     * @return JobDetail contains the details
+     *         properties of a Job instance.
      */
     public JobDetail getJobDetail(Class<? extends Job> jobType) {
-        return JobBuilder.newJob(jobType).withIdentity("myJob").storeDurably().withDescription("Invokes job service...")
+        return JobBuilder.newJob(jobType)
+                .withIdentity("myJob")
+                .storeDurably()
+                .withDescription("Invokes job service...")
                 .build();
     }
 

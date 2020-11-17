@@ -1,3 +1,5 @@
+// References:
+// https://www.springboottutorial.com/spring-boot-react-full-stack-with-spring-security-basic-and-jwt-authentication
 package com.vsta.configuration;
 
 import org.springframework.context.annotation.Configuration;

@@ -1,3 +1,5 @@
+// References:
+// http://www.btmatthews.com/blog/2011/inject-application-context+dependencies-in-quartz-job-beans.html
 package com.vsta.configuration;
 
 import org.quartz.spi.TriggerFiredBundle;
@@ -8,7 +10,10 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 
 /**
- * Auto-wiring support for quartz jobs. This class is required for auto wiring.
+ * Auto-wiring support for quartz jobs. As
+ * SpringBeanJobFactory do not support injecting
+ * of spring beans out from applicationContext,
+ * this class is required to help to do so.
  */
 
 public final class AutoWiringSpringBeanJobFactory extends SpringBeanJobFactory implements ApplicationContextAware {

@@ -143,9 +143,12 @@ public class UserService {
         // construct email
         String subject = "Vsta Account Password Reset";
 
+        String link = "https://g1t9-vsta.netlify.app/login.html?email=" + email +
+                "&token=" + existingUser.getToken();
+
         String body = "We received a request to reset the password of your Vsta account.\n\n" +
-                "You may use the following token to change your password:\n" +
-                "" + existingUser.getToken() + "\n\n" +
+                "You may use the following link to change your password:\n" +
+                "" + link + "\n\n" +
                 "If you did not make such a request, kindly ignore this email.";
 
         // send email
