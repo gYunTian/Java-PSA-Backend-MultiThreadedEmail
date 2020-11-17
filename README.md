@@ -1,62 +1,79 @@
-# G1-T9 Vessel Schedule Tracking Application
+# G1-T9 Vessel Schedule Tracking Application (VSTA)
 
-VSTA is a web application for PSA forwarders to plan the schedule for truckers. 
-
-The Java server application calls PORTNET's `retrieveByBerthingDate` web service Application Programming Interface (API) on a regular interval to obtain real-time information about vessel berthing a.k.a arrival timings. 
-- By default, the web service is called at 00:00 hours daily to retrieve the vessels’ arrival timings for the next 7 days (excluding the current day). 
-- The web service is also called hourly to retrieve the vessels’ arrival timing for the current day (00:00 - 23:59).
-
-The data is then stored in a relational database to be displayed on the user interface, which is built using ReactJS.
-
-## Configurable Settings
-The following settings can be found in `server/src/main/resources`.
-
-`application.properties`: Credentials for the **database & Spring Security**. 
-> Spring Security is used for API authentication, and change in credentials also requires change in `client/src/js/views/base.js` for the authorization header to be passed in every request handler.
-
-`quartz.properties`: **Cron job** settings.
-
-`reload.properties`: Settings that are configurable without the need to recompile code. This includes the following: 
-- Accepted **email domains** at user registration
-- Data retrieval **API**
-    - Interval to call the API
-    - Web service access key
-    - Web service URL
-- **Support email** for subscription notifications & password reset functionalities
-    - Username
-    - Password
-    - [Host](https://www.jhipster.tech/tips/011_tip_configuring_email_in_jhipster.html) **Note: If gmail account, enable this so emails may be sent smoothly:*
-> Manage your Google Account > Security > Less secure app access
+## Table of Contents
+- [Introduction](#introduction)
+- [**Using the Deployed Application**](#using-the-deployed-application)
+- [**Local Deployment Guide for Server Application**](#local-deployment-guide-for-server-application)
+- [**Configurable Settings at Server Application**](#configurable-settings-at-server-application)
+- [Local Deployment Guide for Client Application](#local-deployment-guide-for-client-application)
+- [Database Design](#database-design)
 
 
-## Server Application
+## Introduction
+VSTA is a web application for Port of Singapore Authority (PSA) forwarders to plan the schedule for truckers. 
+
+The Java server application calls PORTNET's *retrieveByBerthingDate* web service Application Programming Interface (API) on a regular interval to obtain real-time information about vessel berthing a.k.a arrival timings. 
+
+The data is then stored in a relational database to be displayed on the user interface (UI), which is built using ReactJS.
+
+
+## Using the Deployed Application
+The client application is currently deployed and available on https://g1t9-vsta.netlify.app/. 
+
+However, to use the functionalities, the server has to be started as with the procedure below.
+
+
+## Local Deployment Guide for Server Application
+<small><i><a href='sql/README.txt'>This section can also be viewed in *sql/README.txt*.</a></i></small>
 
 Before running our server application, ensure the following prerequisites are fulfilled:
-- Ensure your WAMP/MAMP server is running to allow access to the database. 
-- If not done so, import the `deploy.sql` script which is located in the `sql` folder. This can be done in phpmyadmin, MySQL Workbench or otherwise. 
-- If not done so, ensure your local computer has the `JAVA_HOME` environment variable set to your Java SDK location.
+- Ensure your WAMP/MAMP server is running to allow access to your local database. 
+- If not done so, import the [*deploy.sql*](sql/deploy.sql) script which is located in the *sql* folder. This can be done in phpmyadmin, MySQL Workbench or otherwise. 
+- If not done so, ensure your local computer has the *JAVA_HOME* environment variable set to your Java SDK location.
 
-To run the server application, do `./mvnw spring-boot:run` or open `server-start.bat`. 
+To run the server application, open [*server-start.bat*](server-start.bat) or do a `./mvnw spring-boot:run` at the [*server*](server) folder.
 
-The server will be accessible on `localhost:8080`. To terminate the connection, simply close the terminal.
+The server will be accessible on *localhost:8080* by default. To terminate the connection, simply close the terminal.
 
-## Client Application
 
-The client application is currently available on https://g1t9-vsta.netlify.app/.
+## Configurable Settings at Server Application
+The following settings can be found in [*server/src/main/resources*](server/src/main/resources):
 
-To use the functionalities, the server has to be started as with the procedure above.
+*application.properties*: **port number** & credentials for the **database & Spring Security**. 
+> Spring Security is used for API authentication, and change in credentials also requires change in [*client/src/js/views/base.js*](client/src/js/views/base.js) for the authorization header to be passed in every request handler.
 
+*quartz.properties*: **Cron job** settings.
+
+*reload.properties*: Settings that are configurable without the need to recompile code. This includes the following: 
+- Website **URL**. <small><i>By default, https://g1t9-vsta.netlify.app/login.html.</i></small>
+- Accepted **email domains** at user registration. <small><i>By default, sis.smu.edu.sg & gmail.com.</i></small>
+- Data retrieval
+    - Web service **Access key**.
+    - Web service **URL**.
+    - **Interval** to call API.
+        - <small><i>By default, web service is called at 00:00 hours daily to retrieve the vessels’ arrival timings for the next 7 days (excluding the current day). 
+        - The web service is also called hourly to retrieve the vessels’ arrival timing for the current day (00:00 - 23:59).</i></small>
+- **Support email** for subscription notifications & password reset functionalities
+    - Username. <small><i>By default, g1t9.vsta@gmail.com.</small></i>
+    - Password.
+    - [Provider Host](https://www.jhipster.tech/tips/011_tip_configuring_email_in_jhipster.html). <small><i>Note: If gmail account, to ensure emails can be sent: Manage your Google Account > Security > Less secure app access</i></small>
+
+
+## Local Deployment Guide for Client Application
 To use the development version,
 
-1. Ensure that the dependencies are installed. If `node_modules` is not already present in the `client` folder, do a `npm run install` or `client-dependencies.bat`.
-2. To run the client application, do `npm run start` or open `client-start.bat`. 
+1. Ensure that the dependencies are installed. If *node_modules* is not already present locally in the [*client*](client) folder, 
+    > open [*client-dependencies.bat*](client-dependencies.bat) or do a `npm run install`.
+2. To run the client application, 
+    > open [*client-start.bat*](client-start.bat) or do `npm run start`. 
 
-The UI will be accessible on `localhost:9001`. To terminate the connection, simply close the terminal.
+The UI will be accessible on *localhost:9001* by default. To terminate the connection, simply close the terminal.
 
 
 ## Database Design
+<small><i><a href='sql/info.txt'>This section can also be viewed in *sql/info.txt*.</a></i></small>
 
-Below are the information on the tables for `deploy.sql`:
+Below are the information on the tables for [*deploy.sql*](sql/deploy.sql):
 
 | Table Name     | Columns Name                                        | Primary Key | Foreign Key              |
 |----------------|-----------------------------------------------------|-------------|--------------------------|
@@ -97,7 +114,7 @@ Below are the information on the tables for `deploy.sql`:
 |                | voyage_id: varchar(60) NOT NULL                     |             |                          |
 
 
-Below are the information on the 2 triggers created for the `vessel` table:
+Below are the information on the 2 triggers created for the *vessel* table:
 - before_insert_set_history, triggered before insertion of data into vessel table
 
     > For each matching row:

@@ -73,7 +73,7 @@ export default class User {
   }
 
   // *Reset password
-  async resetPassword(email, token, new_password) {
+  async resetPassword(email, token, newPasswordord) {
     const serviceURL = `${APIs.resetPassword}`;
     console.log(serviceURL);
     try {
@@ -83,7 +83,7 @@ export default class User {
         data: {
           email,
           token,
-          new_password,
+          newPasswordord,
         },
         headers,
       });

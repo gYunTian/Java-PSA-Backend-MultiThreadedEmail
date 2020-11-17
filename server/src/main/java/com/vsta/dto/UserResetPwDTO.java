@@ -39,7 +39,7 @@ public class UserResetPwDTO {
     public UserResetPwDTO(
             @JsonProperty("email") String email,
             @JsonProperty("token") String token,
-            @JsonProperty("new_password") String newPassword) {
+            @JsonProperty("newPassword") String newPassword) {
         this.email = email;
         this.token = token;
         this.newPassword = newPassword;

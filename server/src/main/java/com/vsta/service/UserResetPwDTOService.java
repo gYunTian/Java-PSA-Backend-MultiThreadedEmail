@@ -22,29 +22,12 @@ public class UserResetPwDTOService {
 
     final String errorMsgPrefix = "Reset Password unsuccessful - ";
 
+    final String emptyMsgTemplate = errorMsgPrefix + "%s cannot be blank";
+
     final String nonExistentEmailMsg = errorMsgPrefix + "email not registered";
     final String wrongTokenMsg = errorMsgPrefix + "wrong token";
 
     final String successMsg = "Password reset successful";
-
-    /**
-     * Check if specified details passes validity checks
-     * @param existingUser User object if email exists in database, else null
-     * @param tokenGiven token specified by User
-     * @return  ResponseEntity with an error message and 400 status code if invalid,
-     *          else null
-     */
-    public ResponseEntity<String> invalidResetPwResponse(User existingUser, String tokenGiven) {
-
-        if (existingUser == null) {
-            return new ResponseEntity<>(nonExistentEmailMsg, HttpStatus.BAD_REQUEST);
-        }
-        if (!existingUser.getToken().equals(tokenGiven)) {
-            return new ResponseEntity<>(wrongTokenMsg, HttpStatus.BAD_REQUEST);
-        }
-
-        return null;
-    }
 
     /**
      * If data passes validity checks, update password and remove reset token of User
@@ -53,11 +36,19 @@ public class UserResetPwDTOService {
      *          indicating if password reset successful
      */
     public ResponseEntity<String> resetPassword(UserResetPwDTO userResetPwDTO) {
-        User existingUser = userService.getUserByEmail(userResetPwDTO.getEmail());
-        String tokenGiven = userResetPwDTO.getToken();
+
+        // if empty fields, don't allow perform other checks
+        ResponseEntity<String> emptyFieldsResponse = emptyFieldsResponse(userResetPwDTO);
+        if (emptyFieldsResponse != null) {
+            return emptyFieldsResponse;
+        }
+
+        // no empty fields, proceed
+        String emailGiven = userResetPwDTO.getEmail();
+        User existingUser = userService.getUserByEmail(emailGiven);
 
         // if invalid, don't allow user to reset password
-        ResponseEntity<String> invalidResponse = invalidResetPwResponse(existingUser, tokenGiven);
+        ResponseEntity<String> invalidResponse = invalidResetPwResponse(existingUser, userResetPwDTO.getToken());
         if (invalidResponse != null) {
             return invalidResponse;
         }
@@ -71,6 +62,52 @@ public class UserResetPwDTOService {
         userService.updateUser(existingUser);
 
         return ResponseEntity.ok(successMsg);
+    }
+
+    /**
+     * Check if specified details passes validity checks
+     * @param existingUser User object if email exists in database, else null
+     * @param tokenGiven token specified by User
+     * @return  ResponseEntity with an error message and 400 status code if invalid,
+     *          else null
+     */
+    public ResponseEntity<String> invalidResetPwResponse(User existingUser, String tokenGiven) {
+
+        if (existingUser == null) {
+            return new ResponseEntity<>(nonExistentEmailMsg, HttpStatus.BAD_REQUEST);
+        }
+
+        if (!existingUser.getToken().equals(tokenGiven)) {
+            return new ResponseEntity<>(wrongTokenMsg, HttpStatus.BAD_REQUEST);
+        }
+
+        return null;
+    }
+
+    /**
+     * Check if specified details passes validity checks
+     * @param userResetPwDTO Token and new password input by User to be checked.
+     * @return  ResponseEntity with an error message and 400 status code if invalid,
+     *          else null
+     */
+    public ResponseEntity<String> emptyFieldsResponse(UserResetPwDTO userResetPwDTO) {
+        String emailGiven = userResetPwDTO.getEmail();
+        String tokenGiven = userResetPwDTO.getToken();
+        String newPwGiven = userResetPwDTO.getNewPassword();
+
+        if (emailGiven == null || emailGiven.length() == 0) {
+            return new ResponseEntity<>(String.format(emptyMsgTemplate, "email"), HttpStatus.BAD_REQUEST);
+        }
+
+        if (tokenGiven == null || tokenGiven.length() == 0) {
+            return new ResponseEntity<>(String.format(emptyMsgTemplate, "token"), HttpStatus.BAD_REQUEST);
+        }
+
+        if (newPwGiven == null || newPwGiven.length() == 0) {
+            return new ResponseEntity<>(String.format(emptyMsgTemplate, "new password"), HttpStatus.BAD_REQUEST);
+        }
+
+        return null;
     }
 
 }
