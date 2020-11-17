@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "favourite")
-public class Favourite {
+public class Favourite implements IUserSavedVessel {
 
     /**
      * ID to uniquely identify a Favourite.

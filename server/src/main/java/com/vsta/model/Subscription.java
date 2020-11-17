@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -13,7 +12,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "subscription")
-public class Subscription implements Serializable {
+public class Subscription implements IUserSavedVessel {
 
     /**
      * ID to uniquely identify a Subscription.
