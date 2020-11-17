@@ -1,15 +1,15 @@
 package com.vsta.service;
 
+import java.util.List;
+
 import com.vsta.dao.SubscriptionDAO;
+import com.vsta.dto.UserDTO;
 import com.vsta.model.Subscription;
-import com.vsta.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Subscription Service tasks that use DAO methods
@@ -97,7 +97,7 @@ public class SubscriptionService {
      * @return List of email strings of users subbed to indicated voyageId;
      */
 
-    public List<User> getSubs(String voyageId) {
+    public List<UserDTO> getSubs(String voyageId) {
         return subscriptionDao.findSubs(voyageId);
     }
 

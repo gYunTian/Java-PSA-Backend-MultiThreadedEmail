@@ -72,10 +72,10 @@ public class JobService {
       printStatus("Saving vessels to DB");
 
       // add to db
-      for (Vessel vessel : vessels) {
-        vesselService.saveVessel(vessel);
-      }
-      // vesselService.saveVessels(vessels);
+      // for (Vessel vessel : vessels) {
+      //   vesselService.saveVessel(vessel);
+      // }
+      vesselService.saveVessels(vessels);
       printStatus("Cron job complete");
 
     } else {

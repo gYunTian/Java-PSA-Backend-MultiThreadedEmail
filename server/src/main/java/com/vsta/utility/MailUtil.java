@@ -1,5 +1,6 @@
 package com.vsta.utility;
 
+import com.vsta.dto.UserDTO;
 import com.vsta.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -43,7 +44,7 @@ public class MailUtil {
      * @param partBody the body of the email excluding greetings and sign off.
      * @return emailContent email content containing subject, body and recipient.
      */
-    public HashMap<String,String> getEmailContent(User user, String subject, String partBody) {
+    public HashMap<String,String> getEmailContent(UserDTO user, String subject, String partBody) {
         HashMap<String,String> emailContent = new HashMap<>();
 
         emailContent.put("recipient", user.getEmail());

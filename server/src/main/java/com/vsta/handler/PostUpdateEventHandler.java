@@ -3,10 +3,11 @@ package com.vsta.handler;
 import java.util.HashMap;
 import java.util.List;
 
+import com.vsta.dto.UserDTO;
 import com.vsta.model.User;
-import com.vsta.utility.MailUtil;
-import com.vsta.service.UserService;
 import com.vsta.service.SubscriptionService;
+import com.vsta.service.UserService;
+import com.vsta.utility.MailUtil;
 
 import org.hibernate.event.spi.PostUpdateEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,15 +48,16 @@ public class PostUpdateEventHandler {
                 String changes = sb.toString();
                 String uniqueId = String.valueOf(event.getId());
 
-                List<User> users = service.getSubs(uniqueId);
                 // currently voyage sub is empty
-                for (User user : users) {
+                List<UserDTO> users = service.getSubs(uniqueId);
+                // System.out.println("Sending email");
+                for (UserDTO user : users) {
                     String subject = "Changes to vessel detail: " + uniqueId;
 
                     String content = "Details of the vessel: " + uniqueId + " has changed.\n\n" +
                             changes + "\n";
-
-                    HashMap<String, String> emailContent = mailUtil.getEmailContent(user, changes, uniqueId);
+                    
+                    HashMap<String, String> emailContent = mailUtil.getEmailContent(user, subject, content);
                     mailUtil.sendEmail(emailContent);
                 }
             }
