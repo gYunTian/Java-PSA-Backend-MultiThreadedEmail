@@ -235,4 +235,5 @@ public class User {
                 "User [id=%d, name=%s, email=%s, password=%s, token=%s]",
                 id, name, email, password, token);
     }
+
 }

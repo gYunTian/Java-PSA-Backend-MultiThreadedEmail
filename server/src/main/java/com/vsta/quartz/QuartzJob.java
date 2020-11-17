@@ -31,4 +31,5 @@ public class QuartzJob implements Job {
     public void execute(JobExecutionContext context) {
         jobService.executeJob();
     }
+
 }

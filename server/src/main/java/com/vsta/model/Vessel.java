@@ -23,7 +23,8 @@ public class Vessel {
      * The ID to uniquely identify a Voyage object
      * uniqueId is from fullInVoyN + inVoyN
      */
-    @JsonProperty("uniqueId") @Id
+    @Id
+    @JsonProperty("uniqueId") 
     @Column(nullable = false, name = "uniqueId")
     private String uniqueId;
 

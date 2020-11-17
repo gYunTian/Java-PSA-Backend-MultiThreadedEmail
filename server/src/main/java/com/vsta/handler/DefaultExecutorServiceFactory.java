@@ -10,7 +10,8 @@ import java.util.concurrent.Executors;
 
 /**
  * Executor factory that is used to create a default executor service.
- * This class contains configuration methods. It also reads the threads property in application.properties file.
+ * This class contains configuration methods. It also reads the threads
+ * property in application.properties file.
  */
 
 @Component
@@ -19,38 +20,45 @@ import java.util.concurrent.Executors;
 @ConfigurationProperties("threads")
 public class DefaultExecutorServiceFactory {
 
-  /**
-   * int instance variable to store thread pool size
-   */
-  private int threadPoolSize;
+    /**
+     * int instance variable to store thread pool size
+     */
+    private int threadPoolSize;
 
-  /**
-   * Executor service reference variable to hold executor objects
-   */
-  private ExecutorService service;
+    /**
+     * Executor service reference variable to hold executor objects
+     */
+    private ExecutorService service;
 
-  /**
-   * Getter method for threadpoolsize
-   */
-  public int getThreadPoolSize() {
-    return threadPoolSize;
-  }
-
-  /**
-   * Setter method for threadpoolsize
-   */
-  public void setThreadPoolSize(int threadPoolSize) {
-    this.threadPoolSize = threadPoolSize;
-  }
-  
-  /**
-   * Getter method for Executor service.
-   */
-  public ExecutorService getExecutorService() {
-    if (this.service == null) {
-      this.service = Executors.newFixedThreadPool(threadPoolSize);
+    /**
+     *
+     */
+    /**
+     * Getter method for threadpoolsize
+     * @return threadPoolSize Number representing size of threadpool
+     */
+    public int getThreadPoolSize() {
+        return threadPoolSize;
     }
 
-    return this.service;
-  }
+    /**
+     * Setter method for threadpoolsize
+     * @param threadPoolSize Number representing size of threadpool
+     */
+    public void setThreadPoolSize(int threadPoolSize) {
+        this.threadPoolSize = threadPoolSize;
+    }
+
+    /**
+     * Getter method for Executor service.
+     * @return Executor service object
+     */
+    public ExecutorService getExecutorService() {
+        if (this.service == null) {
+            this.service = Executors.newFixedThreadPool(threadPoolSize);
+        }
+
+        return this.service;
+    }
+
 }

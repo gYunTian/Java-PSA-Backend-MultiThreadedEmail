@@ -40,4 +40,5 @@ public interface FavouriteDAO extends JpaRepository<Favourite, Integer> {
      */
     @Query("select f from Favourite f where f.userId = :userId and f.voyageId = :voyageId")
     List<Favourite> findFavouriteByUserIdAndVoyageId(@Param("userId") Integer userId, @Param("voyageId") String voyageId);
+
 }

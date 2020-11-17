@@ -40,4 +40,5 @@ public class VesselController {
         List<VesselDTO> vesselList = vesselService.getVesselsByDate(startDate, endDate);
         return ResponseEntity.ok(vesselList);
     }
+
 }

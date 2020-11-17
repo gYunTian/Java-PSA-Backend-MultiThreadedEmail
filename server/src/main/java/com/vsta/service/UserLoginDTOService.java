@@ -29,6 +29,8 @@ public class UserLoginDTOService {
 
     /**
      * Check if registered email passes validity checks
+     * @param existingUser User object specified to perform validation.
+     * @param givenPassword Password specified by User.
      * @return  ResponseEntity with an error message and Bad Request status code if invalid,
      *          else return null
      */
