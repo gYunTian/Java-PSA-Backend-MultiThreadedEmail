@@ -37,7 +37,7 @@ public class MailUtil {
         email.setText(body);
 
         mailSender.send(email);
-        return ResponseEntity.ok("Email successfully sent");
+        return ResponseEntity.ok("Email successfully sent to " + user.getEmail());
     }
 
 }
