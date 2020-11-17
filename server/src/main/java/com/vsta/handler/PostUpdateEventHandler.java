@@ -62,9 +62,8 @@ public class PostUpdateEventHandler {
                     String subject = "Changes to vessel detail: " + uniqueId;
 
                     String content = "Details of the vessel: " + uniqueId + " has changed.\n\n" + changes + "\n";
-
-                    HashMap<String, String> emailContent = mailUtil.getEmailContent(user, subject, content);
-                    mailUtil.sendEmail(emailContent);
+                    
+                    mailUtil.sendEmail(user, subject, content);
                 }
             }
         };

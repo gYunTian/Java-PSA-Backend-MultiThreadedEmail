@@ -10,11 +10,18 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.vsta.model.Vessel;
 import com.vsta.service.VesselService;
+import com.vsta.utility.HttpUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpStatusCodeException;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Quartz job service. This class contains methods required to perform project
@@ -43,11 +50,11 @@ public class JobService {
 
       // create request body
       // gets date range from reload.properties file
-      String requestJson = "{\"dateFrom\":\"" + prop.getDateFrom() + "\", \"dateTo\":\"" + prop.getDateTo() + "\"}";
+      // String requestJson = "{\"dateFrom\":\"" + prop.getDateFrom() + "\", \"dateTo\":\"" + prop.getDateTo() + "\"}";
       // String requestJson = "{\"dateFrom\":\"" + "2020-11-08" + "\", \"dateTo\":\""
       // + "2020-11-10" + "\"}";
-      // String requestJson = "{\"dateFrom\":\"" + "2020-09-08" + "\", \"dateTo\":\""
-      // + "2020-09-14" + "\"}";
+      String requestJson = "{\"dateFrom\":\"" + "2020-09-08" + "\", \"dateTo\":\""
+      + "2020-09-14" + "\"}";
 
       printStatus("Sending Post request");
       // parse json array
@@ -75,7 +82,47 @@ public class JobService {
       printStatus(
           "Quartz Job disabled. If you want to run jobs, please enable it in reload.properties file by setting quartz.properties.enabled = true");
     }
+  }
 
+      /**
+     * A private and customized method that makes a POST request and parse the
+     * results. It uses the static methods from HttpUtil class.
+     *
+     * @param requestJson
+     * @param apiKey
+     * @return JSON ARRAY
+     */
+    private JsonArray PostAndParse(String requestJson, String apiKey) {
+      HttpEntity<String> request = HttpUtil.getHttpEntity(requestJson, apiKey);
+      RestTemplate restTemplate = HttpUtil.getRestTemplate();
+
+      JsonObject jsonObject = null;
+      String res = null;
+      JsonArray jsonArray = null;
+
+      try {
+          res = restTemplate.postForObject(prop.getApiURL(), request, String.class);
+
+          jsonObject = new JsonParser().parse(res).getAsJsonObject();
+
+          if (!jsonObject.get("errors").isJsonNull()) {
+              printStatus("Error in header or request body");
+          } else {
+              jsonArray = jsonObject.getAsJsonArray("results");
+          }
+      } catch (ResourceAccessException e) {
+          printStatus("Connection timed out: " + e);
+      } catch (HttpStatusCodeException e) {
+          // non 200 status code
+          printStatus("Non 200 status code: " + e.getStatusCode().value());
+      } catch (Exception e) {
+          printStatus("Unknown exception occured: " + e);
+      }
+
+      return jsonArray;
+  }
+  
+  
   /**
    * A private and customized status printer.
    *
