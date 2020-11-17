@@ -12,7 +12,7 @@
 ## Introduction
 VSTA is a web application for Port of Singapore Authority (PSA) forwarders to plan the schedule for truckers. 
 
-The Java server application calls PORTNET's *retrieveByBerthingDate* web service Application Programming Interface (API) on a regular interval to obtain real-time information about vessel berthing a.k.a arrival timings. 
+The Java server application calls PORTNET's *retrieveByBerthingDate* web service Application Programming Interface (API) on a regular interval to obtain real-time information about vessel berthing a.k.a. arrival timings. 
 
 The data is then stored in a relational database to be displayed on the user interface (UI), which is built using ReactJS.
 
@@ -31,7 +31,7 @@ Before running our server application, ensure the following prerequisites are fu
 - If not done so, import the [*deploy.sql*](sql/deploy.sql) script which is located in the *sql* folder. This can be done in phpmyadmin, MySQL Workbench or otherwise. 
 - If not done so, ensure your local computer has the *JAVA_HOME* environment variable set to your Java SDK location.
 
-To run the server application, open [*server-start.bat*](server-start.bat) or do a `./mvnw spring-boot:run` at the [*server*](server) folder.
+To run the server application, open [*server-run.bat*](server-run.bat) or do a `./mvnw spring-boot:run` at the [*server*](server) folder.
 
 The server will be accessible on *localhost:8080* by default. To terminate the connection, simply close the terminal.
 
@@ -65,7 +65,7 @@ To use the development version,
 1. Ensure that the dependencies are installed. If *node_modules* is not already present locally in the [*client*](client) folder, 
     > open [*client-dependencies.bat*](client-dependencies.bat) or do a `npm run install`.
 2. To run the client application, 
-    > open [*client-start.bat*](client-start.bat) or do `npm run start`. 
+    > open [*client-run.bat*](client-run.bat) or do `npm run start`. 
 
 The UI will be accessible on *localhost:9001* by default. To terminate the connection, simply close the terminal.
 
@@ -77,40 +77,40 @@ Below are the information on the tables for [*deploy.sql*](sql/deploy.sql):
 
 | Table Name     | Columns Name                                        | Primary Key | Foreign Key              |
 |----------------|-----------------------------------------------------|-------------|--------------------------|
-| user           | id: int(11) AUTO_INCREMENT,                         | id          | -                        |
-|                | name: varchar(32) NOT NULL,                         |             |                          |
-|                | email: varchar(32) NOT NULL,                        |             |                          |
-|                | password: varchar(60) NOT NULL,                     |             |                          |
+| user           | id: int(11) AUTO_INCREMENT                          | id          | -                        |
+|                | name: varchar(32) NOT NULL                          |             |                          |
+|                | email: varchar(32) NOT NULL                         |             |                          |
+|                | password: varchar(60) NOT NULL                      |             |                          |
 |                | token: varchar(60)                                  |             |                          |
 |                |                                                     |             |                          |
-| vessel         | uniqueId: varchar(60) NOT NULL,                     | uniqueId    | vessel_history: uniqueId |
-|                | imoN: varchar(12) DEFAULT NULL,                     |             |                          |
-|                | fullVslM: varchar(48) NOT NULL,                     |             |                          |
+| vessel         | uniqueId: varchar(60) NOT NULL                      | uniqueId    | vessel_history: uniqueId |
+|                | imoN: varchar(12) DEFAULT NULL                      |             |                          |
+|                | fullVslM: varchar(48) NOT NULL                      |             |                          |
 |                | abbrVslM: varchar(32) NOT NULL                      |             |                          |
-|                | fullInVoyN: varchar(500) DEFAULT NULL,              |             |                          |
-|                | inVoyN: varchar(8) NOT NULL,                        |             |                          |
+|                | fullInVoyN: varchar(500) DEFAULT NULL               |             |                          |
+|                | inVoyN: varchar(8) NOT NULL                         |             |                          |
 |                | fullOutVoyN: varchar(500) DEFAULT NULL              |             |                          |
-|                | outVoyN: varchar(8) NOT NULL,                       |             |                          |
-|                | shiftSeqN: varchar(5) NOT NULL,                     |             |                          |
-|                | bthgDt: varchar(21) NOT NULL,                       |             |                          |
-|                | unbthgDt: varchar(21) NOT NULL,                     |             |                          |
-|                | berthN: varchar(10) DEFAULT NULL,                   |             |                          |
-|                | status: varchar(12) NOT NULL,                       |             |                          |
+|                | outVoyN: varchar(8) NOT NULL                        |             |                          |
+|                | shiftSeqN: varchar(5) NOT NULL                      |             |                          |
+|                | bthgDt: varchar(21) NOT NULL                        |             |                          |
+|                | unbthgDt: varchar(21) NOT NULL                      |             |                          |
+|                | berthN: varchar(10) DEFAULT NULL                    |             |                          |
+|                | status: varchar(12) NOT NULL                        |             |                          |
 |                | abbrTerminalM: varchar(8) DEFAULT NULL              |             |                          |
 |                |                                                     |             |                          |
-| vessel_history | uniqueId: varchar(60) NOT NULL,                     | uniqueId    | -                        |
-|                | last_bthgDt: varchar(21) NOT NULL,                  |             |                          |
-|                | last_unbthgDt: varchar(21) NOT NULL,                |             |                          |
-|                | bthgDt_change_count: int(2) NOT NULL DEFAULT '0',   |             |                          |
-|                | unbthgDt_change_count: int(2) NOT NULL DEFAULT '0', |             |                          |
+| vessel_history | uniqueId: varchar(60) NOT NULL                      | uniqueId    | -                        |
+|                | last_bthgDt: varchar(21) NOT NULL                   |             |                          |
+|                | last_unbthgDt: varchar(21) NOT NULL                 |             |                          |
+|                | bthgDt_change_count: int(2) NOT NULL DEFAULT '0'    |             |                          |
+|                | unbthgDt_change_count: int(2) NOT NULL DEFAULT '0'  |             |                          |
 |                | first_arrival: varchar(21) NOT NULL                 |             |                          |
 |                |                                                     |             |                          |
-| subscription   | id: int(11) AUTO_INCREMENT,                         | id          | user: user_id,           |
-|                | user_id: int(11) NOT NULL,                          |             | vessel: voyage_id        |
+| subscription   | id: int(11) AUTO_INCREMENT                          | id          | user: user_id           |
+|                | user_id: int(11) NOT NULL                           |             | vessel: voyage_id        |
 |                | voyage_id: varchar(60) NOT NULL                     |             |                          |
 |                |                                                     |             |                          |
-| favourite      | id: int(11) AUTO_INCREMENT,                         | id          | user: user_id,           |
-|                | user_id: int(11) NOT NULL,                          |             | vessel: voyage_id        |
+| favourite      | id: int(11) AUTO_INCREMENT                          | id          | user: user_id           |
+|                | user_id: int(11) NOT NULL                           |             | vessel: voyage_id        |
 |                | voyage_id: varchar(60) NOT NULL                     |             |                          |
 
 

@@ -35,7 +35,7 @@ public class VesselController {
      */
     @GetMapping(value = "/vessels", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<VesselDTO>> getVesselsByDate(@RequestParam(value = "startDate") String startDate,
-            @RequestParam(value = "endDate") String endDate) {
+                                                            @RequestParam(value = "endDate") String endDate) {
 
         List<VesselDTO> vesselList = vesselService.getVesselsByDate(startDate, endDate);
         return ResponseEntity.ok(vesselList);

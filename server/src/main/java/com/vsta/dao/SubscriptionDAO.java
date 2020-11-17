@@ -49,6 +49,6 @@ public interface SubscriptionDAO extends CrudRepository<Subscription, Integer> {
      */
     @Query(value = "select u from user u inner join subscription v on u.id = v.user_id "
             + "where v.voyage_id = :voyageId", nativeQuery = true)
-    List<User> findSubs(@Param("voyageId") String voyageId);
+    List<User> findSubscribers(@Param("voyageId") String voyageId);
 
 }

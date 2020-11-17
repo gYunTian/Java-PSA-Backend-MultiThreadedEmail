@@ -1,8 +1,8 @@
 package com.vsta.service;
 
 import com.vsta.dto.UserLoginDTO;
-import com.vsta.dto.UserResetPwDTO;
 import com.vsta.model.User;
+import com.vsta.utility.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +24,6 @@ public class UserLoginDTOService {
 
     final String errorMsgPrefix = "Login unsuccessful - ";
 
-    final String emptyMsgTemplate = errorMsgPrefix + "%s cannot be blank";
-
     final String nonExistentEmailMsg = errorMsgPrefix + "email not registered";
     final String wrongPasswordMsg = errorMsgPrefix + "wrong password";
 
@@ -40,7 +38,7 @@ public class UserLoginDTOService {
     public ResponseEntity<String> verifyUser(UserLoginDTO userLoginDTO) {
 
         // if empty fields, don't allow perform other checks
-        ResponseEntity<String> emptyFieldsResponse = emptyFieldsResponse(userLoginDTO);
+        ResponseEntity<String> emptyFieldsResponse = ValidationUtil.emptyFieldsResponse(userLoginDTO.getAll(), errorMsgPrefix);
         if (emptyFieldsResponse != null) {
             return emptyFieldsResponse;
         }
@@ -78,28 +76,6 @@ public class UserLoginDTOService {
         }
         if (!new BCryptPasswordEncoder().matches(givenPassword, existingUser.getPassword())) {
             return new ResponseEntity<>(wrongPasswordMsg, HttpStatus.BAD_REQUEST);
-        }
-
-        return null;
-    }
-
-
-    /**
-     * Check if specified details passes validity checks.
-     * @param userLoginDTO Email and password specified by user to be checked.
-     * @return  ResponseEntity with an error message and 400 status code if invalid,
-     *          else null.
-     */
-    public ResponseEntity<String> emptyFieldsResponse(UserLoginDTO userLoginDTO) {
-        String emailGiven = userLoginDTO.getEmail();
-        String newPwGiven = userLoginDTO.getPassword();
-
-        if (emailGiven == null || emailGiven.length() == 0) {
-            return new ResponseEntity<>(String.format(emptyMsgTemplate, "email"), HttpStatus.BAD_REQUEST);
-        }
-
-        if (newPwGiven == null || newPwGiven.length() == 0) {
-            return new ResponseEntity<>(String.format(emptyMsgTemplate, "password"), HttpStatus.BAD_REQUEST);
         }
 
         return null;

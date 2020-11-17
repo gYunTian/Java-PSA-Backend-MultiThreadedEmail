@@ -112,7 +112,7 @@ public class SubscriptionService {
      * @return List of email strings of users subbed to indicated voyageId;
      */
     public List<User> getSubscribers(String voyageId) {
-        return subscriptionDao.findSubs(voyageId);
+        return subscriptionDao.findSubscribers(voyageId);
     }
 
 }

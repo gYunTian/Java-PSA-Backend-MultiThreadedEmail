@@ -4,6 +4,7 @@ import com.vsta.dao.UserDAO;
 import com.vsta.domain.DomainService;
 import com.vsta.model.User;
 import com.vsta.utility.MailUtil;
+import com.vsta.utility.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,7 @@ public class UserService {
      *          400 status code if invalid, else null
      */
     public ResponseEntity<String> invalidRegistrationResponse(String email) {
+
         User existingUser = getUserByEmail(email);
         if (existingUser != null) {
             return new ResponseEntity<>(duplicateEmailMsg, HttpStatus.BAD_REQUEST);
@@ -64,6 +66,13 @@ public class UserService {
     public ResponseEntity<String> saveUser(User user) {
         String email = user.getEmail();
 
+        // if empty, don't allow perform other checks
+        ResponseEntity<String> emptyFieldsResponse = ValidationUtil.emptyStringResponse(email, "email", errorMsgPrefix);
+        if (emptyFieldsResponse != null) {
+            return emptyFieldsResponse;
+        }
+
+        // not empty, proceed
         // if invalid, don't allow user to register
         ResponseEntity<String> invalidResponse = invalidRegistrationResponse(email);
         if (invalidResponse != null) {
@@ -131,6 +140,14 @@ public class UserService {
      *          indicating successful sending of email
      */
     public ResponseEntity<String> resetPasswordRequest(String email) {
+
+        // if empty, don't allow perform other checks
+        ResponseEntity<String> emptyFieldsResponse = ValidationUtil.emptyStringResponse(email, "email", errorMsgPrefix);
+        if (emptyFieldsResponse != null) {
+            return emptyFieldsResponse;
+        }
+
+        // not empty, proceed
         User existingUser = getUserByEmail(email);
 
         if (existingUser == null) {

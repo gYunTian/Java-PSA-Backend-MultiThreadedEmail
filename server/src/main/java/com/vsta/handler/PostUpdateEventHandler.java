@@ -2,10 +2,8 @@ package com.vsta.handler;
 
 import com.vsta.model.User;
 import com.vsta.service.SubscriptionService;
-import com.vsta.service.UserService;
 import com.vsta.utility.MailUtil;
 import org.hibernate.event.spi.PostUpdateEvent;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -22,9 +20,6 @@ import java.util.List;
 public class PostUpdateEventHandler {
 
     protected PostUpdateEvent event;
-
-    @Autowired
-    private UserService userService;
 
     /**
      * Create event.

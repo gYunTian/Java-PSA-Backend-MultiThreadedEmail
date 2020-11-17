@@ -2,6 +2,7 @@ package com.vsta.service;
 
 import com.vsta.dto.UserResetPwDTO;
 import com.vsta.model.User;
+import com.vsta.utility.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +23,6 @@ public class UserResetPwDTOService {
 
     final String errorMsgPrefix = "Reset Password unsuccessful - ";
 
-    final String emptyMsgTemplate = errorMsgPrefix + "%s cannot be blank";
-
     final String nonExistentEmailMsg = errorMsgPrefix + "email not registered";
     final String wrongTokenMsg = errorMsgPrefix + "wrong token";
 
@@ -38,7 +37,7 @@ public class UserResetPwDTOService {
     public ResponseEntity<String> resetPassword(UserResetPwDTO userResetPwDTO) {
 
         // if empty fields, don't allow perform other checks
-        ResponseEntity<String> emptyFieldsResponse = emptyFieldsResponse(userResetPwDTO);
+        ResponseEntity<String> emptyFieldsResponse = ValidationUtil.emptyFieldsResponse(userResetPwDTO.getAll(), errorMsgPrefix);
         if (emptyFieldsResponse != null) {
             return emptyFieldsResponse;
         }
@@ -54,7 +53,7 @@ public class UserResetPwDTOService {
         }
 
         // since passed checks, request accepted
-        String newPassword = userResetPwDTO.getNewPassword();
+        String newPassword = userResetPwDTO.getPassword();
         existingUser.setPassword(newPassword);
 
         // remove token
@@ -79,32 +78,6 @@ public class UserResetPwDTOService {
 
         if (!existingUser.getToken().equals(tokenGiven)) {
             return new ResponseEntity<>(wrongTokenMsg, HttpStatus.BAD_REQUEST);
-        }
-
-        return null;
-    }
-
-    /**
-     * Check if specified details passes validity checks
-     * @param userResetPwDTO Token and new password input by User to be checked.
-     * @return  ResponseEntity with an error message and 400 status code if invalid,
-     *          else null
-     */
-    public ResponseEntity<String> emptyFieldsResponse(UserResetPwDTO userResetPwDTO) {
-        String emailGiven = userResetPwDTO.getEmail();
-        String tokenGiven = userResetPwDTO.getToken();
-        String newPwGiven = userResetPwDTO.getNewPassword();
-
-        if (emailGiven == null || emailGiven.length() == 0) {
-            return new ResponseEntity<>(String.format(emptyMsgTemplate, "email"), HttpStatus.BAD_REQUEST);
-        }
-
-        if (tokenGiven == null || tokenGiven.length() == 0) {
-            return new ResponseEntity<>(String.format(emptyMsgTemplate, "token"), HttpStatus.BAD_REQUEST);
-        }
-
-        if (newPwGiven == null || newPwGiven.length() == 0) {
-            return new ResponseEntity<>(String.format(emptyMsgTemplate, "new password"), HttpStatus.BAD_REQUEST);
         }
 
         return null;
