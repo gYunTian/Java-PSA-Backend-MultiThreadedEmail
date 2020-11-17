@@ -33,7 +33,7 @@ The following settings can be found in `server/src/main/resources`.
 
 Before running our server application, ensure the following prerequisites are fulfilled:
 - Ensure your WAMP/MAMP server is running to allow access to the database. 
-- If not done so, import the `deploy.sql` script which is located in the `server/sql` folder. This can be done in phpmyadmin, MySQL Workbench or otherwise. 
+- If not done so, import the `deploy.sql` script which is located in the `sql` folder. This can be done in phpmyadmin, MySQL Workbench or otherwise. 
 - If not done so, ensure your local computer has the `JAVA_HOME` environment variable set to your Java SDK location.
 
 To run the server application, do `./mvnw spring-boot:run` or open `server-start.bat`. 

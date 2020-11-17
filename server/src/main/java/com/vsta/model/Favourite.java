@@ -9,6 +9,7 @@ import java.util.Objects;
 /**
  * Represents a voyage that is favourite by a user.
  */
+
 @Entity
 @Table(name = "favourite")
 public class Favourite {
@@ -18,7 +19,8 @@ public class Favourite {
      * Auto-generated and auto-incremented
      * by database.
      */
-    @Id private int id;
+    @Id 
+    private int id;
 
     /**
      * ID that uniquely identifies a User.

@@ -10,6 +10,7 @@ import java.util.Objects;
 /**
  * Represents a subscription by a user for a voyage
  */
+
 @Entity
 @Table(name = "subscription")
 public class Subscription implements Serializable {
@@ -19,7 +20,8 @@ public class Subscription implements Serializable {
      * Auto-generated and auto-incremented
      * by database.
      */
-    @Id private int id;
+    @Id 
+    private int id;
 
     /**
      * ID that uniquely identifies a User.
