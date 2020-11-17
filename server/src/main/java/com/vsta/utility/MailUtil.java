@@ -1,6 +1,8 @@
 package com.vsta.utility;
 
+import com.vsta.dto.UserDTO;
 import com.vsta.model.User;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -14,30 +16,51 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailUtil {
 
-    @Autowired
-    private JavaMailSender mailSender;
+        @Autowired
+        private JavaMailSender mailSender;
 
-    /**
-     * Generic method to send email to user.
-     * @param user User object representing the recipient.
-     * @param subject Subject header for the email.
-     * @param partBody Body of the email excluding greetings and sign off.
-     * @return ResponseEntity with a status code and message indicating that mail was successful.
-     */
-    public ResponseEntity<String> sendEmail(User user, String subject, String partBody) {
-        SimpleMailMessage email = new SimpleMailMessage();
+        /**
+         * Generic method to send email to user.
+         * 
+         * @param user     User object representing the recipient.
+         * @param subject  Subject header for the email.
+         * @param partBody Body of the email excluding greetings and sign off.
+         * @return ResponseEntity with a status code and message indicating that mail
+         *         was successful.
+         */
+        public ResponseEntity<String> sendEmail(User user, String subject, String partBody) {
+                SimpleMailMessage email = new SimpleMailMessage();
 
-        email.setTo(user.getEmail());
-        email.setSubject(subject);
+                email.setTo(user.getEmail());
+                email.setSubject(subject);
 
-        String body = "Hi " + user.getName() + ",\n\n" +
-                partBody + "\n\n\n" +
-                "Thank you!\n" +
-                "G1T9";
-        email.setText(body);
+                String body = "Hi " + user.getName() + ",\n\n" + partBody + "\n\n\n" + "Thank you!\n" + "G1T9";
+                email.setText(body);
 
-        mailSender.send(email);
-        return ResponseEntity.ok("Email successfully sent to " + user.getEmail());
-    }
+                mailSender.send(email);
+                return ResponseEntity.ok("Email successfully sent to " + user.getEmail());
+        }
+
+        /**
+         * An overloaded method to send email to user.
+         * 
+         * @param UserDTO  UserDTO object representing the recipient.
+         * @param subject  Subject header for the email.
+         * @param partBody Body of the email excluding greetings and sign off.
+         * @return ResponseEntity with a status code and message indicating that mail
+         *         was successful.
+         */
+        public ResponseEntity<String> sendEmail(UserDTO user, String subject, String partBody) {
+                SimpleMailMessage email = new SimpleMailMessage();
+
+                email.setTo(user.getEmail());
+                email.setSubject(subject);
+
+                String body = "Hi " + user.getName() + ",\n\n" + partBody + "\n\n\n" + "Thank you!\n" + "G1T9";
+                email.setText(body);
+
+                mailSender.send(email);
+                return ResponseEntity.ok("Email successfully sent to " + user.getEmail());
+        }
 
 }

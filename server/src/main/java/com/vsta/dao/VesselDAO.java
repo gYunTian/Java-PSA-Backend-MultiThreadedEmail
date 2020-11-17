@@ -2,8 +2,9 @@ package com.vsta.dao;
 
 import com.vsta.dto.VesselDTO;
 import com.vsta.model.Vessel;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 
 @Repository
-public interface VesselDAO extends CrudRepository<Vessel, String> {
+public interface VesselDAO extends JpaRepository<Vessel, String> {
 
     /**
      * startDate and endDate cannot be same and endDate must minimally be 1 day
