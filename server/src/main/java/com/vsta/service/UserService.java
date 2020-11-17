@@ -6,6 +6,7 @@ import com.vsta.model.User;
 import com.vsta.utility.MailUtil;
 import com.vsta.utility.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.StandardEnvironment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,14 @@ public class UserService {
 
     @Autowired
     private MailUtil mailUtil;
+
+    @Autowired
+    private StandardEnvironment environment;
+
+    /**
+     * Constant variable that contains the file name.
+     */
+    private static final String PREFIX = "url.";
 
 
     final String errorMsgPrefix = "Registration unsuccessful - ";
@@ -160,7 +169,7 @@ public class UserService {
         // construct email
         String subject = "Vsta Account Password Reset";
 
-        String link = "https://g1t9-vsta.netlify.app/login.html?email=" + email +
+        String link = environment.getProperty(PREFIX + "properties") + "?email=" + email +
                 "&token=" + existingUser.getToken();
 
         String body = "We received a request to reset the password of your Vsta account.\n\n" +
