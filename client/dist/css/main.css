@@ -458,3 +458,175 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s; }
+
+.modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0; }
+  .modal-bg .modal {
+    background-color: #f5e9e9;
+    width: 40%;
+    height: 28%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    color: #c63536; }
+    .modal-bg .modal .response-msg {
+      font-size: 20px; }
+    .modal-bg .modal .reset-title {
+      margin-bottom: 30px; }
+    .modal-bg .modal .reset-email-input {
+      background: none;
+      background-color: #f5e9e9;
+      color: #c63536;
+      font-size: 22px;
+      padding: 3px 3px;
+      display: block;
+      width: 60%;
+      border: none;
+      border-radius: 0;
+      border: 2px solid #c63536;
+      margin-bottom: 30px; }
+      .modal-bg .modal .reset-email-input:focus {
+        outline: none;
+        border: 2px solid #c63536; }
+    .modal-bg .modal .spinner {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%; }
+      .modal-bg .modal .spinner::before, .modal-bg .modal .spinner::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%; }
+      .modal-bg .modal .spinner::before {
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(90deg, #ce9495 0%, #c63536 100%);
+        animation: spinner-rotate 1s infinite linear; }
+      .modal-bg .modal .spinner::after {
+        width: 85%;
+        height: 85%;
+        background-color: #f5e9e9;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); }
+
+@keyframes spinner-rotate {
+  to {
+    transform: rotate(360deg); } }
+  .modal-bg .modal-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1rem; }
+  .modal-bg button {
+    font-size: 16px; }
+    .modal-bg button:focus {
+      outline: none; }
+
+.bg-active {
+  visibility: visible;
+  opacity: 1; }
+
+.modal-bg-2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0; }
+  .modal-bg-2 .modal-2 {
+    background-color: #f5e9e9;
+    width: 35%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    color: #c63536; }
+    .modal-bg-2 .modal-2 .response-msg-2 {
+      font-size: 20px; }
+    .modal-bg-2 .modal-2 .reset-title-2 {
+      margin-bottom: 20px;
+      margin-top: 15px; }
+    .modal-bg-2 .modal-2 .load-title {
+      margin-bottom: 30px; }
+    .modal-bg-2 .modal-2 input {
+      background: none;
+      background-color: #f5e9e9;
+      color: #c63536;
+      font-size: 22px;
+      padding: 3px 3px;
+      display: block;
+      width: 70%;
+      border: none;
+      border-radius: 0;
+      border: 2px solid #c63536;
+      margin-bottom: 30px; }
+      .modal-bg-2 .modal-2 input:focus {
+        outline: none;
+        border: 2px solid #c63536; }
+    .modal-bg-2 .modal-2 input[type='password'] {
+      letter-spacing: 0.3rem; }
+    .modal-bg-2 .modal-2 .spinner-2 {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%; }
+      .modal-bg-2 .modal-2 .spinner-2::before, .modal-bg-2 .modal-2 .spinner-2::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%; }
+      .modal-bg-2 .modal-2 .spinner-2::before {
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(90deg, #ce9495 0%, #c63536 100%);
+        animation: spinner-rotate 1s infinite linear; }
+      .modal-bg-2 .modal-2 .spinner-2::after {
+        width: 85%;
+        height: 85%;
+        background-color: #f5e9e9;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); }
+
+@keyframes spinner-rotate {
+  to {
+    transform: rotate(360deg); } }
+  .modal-bg-2 .modal-close-2 {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.1rem; }
+  .modal-bg-2 button {
+    margin-top: 10px;
+    font-size: 18px; }
+    .modal-bg-2 button:focus {
+      outline: none; }
+  .modal-bg-2 .modal-2-sm {
+    height: 30%; }
+
+.bg-active-2 {
+  visibility: visible;
+  opacity: 1; }
