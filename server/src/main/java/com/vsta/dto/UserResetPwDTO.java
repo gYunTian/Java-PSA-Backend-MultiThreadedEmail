@@ -31,8 +31,9 @@ public class UserResetPwDTO {
 
     /**
      * Constructs object for Reset password functionality
-     * @param token token specified by the User
-     * @param newPassword chosen password the user wants to change to
+     * @param email Email specified by the User
+     * @param token Password reset token specified by the User
+     * @param newPassword Chosen password the user wants to change to
      */
     @JsonCreator
     public UserResetPwDTO(

@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * Event handler class that acquires the DB POST UPDATE Event from our Executor
+ * Event handler class that acquires the database Post Update Event from our Executor
  * Service Factory instance. It contains methods that will find the subbed users
- * to a vessel update in the db update event. It will then send them an email on
- * the changes extract from the DB update event object.
+ * to a vessel update in the database update event. It will then send them an email on
+ * the changes extract from the database update event object.
  */
 @Component
 public class PostUpdateEventHandler {
@@ -26,10 +26,20 @@ public class PostUpdateEventHandler {
     @Autowired
     private UserService userService;
 
+    /**
+     * Create event.
+     * @param event Database Post Update Event
+     */
     public final void register(PostUpdateEvent event) {
         this.event = event;
     }
 
+    /**
+     * Execute the sending of subscription notification using a common protocol
+     * @param service SubscriptionService
+     * @param mailUtil Class that allows sending of email
+     * @return Runnable that executes the code
+     */
     @Bean
     @Scope("prototype")
     public Runnable newRunnable(final SubscriptionService service, final MailUtil mailUtil) {

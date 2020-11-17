@@ -54,7 +54,7 @@ public class PropertiesReloader {
     /**
      * This method is scheduled to auto run every 10 secs. It will refresh the file
      * loaded in memory so properties within it will be reread into the app.
-     * @throws IOException
+     * @throws IOException Exception if any is thrown
      */
     @Scheduled(fixedRate = 10000)
     public void reload() throws IOException {
@@ -114,12 +114,14 @@ public class PropertiesReloader {
 
     /**
      * Custom console message printer for status and debugging.
+     * @param message String to be printed
      */
-    public void printer(String msg) {
+    public void printer(String message) {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String date = now.format(formatter);
 
-        System.out.println(date + "  - Prop reloader: " + msg);
+        System.out.println(date + "  - Prop reloader: " + message);
     }
+
 }

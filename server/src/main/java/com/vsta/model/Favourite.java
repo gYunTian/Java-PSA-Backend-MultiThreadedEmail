@@ -132,4 +132,5 @@ public class Favourite implements IUserSavedVessel {
     public String toString() {
         return String.format("Favourite [id=%d, userId=%d, voyageId=%s]", id, userId, voyageId);
     }
+
 }

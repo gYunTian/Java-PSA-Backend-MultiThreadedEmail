@@ -12,7 +12,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 
 /**
- * Configuration class to setup database POST UPDATE Event listening.
+ * Configuration class to setup database Post Update Event listening.
  */
 
 @Component
@@ -25,7 +25,7 @@ public class HibernateListenerConfig {
 
     /**
      * Assigns an update listener object to its instance variable.
-     * @param updateListener
+     * @param updateListener Object which listens for database updates.
      */
     @Autowired
     public HibernateListenerConfig(UpdateListener updateListener) {
@@ -34,7 +34,7 @@ public class HibernateListenerConfig {
 
     /**
      * Auto runs after the class is auto instantiated.
-     * This method does the necessary stuff required for DB update listening.
+     * This method does the necessary stuff required for database update listening.
      */
     @PostConstruct
     protected void init() {
@@ -42,4 +42,5 @@ public class HibernateListenerConfig {
         EventListenerRegistry registry = sessionFactory.getServiceRegistry().getService(EventListenerRegistry.class);
         registry.getEventListenerGroup(EventType.POST_UPDATE).appendListener(updateListener);
     }
+
 }

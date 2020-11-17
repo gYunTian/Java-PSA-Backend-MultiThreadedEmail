@@ -17,10 +17,11 @@ public class ControllerConfig implements WebMvcConfigurer {
 
     /**
      * Overrides the controller routes to start with /api.
-     * @param configurer
+     * @param pathMatchConfigurer Configurer object for path matching
      */
     @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {
-        configurer.addPathPrefix("/api", HandlerTypePredicate.forAnnotation(RestController.class));
+    public void configurePathMatch(PathMatchConfigurer pathMatchConfigurer) {
+        pathMatchConfigurer.addPathPrefix("/api", HandlerTypePredicate.forAnnotation(RestController.class));
     }
+
 }
