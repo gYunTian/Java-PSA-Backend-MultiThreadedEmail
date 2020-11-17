@@ -10,18 +10,11 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.vsta.model.Vessel;
 import com.vsta.service.VesselService;
-import com.vsta.utility.HttpUtil;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpStatusCodeException;
-import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * Quartz job service. This class contains methods required to perform project
@@ -82,63 +75,24 @@ public class JobService {
       printStatus(
           "Quartz Job disabled. If you want to run jobs, please enable it in reload.properties file by setting quartz.properties.enabled = true");
     }
-  }
-
-  /**
-   * A private and customized method that makes a POST request and parse the
-   * results. It uses the static methods from HttpUtil class.
-   * 
-   * @param requestJson
-   * @param headers
-   * @return JSON ARRAY
-   */
-  private JsonArray PostAndParse(String requestJson, String apikey) {
-    HttpEntity<String> request = HttpUtil.getHttpEntity(requestJson, prop.getApiKey());
-    RestTemplate restTemplate = HttpUtil.getRestTemplate();
-
-    JsonObject jsonObject = null;
-    String res = null;
-    JsonArray jsonArray = null;
-
-    try {
-      res = restTemplate.postForObject(prop.getApiURL(), request, String.class);
-
-      jsonObject = new JsonParser().parse(res).getAsJsonObject();
-
-      if (!jsonObject.get("errors").isJsonNull()) {
-        printStatus("Error in header or request body");
-      } else {
-        jsonArray = jsonObject.getAsJsonArray("results");
-      }
-    } catch (ResourceAccessException e) {
-      printStatus("Connection timed out: " + e);
-    } catch (HttpStatusCodeException e) {
-      // non 200 status code
-      printStatus("Non 200 status code: " + e.getStatusCode().value());
-    } catch (Exception e) {
-      printStatus("Unknown exception occured: " + e);
-    }
-
-    return jsonArray;
-  }
 
   /**
    * A private and customized status printer.
-   * 
-   * @param msg
+   *
+   * @param message
    */
-  private void printStatus(String msg) {
+  private void printStatus(String message) {
     LocalDateTime now = LocalDateTime.now();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     String date = now.format(formatter);
-    System.out.println(date + "  - Quartz job: " + msg);
+    System.out.println(date + "  - Quartz job: " + message);
 
   }
 
   /**
    * A priavte and customized method that maps a JSON array to Java List of Vessel
    * type.
-   * 
+   *
    * @param jsonArray
    * @return List<Vessel>
    */
@@ -172,4 +126,5 @@ public class JobService {
     }
     return vessels;
   }
+
 }

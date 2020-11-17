@@ -1,23 +1,22 @@
-package com.vsta.config;
-
-import javax.annotation.PostConstruct;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+package com.vsta.configuration;
 
 import com.vsta.listener.UpdateListener;
-
 import org.hibernate.event.service.spi.EventListenerRegistry;
 import org.hibernate.event.spi.EventType;
 import org.hibernate.internal.SessionFactoryImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+
 /**
- * Class to setup DB POST UPDATE Event listening.
- * 
+ * Configuration class to setup database Post Update Event listening.
  */
+
 @Component
-public class HibernateListenerConfigurer {
+public class HibernateListenerConfig {
 
     @PersistenceUnit
     private EntityManagerFactory emf;
@@ -25,20 +24,17 @@ public class HibernateListenerConfigurer {
     private final UpdateListener updateListener;
 
     /**
-     * Assigns an update listener object to its instance variable
-     * 
-     * @param updateListener
+     * Assigns an update listener object to its instance variable.
+     * @param updateListener Object which listens for database updates.
      */
     @Autowired
-    public HibernateListenerConfigurer(UpdateListener updateListener) {
+    public HibernateListenerConfig(UpdateListener updateListener) {
         this.updateListener = updateListener;
     }
 
     /**
-     * Auto runs after class is auto instantiatied. This method does necessary stuff
-     * required for DB update listening.
-     * 
-     * @param updateListener
+     * Auto runs after the class is auto instantiated.
+     * This method does the necessary stuff required for database update listening.
      */
     @PostConstruct
     protected void init() {
@@ -46,4 +42,5 @@ public class HibernateListenerConfigurer {
         EventListenerRegistry registry = sessionFactory.getServiceRegistry().getService(EventListenerRegistry.class);
         registry.getEventListenerGroup(EventType.POST_UPDATE).appendListener(updateListener);
     }
+
 }

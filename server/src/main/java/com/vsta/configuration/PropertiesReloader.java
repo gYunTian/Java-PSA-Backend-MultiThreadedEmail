@@ -1,19 +1,10 @@
 // https://stackoverflow.com/questions/40287771/how-to-reload-a-value-property-from-application-properties-in-spring/40288822#40288822
-package com.vsta.config;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Properties;
+package com.vsta.configuration;
 
 import com.vsta.quartz.QuartzJob;
 import com.vsta.quartz.QuartzProperties;
 import com.vsta.quartz.QuartzSheduler;
-
+import lombok.Cleanup;
 import org.quartz.CronTrigger;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
@@ -27,7 +18,14 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Component;
 
-import lombok.Cleanup;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Properties;
 
 /**
  * Class containing method that hot reload environment properties.
@@ -56,8 +54,7 @@ public class PropertiesReloader {
     /**
      * This method is scheduled to auto run every 10 secs. It will refresh the file
      * loaded in memory so properties within it will be reread into the app.
-     * 
-     * @throws IOException
+     * @throws IOException Exception if any is thrown
      */
     @Scheduled(fixedRate = 10000)
     public void reload() throws IOException {
@@ -95,7 +92,7 @@ public class PropertiesReloader {
 
     /**
      * This method will update the cron job's interval. It clears the existing
-     * scheduled jobs and create a new job based on the updated interval
+     * scheduled jobs and create a new job based on the updated interval.
      */
     public void updateCronInterval() {
         try {
@@ -117,12 +114,14 @@ public class PropertiesReloader {
 
     /**
      * Custom console message printer for status and debugging.
+     * @param message String to be printed
      */
-    public void printer(String msg) {
+    public void printer(String message) {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String date = now.format(formatter);
 
-        System.out.println(date + "  - Prop reloader: " + msg);
+        System.out.println(date + "  - Prop reloader: " + message);
     }
+
 }

@@ -26,38 +26,59 @@ public class FavouriteService {
     @Autowired
     private VesselService vesselService;
 
+
     final String subErrorMsgPrefix = "Voyage favourite unsuccessful - ";
+    final String unSubErrorMsgPrefix = "Voyage unfavourite unsuccessful - ";
 
-    final String nonExistUserMsg = subErrorMsgPrefix + "user do not exist";
-    final String nonExistVoyageMsg = subErrorMsgPrefix + "voyage do not exist";
-    final String existingSubMsg = subErrorMsgPrefix + "favourite already exist";
+    final String subNonExistentUserMsg = subErrorMsgPrefix + "user does not exist";
+    final String subNonExistentVoyageMsg = subErrorMsgPrefix + "voyage does not exist";
+    final String subExistingSubMsg = subErrorMsgPrefix + "favourite already exists";
 
-    final String unSubErrorMsgPrefix = "Voyage unfavourite unsuccessful - favourite does not exist";
+    final String unSubNonExistentFavouriteMsg = unSubErrorMsgPrefix + "favourite does not exist";
+
+    final String subSuccessMsg = "Voyage favourited successfully";
+    final String unSubSuccessMsg = "Voyage unfavourited successfully";
 
     /**
-     * Add Favourite to database
-     * @param favourite Favourite object to be saved in database
-     * @return  ResponseEntity with the given status code and message
-     *          indicating if favourite added successfully
+     * Check if Favourite object can be saved in database.
+     * @param favourite object to be save in database.
+     * @return  ResponseEntity with an error message and
+     *          400 status code if invalid, else null
      */
-    public ResponseEntity<String> saveFavourite(Favourite favourite) {
+    public ResponseEntity<String> invalidFavouriteResponse(Favourite favourite) {
+
         int userId = favourite.getUserId();
         if (userService.getUserById(userId) == null){
-            return new ResponseEntity<>(nonExistUserMsg, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(subNonExistentUserMsg, HttpStatus.BAD_REQUEST);
         }
-
         String voyageId = favourite.getVoyageId();
         if (vesselService.getVesselByUniqueId(voyageId) == null){
-            return new ResponseEntity<>(nonExistVoyageMsg, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(subNonExistentVoyageMsg, HttpStatus.BAD_REQUEST);
         }
 
         List<Favourite> favouriteList = favouriteDao.findFavouriteByUserIdAndVoyageId(userId, voyageId);
         if (favouriteList.size() >= 1){
-            return new ResponseEntity<>(existingSubMsg, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(subExistingSubMsg, HttpStatus.BAD_REQUEST);
+        }
+
+        return null;
+    }
+
+    /**
+     * Add Favourite to database
+     * @param favourite Favourite object to be saved in database
+     * @return  ResponseEntity with a status code and message
+     *          indicating if favourite added successfully
+     */
+    public ResponseEntity<String> saveFavourite(Favourite favourite) {
+
+        ResponseEntity<String> invalidResponse = invalidFavouriteResponse(favourite);
+        if (invalidResponse != null) {
+            return invalidResponse;
         }
 
         favouriteDao.save(favourite);
-        return ResponseEntity.ok("Voyage favourited successful");
+        return ResponseEntity.ok(subSuccessMsg);
     }
 
     /**
@@ -69,11 +90,10 @@ public class FavouriteService {
         return favouriteDao.findByUserId(userId);
     }
 
-
     /**
      * Remove specified favourite from database
      * @param favourite Favourite object to be removed
-     * @return  ResponseEntity with the given status code and message
+     * @return  ResponseEntity with a status code and message
      *          indicating if favourite is deleted successfully
      */
     public ResponseEntity<String> deleteFavourite(Favourite favourite) {
@@ -82,10 +102,10 @@ public class FavouriteService {
 
         List<Favourite> favouriteList = favouriteDao.findFavouriteByUserIdAndVoyageId(userId, voyageId);
         if (favouriteList.size() == 0){
-            return new ResponseEntity<>(unSubErrorMsgPrefix, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(unSubNonExistentFavouriteMsg, HttpStatus.BAD_REQUEST);
         }
         favouriteDao.deleteByUserIdAndVoyageId(userId, voyageId);
-        return ResponseEntity.ok("Voyage unfavourited successfully");
+        return ResponseEntity.ok(unSubSuccessMsg);
     }
 
 }

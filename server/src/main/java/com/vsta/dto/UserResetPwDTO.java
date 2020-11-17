@@ -4,13 +4,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotBlank;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Details input by user at
  * Change or Reset password
  */
 
-public class UserResetPwDTO {
+public class UserResetPwDTO implements IUserManagementDTO {
 
     /**
      * Email specified by the User
@@ -20,28 +22,29 @@ public class UserResetPwDTO {
     /**
      * Token specified by the User
      */
-    @NotBlank(message = "Token is mandatory")
+    @NotBlank(message = "Token must be provided")
     final private String token;
 
     /**
-     * Password the user wants to change to
+     * New password the user wants to change to
      */
-    @NotBlank(message = "Password is mandatory")
-    final private String newPassword;
+    @NotBlank(message = "Password must be provided")
+    final private String password;
 
     /**
      * Constructs object for Reset password functionality
-     * @param token token specified by the User
-     * @param newPassword chosen password the user wants to change to
+     * @param email Email specified by the User
+     * @param token Password reset token specified by the User
+     * @param password Chosen password the user wants to change to
      */
     @JsonCreator
     public UserResetPwDTO(
             @JsonProperty("email") String email,
             @JsonProperty("token") String token,
-            @JsonProperty("new_password") String newPassword) {
+            @JsonProperty("newPassword") String password) {
         this.email = email;
         this.token = token;
-        this.newPassword = newPassword;
+        this.password = password;
     }
 
     /**
@@ -61,11 +64,25 @@ public class UserResetPwDTO {
     }
 
     /**
-     * Gets the password the User wants to change to
+     * Gets the new password the User wants to change to
      * @return  This User's specified new password
      */
-    public String getNewPassword() {
-        return newPassword;
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * Gets all the fields specified by the User.
+     * @return  HashMap containing the user-
+     *          specified email, token and
+     *          new password.
+     */
+    public Map<String,String> getAll() {
+        Map<String,String> attributes = new HashMap<>();
+        attributes.put("email", email);
+        attributes.put("token", token);
+        attributes.put("new password", password);
+        return attributes;
     }
 
 }

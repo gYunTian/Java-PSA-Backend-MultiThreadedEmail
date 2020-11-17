@@ -1,21 +1,26 @@
 package com.vsta.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 /**
  * Represents a voyage that is favourite by a user.
  */
+
 @Entity
 @Table(name = "favourite")
-public class Favourite {
+public class Favourite implements IUserSavedVessel {
 
     /**
      * ID to uniquely identify a Favourite.
      * Auto-generated and auto-incremented
      * by database.
      */
-    @Id private int id;
+    @Id 
+    private int id;
 
     /**
      * ID that uniquely identifies a User.
@@ -127,4 +132,5 @@ public class Favourite {
     public String toString() {
         return String.format("Favourite [id=%d, userId=%d, voyageId=%s]", id, userId, voyageId);
     }
+
 }

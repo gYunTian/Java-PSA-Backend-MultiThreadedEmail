@@ -5,12 +5,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Details input by User at Login
  */
 
-public class UserLoginDTO {
+public class UserLoginDTO implements IUserManagementDTO {
 
     /**
      * The email used by the User at login.
@@ -19,7 +21,7 @@ public class UserLoginDTO {
      * but the validation annotations are still
      * in place to enforce this.
      */
-    @NotBlank(message = "Email is mandatory")
+    @NotBlank(message = "Email must be provided")
     @Email(message = "Email should be valid")
     final private String email;
 
@@ -30,7 +32,7 @@ public class UserLoginDTO {
      * is still in place to enforce this.
      * This has not been hashed yet.
      */
-    @NotBlank(message = "Password is mandatory")
+    @NotBlank(message = "Password must be provided")
     final private String password;
 
     /**
@@ -62,6 +64,18 @@ public class UserLoginDTO {
      */
     public String getPassword() {
         return password;
+    }
+
+    /**
+     * Gets all the fields specified by the User.
+     * @return  HashMap containing the user-
+     *          specified email and password.
+     */
+    public Map<String,String> getAll() {
+        Map<String,String> attributes = new HashMap<>();
+        attributes.put("email", email);
+        attributes.put("password", password);
+        return attributes;
     }
 
 }

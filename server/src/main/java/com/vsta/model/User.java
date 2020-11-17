@@ -45,7 +45,7 @@ public class User {
      * in place to enforce this before storing
      * into the database.
      */
-    @NotBlank(message = "Email is mandatory")
+    @NotBlank(message = "Email must be provided")
     @Email(message = "Email should be valid")
     private String email;
 
@@ -57,7 +57,7 @@ public class User {
      * storing into the database.
      * This should also be hashed for security reasons.
      */
-    @NotBlank(message = "Password is mandatory")
+    @NotBlank(message = "Password must be provided")
     private String password;
 
     /**
@@ -235,4 +235,5 @@ public class User {
                 "User [id=%d, name=%s, email=%s, password=%s, token=%s]",
                 id, name, email, password, token);
     }
+
 }

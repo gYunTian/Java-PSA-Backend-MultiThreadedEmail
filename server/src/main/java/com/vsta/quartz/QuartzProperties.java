@@ -1,12 +1,11 @@
 package com.vsta.quartz;
 
-import java.time.LocalDate;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 /**
  * Represents the external configuration properties required for scheduling of
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-// @ConfigurationProperties(prefix = "spring.quartz.properties")
 public class QuartzProperties {
 
     @Autowired
@@ -43,7 +41,6 @@ public class QuartzProperties {
 
     /**
      * Gets the interval value in the properties file
-     * 
      * @return String - Quartz job Cron interval
      */
     public String getInterval() {
@@ -52,7 +49,6 @@ public class QuartzProperties {
 
     /**
      * Gets the enabled value in the properties file
-     * 
      * @return Boolean - Quartz job enabled value
      */
     public Boolean isEnabled() {
@@ -67,7 +63,6 @@ public class QuartzProperties {
 
     /**
      * Gets the api key value in the properties file
-     * 
      * @return String - target api key
      */
     public String getApiKey() {
@@ -76,7 +71,6 @@ public class QuartzProperties {
 
     /**
      * Gets the api url value in the properties file
-     * 
      * @return String - target api url
      */
     public String getApiURL() {
@@ -86,7 +80,6 @@ public class QuartzProperties {
     /**
      * Gets the plus days value in the properties file. This variable represents the
      * days 'gap' inbetween a date range.
-     * 
      * @return int - plus days
      */
     public int getPlusDays() {
@@ -101,7 +94,6 @@ public class QuartzProperties {
 
     /**
      * Gets the private dateFrom instance variable.
-     * 
      * @return LocalDate - dateFrom
      */
     public LocalDate getDateFrom() {
@@ -110,7 +102,6 @@ public class QuartzProperties {
 
     /**
      * Gets the private daateTo instance variable.
-     * 
      * @return LocalDate - dateTo
      */
     public LocalDate getDateTo() {
@@ -119,7 +110,6 @@ public class QuartzProperties {
 
     /**
      * Gets the reload quartz job interval value in the properties file..
-     * 
      * @return boolean - isReloadInterval
      */
     public boolean isReloadInterval() {

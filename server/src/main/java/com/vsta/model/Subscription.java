@@ -1,22 +1,26 @@
 package com.vsta.model;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 
 /**
  * Represents a subscription by a user for a voyage
  */
+
 @Entity
 @Table(name = "subscription")
-public class Subscription implements Serializable {
+public class Subscription implements IUserSavedVessel {
 
     /**
      * ID to uniquely identify a Subscription.
      * Auto-generated and auto-incremented
      * by database.
      */
-    @Id private int id;
+    @Id 
+    private int id;
 
     /**
      * ID that uniquely identifies a User.

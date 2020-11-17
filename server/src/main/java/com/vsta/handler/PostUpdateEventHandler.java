@@ -4,35 +4,42 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.vsta.dto.UserDTO;
-import com.vsta.model.User;
 import com.vsta.service.SubscriptionService;
-import com.vsta.service.UserService;
 import com.vsta.utility.MailUtil;
 
 import org.hibernate.event.spi.PostUpdateEvent;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * Event handler class that acquires the DB POST UPDATE Event from our Executor
- * Service Factory instance. It contains methods that will find the subbed users
- * to a vessel update in the db update event. It will then send them an email on
- * the changes extract from the DB update event object.
+ * Event handler class that acquires the database Post Update Event from our
+ * Executor Service Factory instance. It contains methods that will find the
+ * subbed users to a vessel update in the database update event. It will then
+ * send them an email on the changes extract from the database update event
+ * object.
  */
 @Component
 public class PostUpdateEventHandler {
 
     protected PostUpdateEvent event;
 
-    @Autowired
-    private UserService userService;
-
+    /**
+     * Create event.
+     * 
+     * @param event Database Post Update Event
+     */
     public final void register(PostUpdateEvent event) {
         this.event = event;
     }
 
+    /**
+     * Execute the sending of subscription notification using a common protocol
+     * 
+     * @param service  SubscriptionService
+     * @param mailUtil Class that allows sending of email
+     * @return Runnable that executes the code
+     */
     @Bean
     @Scope("prototype")
     public Runnable newRunnable(final SubscriptionService service, final MailUtil mailUtil) {
@@ -54,9 +61,8 @@ public class PostUpdateEventHandler {
                 for (UserDTO user : users) {
                     String subject = "Changes to vessel detail: " + uniqueId;
 
-                    String content = "Details of the vessel: " + uniqueId + " has changed.\n\n" +
-                            changes + "\n";
-                    
+                    String content = "Details of the vessel: " + uniqueId + " has changed.\n\n" + changes + "\n";
+
                     HashMap<String, String> emailContent = mailUtil.getEmailContent(user, subject, content);
                     mailUtil.sendEmail(emailContent);
                 }

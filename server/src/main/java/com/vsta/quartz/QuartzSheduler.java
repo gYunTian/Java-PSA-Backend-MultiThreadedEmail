@@ -3,20 +3,8 @@
 //https://dzone.com/articles/adding-quartz-to-spring-boot
 package com.vsta.quartz;
 
-import java.io.IOException;
-import java.util.Properties;
-
-import com.vsta.config.AutoWiringSpringBeanJobFactory;
-
-import org.quartz.CronScheduleBuilder;
-import org.quartz.CronTrigger;
-import org.quartz.Job;
-import org.quartz.JobBuilder;
-import org.quartz.JobDetail;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.Trigger;
-import org.quartz.TriggerBuilder;
+import com.vsta.configuration.AutoWiringSpringBeanJobFactory;
+import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.ApplicationContext;
@@ -26,10 +14,12 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 
+import java.io.IOException;
+import java.util.Properties;
+
 /**
  * This class contains all the methods required for setting up and controlling
  * of Quartz job
- * 
  */
 
 @Configuration
@@ -42,9 +32,10 @@ public class QuartzSheduler {
     private ApplicationContext applicationContext;
 
     /**
-     * The SpringBeanJobFactory provides support for injecting the scheduler
-     * context, job data map, and trigger data entries as properties into the job
-     * bean while creating an instance. Taken from baeldung.
+     * Uses AutoWiringSpringBeanJobFactory class to inject quartz objects such
+     * as scheduler context, job data map, and trigger data entries as properties
+     * from applicationContext into the job bean while creating an instance.
+     * @return SpringBeanJobFactory
      */
     @Bean
     public SpringBeanJobFactory springBeanJobFactory() {
@@ -56,6 +47,11 @@ public class QuartzSheduler {
     /**
      * The Scheduler is used to register quartz jobs and trigger. Once registered,
      * the jobs can be executed based on the trigger.
+     * @param trigger Trigger object
+     * @param job JobDetail object
+     * @param factory SchedulerFactoryBean object
+     * @return Scheduler object
+     * @throws SchedulerException Exception if any is thrown
      */
     @Bean
     public Scheduler scheduler(Trigger trigger, JobDetail job, SchedulerFactoryBean factory) throws SchedulerException {
@@ -69,9 +65,8 @@ public class QuartzSheduler {
      * Spring's SchedulerFactoryBean provides bean-style usage for configuring a
      * Scheduler, manages its life-cycle within the application context, and exposes
      * the Scheduler as a bean for dependency injection. Taken from baeldung.
-     * 
-     * @return
-     * @throws IOException
+     * @return SchedulerFactoryBean object
+     * @throws IOException Exception if any is thrown
      */
     @Bean
     public SchedulerFactoryBean schedulerFactoryBean() throws IOException {
@@ -83,6 +78,8 @@ public class QuartzSheduler {
 
     /**
      * This method loads variables inside the quartz.properties file.
+     * @return Properties
+     * @throws IOException Exception if any is thrown
      */
     public Properties quartzProperties() throws IOException {
         PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();
@@ -93,6 +90,7 @@ public class QuartzSheduler {
 
     /**
      * This method defines, builds and return the job detail.
+     * @return JobDetail object
      */
     @Bean
     public JobDetail jobADetails() {
@@ -102,9 +100,8 @@ public class QuartzSheduler {
 
     /**
      * This method defines, builds and return the job trigger.
-     * 
-     * @param job
-     * @return
+     * @param job contains the details properties of a Job instance.
+     * @return CronTrigger
      */
     @Bean
     public CronTrigger jobATrigger(JobDetail job) {
@@ -119,11 +116,9 @@ public class QuartzSheduler {
     }
 
     /**
-     * Getter method to retrieve job trigger. This method allows for custom
-     * interval.
-     * 
-     * @param interval
-     * @param JobDetail
+     * Getter method to retrieve job trigger. This method allows for custom interval.
+     * @param job contains the details properties of a Job instance.
+     * @param interval String representing the job interval.
      * @return trigger
      */
     public CronTrigger getTrigger(JobDetail job, String interval) {
@@ -133,13 +128,20 @@ public class QuartzSheduler {
 
     /**
      * Getter method to retrieve job details.
-     * 
-     * @param jobType
-     * @param JobDetail
-     * @return job detail
+     * Calls the JobBuilder method from Quartz
+     * Scheduler to create a JobBuilder, containing
+     * the job details and the class name of the
+     * Job to be executed. The JobBuilder is then
+     * built and produced JobDetail.
+     * @param jobType type of job to be executed.
+     * @return JobDetail contains the details
+     *         properties of a Job instance.
      */
     public JobDetail getJobDetail(Class<? extends Job> jobType) {
-        return JobBuilder.newJob(jobType).withIdentity("myJob").storeDurably().withDescription("Invokes job service...")
+        return JobBuilder.newJob(jobType)
+                .withIdentity("myJob")
+                .storeDurably()
+                .withDescription("Invokes job service...")
                 .build();
     }
 
