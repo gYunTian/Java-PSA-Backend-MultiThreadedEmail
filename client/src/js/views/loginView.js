@@ -14,7 +14,14 @@ export const addSpinner = () => {
   elements.modalBox.innerHTML = `
     <h2 class="reset-title">Sending email, please wait...</h2>
     <div class="spinner"></div>
+    <span class="modal-close" id="modal-close-btn">X</span>
   `;
+
+  document.querySelector('.modal-close').addEventListener('click', e => {
+    elements.modalBg.classList.remove('bg-active');
+
+    location.reload();
+  });
 };
 
 export const removeSpinnerAddMsg = msg => {
@@ -40,6 +47,10 @@ export const addSpinner2 = () => {
     <h2 class="load-title">Changing Password, please wait...</h2>
     <div class="spinner-2"></div>
   `;
+
+  document.querySelector('.modal-close-2').addEventListener('click', e => {
+    elements.modalBg2.classList.remove('bg-active-2');
+  });
 };
 
 export const removeSpinnerAddMsg2 = msg => {
