@@ -19,7 +19,6 @@ export const addSpinner = () => {
 
   document.querySelector('.modal-close').addEventListener('click', e => {
     elements.modalBg.classList.remove('bg-active');
-
     location.reload();
   });
 };
@@ -32,7 +31,7 @@ export const removeSpinnerAddMsg = msg => {
 
   document.querySelector('.modal-close').addEventListener('click', e => {
     elements.modalBg.classList.remove('bg-active');
-
+    
     location.reload();
   });
 };
@@ -46,6 +45,7 @@ export const addSpinner2 = () => {
   elements.modalBox2.innerHTML = `
     <h2 class="load-title">Changing Password, please wait...</h2>
     <div class="spinner-2"></div>
+    <span class="modal-close-2" id="modal-close-btn">X</span>
   `;
 
   document.querySelector('.modal-close-2').addEventListener('click', e => {
