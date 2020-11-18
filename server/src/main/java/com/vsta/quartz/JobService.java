@@ -24,8 +24,8 @@ import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Quartz job service. This class contains methods required to perform project
- * functional requirement: 1), 2), 3)
+ * Quartz job service. This class contains methods required to perform project's
+ * 1st, 2nd and 3rd functional requirements for Servery Application.
  */
 
 @JsonInclude(Include.NON_DEFAULT)
@@ -88,9 +88,10 @@ public class JobService {
      * A private and customized method that makes a POST request and parse the
      * results. It uses the static methods from HttpUtil class.
      *
-     * @param requestJson
-     * @param apiKey
-     * @return JSON ARRAY
+     * @param requestJson request information needed for fetching of data
+       *                   in json format
+     * @param apiKey      the apikey that will be used to fetch data
+     * @return jsonArray of the fetched vessel data
      */
     private JsonArray PostAndParse(String requestJson, String apiKey) {
       HttpEntity<String> request = HttpUtil.getHttpEntity(requestJson, apiKey);
@@ -126,7 +127,7 @@ public class JobService {
   /**
    * A private and customized status printer.
    *
-   * @param message
+   * @param message containing the status of the quartz job
    */
   private void printStatus(String message) {
     LocalDateTime now = LocalDateTime.now();
@@ -137,11 +138,11 @@ public class JobService {
   }
 
   /**
-   * A priavte and customized method that maps a JSON array to Java List of Vessel
+   * A private and customized method that maps a JSON array to Java List of Vessel
    * type.
    *
-   * @param jsonArray
-   * @return List<Vessel>
+   * @param jsonArray immutable json array of the fetched vessel data
+   * @return List<Vessel> list of vessel objects
    */
   private List<Vessel> mapVessels(JsonArray jsonArray) {
     // extract values from json

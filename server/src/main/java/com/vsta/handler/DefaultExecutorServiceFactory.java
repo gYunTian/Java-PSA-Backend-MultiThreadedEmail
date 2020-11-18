@@ -31,9 +31,6 @@ public class DefaultExecutorServiceFactory {
     private ExecutorService service;
 
     /**
-     *
-     */
-    /**
      * Getter method for threadpoolsize
      * @return threadPoolSize Number representing size of threadpool
      */

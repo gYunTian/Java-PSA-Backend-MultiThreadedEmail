@@ -35,7 +35,7 @@ public class QuartzSheduler {
      * Uses AutoWiringSpringBeanJobFactory class to inject quartz objects such
      * as scheduler context, job data map, and trigger data entries as properties
      * from applicationContext into the job bean while creating an instance.
-     * @return SpringBeanJobFactory
+     * @return SpringBeanJobFactory to be used to inject properties for job
      */
     @Bean
     public SpringBeanJobFactory springBeanJobFactory() {
@@ -47,8 +47,9 @@ public class QuartzSheduler {
     /**
      * The Scheduler is used to register quartz jobs and trigger. Once registered,
      * the jobs can be executed based on the trigger.
-     * @param trigger Trigger object
-     * @param job JobDetail object
+     * @param trigger Trigger object that will trigger the execution of the job
+     * @param job     JobDetail object that contains the details properties of a Job
+     *                instance.
      * @param factory SchedulerFactoryBean object
      * @return Scheduler object
      * @throws SchedulerException Exception if any is thrown
@@ -78,7 +79,7 @@ public class QuartzSheduler {
 
     /**
      * This method loads variables inside the quartz.properties file.
-     * @return Properties
+     * @return Properties for the quartz job such as api key and url
      * @throws IOException Exception if any is thrown
      */
     public Properties quartzProperties() throws IOException {
@@ -89,8 +90,11 @@ public class QuartzSheduler {
     }
 
     /**
-     * This method defines, builds and return the job detail.
-     * @return JobDetail object
+     * Getter method to retrieve job details for only Quartz Job.
+     * Calls the JobBuilder method from Quartz Scheduler to create a JobBuilder,
+     * containing the job details and the class name of the Job to be executed.
+     * The JobBuilder is then built and produced JobDetail.
+     * @return JobDetail contains the details properties of a Job instance
      */
     @Bean
     public JobDetail jobADetails() {
@@ -100,8 +104,8 @@ public class QuartzSheduler {
 
     /**
      * This method defines, builds and return the job trigger.
-     * @param job contains the details properties of a Job instance.
-     * @return CronTrigger
+     * @param job contains the details properties of a Job instance
+     * @return Trigger object that will trigger the execution of the job
      */
     @Bean
     public CronTrigger jobATrigger(JobDetail job) {
@@ -117,9 +121,9 @@ public class QuartzSheduler {
 
     /**
      * Getter method to retrieve job trigger. This method allows for custom interval.
-     * @param job contains the details properties of a Job instance.
-     * @param interval String representing the job interval.
-     * @return trigger
+     * @param job contains the details properties of a Job instance
+     * @param interval String representing the job interval
+     * @return Trigger object that will trigger the execution of the job
      */
     public CronTrigger getTrigger(JobDetail job, String interval) {
         return TriggerBuilder.newTrigger().forJob(job).withIdentity("myTrigger").startNow()
@@ -127,15 +131,11 @@ public class QuartzSheduler {
     }
 
     /**
-     * Getter method to retrieve job details.
-     * Calls the JobBuilder method from Quartz
-     * Scheduler to create a JobBuilder, containing
-     * the job details and the class name of the
-     * Job to be executed. The JobBuilder is then
-     * built and produced JobDetail.
-     * @param jobType type of job to be executed.
-     * @return JobDetail contains the details
-     *         properties of a Job instance.
+     * Getter method to retrieve job details for any job type.
+     * Similar to jobADetails() method, it calls the JobBuilder method from Quartz
+     * Scheduler to create a JobBuilder which is then built and produced JobDetail.
+     * @param jobType type of job to be executed
+     * @return JobDetail contains the details properties of a Job instance
      */
     public JobDetail getJobDetail(Class<? extends Job> jobType) {
         return JobBuilder.newJob(jobType)

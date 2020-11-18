@@ -37,6 +37,9 @@ public class SubscriptionService {
 
     final String unSubErrorMsg = "Voyage unsubscription unsuccessful - subscription does not exist";
 
+    final String subSuccessMsg = "Voyage subscribed successfully";
+    final String unSubSuccessMsg = "Voyage unsubscribed successfully";
+
     /**
      * Check if Subscription object can be saved in database.
      * @param subscription object to be save in database.
@@ -76,7 +79,7 @@ public class SubscriptionService {
         }
 
         subscriptionDao.save(subscription);
-        return ResponseEntity.ok("Voyage subscribed successful");
+        return ResponseEntity.ok(subSuccessMsg);
     }
 
     /**
@@ -99,12 +102,12 @@ public class SubscriptionService {
         String voyageId = subscription.getVoyageId();
 
         List<Subscription> subscriptionList = subscriptionDao.findSubscriptionByUserIdAndVoyageId(userId, voyageId);
-        if (subscriptionList.size() == 0){
+        if (subscriptionList == null || subscriptionList.size() == 0){
             return new ResponseEntity<>(unSubErrorMsg, HttpStatus.BAD_REQUEST);
         }
 
         subscriptionDao.deleteByUserIdAndVoyageId(userId, voyageId);
-        return ResponseEntity.ok("Voyage unsubscription successful");
+        return ResponseEntity.ok(unSubSuccessMsg);
     }
 
     /**

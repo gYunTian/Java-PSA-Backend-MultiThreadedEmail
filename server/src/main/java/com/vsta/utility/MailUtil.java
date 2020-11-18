@@ -44,7 +44,7 @@ public class MailUtil {
         /**
          * An overloaded method to send email to user.
          * 
-         * @param UserDTO  UserDTO object representing the recipient.
+         * @param user  UserDTO object, including name and email of the recipient, .
          * @param subject  Subject header for the email.
          * @param partBody Body of the email excluding greetings and sign off.
          * @return ResponseEntity with a status code and message indicating that mail

@@ -27,17 +27,17 @@ public class FavouriteService {
     private VesselService vesselService;
 
 
-    final String subErrorMsgPrefix = "Voyage favourite unsuccessful - ";
-    final String unSubErrorMsgPrefix = "Voyage unfavourite unsuccessful - ";
+    final String favErrorMsgPrefix = "Voyage favourite unsuccessful - ";
+    final String unFavErrorMsgPrefix = "Voyage unfavourite unsuccessful - ";
 
-    final String subNonExistentUserMsg = subErrorMsgPrefix + "user does not exist";
-    final String subNonExistentVoyageMsg = subErrorMsgPrefix + "voyage does not exist";
-    final String subExistingSubMsg = subErrorMsgPrefix + "favourite already exists";
+    final String favNonExistentUserMsg = favErrorMsgPrefix + "user does not exist";
+    final String favNonExistentVoyageMsg = favErrorMsgPrefix + "voyage does not exist";
+    final String favExistingSubMsg = favErrorMsgPrefix + "favourite already exists";
 
-    final String unSubNonExistentFavouriteMsg = unSubErrorMsgPrefix + "favourite does not exist";
+    final String unFavNonExistentFavouriteMsg = unFavErrorMsgPrefix + "favourite does not exist";
 
-    final String subSuccessMsg = "Voyage favourited successfully";
-    final String unSubSuccessMsg = "Voyage unfavourited successfully";
+    final String favSuccessMsg = "Voyage favourited successfully";
+    final String unFavSuccessMsg = "Voyage unfavourited successfully";
 
     /**
      * Check if Favourite object can be saved in database.
@@ -49,16 +49,16 @@ public class FavouriteService {
 
         int userId = favourite.getUserId();
         if (userService.getUserById(userId) == null){
-            return new ResponseEntity<>(subNonExistentUserMsg, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(favNonExistentUserMsg, HttpStatus.BAD_REQUEST);
         }
         String voyageId = favourite.getVoyageId();
         if (vesselService.getVesselByUniqueId(voyageId) == null){
-            return new ResponseEntity<>(subNonExistentVoyageMsg, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(favNonExistentVoyageMsg, HttpStatus.BAD_REQUEST);
         }
 
         List<Favourite> favouriteList = favouriteDao.findFavouriteByUserIdAndVoyageId(userId, voyageId);
         if (favouriteList.size() >= 1){
-            return new ResponseEntity<>(subExistingSubMsg, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(favExistingSubMsg, HttpStatus.BAD_REQUEST);
         }
 
         return null;
@@ -78,7 +78,7 @@ public class FavouriteService {
         }
 
         favouriteDao.save(favourite);
-        return ResponseEntity.ok(subSuccessMsg);
+        return ResponseEntity.ok(favSuccessMsg);
     }
 
     /**
@@ -101,11 +101,11 @@ public class FavouriteService {
         String voyageId = favourite.getVoyageId();
 
         List<Favourite> favouriteList = favouriteDao.findFavouriteByUserIdAndVoyageId(userId, voyageId);
-        if (favouriteList.size() == 0){
-            return new ResponseEntity<>(unSubNonExistentFavouriteMsg, HttpStatus.BAD_REQUEST);
+        if (favouriteList == null || favouriteList.size() == 0){
+            return new ResponseEntity<>(unFavNonExistentFavouriteMsg, HttpStatus.BAD_REQUEST);
         }
         favouriteDao.deleteByUserIdAndVoyageId(userId, voyageId);
-        return ResponseEntity.ok(unSubSuccessMsg);
+        return ResponseEntity.ok(unFavSuccessMsg);
     }
 
 }

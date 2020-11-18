@@ -36,7 +36,8 @@ public class PostUpdateEventHandler {
     /**
      * Execute the sending of subscription notification using a common protocol
      * 
-     * @param service  SubscriptionService
+     * @param service  SubscriptionService to access DAO methods
+     *                 for subscriptions
      * @param mailUtil Class that allows sending of email
      * @return Runnable that executes the code
      */

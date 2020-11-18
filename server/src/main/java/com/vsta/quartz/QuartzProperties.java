@@ -9,9 +9,9 @@ import java.time.LocalDate;
 
 /**
  * Represents the external configuration properties required for scheduling of
- * quartz jobs The Input are from reload.properties file and uses the following
- * PREFIX: spring.quartz.properties Consists of getter methods to retrieve the
- * properties
+ * quartz jobs. The Input are from reload.properties file and uses the following
+ * PREFIX: spring.quartz.properties, This class consists of getter methods to
+ * retrieve the properties
  */
 
 @Component
@@ -33,7 +33,7 @@ public class QuartzProperties {
     private LocalDate dateFrom = LocalDate.now();
 
     /**
-     * DateTo variable with encoded JSON pattern and timezone. ThIs variable
+     * DateTo variable with encoded JSON pattern and timezone. This variable
      * represents the to part in a date range.
      */
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT")
@@ -41,7 +41,7 @@ public class QuartzProperties {
 
     /**
      * Gets the interval value in the properties file
-     * @return String - Quartz job Cron interval
+     * @return Quartz job Cron interval in String format
      */
     public String getInterval() {
         return environment.getProperty(PREFIX + "interval");
@@ -49,7 +49,7 @@ public class QuartzProperties {
 
     /**
      * Gets the enabled value in the properties file
-     * @return Boolean - Quartz job enabled value
+     * @return Quartz job enabled value in boolean format
      */
     public Boolean isEnabled() {
         try {
@@ -63,7 +63,7 @@ public class QuartzProperties {
 
     /**
      * Gets the api key value in the properties file
-     * @return String - target api key
+     * @return Target api key in String format
      */
     public String getApiKey() {
         return environment.getProperty(PREFIX + "apiKey");
@@ -71,7 +71,7 @@ public class QuartzProperties {
 
     /**
      * Gets the api url value in the properties file
-     * @return String - target api url
+     * @return Target api url in String format
      */
     public String getApiURL() {
         return environment.getProperty(PREFIX + "apiUrl");
@@ -80,7 +80,7 @@ public class QuartzProperties {
     /**
      * Gets the plus days value in the properties file. This variable represents the
      * days 'gap' inbetween a date range.
-     * @return int - plus days
+     * @return number of plus days in int format
      */
     public int getPlusDays() {
         try {
@@ -93,16 +93,18 @@ public class QuartzProperties {
     }
 
     /**
-     * Gets the private dateFrom instance variable.
-     * @return LocalDate - dateFrom
+     * Gets the private dateFrom instance variable specifying the date to start
+     * retrieving data from api.
+     * @return dateFrom in LocalDate format
      */
     public LocalDate getDateFrom() {
         return dateFrom;
     }
 
     /**
-     * Gets the private daateTo instance variable.
-     * @return LocalDate - dateTo
+     * Gets the private dateTo instance variable specifying the date to stop
+     * retrieving data from api.
+     * @return dateTo in LocalDate format.
      */
     public LocalDate getDateTo() {
         return dateTo = dateFrom.plusDays(this.getPlusDays());
@@ -110,7 +112,7 @@ public class QuartzProperties {
 
     /**
      * Gets the reload quartz job interval value in the properties file..
-     * @return boolean - isReloadInterval
+     * @return isReloadInterval in boolean format
      */
     public boolean isReloadInterval() {
         try {
