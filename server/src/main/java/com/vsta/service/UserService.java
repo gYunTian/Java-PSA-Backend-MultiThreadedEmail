@@ -159,11 +159,9 @@ public class UserService {
         // not empty, proceed
         User existingUser = getUserByEmail(email);
 
-        ResponseEntity<String> invalidResponse = invalidRegistrationResponse(email);
-        if (invalidResponse != null) {
-            return invalidResponse;
+        if (!email.contains("@")) {
+            return new ResponseEntity<>(invalidEmailMsg, HttpStatus.BAD_REQUEST);
         }
-
         if (existingUser == null) {
             return new ResponseEntity<>(nonExistentEmailMsg, HttpStatus.BAD_REQUEST);
         }
