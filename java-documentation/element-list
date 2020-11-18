@@ -1,10 +1,12 @@
 com.vsta
-com.vsta.config
+com.vsta.configuration
 com.vsta.controller
 com.vsta.dao
 com.vsta.dto
-com.vsta.entity
 com.vsta.handler
 com.vsta.listener
+com.vsta.model
 com.vsta.quartz
 com.vsta.service
+com.vsta.utility
+com.vsta.utility.domain
