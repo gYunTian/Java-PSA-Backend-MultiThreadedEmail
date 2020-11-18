@@ -92,9 +92,10 @@ export const processData = data => {
     const berthTemp = new Date(bthgDt);
     const firstTemp = new Date(first_arrival);
     const degreeOfChange = Math.abs(firstTemp - berthTemp) / 36e5;
-    const { date: departureDate, time: departureTime } = timeToString(
+    let { date: departureDate, time: departureTime } = timeToString(
       new Date(unbthgDt)
     );
+    departureTime = `${departureDate}, ${departureTime}`;
     const miniMap = {
       vesselName: abbrVslM,
       inVoyN,
@@ -127,6 +128,7 @@ export const timeToString = time => {
     timeStyle: 'short',
     hour12: false,
   });
+  toReturn.time = toReturn.time == '24:00' ? '00:00' : toReturn.time;
   return toReturn;
 };
 

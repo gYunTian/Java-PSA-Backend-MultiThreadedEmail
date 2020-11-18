@@ -74,7 +74,7 @@ export const renderFavOrSub = (data, sortReq, favsArr, subsArr, type) => {
                     filteredData.push({
                         ...item,
                         berthingTime: `${date}, ${item.berthingTime}`,
-                        departureTime: `${date}, ${item.departureTime}`,
+                        departureTime: item.departureTime,
                     });
                 }
             } else if (type == 'subscriptions') {
@@ -82,6 +82,7 @@ export const renderFavOrSub = (data, sortReq, favsArr, subsArr, type) => {
                     filteredData.push({
                         ...item,
                         berthingTime: `${date}, ${item.berthingTime}`,
+                        departureTime: item.departureTime
                     });
                 }
             }
