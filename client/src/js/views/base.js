@@ -37,8 +37,6 @@ export const elements = {
 
 const ENDPOINT = 'http://localhost:8080/api';
 
-const CORS = 'https://cors-anywhere.herokuapp.com';
-
 export const APIs = {
   registerUser: `${ENDPOINT}/registerUser`,
   loginUser: `${ENDPOINT}/loginUser`, // *Using this to authenticate users

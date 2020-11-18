@@ -57,7 +57,6 @@ export default class User {
   // *Request token
   async requestToken(email) {
     const serviceURL = `${APIs.requestToken}?email=${email}`;
-    console.log({ serviceURL });
     try {
       const result = await axios({
         method: 'POST',
@@ -73,9 +72,8 @@ export default class User {
   }
 
   // *Reset password
-  async resetPassword(email, token, newPasswordord) {
+  async resetPassword(email, token, newPassword) {
     const serviceURL = `${APIs.resetPassword}`;
-    console.log(serviceURL);
     try {
       const result = await axios({
         method: 'PUT',
@@ -83,11 +81,10 @@ export default class User {
         data: {
           email,
           token,
-          newPasswordord,
+          newPassword,
         },
         headers,
       });
-      console.log(result.data);
       this.changePwStatus = result.status;
       this.changePwResponse = result.data;
     } catch (err) {

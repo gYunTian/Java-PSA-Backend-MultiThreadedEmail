@@ -8,7 +8,7 @@ import { elements } from './views/base';
 import User from './models/User';
 
 const state = {};
-console.log({ state });
+// console.log({ state });
 
 // *Perform tasks after page loads
 window.addEventListener('load', () => {
@@ -85,44 +85,6 @@ elements.signUpBtn.addEventListener('click', e => {
   controlSignUp();
 });
 
-// *Control reset
-const controlToken = async () => {
-  const email = prompt('Please enter your login email:');
-  if (email) {
-    state.user = new User();
-    resetView.addLoadBlock();
-    try {
-      await state.user.requestToken(email);
-    } catch (err) {
-      console.log(`Error at controlToken requestToken(): ${err}`);
-    }
-    resetView.removeLoadBlock();
-  } else {
-    alert('Email cannot be empty');
-  }
-};
-
-// *Control reset
-const controlReset = async () => {
-  const token = prompt('Please enter your token:');
-  const newPw = prompt('Please enter your new password:');
-  const confirmNewPw = prompt('please confirm your new passowrd');
-  if (!token || !newPw || !confirmNewPw) {
-    alert('Fields cannot be empty.');
-  } else if (newPw != confirmNewPw) {
-    alert("New passwords don't match.");
-  } else {
-    state.user = new User();
-    resetView.addLoadBlock();
-    try {
-      await state.user.resetPassword(token, newPw);
-    } catch (err) {
-      console.log(`Error at controlReset resetPassword(): ${err}`);
-    }
-    resetView.removeLoadBlock();
-  }
-};
-
 // *controlRequestResetEmail
 const controlRequestResetEmail = async () => {
   const resetEmail = loginView.getResetEmail();
@@ -134,8 +96,6 @@ const controlRequestResetEmail = async () => {
       loginView.removeSpinnerAddMsg(state.user.requestTokenResponse);
     } else {
       loginView.removeSpinnerAddMsg(state.user.requestTokenErrMsg);
-
-      console.log(state.user.requestTokenErrMsg);
     }
   } catch (err) {
     console.log(`Error at controlRequestResetEmail: ${err}`);
@@ -166,9 +126,7 @@ elements.modalCloseBtn2.addEventListener('click', e => {
 // *controlNewPwFields
 const controlNewPwFields = urlString => {
   const email = urlString.split('&')[0].split('=')[1];
-  console.log(email);
   const token = urlString.split('&')[1].split('=')[1];
-  console.log(token);
 
   elements.modalBg2.classList.add('bg-active-2');
 
@@ -190,8 +148,6 @@ const controlChangePw = async () => {
         loginView.removeSpinnerAddMsg2(state.user.changePwResponse);
       } else {
         loginView.removeSpinnerAddMsg2(state.user.changePwErrMsg);
-
-        console.log(state.user.requestTokenErrMsg);
       }
     } catch (err) {
       loginView.removeSpinnerAddMsg2(

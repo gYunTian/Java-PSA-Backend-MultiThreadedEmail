@@ -1,6 +1,6 @@
 import { elements, clearSpinner } from './views/base';
 
-import { data, processData } from './data/data';
+// import { data, processData } from './data/data';
 
 import * as navView from './views/navView';
 import * as selectionView from './views/selectionView';
@@ -10,7 +10,7 @@ import Favourite from './models/Favourite';
 import Subscription from './models/Subscription';
 
 const state = {};
-console.log({ state });
+// console.log({ state });
 
 // *Perform tasks after page loads
 window.addEventListener('load', async () => {
@@ -82,7 +82,6 @@ elements.signOutBtn.addEventListener('click', e => {
 
 // *Control vessel (Get data into state and format it)
 const controlVessel = async () => {
-    console.log('Refetching vessel data...');
     // *Get date range from state
     const startDate = state.time.dateRange[0][0];
     const endDate = state.time.dateRange[7][0];
@@ -166,7 +165,6 @@ window.addEventListener('hashchange', e => {
 elements.dataTableHead.addEventListener('click', e => {
     const sortBtnClicked = e.target.closest('.btn-sort');
     if (sortBtnClicked) {
-        console.log(sortBtnClicked);
         const by = sortBtnClicked.getAttribute('sortby');
         const order = sortBtnClicked.getAttribute('order');
         const namingArr = sortBtnClicked.innerHTML.split(' ');
