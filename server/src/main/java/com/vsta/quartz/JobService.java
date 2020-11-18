@@ -50,11 +50,11 @@ public class JobService {
 
       // create request body
       // gets date range from reload.properties file
-      // String requestJson = "{\"dateFrom\":\"" + prop.getDateFrom() + "\", \"dateTo\":\"" + prop.getDateTo() + "\"}";
+      String requestJson = "{\"dateFrom\":\"" + prop.getDateFrom() + "\", \"dateTo\":\"" + prop.getDateTo() + "\"}";
       // String requestJson = "{\"dateFrom\":\"" + "2020-11-08" + "\", \"dateTo\":\""
       // + "2020-11-10" + "\"}";
-      String requestJson = "{\"dateFrom\":\"" + "2020-09-08" + "\", \"dateTo\":\""
-      + "2020-09-14" + "\"}";
+      // String requestJson = "{\"dateFrom\":\"" + "2020-09-08" + "\", \"dateTo\":\""
+      // + "2020-09-14" + "\"}";
 
       printStatus("Sending Post request");
       // parse json array
