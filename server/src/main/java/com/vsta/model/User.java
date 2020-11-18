@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -205,6 +207,20 @@ public class User {
         return String.format(
                 "User [id=%d, name=%s, email=%s, password=%s, token=%s]",
                 id, name, email, password, token);
+    }
+
+    /**
+     * Gets all the fields specified by the User.
+     * @return  HashMap containing the user-
+     *          specified name, email and
+     *          password.
+     */
+    public Map<String,String> getAll() {
+        Map<String,String> attributes = new HashMap<>();
+        attributes.put("name", name);
+        attributes.put("email", email);
+        attributes.put("password", password);
+        return attributes;
     }
 
 }

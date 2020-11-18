@@ -36,6 +36,7 @@ public class UserService {
 
     final String duplicateEmailMsg = errorMsgPrefix + "email already exists";
     final String unacceptedDomainMsg = errorMsgPrefix + "email domain not accepted";
+    final String invalidEmailMsg = errorMsgPrefix + "email invalid";
 
     final String nonExistentEmailMsg = errorMsgPrefix + "email not registered";
 
@@ -48,6 +49,10 @@ public class UserService {
      *          400 status code if invalid, else null.
      */
     private ResponseEntity<String> invalidRegistrationResponse(String email) {
+
+        if (!email.contains("@")) {
+            return new ResponseEntity<>(invalidEmailMsg, HttpStatus.BAD_REQUEST);
+        }
 
         User existingUser = getUserByEmail(email);
         if (existingUser != null) {
@@ -68,15 +73,15 @@ public class UserService {
      *          indicating if user is added successfully.
      */
     public ResponseEntity<String> saveUser(User user) {
-        String email = user.getEmail();
 
-        // if empty, don't allow perform other checks
-        ResponseEntity<String> emptyFieldsResponse = ValidationUtil.emptyStringResponse(email, "email", errorMsgPrefix);
+        // if empty fields, don't allow perform other checks
+        ResponseEntity<String> emptyFieldsResponse = ValidationUtil.emptyFieldsResponse(user.getAll(), errorMsgPrefix);
         if (emptyFieldsResponse != null) {
             return emptyFieldsResponse;
         }
 
         // not empty, proceed
+        String email = user.getEmail();
         // if invalid, don't allow user to register
         ResponseEntity<String> invalidResponse = invalidRegistrationResponse(email);
         if (invalidResponse != null) {
@@ -153,6 +158,11 @@ public class UserService {
 
         // not empty, proceed
         User existingUser = getUserByEmail(email);
+
+        ResponseEntity<String> invalidResponse = invalidRegistrationResponse(email);
+        if (invalidResponse != null) {
+            return invalidResponse;
+        }
 
         if (existingUser == null) {
             return new ResponseEntity<>(nonExistentEmailMsg, HttpStatus.BAD_REQUEST);
