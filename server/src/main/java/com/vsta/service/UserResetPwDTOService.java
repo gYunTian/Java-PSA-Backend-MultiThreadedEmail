@@ -24,6 +24,7 @@ public class UserResetPwDTOService {
 
     final String nonExistentEmailMsg = errorMsgPrefix + "email not registered";
     final String wrongTokenMsg = errorMsgPrefix + "wrong token";
+    final String noTokenMsg = errorMsgPrefix + "no token";
 
     final String successMsg = "Password reset successful";
 
@@ -38,6 +39,10 @@ public class UserResetPwDTOService {
 
         if (existingUser == null) {
             return new ResponseEntity<>(nonExistentEmailMsg, HttpStatus.BAD_REQUEST);
+        }
+
+        if (existingUser.getToken() == null) {
+            return new ResponseEntity<>(noTokenMsg, HttpStatus.BAD_REQUEST);
         }
 
         if (!existingUser.getToken().equals(tokenGiven)) {
