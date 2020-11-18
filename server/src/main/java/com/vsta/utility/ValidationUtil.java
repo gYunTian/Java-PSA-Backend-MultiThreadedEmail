@@ -27,7 +27,7 @@ public class ValidationUtil {
      */
     public static ResponseEntity<String> emptyStringResponse(String attribute, String attributeName, String errorMsgPrefix) {
 
-        if (attribute == null || attribute.length() == 0) {
+        if (attribute == null || attribute.length() == 0 || attribute.charAt(0) == ' ') {
             return new ResponseEntity<>(
                     String.format(errorMsgPrefix + emptyMsgTemplate, attributeName),
                     HttpStatus.BAD_REQUEST);
