@@ -31,12 +31,6 @@ public class UserService {
     @Autowired
     private StandardEnvironment environment;
 
-    /**
-     * Constant variable that contains the file name.
-     */
-    private static final String PREFIX = "url.";
-
-
     final String errorMsgPrefix = "Registration unsuccessful - ";
 
     final String duplicateEmailMsg = errorMsgPrefix + "email already exists";
@@ -169,7 +163,7 @@ public class UserService {
         // construct email
         String subject = "Vsta Account Password Reset";
 
-        String link = environment.getProperty(PREFIX + "properties") + "?email=" + email +
+        String link = environment.getProperty("url") + "?email=" + email +
                 "&token=" + existingUser.getToken();
 
         String body = "We received a request to reset the password of your Vsta account.\n\n" +
