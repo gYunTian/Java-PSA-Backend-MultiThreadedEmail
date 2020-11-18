@@ -25,7 +25,8 @@ public class HibernateListenerConfig {
 
     /**
      * Assigns an update listener object to its instance variable.
-     * @param updateListener Object which listens for database updates.
+     * @param updateListener Object which listens for database
+     *                       Post Update events.
      */
     @Autowired
     public HibernateListenerConfig(UpdateListener updateListener) {

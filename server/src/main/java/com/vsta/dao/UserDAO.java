@@ -20,12 +20,4 @@ public interface UserDAO extends JpaRepository<User, Integer> {
      */
     User findByEmail(String email);
 
-    /**
-     * Custom method to find User with specified token.
-     * @param token Generated token which verifies a
-     *              User for password reset requests.
-     * @return User object of indicated token.
-     */
-    User findByToken(String token);
-
 }

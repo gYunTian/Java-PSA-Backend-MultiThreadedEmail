@@ -21,7 +21,7 @@ public class DomainProperties {
     /**
      * Gets the list of accepted domains specified by
      * the admins and retrieved from reload.properties.
-     * @return List of accepted domains.
+     * @return  List of accepted domains.
      */
     public String[] getAcceptedDomains(){
         return environment.getProperty(PREFIX+"acceptedDomains", String[].class);

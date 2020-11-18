@@ -11,7 +11,7 @@ import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 
 /**
  * Auto-wiring support for quartz jobs. As
- * SpringBeanJobFactory do not support injecting
+ * SpringBeanJobFactory does not support injecting
  * of spring beans out from applicationContext,
  * this class is required to help to do so.
  */
@@ -23,7 +23,7 @@ public final class AutoWiringSpringBeanJobFactory extends SpringBeanJobFactory i
     /**
      * Sets the instance variable beanFactory.
      * @param applicationContext Bean factory methods for accessing application components.
-     * @throws BeansException Exception if any is thrown
+     * @throws BeansException Exception if any is thrown.
      */
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         beanFactory = applicationContext.getAutowireCapableBeanFactory();
@@ -31,9 +31,9 @@ public final class AutoWiringSpringBeanJobFactory extends SpringBeanJobFactory i
 
     /**
      * Creates and return a Object super type containing details about quartz job.
-     * @param triggerFiredBundle TriggerFiredBundle
-     * @return Job instance for Quartz
-     * @throws Exception Exception if any is thrown
+     * @param triggerFiredBundle TriggerFiredBundle object
+     * @return Job instance for Quartz.
+     * @throws Exception Exception if any is thrown.
      */
     @Override
     protected Object createJobInstance(final TriggerFiredBundle triggerFiredBundle) throws Exception {

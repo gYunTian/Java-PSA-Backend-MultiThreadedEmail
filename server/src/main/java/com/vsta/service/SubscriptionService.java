@@ -1,15 +1,14 @@
 package com.vsta.service;
 
-import java.util.List;
-
 import com.vsta.dao.SubscriptionDAO;
 import com.vsta.dto.UserDTO;
 import com.vsta.model.Subscription;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Subscription Service tasks that use DAO methods
@@ -28,14 +27,14 @@ public class SubscriptionService {
     @Autowired
     private VesselService vesselService;
 
-
+    // Response messages
     final String subErrorMsgPrefix = "Voyage subscription unsuccessful - ";
 
     final String nonExistentUserMsg = subErrorMsgPrefix + "user do not exist";
     final String nonExistentVoyageMsg = subErrorMsgPrefix + "voyage do not exist";
     final String existingSubMsg = subErrorMsgPrefix + "subscription already exist";
 
-    final String unSubErrorMsg = "Voyage unsubscription unsuccessful - subscription does not exist";
+    final String unsubErrorMsg = "Voyage unsubscription unsuccessful - subscription does not exist";
 
     final String subSuccessMsg = "Voyage subscribed successfully";
     final String unSubSuccessMsg = "Voyage unsubscribed successfully";
@@ -44,9 +43,9 @@ public class SubscriptionService {
      * Check if Subscription object can be saved in database.
      * @param subscription object to be save in database.
      * @return  ResponseEntity with an error message and
-     *          400 status code if invalid, else null
+     *          400 status code if invalid, else null.
      */
-    public ResponseEntity<String> invalidSubscriptionResponse(Subscription subscription) {
+    private ResponseEntity<String> invalidSubscriptionResponse(Subscription subscription) {
 
         int userId = subscription.getUserId();
         if (userService.getUserById(userId) == null){
@@ -103,7 +102,7 @@ public class SubscriptionService {
 
         List<Subscription> subscriptionList = subscriptionDao.findSubscriptionByUserIdAndVoyageId(userId, voyageId);
         if (subscriptionList == null || subscriptionList.size() == 0){
-            return new ResponseEntity<>(unSubErrorMsg, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(unsubErrorMsg, HttpStatus.BAD_REQUEST);
         }
 
         subscriptionDao.deleteByUserIdAndVoyageId(userId, voyageId);
@@ -115,8 +114,7 @@ public class SubscriptionService {
      * @param voyageId ID to uniquely identify a Voyage.
      * @return List of email strings of users subbed to indicated voyageId;
      */
-
-    public List<UserDTO> getSubs(String voyageId) {
+    public List<UserDTO> getSubscribers(String voyageId) {
         return subscriptionDao.findSubs(voyageId);
     }
 

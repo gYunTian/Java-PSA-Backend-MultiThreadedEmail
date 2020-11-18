@@ -20,7 +20,8 @@ public interface FavouriteDAO extends JpaRepository<Favourite, Integer> {
     /**
      * Custom method to find favourites by the user's ID.
      * @param userId ID to uniquely identify a User.
-     * @return Favourite array (empty list if no matching Favourite found)
+     * @return  List of Favourite objects of indicated
+     *          userId.
      */
     List<Favourite> findByUserId(int userId);
 
@@ -36,7 +37,8 @@ public interface FavouriteDAO extends JpaRepository<Favourite, Integer> {
      * Custom method to find if Favourite is in database.
      * @param userId ID to uniquely identify a User.
      * @param voyageId ID to uniquely identify a Voyage.
-     * @return List of Favourite objects of indicated userId and voyageId.
+     * @return  List of Favourite objects of indicated
+     *          userId and voyageId.
      */
     @Query("select f from Favourite f where f.userId = :userId and f.voyageId = :voyageId")
     List<Favourite> findFavouriteByUserIdAndVoyageId(@Param("userId") Integer userId,

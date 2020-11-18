@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * REST APIs using service methods for Favourite
+ * REST APIs using service methods for Favourite.
  */
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -33,7 +33,8 @@ public class FavouriteController {
     /**
      * Get all voyage favourites by the User's ID.
      * @param userId ID to uniquely identify a User.
-     * @return List of Favourite objects of indicated userId.
+     * @return  List of Favourite objects of the
+     *          indicated userId.
      */
     @GetMapping("/favouritesByUserId/{userId}")
     public List<Favourite> findFavouritesByUserId(@PathVariable int userId) {
@@ -42,7 +43,8 @@ public class FavouriteController {
 
     /**
      * Delete specified favourite from database.
-     * @param favourite Favourite object requested to be removed from database.
+     * @param favourite Favourite object requested to be removed
+     *                  from database.
      * @return  ResponseEntity with a status code and message
      *          indicating if favourite is deleted successfully.
      */

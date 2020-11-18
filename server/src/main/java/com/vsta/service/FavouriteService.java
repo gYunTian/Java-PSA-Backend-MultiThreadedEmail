@@ -26,18 +26,17 @@ public class FavouriteService {
     @Autowired
     private VesselService vesselService;
 
-
+    // Response messages
     final String favErrorMsgPrefix = "Voyage favourite unsuccessful - ";
-    final String unFavErrorMsgPrefix = "Voyage unfavourite unsuccessful - ";
 
     final String favNonExistentUserMsg = favErrorMsgPrefix + "user does not exist";
     final String favNonExistentVoyageMsg = favErrorMsgPrefix + "voyage does not exist";
     final String favExistingSubMsg = favErrorMsgPrefix + "favourite already exists";
 
-    final String unFavNonExistentFavouriteMsg = unFavErrorMsgPrefix + "favourite does not exist";
+    final String unfavErrorMsg = "Voyage unfavourite unsuccessful - favourite does not exist";
 
     final String favSuccessMsg = "Voyage favourited successfully";
-    final String unFavSuccessMsg = "Voyage unfavourited successfully";
+    final String unfavSuccessMsg = "Voyage unfavourited successfully";
 
     /**
      * Check if Favourite object can be saved in database.
@@ -45,7 +44,7 @@ public class FavouriteService {
      * @return  ResponseEntity with an error message and
      *          400 status code if invalid, else null
      */
-    public ResponseEntity<String> invalidFavouriteResponse(Favourite favourite) {
+    private ResponseEntity<String> invalidFavouriteResponse(Favourite favourite) {
 
         int userId = favourite.getUserId();
         if (userService.getUserById(userId) == null){
@@ -102,10 +101,11 @@ public class FavouriteService {
 
         List<Favourite> favouriteList = favouriteDao.findFavouriteByUserIdAndVoyageId(userId, voyageId);
         if (favouriteList == null || favouriteList.size() == 0){
-            return new ResponseEntity<>(unFavNonExistentFavouriteMsg, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(unfavErrorMsg, HttpStatus.BAD_REQUEST);
         }
+
         favouriteDao.deleteByUserIdAndVoyageId(userId, voyageId);
-        return ResponseEntity.ok(unFavSuccessMsg);
+        return ResponseEntity.ok(unfavSuccessMsg);
     }
 
 }

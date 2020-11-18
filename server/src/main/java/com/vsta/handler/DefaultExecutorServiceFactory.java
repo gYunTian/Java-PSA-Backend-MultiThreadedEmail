@@ -21,26 +21,26 @@ import java.util.concurrent.Executors;
 public class DefaultExecutorServiceFactory {
 
     /**
-     * int instance variable to store thread pool size
+     * Instance variable to store thread pool size integer.
      */
     private int threadPoolSize;
 
     /**
-     * Executor service reference variable to hold executor objects
+     * Executor service reference variable to hold executor objects.
      */
     private ExecutorService service;
 
     /**
-     * Getter method for threadpoolsize
-     * @return threadPoolSize Number representing size of threadpool
+     * Getter method for thread pool size.
+     * @return threadPoolSize Number representing size of thread pool.
      */
     public int getThreadPoolSize() {
         return threadPoolSize;
     }
 
     /**
-     * Setter method for threadpoolsize
-     * @param threadPoolSize Number representing size of threadpool
+     * Setter method for thread pool size.
+     * @param threadPoolSize Number representing size of thread pool.
      */
     public void setThreadPoolSize(int threadPoolSize) {
         this.threadPoolSize = threadPoolSize;
@@ -48,7 +48,7 @@ public class DefaultExecutorServiceFactory {
 
     /**
      * Getter method for Executor service.
-     * @return Executor service object
+     * @return Executor service object.
      */
     public ExecutorService getExecutorService() {
         if (this.service == null) {

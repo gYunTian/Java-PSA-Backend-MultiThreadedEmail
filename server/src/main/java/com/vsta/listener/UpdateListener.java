@@ -23,6 +23,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class UpdateListener implements PostUpdateEventListener {
 
+    /**
+     * Factory reference variable to hold DefaultExecutorServiceFactory objects.
+     */
     private final DefaultExecutorServiceFactory factory;
 
     // required for passing into the handler as param which otherwise is unable to
@@ -36,7 +39,7 @@ public class UpdateListener implements PostUpdateEventListener {
     /**
      * This method creates a Executor Service Factory object defined in
      * handler/DefaultExecutorServiceFactory.
-     * @param factory DefaultExecutorServiceFactory object
+     * @param factory DefaultExecutorServiceFactory object.
      */
     @Autowired
     public UpdateListener(DefaultExecutorServiceFactory factory) {
@@ -45,9 +48,8 @@ public class UpdateListener implements PostUpdateEventListener {
 
     /**
      * This method is triggered after every database Post Update event. It will capture
-     * the event details and hand it to our custom handler called
-     * PostUpdateEventHandler
-     * @param event Database Post Update Event
+     * the event details and hand it to our custom handler called PostUpdateEventHandler.
+     * @param event Database Post Update Event.
      */
     @Override
     public void onPostUpdate(PostUpdateEvent event) {

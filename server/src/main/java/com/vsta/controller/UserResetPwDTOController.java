@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * REST APIs using service methods for User Reset/Change Password
+ * REST APIs using service methods for User Reset Password.
  */
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -25,7 +25,7 @@ public class UserResetPwDTOController {
      * Update password of password reset requester.
      * @param userResetPwDTO Token and reset password specified by user.
      * @return  ResponseEntity with a status code and message
-     *          indicating if password change successful.
+     *          indicating if password updatw successful.
      */
     @PutMapping("/resetPassword")
     public ResponseEntity<String> resetPassword(@RequestBody UserResetPwDTO userResetPwDTO) {

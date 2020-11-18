@@ -1,7 +1,7 @@
 package com.vsta.model;
 
 /**
- * Represents a vessel saved by a user
+ * Represents a vessel saved by a user.
  */
 
 public interface IUserSavedVessel {
@@ -11,12 +11,6 @@ public interface IUserSavedVessel {
      * @return  This UserSavedVessel's ID.
      */
     int getId();
-
-    /**
-     * Overwrites the ID of this UserSavedVessel.
-     * @param id  This UserSavedVessel's ID.
-     */
-    void setId(int id);
 
     /**
      * Gets the ID of the User.

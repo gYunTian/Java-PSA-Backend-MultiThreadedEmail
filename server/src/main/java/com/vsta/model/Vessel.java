@@ -21,7 +21,7 @@ public class Vessel {
 
     /**
      * The ID to uniquely identify a Voyage object
-     * uniqueId is from fullInVoyN + inVoyN
+     * uniqueId is from fullInVoyN + inVoyN.
      */
     @Id
     @JsonProperty("uniqueId") 
@@ -390,7 +390,7 @@ public class Vessel {
     /**
      * Override toString method to encapsulate
      * all elements in string representation.
-     * @return string representation of Voyage object
+     * @return string representation of Voyage object.
      */
     @Override
     public String toString() {

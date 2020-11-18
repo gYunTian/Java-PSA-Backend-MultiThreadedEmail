@@ -10,7 +10,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * Http utility class. This class contains static methods that creates and
- * return objects required for working with HTTP requests
+ * return objects required for working with HTTP requests.
  */
 
 @Service
@@ -18,19 +18,19 @@ public class HttpUtil {
 
     /**
      * This method creates a HTTP REST Template. This object is used to
-     * invoke CRUD operations - i.e. POST, UPDATE, GET etc..
-     * @return RestTemplate
+     * invoke CRUD operations - i.e. POST, UPDATE, GET etc.
+     * @return  RestTemplate object
      */
     public static RestTemplate getRestTemplate() {
         return new RestTemplate(getClientHttpRequestFactory());
     }
 
     /**
-     * This method creates a generic http request entity. This object is used to
-     * store the HTTP header and body. The default content type is JSON
-     * @param requestJson Body of http request
-     * @param apiKey API key
-     * @return HttpEntity request
+     * This method creates a generic HTTP request entity. This object is used to
+     * store the HTTP header and body. The default content type is JSON.
+     * @param requestJson Body of HTTP request.
+     * @param apiKey API key.
+     * @return HttpEntity request object.
      */
     public static HttpEntity<String> getHttpEntity(String requestJson, String apiKey) {
 
@@ -39,14 +39,14 @@ public class HttpUtil {
         headers.add("Apikey", apiKey);
         headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 
-        return new HttpEntity<String>(requestJson, headers);
+        return new HttpEntity<>(requestJson, headers);
     }
 
     /**
-     * This method creates a Http request factory . This factory is used to store
+     * This method creates a HTTP request factory. This factory is used to store
      * configuration details such as timeout. In this case, HTTP timeout is hard
-     * coded to 10 seconds
-     * @return ClientHttpRequestFactory
+     * coded to 10 seconds.
+     * @return ClientHttpRequestFactory object.
      */
     public static ClientHttpRequestFactory getClientHttpRequestFactory() {
         int timeout = 10000;

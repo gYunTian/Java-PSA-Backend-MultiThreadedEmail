@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
- * REST APIs using service methods for Subscription
+ * REST APIs using service methods for Subscription.
  */
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -33,7 +33,8 @@ public class SubscriptionController {
     /**
      * Get all voyage subscriptions by userId.
      * @param userId ID to uniquely identify a User.
-     * @return  list of Subscription objects of indicated userId.
+     * @return  List of Subscription objects of the
+     *          indicated userId.
      */
     @GetMapping("/subscriptionsByUserId/{userId}")
     public List<Subscription> findSubscriptionsByUserId(@PathVariable int userId) {

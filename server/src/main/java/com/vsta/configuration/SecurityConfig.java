@@ -20,8 +20,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * Authenticate headers of API requests with the exception
      * of /resetPasswordRequest and /resetPassword.
-     * @param http HttpSecurity object
-     * @throws Exception Exception if any is thrown
+     * @param http HttpSecurity object.
+     * @throws Exception Exception if any is thrown.
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {

@@ -9,10 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Details input by User at Login
+ * Details input by User at Login.
  */
 
-public class UserLoginDTO implements IUserManagementDTO {
+public class UserLoginDTO implements UserManagementDTO {
 
     /**
      * The email used by the User at login.
@@ -58,9 +58,7 @@ public class UserLoginDTO implements IUserManagementDTO {
     /**
      * Gets the password specified by the User.
      * @return  This User's specified password.
-     *          Password has not been hashed,
-     *          and has been validated to be
-     *          not blank by annotation.
+     *          Password has not been hashed.
      */
     public String getPassword() {
         return password;

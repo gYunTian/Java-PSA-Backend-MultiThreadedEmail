@@ -8,34 +8,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Details input by user at
- * Change or Reset password
+ * Details input by user at Reset password.
  */
 
-public class UserResetPwDTO implements IUserManagementDTO {
+public class UserResetPwDTO implements UserManagementDTO {
 
     /**
-     * Email specified by the User
+     * Email specified by the User.
      */
     final private String email;
     
     /**
-     * Token specified by the User
+     * Token specified by the User.
      */
     @NotBlank(message = "Token must be provided")
     final private String token;
 
     /**
-     * New password the user wants to change to
+     * New password the user wants to change to.
      */
     @NotBlank(message = "Password must be provided")
     final private String password;
 
     /**
-     * Constructs object for Reset password functionality
-     * @param email Email specified by the User
-     * @param token Password reset token specified by the User
-     * @param password Chosen password the user wants to change to
+     * Constructs object for Reset password functionality.
+     * @param email Email specified by the User.
+     * @param token Password reset token specified by the User.
+     * @param password Chosen password the user wants to change to.
      */
     @JsonCreator
     public UserResetPwDTO(
@@ -48,24 +47,24 @@ public class UserResetPwDTO implements IUserManagementDTO {
     }
 
     /**
-     * Gets the email specified by the User
-     * @return  This User's specified old password or token
+     * Gets the email specified by the User.
+     * @return  This User's specified email.
      */
     public String getEmail() {
         return email;
     }
 
     /**
-     * Gets the token specified by the User
-     * @return  This User's specified old password or token
+     * Gets the token specified by the User.
+     * @return  This User's specified token.
      */
     public String getToken() {
         return token;
     }
 
     /**
-     * Gets the new password the User wants to change to
-     * @return  This User's specified new password
+     * Gets the new password the User wants to change to.
+     * @return  This User's specified new password.
      */
     public String getPassword() {
         return password;

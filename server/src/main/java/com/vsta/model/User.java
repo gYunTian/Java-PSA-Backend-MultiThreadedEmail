@@ -1,5 +1,6 @@
 package com.vsta.model;
 
+import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.Entity;
@@ -11,39 +12,33 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * Represents a user account of the application,
- * with the information provided by the user.
- * The user could be either registered or
- * a registering user.
+ * Represents a user account of the application, with the information provided
+ * by the user. The user could be either registered or a registering user.
  */
 
 @Entity
+@NoArgsConstructor
 @Table(name = "user")
 public class User {
 
     /**
      * The ID to uniquely identify a User.
-     * Auto-generated and auto-incremented
-     * by database.
+     * Auto-generated and auto-incremented by database.
      */
     @Id
     private int id;
 
     /**
      * The name to identify the User.
-     * This can be given at registration
-     * or derived from the email username
-     * if otherwise.
+     * This can be given at registration or derived from the email username if otherwise.
      */
     private String name;
 
     /**
      * The email used by the User at registration.
-     * This is not nullable and should have a valid
-     * format, which are checked at registration,
-     * but the validation annotations are still
-     * in place to enforce this before storing
-     * into the database.
+     * This is not nullable and should have a valid format, which are checked at
+     * registration, but the validation annotations are still in place to enforce
+     * this before storing into the database.
      */
     @NotBlank(message = "Email must be provided")
     @Email(message = "Email should be valid")
@@ -51,34 +46,23 @@ public class User {
 
     /**
      * The modifiable password set by the User.
-     * This is not nullable, which is checked at
-     * registration, but the validation annotation
-     * is still in place to enforce this before
-     * storing into the database.
+     * This is not nullable, which is checked at registration, but the validation
+     * is still in place to enforce this before storing into the database.
      * This should also be hashed for security reasons.
      */
     @NotBlank(message = "Password must be provided")
     private String password;
 
     /**
-     * The generated token to verify a
-     * User for password reset requests.
-     * This field is to be a random UUID
-     * but is null at registration and
+     * The generated token to verify a User for password reset requests.
+     * This field is to be a random UUID but is null at registration and
      * after successful password reset,
      */
     private String token;
 
-
-    /**
-     * Default no argument constructor for User.
-     */
-    public User() {
-    }
     /**
      * Constructs a new User object.
-     * This is when name, email and password
-     * are specified at registration.
+     * This is when name, email and password are specified at registration.
      * @param id ID to uniquely identify a User.
      * @param name The name to identify the User.
      * @param email Email specified by the User at registration.
@@ -98,13 +82,6 @@ public class User {
     public int getId() {
         return id;
     }
-    /**
-     * Overwrites the ID of this User.
-     * @param id    This User's ID.
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
 
     /**
      * Gets the name of the User.
@@ -113,6 +90,7 @@ public class User {
     public String getName() {
         return name;
     }
+
     /**
      * Overwrites the name of this User.
      * @param name  This User's name.
@@ -128,6 +106,7 @@ public class User {
     public String getEmail() {
         return email;
     }
+
     /**
      * Overwrites the email of this User.
      * @param email This User's email.
@@ -139,35 +118,29 @@ public class User {
     /**
      * Gets the password of the User.
      * @return  This User's password.
-     *          Password should be hashed,
-     *          and has been validated to be
-     *          not blank by annotation.
+     *          Password should be hashed, and has been validated to be not blank.
      */
     public String getPassword() {
         return password;
     }
+
     /**
      * Overwrites the password of this User.
      * @param password  This User's password.
-     *                  Password should be hashed
-     *                  and has been validated to be
-     *                  not blank by annotation.
+     *                  Password should be hashed and has been validated to be not blank.
      */
     public void setPassword(String password) {
         this.password = password;
     }
+
     /**
-     * Custom method to hash the given password then
-     * use it to overwrite the password of this user.
+     * Custom method to hash the given password then use it to overwrite the password
+     * of this user.
      * @param   password This User's password.
-     *                   Password can be plaintext,
-     *                   and has been validated to be
-     *                   not blank by annotation.
-     *                   It is vital to be not blank
-     *                   as otherwise it will be
-     *                   encoded as well, which is
-     *                   misleading and exposes the
-     *                   account to security issues.
+     *                   Password can be plaintext, and has been validated to be
+     *                   not blank. It is vital to be not blank as otherwise
+     *                   it will be encoded as well, which is misleading and
+     *                   exposes the account to security issues.
      */
     public void setHashedPassword(String password) {
         setPassword(new BCryptPasswordEncoder().encode(password));
@@ -180,6 +153,7 @@ public class User {
     public String getToken() {
         return token;
     }
+
     /**
      * Overwrites the password reset token of this User.
      * @param token This User's token.
@@ -187,6 +161,7 @@ public class User {
     public void setToken(String token) {
         this.token = token;
     }
+
     /**
      * Custom method to create and set a random UUID
      * as the token for reset password requests.
@@ -195,15 +170,13 @@ public class User {
         this.token = UUID.randomUUID().toString();
     }
 
-
     /**
      * Override equals method to compare two Users.
-     * @param object that could be of User type or otherwise
-     * @return <code>true</code> if both objects are the same
-     *                or have the same id
+     * @param object Object that could be of User type or otherwise.
+     * @return <code>true</code>    if both objects are the same or have the same ID
      *         <p>
-     *         <code>false</code> if object is null or not User type
-     *                or both objects have different id
+     *         <code>false</code>   if object is null or not User type or both objects
+     *                              have different ID
      */
     @Override
     public boolean equals(Object object) {
@@ -215,9 +188,8 @@ public class User {
     }
 
     /**
-     * Override hashCode method to uniquely
-     * identify a User using their id.
-     * @return a hash code value for this object.
+     * Override hashCode method to uniquely identify a User using their ID.
+     * @return Hash code value for this object.
      */
     @Override
     public int hashCode() {
@@ -225,9 +197,8 @@ public class User {
     }
 
     /**
-     * Override toString method to encapsulate
-     * all elements in string representation.
-     * @return string representation of User object
+     * Override toString method to encapsulate all elements in string representation.
+     * @return String representation of User object.
      */
     @Override
     public String toString() {

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 /**
- * REST APIs using service methods for Vessel
+ * REST APIs using service methods for Vessel.
  */
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -26,8 +26,7 @@ public class VesselController {
     /**
      * Get all Vessels in database between a user-specified time period.
      * 
-     * @param startDate Date with format YYYY-MM-DD to start retrieving vessels
-     *                  from.
+     * @param startDate Date with format YYYY-MM-DD to start retrieving vessels from.
      * @param endDate   Date with format YYYY-MM-DD that retrieval of vessels is to
      *                  be done until.
      * @return ResponseEntity with a status code and message indicating

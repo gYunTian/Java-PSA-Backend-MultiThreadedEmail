@@ -2,6 +2,7 @@ package com.vsta.service;
 
 import com.vsta.dao.UserDAO;
 import com.vsta.domain.DomainService;
+import com.vsta.dto.UserDTO;
 import com.vsta.model.User;
 import com.vsta.utility.MailUtil;
 import com.vsta.utility.ValidationUtil;
@@ -31,6 +32,7 @@ public class UserService {
     @Autowired
     private StandardEnvironment environment;
 
+    // Response messages
     final String errorMsgPrefix = "Registration unsuccessful - ";
 
     final String duplicateEmailMsg = errorMsgPrefix + "email already exists";
@@ -41,12 +43,12 @@ public class UserService {
     final String successMsg = "Registration successful";
 
     /**
-     * Check if registered email passes validity checks
-     * @param email Email used by the User at registration
+     * Check if registered email passes validity checks.
+     * @param email Email used by the User at registration.
      * @return  ResponseEntity with an error message and
-     *          400 status code if invalid, else null
+     *          400 status code if invalid, else null.
      */
-    public ResponseEntity<String> invalidRegistrationResponse(String email) {
+    private ResponseEntity<String> invalidRegistrationResponse(String email) {
 
         User existingUser = getUserByEmail(email);
         if (existingUser != null) {
@@ -61,10 +63,10 @@ public class UserService {
     }
 
     /**
-     * Add User to database if data passes validity checks
-     * @param user User object at registration with plain password
+     * Add User to database if data passes validity checks.
+     * @param user User object at registration with plain password.
      * @return  ResponseEntity with a status code and message
-     *          indicating if user is added successfully
+     *          indicating if user is added successfully.
      */
     public ResponseEntity<String> saveUser(User user) {
         String email = user.getEmail();
@@ -94,26 +96,26 @@ public class UserService {
     }
 
     /**
-     * Get User with specified email in database
-     * @param email Email of a User
-     * @return User object if can be found, else null
+     * Get User with specified email in database.
+     * @param email Email of a User.
+     * @return User object if can be found, else null.
      */
     public User getUserByEmail(String email) {
         return userDao.findByEmail(email);
     }
 
     /**
-     * Get User with specified id in database
-     * @param id ID to uniquely identify a User
-     * @return User object if can be found, else null
+     * Get User with specified id in database.
+     * @param id ID to uniquely identify a User.
+     * @return User object if can be found, else null.
      */
     public User getUserById(int id) {
         return userDao.findById(id).orElse(null);
     }
 
     /**
-     * Update User with same ID from database
-     * @param user User object with updated details
+     * Update User with same ID from database.
+     * @param user User object with updated details.
      */
     public void updateUser(User user) {
         User existingUser = getUserById(user.getId());
@@ -128,8 +130,8 @@ public class UserService {
 
     /**
      * Generate and save token of User who successfully
-     * requested the password reset into database
-     * @param user User object of requester
+     * requested the password reset into database.
+     * @param user User object of requester.
      */
     public void addToken(User user) {
         user.setToken();
@@ -137,10 +139,10 @@ public class UserService {
     }
 
     /**
-     * Specific method to send mail to User
-     * @param email User Email specified
+     * Specific method to send mail to User.
+     * @param email User Email specified.
      * @return  ResponseEntity with a status code and message
-     *          indicating successful sending of email
+     *          indicating successful sending of email.
      */
     public ResponseEntity<String> resetPasswordRequest(String email) {
 
@@ -163,9 +165,7 @@ public class UserService {
         // construct email
         String subject = "Vsta Account Password Reset";
 
-        String link = environment.getProperty("url") + "?email=" + email +
-                "&token=" + existingUser.getToken();
-
+        String link = environment.getProperty("url") + "?email=" + email + "&token=" + existingUser.getToken();
         String body = "We received a request to reset the password of your Vsta account.\n\n" +
                 "You may use the following link to change your password:\n" +
                 "" + link + "\n\n" +

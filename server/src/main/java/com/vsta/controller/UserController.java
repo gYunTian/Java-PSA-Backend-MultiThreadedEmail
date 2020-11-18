@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * REST APIs using service methods for User
+ * REST APIs using service methods for User.
  */
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -18,10 +18,10 @@ public class UserController {
     private UserService userService;
 
     /**
-     * Allow User to register if data passes validity checks
-     * @param user User object of details input at registration
+     * Allow User to register if data passes validity checks.
+     * @param user User object of details input at registration.
      * @return  ResponseEntity with a status code and message
-     *          indicating if user registration successful
+     *          indicating if user registration successful.
      */
     @PostMapping("/registerUser")
     public ResponseEntity<String> registerUser(@RequestBody User user) {

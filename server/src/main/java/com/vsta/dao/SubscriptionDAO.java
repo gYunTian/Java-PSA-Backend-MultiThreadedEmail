@@ -1,16 +1,14 @@
 package com.vsta.dao;
 
-import java.util.List;
-
-import javax.transaction.Transactional;
-
 import com.vsta.dto.UserDTO;
 import com.vsta.model.Subscription;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Data Access Objects for "subscription" table.
@@ -22,7 +20,8 @@ public interface SubscriptionDAO extends CrudRepository<Subscription, Integer> {
     /**
      * Custom method to find subscriptions by the user's ID
      * @param userId ID to uniquely identify a User
-     * @return Subscriptions array (empty list if no matching Subscription found)
+     * @return  List of Subscription objects of indicated
+     *          userId.
      */
     List<Subscription> findByUserId(int userId);
 
@@ -38,7 +37,8 @@ public interface SubscriptionDAO extends CrudRepository<Subscription, Integer> {
      * Custom method to find if Subscription is in database.
      * @param userId   ID to uniquely identify a User.
      * @param voyageId ID to uniquely identify a Voyage.
-     * @return list of Subscription objects of indicated userId and voyageId.
+     * @return  List of Subscription objects of indicated
+     *          userId and voyageId.
      */
     @Query("select s from Subscription s where s.userId = :userId and s.voyageId = :voyageId")
     List<Subscription> findSubscriptionByUserIdAndVoyageId(@Param("userId") Integer userId,

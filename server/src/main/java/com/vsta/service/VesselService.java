@@ -19,25 +19,24 @@ public class VesselService {
     @Autowired
     private VesselDAO vesselDao;
 
-
     /**
-     * Add Vessel to database
-     * @param vessel Vessel object to be saved
+     * Add Vessel to database.
+     * @param vessel Vessel object to be saved.
      */
     public void saveVessel(Vessel vessel) {
         vesselDao.save(vessel);
     }
 
     /**
-     * Add Vessels in array to database
-     * @param vessels List of vessel objects
+     * Add Vessels in array to database.
+     * @param vessels List of vessel objects.
      */
     public void saveVessels(List<Vessel> vessels) {
         vesselDao.saveAll(vessels);
     }
 
     /**
-     * Get all Vessels in database
+     * Get all Vessels in database.
      * @param startDate Date with format YYYY-MM-DD to start retrieving vessels from.
      * @param endDate   Date with format YYYY-MM-DD that retrieval of vessels is to
      *                  be done until.
@@ -49,7 +48,7 @@ public class VesselService {
     }
 
     /**
-     * Get all Vessels of specified uniqueId in database
+     * Get all Vessels of specified uniqueId in database.
      * @param uniqueId ID to uniquely identify a Voyage.
      * @return Vessel object of indicated uniqueId.
      */

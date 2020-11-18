@@ -5,19 +5,19 @@ package com.vsta.dto;
  * from native query object to a temporary User entity Reference:
  * https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#projections
  */
+
 public interface UserDTO {
 
   /**
    * Gets the name of this User object.
-   * 
-   * @return This Users's name.
+   * @return This User's name.
    */
   String getName();
 
   /**
    * Gets the email of this User object.
-   * 
-   * @return This Users's email.
+   * @return This User's email.
    */
   String getEmail();
+
 }

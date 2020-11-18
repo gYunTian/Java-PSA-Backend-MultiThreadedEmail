@@ -21,6 +21,7 @@ public class ValidationUtil {
      * Check if specified details passes validity checks.
      * @param attribute Attribute to be checked.
      * @param attributeName String of attribute to be checked.
+     * @param errorMsgPrefix String to be appended in front of error message.
      * @return  ResponseEntity with an error message and 400 status code if invalid,
      *          else null.
      */
@@ -38,6 +39,7 @@ public class ValidationUtil {
     /**
      * Check if specified details passes validity checks.
      * @param fields Map containing attributes to be checked.
+     * @param errorMsgPrefix String to be appended in front of error message.
      * @return  ResponseEntity with an error message and 400 status code if invalid,
      *          else null.
      */

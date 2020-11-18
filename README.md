@@ -1,11 +1,15 @@
 # G1-T9 Vessel Schedule Tracking Application (VSTA)
+[***Click this link for the cleaner *sql/README.txt* final deliverable***](sql/README.txt).
+
+*Find the longer Markdown version below.*
 
 ## Table of Contents
 - [Introduction](#introduction)
+- [**Directories Guide**](#directories-guide)
 - [**Using the Deployed Application**](#using-the-deployed-application)
-- [**Local Deployment Guide for Server Application**](#local-deployment-guide-for-server-application)
-- [**Configurable Settings at Server Application**](#configurable-settings-at-server-application)
-- [Local Deployment Guide for Client Application](#local-deployment-guide-for-client-application)
+    - [**Local Deployment Guide for Server Application**](#local-deployment-guide-for-server-application)
+    - [**Configurable Settings at Server Application**](#configurable-settings-at-server-application)
+    - [Local Deployment Guide for Client Application](#local-deployment-guide-for-client-application)
 - [Database Design](#database-design)
 
 
@@ -17,29 +21,41 @@ The Java server application calls PORTNET's *retrieveByBerthingDate* web service
 The data is then stored in a relational database to be displayed on the user interface (UI), which is built using ReactJS.
 
 
+## Directories Guide
+<i><a href='sql/README.txt'>This section can also be viewed in *sql/README.txt*.</a></i>
+
+- Server files are at "project-g1-t9/server/"
+    > Server's externalized parameters are configurable at "project-g1-t9/server/src/main/resources/"
+- SQL deployment file is at "project-g1-t9/sql/deploy.sql"
+- Project's Java Documentation is at "project-g1-t9/java-documentation/index.html"
+- Client files are at "project-g1-t9/client/"
+
+
 ## Using the Deployed Application
+<i><a href='sql/README.txt'>The sections here can be viewed more cleanly in *sql/README.txt*.</a></i>
+
 The client application is currently deployed and available on https://g1t9-vsta.netlify.app/. 
 
 However, to use the functionalities, the server has to be started as with the procedure below.
 
 
-## Local Deployment Guide for Server Application
-<small><i><a href='sql/README.txt'>This section can also be viewed in *sql/README.txt*.</a></i></small>
-
+### Local Deployment Guide for Server Application
 Before running our server application, ensure the following prerequisites are fulfilled:
 - Ensure your WAMP/MAMP server is running to allow access to your local database. 
-- If not done so, import the [*deploy.sql*](sql/deploy.sql) script which is located in the *sql* folder. This can be done in phpmyadmin, MySQL Workbench or otherwise. 
 - If not done so, ensure your local computer has the *JAVA_HOME* environment variable set to your Java SDK location.
+- If not done so, import the [*deploy.sql*](sql/deploy.sql) script which is located in the *sql* folder. This can be done in phpmyadmin, MySQL Workbench or otherwise (port 3306). 
 
 To run the server application, open [*server-run.bat*](server-run.bat) or do a `./mvnw spring-boot:run` at the [*server*](server) folder.
 
 The server will be accessible on *localhost:8080* by default. To terminate the connection, simply close the terminal.
 
 
-## Configurable Settings at Server Application
+### Configurable Settings at Server Application
+<i><a href='sql/README.txt'>See *sql/README.txt* for a more detailed breakdown of each setting.</a></i>
+
 The following settings can be found in [*server/src/main/resources*](server/src/main/resources):
 
-*application.properties*: **port number** & credentials for the **database & Spring Security**. 
+*application.properties*: Credentials for the **database & Spring Security**. 
 > Spring Security is used for API authentication, and change in credentials also requires change in [*client/src/js/views/base.js*](client/src/js/views/base.js) for the authorization header to be passed in every request handler.
 
 *quartz.properties*: **Cron job** settings.
@@ -50,7 +66,7 @@ The following settings can be found in [*server/src/main/resources*](server/src/
 - Data retrieval
     - Web service **Access key**.
     - Web service **URL**.
-    - **Interval** to call API.
+    - **Time Interval** to call the API.
         - <small><i>By default, web service is called at 00:00 hours daily to retrieve the vessels’ arrival timings for the next 7 days (excluding the current day). 
         - The web service is also called hourly to retrieve the vessels’ arrival timing for the current day (00:00 - 23:59).</i></small>
 - **Support email** for subscription notifications & password reset functionalities
@@ -59,10 +75,11 @@ The following settings can be found in [*server/src/main/resources*](server/src/
     - [Provider Host](https://www.jhipster.tech/tips/011_tip_configuring_email_in_jhipster.html). <small><i>Note: If gmail account, to ensure emails can be sent: Manage your Google Account > Security > Less secure app access</i></small>
 
 
-## Local Deployment Guide for Client Application
+### Local Deployment Guide for Client Application
 To use the development version,
 
 1. Ensure that the dependencies are installed. If *node_modules* is not already present locally in the [*client*](client) folder, 
+    > Make sure you have npm installed (Get npm at https://www.npmjs.com/get-npm)
     > open [*client-dependencies.bat*](client-dependencies.bat) or do a `npm run install`.
 2. To run the client application, 
     > open [*client-run.bat*](client-run.bat) or do `npm run start`. 
@@ -71,7 +88,7 @@ The UI will be accessible on *localhost:9001* by default. To terminate the conne
 
 
 ## Database Design
-<small><i><a href='sql/info.txt'>This section can also be viewed in *sql/info.txt*.</a></i></small>
+<small><i><a href='sql/database-contents'>This section can also be viewed in *sql/database-contents*.</a></i></small>
 
 Below are the information on the tables for [*deploy.sql*](sql/deploy.sql):
 

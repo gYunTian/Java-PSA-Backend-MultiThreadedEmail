@@ -11,8 +11,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class VstaApplication {
 
     /**
-     * Entry point method to run SpringBootApplication
-     * @param args Additional parameters passed in
+     * Entry point method to run SpringBootApplication.
+     * @param args Additional parameters passed in.
      */
     public static void main(String[] args) {
         SpringApplication.run(VstaApplication.class, args);

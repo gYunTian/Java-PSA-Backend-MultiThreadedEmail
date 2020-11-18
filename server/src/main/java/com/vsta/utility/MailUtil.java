@@ -2,7 +2,6 @@ package com.vsta.utility;
 
 import com.vsta.dto.UserDTO;
 import com.vsta.model.User;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
@@ -10,7 +9,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 /**
- * Mail Utility that send email to recipient
+ * Mail Utility that send email to recipient.
  */
 
 @Service
@@ -19,9 +18,11 @@ public class MailUtil {
         @Autowired
         private JavaMailSender mailSender;
 
+        // Response messages
+        final String successMsg = "Email successfully sent to ";
+
         /**
          * Generic method to send email to user.
-         * 
          * @param user     User object representing the recipient.
          * @param subject  Subject header for the email.
          * @param partBody Body of the email excluding greetings and sign off.
@@ -38,13 +39,12 @@ public class MailUtil {
                 email.setText(body);
 
                 mailSender.send(email);
-                return ResponseEntity.ok("Email successfully sent to " + user.getEmail());
+                return ResponseEntity.ok(successMsg + user.getEmail());
         }
 
         /**
          * An overloaded method to send email to user.
-         * 
-         * @param user  UserDTO object, including name and email of the recipient, .
+         * @param user  UserDTO object, including name and email of the recipient.
          * @param subject  Subject header for the email.
          * @param partBody Body of the email excluding greetings and sign off.
          * @return ResponseEntity with a status code and message indicating that mail
@@ -60,7 +60,7 @@ public class MailUtil {
                 email.setText(body);
 
                 mailSender.send(email);
-                return ResponseEntity.ok("Email successfully sent to " + user.getEmail());
+                return ResponseEntity.ok(successMsg + user.getEmail());
         }
 
 }

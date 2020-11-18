@@ -51,9 +51,8 @@ d) Email used to send emails for user subscriptions/reset password
 	2) Update "spring.mail.username" with email address
 	3) Update "spring.mail.password" with email password
 	4) Update "spring.mail.host" and "spring.mail.ssl.trust" to match your email domain's SMTP server (e.g. "smtp.gmail.com" for gmail)
+	*Note: If a gmail account is used, to ensure emails can be sent: Manage your Google Account > Security > Less secure app access
 
 e) Frontend client url (This affects the link sent to users for changing password)
 	1) Go to "reload.properties"
 	2) Update "url" to the full url of the deployed frontend web application
-
- 

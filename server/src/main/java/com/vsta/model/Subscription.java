@@ -1,5 +1,7 @@
 package com.vsta.model;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,17 +9,17 @@ import javax.persistence.Table;
 import java.util.Objects;
 
 /**
- * Represents a subscription by a user for a voyage
+ * Represents a subscription by a user for a voyage.
  */
 
 @Entity
+@NoArgsConstructor
 @Table(name = "subscription")
 public class Subscription implements IUserSavedVessel {
 
     /**
      * ID to uniquely identify a Subscription.
-     * Auto-generated and auto-incremented
-     * by database.
+     * Auto-generated and auto-incremented by database.
      */
     @Id 
     private int id;
@@ -35,15 +37,9 @@ public class Subscription implements IUserSavedVessel {
     private String voyageId;
 
     /**
-     * Default no argument constructor for Subscription.
-     */
-    public Subscription() {
-    }
-
-    /**
      * Constructs a new Subscription object.
-     * The userId and voyageId will be passed in
-     * from the client side when user click Subscribe
+     * The userId and voyageId will be passed in from the client side
+     * when user click Subscribe.
      * @param id ID to uniquely identify a Subscription
      * @param userId ID to uniquely identify a User
      * @param voyageId ID to uniquely identify a Voyage
@@ -60,13 +56,6 @@ public class Subscription implements IUserSavedVessel {
      */
     public int getId() {
         return id;
-    }
-    /**
-     * Overwrites the ID of this Subscription.
-     * @param id  This Subscription's ID.
-     */
-    public void setId(int id) {
-        this.id = id;
     }
 
     /**
@@ -93,15 +82,15 @@ public class Subscription implements IUserSavedVessel {
         return voyageId;
     }
 
-
     /**
      * Custom equals method to account all elements.
      * @param object that could be Subscription type or otherwise.
-     * @return <code>true</code> if  both objects are the same
-     *                or have the same userId and voyageId
+     * @return <code>true</code>    if both objects are the same
+     *                              or have the same userId and voyageId
      *         <p>
-     *         <code>false</code> if object is null or not VoyageId type
-     *                or both objects have different userId and/or voyageId
+     *         <code>false</code>   if object is null or not VoyageId type
+     *                              or both objects have different userId
+     *                              and/or voyageId
      */
     @Override
     public boolean equals(Object object) {
@@ -124,8 +113,8 @@ public class Subscription implements IUserSavedVessel {
     }
 
     /**
-     * String representation
-     * @return String representation of Subscription object
+     * Override toString method to encapsulate all elements in string representation.
+     * @return String representation of Subscription object.
      */
     @Override
     public String toString() {

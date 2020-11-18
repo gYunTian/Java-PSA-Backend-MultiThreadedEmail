@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 
 /**
- * Service to validate domains for UserService
+ * Service to validate domains for UserService.
  */
 
 @Service
@@ -17,9 +17,9 @@ public class DomainService {
     private DomainProperties domainProperties;
 
     /**
-     * Helper method to check if given domain is an accepted domain indicated in reload.properties
-     * @param userEmail Email provided by the user at registration. assumes valid email ie with '@'
-     * @return boolean with 1 indicating that email is of an accepted domain name
+     * Helper method to check if given domain is an accepted domain indicated in reload.properties.
+     * @param userEmail Email provided by the user at registration. assumes valid email ie with '@'.
+     * @return  boolean indicating that email is of an accepted domain name.
      */
     public boolean domainAccepted(String userEmail) {
         String[] acceptedDomains = domainProperties.getAcceptedDomains();

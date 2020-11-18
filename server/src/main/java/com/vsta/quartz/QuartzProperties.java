@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * Represents the external configuration properties required for scheduling of
  * quartz jobs. The Input are from reload.properties file and uses the following
  * PREFIX: spring.quartz.properties, This class consists of getter methods to
- * retrieve the properties
+ * retrieve the properties.
  */
 
 @Component
@@ -40,16 +40,16 @@ public class QuartzProperties {
     private LocalDate dateTo;
 
     /**
-     * Gets the interval value in the properties file
-     * @return Quartz job Cron interval in String format
+     * Gets the interval value in the properties file.
+     * @return Quartz job Cron interval in String format.
      */
     public String getInterval() {
         return environment.getProperty(PREFIX + "interval");
     }
 
     /**
-     * Gets the enabled value in the properties file
-     * @return Quartz job enabled value in boolean format
+     * Gets the enabled value in the properties file.
+     * @return Quartz job enabled value in boolean format.
      */
     public Boolean isEnabled() {
         try {
@@ -62,16 +62,16 @@ public class QuartzProperties {
     }
 
     /**
-     * Gets the api key value in the properties file
-     * @return Target api key in String format
+     * Gets the api key value in the properties file.
+     * @return Target API key in String format.
      */
     public String getApiKey() {
         return environment.getProperty(PREFIX + "apiKey");
     }
 
     /**
-     * Gets the api url value in the properties file
-     * @return Target api url in String format
+     * Gets the API url value in the properties file.
+     * @return Target API url in String format.
      */
     public String getApiURL() {
         return environment.getProperty(PREFIX + "apiUrl");
@@ -79,8 +79,8 @@ public class QuartzProperties {
 
     /**
      * Gets the plus days value in the properties file. This variable represents the
-     * days 'gap' inbetween a date range.
-     * @return number of plus days in int format
+     * days 'gap' in between a date range.
+     * @return number of plus days in int format.
      */
     public int getPlusDays() {
         try {
@@ -94,8 +94,8 @@ public class QuartzProperties {
 
     /**
      * Gets the private dateFrom instance variable specifying the date to start
-     * retrieving data from api.
-     * @return dateFrom in LocalDate format
+     * retrieving data from API.
+     * @return dateFrom in LocalDate format.
      */
     public LocalDate getDateFrom() {
         return dateFrom;
@@ -103,7 +103,7 @@ public class QuartzProperties {
 
     /**
      * Gets the private dateTo instance variable specifying the date to stop
-     * retrieving data from api.
+     * retrieving data from API.
      * @return dateTo in LocalDate format.
      */
     public LocalDate getDateTo() {
@@ -111,8 +111,8 @@ public class QuartzProperties {
     }
 
     /**
-     * Gets the reload quartz job interval value in the properties file..
-     * @return isReloadInterval in boolean format
+     * Gets the reload quartz job interval value in the properties file.
+     * @return isReloadInterval in boolean format.
      */
     public boolean isReloadInterval() {
         try {

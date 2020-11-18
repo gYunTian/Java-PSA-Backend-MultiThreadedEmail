@@ -17,7 +17,7 @@ public class ControllerConfig implements WebMvcConfigurer {
 
     /**
      * Overrides the controller routes to start with /api.
-     * @param pathMatchConfigurer Configurer object for path matching
+     * @param pathMatchConfigurer Configurer object for path matching.
      */
     @Override
     public void configurePathMatch(PathMatchConfigurer pathMatchConfigurer) {

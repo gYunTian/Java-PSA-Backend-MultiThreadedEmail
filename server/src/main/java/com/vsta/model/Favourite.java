@@ -1,5 +1,7 @@
 package com.vsta.model;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,13 +13,13 @@ import java.util.Objects;
  */
 
 @Entity
+@NoArgsConstructor
 @Table(name = "favourite")
 public class Favourite implements IUserSavedVessel {
 
     /**
      * ID to uniquely identify a Favourite.
-     * Auto-generated and auto-incremented
-     * by database.
+     * Auto-generated and auto-incremented by database.
      */
     @Id 
     private int id;
@@ -35,18 +37,12 @@ public class Favourite implements IUserSavedVessel {
     private String voyageId;
 
     /**
-     * Default no argument constructor for Favourite.
-     */
-    public Favourite() {
-    }
-
-    /**
      * Constructs a new Favourite object.
-     * The userId and voyageId will be passed in
-     * from the client side when user click Favourite
-     * @param id ID to uniquely identify a Favourite
-     * @param userId ID to uniquely identify a User
-     * @param voyageId ID to uniquely identify a Voyage
+     * The userId and voyageId will be passed in from the client side
+     * when user click Favourite.
+     * @param id ID to uniquely identify a Favourite.
+     * @param userId ID to uniquely identify a User.
+     * @param voyageId ID to uniquely identify a Voyage.
      */
     public Favourite(int id, int userId, String voyageId) {
         this.id = id;
@@ -60,14 +56,6 @@ public class Favourite implements IUserSavedVessel {
      */
     public int getId() {
         return id;
-    }
-
-    /**
-     * Overwrites the ID of this Favourite.
-     * @param id This Favourite's ID.
-     */
-    public void setId(int id) {
-        this.id = id;
     }
 
     /**
@@ -94,15 +82,15 @@ public class Favourite implements IUserSavedVessel {
         return voyageId;
     }
 
-
     /**
-     * Custom equals method to account all elements
-     * @param object that could be Favourite type or otherwise
-     * @return <code>true</code> if  both objects are the same
-     *                or have the same userId and voyageId
+     * Custom equals method to account all elements.
+     * @param object Object that could be Favourite type or otherwise.
+     * @return <code>true</code>    if both objects are the same
+     *                              or have the same userId and voyageId
      *         <p>
-     *         <code>false</code> if object is null or not VoyageId type
-     *                or both objects have different userId and/or voyageId
+     *         <code>false</code>   if object is null or not VoyageId type
+     *                              or both objects have different userId
+     *                              and/or voyageId
      */
     @Override
     public boolean equals(Object object) {
@@ -116,7 +104,7 @@ public class Favourite implements IUserSavedVessel {
 
     /**
      * Custom hash code method which will uniquely
-     * identify Favourite by userId and voyageId
+     * identify Favourite by userId and voyageId.
      * @return a hash code value for this object.
      */
     @Override
@@ -125,8 +113,8 @@ public class Favourite implements IUserSavedVessel {
     }
 
     /**
-     * String representation
-     * @return String representation of Favourite object
+     * Override toString method to encapsulate all elements in string representation.
+     * @return String representation of Favourite object.
      */
     @Override
     public String toString() {
