@@ -41,11 +41,11 @@ public class UserResetPwDTOService {
             return new ResponseEntity<>(nonExistentEmailMsg, HttpStatus.BAD_REQUEST);
         }
 
-        if (existingUser.getToken() == null) {
+        String existingToken = existingUser.getToken();
+        if (existingToken == null) {
             return new ResponseEntity<>(noTokenMsg, HttpStatus.BAD_REQUEST);
         }
-
-        if (!existingUser.getToken().equals(tokenGiven)) {
+        if (!existingToken.equals(tokenGiven)) {
             return new ResponseEntity<>(wrongTokenMsg, HttpStatus.BAD_REQUEST);
         }
 
