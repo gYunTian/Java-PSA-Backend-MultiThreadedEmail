@@ -61,7 +61,7 @@ public class PostUpdateEventHandler {
                 // System.out.println("Sending email");
                 for (UserDTO user : users) {
                     String subject = "Changes to vessel detail: " + uniqueId;
-                    String content = "Details of the vessel: " + uniqueId + " has changed.\n\n" + changes + "\n";
+                    String content = "Details of the vessel: " + uniqueId + " has changed.\n\n" + changes;
 
                     mailUtil.sendEmail(user, subject, content);
                 }

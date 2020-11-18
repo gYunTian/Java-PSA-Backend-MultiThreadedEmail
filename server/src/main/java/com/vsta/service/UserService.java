@@ -1,8 +1,7 @@
 package com.vsta.service;
 
 import com.vsta.dao.UserDAO;
-import com.vsta.domain.DomainService;
-import com.vsta.dto.UserDTO;
+import com.vsta.utility.domain.DomainService;
 import com.vsta.model.User;
 import com.vsta.utility.MailUtil;
 import com.vsta.utility.ValidationUtil;
@@ -166,13 +165,13 @@ public class UserService {
         String subject = "Vsta Account Password Reset";
 
         String link = environment.getProperty("url") + "?email=" + email + "&token=" + existingUser.getToken();
-        String body = "We received a request to reset the password of your Vsta account.\n\n" +
+        String content = "We received a request to reset the password of your Vsta account.\n\n" +
                 "You may use the following link to change your password:\n" +
                 "" + link + "\n\n" +
                 "If you did not make such a request, kindly ignore this email.";
 
         // send email
-        return mailUtil.sendEmail(existingUser, subject, body);
+        return mailUtil.sendEmail(existingUser, subject, content);
     }
 
 }

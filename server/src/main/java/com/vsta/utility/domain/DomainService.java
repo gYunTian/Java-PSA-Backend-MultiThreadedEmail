@@ -1,4 +1,4 @@
-package com.vsta.domain;
+package com.vsta.utility.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class DomainService {
     /**
      * Helper method to check if given domain is an accepted domain indicated in reload.properties.
      * @param userEmail Email provided by the user at registration. assumes valid email ie with '@'.
-     * @return  boolean indicating that email is of an accepted domain name.
+     * @return  boolean indicating if email is of an accepted domain name.
      */
     public boolean domainAccepted(String userEmail) {
         String[] acceptedDomains = domainProperties.getAcceptedDomains();

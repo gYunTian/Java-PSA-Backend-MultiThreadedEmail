@@ -1,4 +1,4 @@
-package com.vsta.domain;
+package com.vsta.utility.domain;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.StandardEnvironment;
