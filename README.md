@@ -1,4 +1,7 @@
 # G1-T9 Vessel Schedule Tracking Application (VSTA)
+
+![image](https://user-images.githubusercontent.com/54625060/156576341-15eff5a9-a4e4-4f2e-9955-61d4df287bdc.png)
+
 [***Click this link for the cleaner *sql/README.txt* final deliverable***](sql/README.txt).
 
 *Find the longer Markdown version below.*
